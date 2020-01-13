@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.delight.excel">
+	<insert id="insertSido" parameterType="areaSidoVo">
+		insert into tbl_sido values(#{signgucode},#{sido})
+	</insert>
+	
+	<insert id="insertGugun" parameterType="areaGugunVo">
+		insert into tbl_gugun values(#{signgucodesub},#{gugun})
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+

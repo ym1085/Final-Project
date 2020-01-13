@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="config.mybatis.mapper.oracle.member">
+
+	
+	<select id="selectPwd" parameterType="string" resultType="string">
+		select password from tbl_user
+		where userid=#{userid} and out_date is null
+	</select>
+	
+	<select id="selectMember" parameterType="string" resultType="memberVo">
+		select * from tbl_user
+		where userid=#{userid} and out_date is null
+	</select>
+		
+	<insert id="insertMember" parameterType="memberVo">
+		insert into tbl_user(userid, username, password, birth, email1, email2, hp1, hp2, 
+			hp3, zipcode, address, address_detail, gender, mail_agreement) <!-- , mail_authen -->
+		values(#{userid}, #{username}, #{password}, #{birth}, #{email1}, #{email2}, #{hp1}, #{hp2}, 
+		#{hp3}, #{zipcode}, #{address}, #{addressDetail}, #{gender}, #{mailAgreement}) <!--, #{mail_authen}-->
+	</insert>	
+	
+	<!-- 중복 체크 -->
+	<select id="selectDupUserid" parameterType="string" resultType="int">
+		select count(*) 
+		from tbl_user
+		where userid = #{userid}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+

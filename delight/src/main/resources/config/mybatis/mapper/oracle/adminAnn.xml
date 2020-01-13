@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.delight.adminAnn">
+	
+	<insert id="annInsert" parameterType="annVo">
+		<selectKey keyProperty="annSeq" resultType="int" order="BEFORE">
+			select ann_seq.nextval from dual
+		</selectKey>
+		insert into tbl_ann(ann_seq,ann_type,ann_title,ann_content,userid)
+		values(#{annSeq},#{annType},#{annTitle},#{annContent},#{userid})
+	</insert>
+	
+	<sql id="searchWhere">
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			and ${searchCondition} like '%' || #{searchKeyword} || '%'
+		</if>
+	</sql>
+	
+	<select id="normalSearch"  parameterType="AnnVo" resultType="AnnVo">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from 
+		    (	
+		    	select * from TBL_ANN where ann_type='1'
+			    <include refid="searchWhere"></include>
+				order by ann_seq desc
+		    ) A
+		) where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="normalTotal" parameterType="string" resultType="int">
+		select count(*) from TBL_ANN where ann_type='1'
+		<include refid="searchWhere"></include>
+	</select>
+	
+	<sql id="searchWhere2">
+		<if test="searchKeyword2!=null and searchKeyword2!=''">
+			and ${searchCondition2} like '%' || #{searchKeyword2} || '%'
+		</if>
+	</sql>
+	
+	<select id="eventSearch"  parameterType="AnnVo" resultType="AnnVo">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from 
+		    (	
+		    	select * from TBL_ANN where ann_type='2'
+			    <include refid="searchWhere2"></include>
+				order by ann_seq desc
+		    ) A
+		) where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="eventTotal" parameterType="string" resultType="int">
+		select count(*) from TBL_ANN where ann_type='2'
+		<include refid="searchWhere2"></include>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
