@@ -126,7 +126,7 @@
             </li>
 
 			<!-- 회원관리 -->
-			<li class="nav-item">
+			<li class="nav-item" id="userManagement">
               <a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false" aria-controls="user">
                 <span class="menu-title">회원관리</span>
                 <i class="menu-arrow"></i>
@@ -148,7 +148,7 @@
             </li>
 
 			<!-- 매출관리 -->
-			<li class="nav-item">
+			<li class="nav-item" id="salesManagement">
               <a class="nav-link" data-toggle="collapse" href="#sell" aria-expanded="false" aria-controls="sell">
                 <span class="menu-title">매출관리</span>
                 <i class="menu-arrow"></i>
@@ -158,7 +158,7 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="#"> 
 				  환불/결제내역 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="#"> 
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/salesSetting.do'/>"> 
 				  판매수량 설정</a></li>
                   <li class="nav-item"> <a class="nav-link" href="#"> 
 				  특별공연 할인</a></li>
