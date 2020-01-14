@@ -30,7 +30,7 @@ $(function(){
 		var userid=$("#userid").val();
 		
 		window.open(ctx+"/member/checkUserid.do?userid="+userid,"아이디 중복 확인",
-			"width=350,height=200,left=450,top=350,location=yes,resizable=yes");
+			"width=450,height=300,left=450,top=350,location=yes,resizable=yes");
 	});
 	
 	
