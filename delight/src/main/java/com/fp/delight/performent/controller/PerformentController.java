@@ -16,4 +16,10 @@ public class PerformentController {
 		logger.info("공연 API, 공연목록 데이터 출력!");
 	
 	}
+	
+	@RequestMapping("test123.do")
+	public void performent() {
+		logger.info("공연 API, 공연목록 데이터 출력!");
+		
+	}
 }

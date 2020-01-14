@@ -1,0 +1,217 @@
+@charset "utf-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#cc{ color: #000; text-decoration: none; }
+
+/* layout and align */
+.align-c {text-align:center !important;}
+.align-l {text-align:left !important;}
+.align-r {text-align:right !important;}
+.align-j {text-align:justify !important;}
+.float-wrap {overflow:hidden;}
+.float-r {float:right;}
+.float-l {float:left;}
+
+/* 공통 */
+#wrap {
+	width:100%;
+	min-width:1200px;
+	position:relative; 
+	margin:0 auto;
+	overflow:hidden;
+}
+.inner {
+	width:1200px;
+	position:relative;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.board-wrap {
+	padding: 50px 0;
+}
+/* 공지사항 list */
+.no-ct p,
+p.no-ct {
+	padding:50px 0;
+	text-align:center;
+	color:#888;
+}
+.board-list {
+	width: 100%;
+	border-top: 2px solid #0383ce;
+}
+	.col-num {width:80px;}
+	.col-writer {width:90px;}
+	.col-date {width:130px;}
+	.col-view {width:80px;}
+.board-list th {
+	background: #fafafa;
+}
+.board-list th,
+.board-list td {
+	padding: 12px 0;
+	font-size: 15px;
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+}
+.board-list td.list-tit {
+	text-align: left;
+}
+.board-list .cmt-cnt {
+	font-size:13px;
+	color:#e55e29;
+	margin-left:8px;
+	font-weight:600;
+}
+/* pager */
+.board-pager {
+	text-align:center;
+	margin-top: 50px;
+}
+.board-pager a{
+	display:inline-block;
+	width:30px; height:30px;
+	line-height:30px;
+	border:1px solid #ddd;
+	vertical-align:middle;
+	font-size:13px;
+}
+.board-pager span{
+	display:inline-block;
+	width:30px; height:30px;
+	line-height:30px;
+	border:1px solid #ddd;
+	vertical-align:middle;
+	font-size:13px;
+}
+.board-pager a.on,
+.board-pager a.on:hover, 
+.board-pager a.on:focus {
+	background:#0383ce;
+	font-weight:600;
+	border-color:#0383ce;
+	color:#fff;
+}
+.board-pager a:hover, 
+.board-pager a:focus {
+	border-color:#0383ce;
+}
+
+.board-pager span.on,
+.board-pager span.on:hover, 
+.board-pager span.on:focus {
+	background:#0383ce;
+	font-weight:600;
+	border-color:#0383ce;
+	color:#fff;
+}
+.board-pager span:hover, 
+.board-pager span:focus {
+	border-color:#0383ce;
+}
+
+.board-pager button {
+	padding:0;
+	border-radius:0;
+	cursor:pointer;
+	outline:0;
+	background:none;
+	appearance:none;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	width:32px; height:32px;
+	border:1px solid #ddd;
+}
+.board-pager button:hover,
+.board-pager button:focus {
+	border-color:#aaa;
+}
+/* list search */
+.board-search {
+	text-align:center;
+	margin-top:40px;
+	box-sizing: border-box;
+}
+.board-search-field {
+	width:180px;
+	border:1px solid #ccc;
+	height: 35px;
+	box-sizing: border-box;
+}
+.board-search-select {
+	height: 35px;
+	border:1px solid #ccc;
+	box-sizing: border-box;
+	width: 100px;
+}
+.btn-normal-s {
+	font-size:14px;
+	height: 35px;
+	color:#fff;
+	background:#0383ce;
+	border:1px solid #0383ce;
+	outline:0;
+	cursor:pointer;
+	padding:0 20px;
+	appearance:none;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	box-sizing: border-box;
+}
+
+/* faq list */
+.faq-list {
+	border-top:2px solid #0383ce;
+	margin-bottom:30px;
+}
+.faq-list .no-ct {
+	border-bottom:1px solid #ddd;
+}
+.faq-list .faq-q:before {
+	content: 'Q';
+	position: absolute;
+	left: 20px;
+	top: 16px;
+	font-size: 20px;
+	color: #fff;
+	background: #0383ce;
+	border-radius: 100%;
+	width: 35px;
+	height: 35px;
+	line-height: 32px;
+	text-align: center;
+}
+.faq-list .faq-q {
+	padding: 20px 45px 20px 70px;
+	cursor:pointer;
+	position:relative;
+	border-bottom:1px solid #ddd;
+	font-size: 16px;
+	font-weight: 500;
+}
+.faq-list .faq-q::after {
+	display:block;
+	position:absolute;
+	right:0; top:0; bottom:0;
+	width:35px;
+	content:'';
+	background:url("/image/board/faq_off.png") no-repeat center;
+}
+.faq-list .faq-q.on {
+	font-weight:600;
+	color:#333;
+	border-bottom: 0;
+}
+.faq-list .faq-q.on::after {
+	background-image:url("/image/board/faq_on.png");
+}
+.faq-list .faq-a {
+	display:none;
+	padding: 20px 50px 25px 80px;
+	background: rgba(3,131,206,0.1);
+}
