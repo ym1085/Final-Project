@@ -52,6 +52,14 @@
 				</tbody>
 			</table>
 		</div>
+		<div id="pagediv" class="text-center">
+			<div class="btn-group" role="group" id="pagedesk">
+				
+			</div>
+			<input type="text" id="blocksize" value="5">
+			<input type="text" id="firstpage">
+			<input type="text" id="lastpage" value="0">
+		</div>
 	</div>
 </div>
 
@@ -131,7 +139,7 @@ $(function() {
 			$("#eddate").focus();
 			event.preventDefault();
 		}else{
-			$("#curPage").val("1");
+			//$("#curPage").val("1");
 			$.ajax({
 				url:"<c:url value='/admin/salesManagement/ticketsetting.do'/>",
 				type:"post",
@@ -155,9 +163,42 @@ $(function() {
 						+value.prfstate+"</td></tr>"
 					});
 					$("tbody").find("tr").remove().end().append(str);
-					for(var i=0;i<pageCount;i++){
-						
+					
+					//paging
+					var cpage=$("#curPage").val();
+					var bsize=$("#blocksize").val();
+					var fpage=cpage-(cpage-1)%bsize;
+					$("#firstpage").val(fpage);
+					var lpage=fpage+(bsize-1);
+					if(lpage>pageCount){
+						lpage=pageCount;
 					}
+					$("#lastpage").val(lpage);
+					var pa="";
+					
+					//이전 블럭 버튼
+					if(fpage>1){
+						pa+="<button class='btn btn-social-icon btn-outline-youtube'> &lt;&lt;</button>";
+					}
+					
+					//페이지 번호
+						for(var i=fpage;i<=lpage;i++){
+							if(i==cpage){
+								pa+="<span class='btn btn-danger'>"+i+"</span>";
+							}else{
+								pa+="<button class='btn btn-danger'>"+i+"</button>";
+							}
+						}
+					
+					//다음 블럭 버튼
+					if(lpage<pageCount){
+						pa+="<button class='btn btn-social-icon btn-outline-youtube'> &gt;&gt;</button>";
+					}
+					
+					
+						$("#pagediv").find("#pagedesk *").remove();
+						$("#pagedesk").append(pa);
+
 				},
 				error:function(xhr, status, error){
 					alert("검색결과가 없습니다.");
