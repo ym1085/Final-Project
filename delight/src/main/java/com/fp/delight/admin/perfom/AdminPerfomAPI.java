@@ -24,7 +24,7 @@ public class AdminPerfomAPI {
 
 	public Map<String, Object> ticketSearch(String type, String sido,
 			String gugun,String stdate, String eddate,String perfomName,
-			String curPage){
+			String curPage,String totalP){
 		System.out.println("검색 시작");
 		String apiurl="http://www.kopis.or.kr/openApi/restful/pblprfr?"
 				+ "service=4c8aebff91d74e2396fccc287989884a"
@@ -34,7 +34,8 @@ public class AdminPerfomAPI {
 				+ "&signgucode="+sido
 				+ "&signgucodesub="+gugun
 				+ "&shcate="+type
-				+ "&cpage="+curPage;
+				+ "&cpage="+curPage
+				+ "&shprfnm="+perfomName;
 		Map<String, Object> map=new HashMap<String, Object>();
 		List<PerformentListVO> list2=new ArrayList<PerformentListVO>();
 		
@@ -53,20 +54,24 @@ public class AdminPerfomAPI {
 			JSONObject xmlJSONObj = XML.toJSONObject(st.toString());
 			
 			
-			int pageCount=0;
+			int pageCount=Integer.parseInt(totalP);
 			ObjectMapper mapper = new ObjectMapper();
 			if(st.toString().length()>44) {
 				Object xm=xmlJSONObj.getJSONObject("dbs").get("db");
 				if(xm instanceof JSONArray) {
 					JSONArray jsonarr=xmlJSONObj.getJSONObject("dbs").getJSONArray("db");
-					pageCount=pageCount(type, sido, gugun, stdate, eddate, perfomName);
+					if(pageCount==0) {
+						pageCount=pageCount(type, sido, gugun, stdate, eddate, perfomName);
+					}
 					list2=mapper.readValue(jsonarr.toString(), new TypeReference<List<PerformentListVO>>() {});
 					map.put("list", list2);
 					map.put("pageCount", pageCount);
 				}else if(xm instanceof JSONObject) {
 					JSONObject json=xmlJSONObj.getJSONObject("dbs").getJSONObject("db");
 					list2.add((PerformentListVO) mapper.readValue(json.toString(), new TypeReference<PerformentListVO>() {}));
-					pageCount=pageCount(type, sido, gugun, stdate, eddate, perfomName);
+					if(pageCount==0) {
+						pageCount=pageCount(type, sido, gugun, stdate, eddate, perfomName);
+					}
 					map.put("list", list2);
 					map.put("pageCount", pageCount);
 				}
@@ -100,7 +105,8 @@ public class AdminPerfomAPI {
 					+ "&signgucode="+sido
 					+ "&signgucodesub="+gugun
 					+ "&shcate="+type
-					+ "&cpage="+cpa;
+					+ "&cpage="+cpa
+					+ "&shprfnm="+perfomName;
 			
 			HttpURLConnection urlcon=(HttpURLConnection) new URL(apiurl).openConnection();
 
@@ -143,4 +149,48 @@ public class AdminPerfomAPI {
 		}//while
 		return cnt;
 	}
+	
+	public Map<String, Object> performDetail(String perfomid){
+		String detail="http://www.kopis.or.kr/openApi/restful/pblprfr/"
+				+ perfomid
+				+ "?"
+				+ "service=4c8aebff91d74e2396fccc287989884a";
+		
+		System.out.println("detail api주소="+detail);
+		
+		Map<String, Object> map=null;
+		try {
+		HttpURLConnection urlcon=(HttpURLConnection) new URL(detail).openConnection();
+
+		urlcon.connect();
+		BufferedInputStream bis = new BufferedInputStream(urlcon.getInputStream());
+		BufferedReader reader = new BufferedReader(new InputStreamReader(bis));
+		StringBuffer st = new StringBuffer();
+		String line;
+		while ((line = reader.readLine()) != null) {
+			st.append(line);
+		}
+
+		JSONObject xmlJSONObj = XML.toJSONObject(st.toString());
+		JSONObject obj=xmlJSONObj.getJSONObject("dbs").getJSONObject("db");
+		System.out.println(obj.toMap());
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		map=mapper.readValue(obj.toString(), new TypeReference<Map<String,Object>>() {});
+		
+		System.out.println(map.toString());
+		
+		}catch(MalformedURLException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		return map;
+		
+		
+	}
+	
+	
 }

@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.admin.perfom.AdminPerfomAPI;
@@ -35,21 +36,37 @@ public class SalesController {
 		String eddate=request.getParameter("eddate");
 		String perfomName=request.getParameter("perfomName");
 		String curPage=request.getParameter("curPage");
+		String totalP=request.getParameter("totalP");
+		
 		logger.info("표 설정 공연 검색 파라미터 type={},sido={}",type,sido);
 		logger.info("표 설정 공연 검색 파라미터 gugun={},stdate={}",gugun,stdate);
 		logger.info("표 설정 공연 검색 파라미터 eddate={},perfomName={}",eddate,perfomName);
+		logger.info("표 설정 공연 검색 파라미터 totalP={}",totalP);
 		if(perfomName==null) perfomName="";
 		AdminPerfomAPI api=new AdminPerfomAPI();
 		
-		Map<String, Object> map=api.ticketSearch(type, sido, gugun, stdate, eddate, perfomName,curPage);
+		Map<String, Object> map=api.ticketSearch(type, sido, gugun, stdate, eddate, perfomName,curPage, totalP);
 		Map<String, Object> reMap=new HashMap<String, Object>();
 		List<PerformentListVO> list=(List<PerformentListVO>) map.get("list");
+		
+		
 		int cnt=(Integer) map.get("pageCount");
 		
 			reMap.put("list", list);
 			reMap.put("cnt", cnt);
 		
 		return reMap;
+		
+	}
+	
+	@RequestMapping("/settingDetail.do")
+	public void settingDetail(@RequestParam String perfomid) {
+		logger.info("판매표 수량 설정 상세보기 페이지 파라미터 공연id="+perfomid);
+		AdminPerfomAPI api=new AdminPerfomAPI();
+		
+		Map<String, Object> map=api.performDetail(perfomid);
+		
+		
 		
 	}
 }
