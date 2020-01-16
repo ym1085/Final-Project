@@ -37,7 +37,7 @@ public class SalesController {
 		String perfomName=request.getParameter("perfomName");
 		String curPage=request.getParameter("curPage");
 		String totalP=request.getParameter("totalP");
-		
+		perfomName=perfomName.replace(" ", "");
 		logger.info("표 설정 공연 검색 파라미터 type={},sido={}",type,sido);
 		logger.info("표 설정 공연 검색 파라미터 gugun={},stdate={}",gugun,stdate);
 		logger.info("표 설정 공연 검색 파라미터 eddate={},perfomName={}",eddate,perfomName);
