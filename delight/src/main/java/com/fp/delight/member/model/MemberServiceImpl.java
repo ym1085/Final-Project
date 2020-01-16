@@ -50,5 +50,35 @@ public class MemberServiceImpl implements MemberService{
 	public int insertMember(MemberVO memberVo) {
 		return memberDao.insertMember(memberVo);
 	}
+
+	@Override
+	public String selectUserid(MemberVO memberVo) {
+		return memberDao.selectUserid(memberVo);
+	}
+
+	@Override
+	public int selectUserChkInfo(MemberVO memberVo) {
+		int result=0;
+		
+		int cnt=memberDao.selectDupUserid(memberVo.getUserid());
+		
+		if(cnt>0) {
+			int cnt2=memberDao.selectUserPwd(memberVo);
+			if(cnt2>0) {
+				result=OK_INFO;//정보 일치
+			}else {
+				result=NO_INFO;//이메일 일치하지않음
+			}
+		}else {
+			result=NONE_USERID; //해당아이디 존재하지않음
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int findePwdSet(MemberVO memberVo) {
+		return memberDao.findePwdSet(memberVo);
+	}
 	
 }

@@ -28,9 +28,85 @@
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
 <script type="text/javascript">
-	
+       $(document).ready(function () {
+    	   $("#output").hide();
+	       var count = 60;
+	       var timerId;
+	       var $output = $("#output");
+	       var bool=true;
+	       var key;
+    	   $("#email3Chk").click(function(){
+    		if($("#email1").val().length<1){
+    			alert("이메일을입력해주세요");
+    			$("#email1").focus();
+    			event.preventDefault();
+    		}else if($("#email2").val()=='etc' && $("#email3").val().length<1){
+    				alert("이메일을입력해주세요");
+    				$("#email3").focus();
+	    			event.preventDefault();
+    		}else{
+    			if(bool){
+        			
+        			$.ajax({
+        				type:"post",
+        				url:"<c:url value='/Certified.do'/>",
+        				data:{ "email1": $("#email1").val(),
+        					 "email2": $("#email2").val(),
+        					 "email3": $("#email3").val()},
+        				dataType:"json",
+        				success:function(res){
+        					key=res;
+        					alert("인증번호발급!");
+        				},
+        				error:function(xhr, status, error){
+        					alert("Error : "+status+", "+ error);
+        				}
+        			});	
+        			
+    	    		$("#output").show();
+    	    		$("#email3Chk").val("인증하기");
+    	            
+    	            timerId = setInterval(function(){
+    	                // 값 증가
+    	                count--;
+    	                // 값을 출력
+    	                $output.text("00:"+count+"초");
+    	            	
+    	                if(count==0){
+    	                	clearInterval(timerId);
+    	                	$("#output").hide();
+    	                	 $output.text("01:00초");
+    	                	 $("#email3Chk").val("인증번호발송");
+							 ket="%#@#$^@";
+    	                	 bool=false;
+    	                }
+    	                
+    	            }, 1000);
+    	            bool=false;
+        		}else{
+        			if($("#emailCh").val()==key){
+        				alert("인증완료");
+        				$("#chkEmail").val("Y");
+    	    			clearInterval(timerId);
+    	            	$("#output").hide();
+    	            	$output.text("01:00초");
+    	            	$("#email3Chk").val("인증번호발송");
+    	            	$("#email3Chk").hide();
+    	            	$("#emailCh").hide();
+    	            	bool=true;
+        				
+        			}else{
+        				alert("인증번호일치하지않습니다.");
+        			}
+        		}
+    		}
+    		   
+    	   });
+    	  
+        });
+
 </script>
-<!-- 푸쉬테스트 -->
+
 <!-- 스타일 적용 -->
 <style type="text/css">
 	#name{width:400px; text-transform: lowercase;}
@@ -167,7 +243,8 @@
 					<input type="text" name="email3" id = "email3"title="직접입력인 경우 이메일 뒷자리 보여줌"
         				style="visibility:hidden"/><br>
         			<input type="text" name="emailCh" id = "emailCh"/>
-					<input class="price" type="button" value="인증번호발송" name="email3Chk" id="email3Chk">
+					<input class="price" type="button" value="인증번호발송" name="email3Chk" id="email3Chk"/>
+					<span id="output" style="color: white;margin-left: 20px;">1:00 초</span>
 			</li>
 			
 			<!-- hp1,hp2,hp3 -->
