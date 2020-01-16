@@ -3,9 +3,33 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.4.1.min.js'/>"></script>
 <script type="text/javascript">
-	
+	$(function(){
+		var select="<option value=''>선택</option>"; 
+		$("#sido").change(function(){
+			var para={ sido : $("#sido option:selected").text()}
+			if($("#sido").val()==''){
+				$("#gugun").find("option").remove().end().append(select);
+			}else{
+				$.ajax({
+					type:"post",
+					url:"<c:url value='/inc/areagugun.do'/>",
+					contentType:"application/json; charset=utf-8;",
+					datatype:"json",
+					data: JSON.stringify(para),
+					success:function(data){
+						var results=data.list;
+						$("#gugun").find("option").remove().end().append(select);
+						$.each(results,function(i,value){
+							$("#gugun").append("<option value='"+value.signgucodesub+"'>"+value.gugun+"</option>");
+						});
+					}
+				});
+				
+			}
+		});
+	});
 </script>
-   <div>
+   <span>시,도</span>
    <select name="sido" id="sido">
    	<option value="">선택</option>
    <c:forEach var="sido" items="${sido }">
@@ -13,8 +37,8 @@
    </c:forEach>
    </select>
    
-   <select name="gugun" id="gugun">
+   <span>구,군</span>
+   <select name="gugun" id="gugun" style="width: 200px;">
    	<option value="">선택</option>
-
    </select>
-   </div>
+   

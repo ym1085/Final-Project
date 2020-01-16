@@ -27,88 +27,8 @@
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
-<script type="text/javascript">
-       $(document).ready(function () {
-    	   $("#output").hide();
-	       var count = 60;
-	       var timerId;
-	       var $output = $("#output");
-	       var bool=true;
-	       var key;
-    	   $("#email3Chk").click(function(){
-    		if($("#email1").val().length<1){
-    			alert("이메일을입력해주세요");
-    			$("#email1").focus();
-    			event.preventDefault();
-    		}else if($("#email2").val()=='etc' && $("#email3").val().length<1){
-    				alert("이메일을입력해주세요");
-    				$("#email3").focus();
-	    			event.preventDefault();
-    		}else{
-    			if(bool){
-        			
-        			$.ajax({
-        				type:"post",
-        				url:"<c:url value='/Certified.do'/>",
-        				data:{ "email1": $("#email1").val(),
-        					 "email2": $("#email2").val(),
-        					 "email3": $("#email3").val()},
-        				dataType:"json",
-        				success:function(res){
-        					key=res;
-        					alert("인증번호발급!");
-        				},
-        				error:function(xhr, status, error){
-        					alert("Error : "+status+", "+ error);
-        				}
-        			});	
-        			
-    	    		$("#output").show();
-    	    		$("#email3Chk").val("인증하기");
-    	            
-    	            timerId = setInterval(function(){
-    	                // 값 증가
-    	                count--;
-    	                // 값을 출력
-    	                $output.text("00:"+count+"초");
-    	            	
-    	                if(count==0){
-    	                	clearInterval(timerId);
-    	                	$("#output").hide();
-    	                	 $output.text("01:00초");
-    	                	 $("#email3Chk").val("인증번호발송");
-							 ket="%#@#$^@";
-    	                	 bool=false;
-    	                }
-    	                
-    	            }, 1000);
-    	            bool=false;
-        		}else{
-        			if($("#emailCh").val()==key){
-        				alert("인증완료");
-        				$("#chkEmail").val("Y");
-    	    			clearInterval(timerId);
-    	            	$("#output").hide();
-    	            	$output.text("01:00초");
-    	            	$("#email3Chk").val("인증번호발송");
-    	            	$("#email3Chk").hide();
-    	            	$("#emailCh").hide();
-    	            	bool=true;
-        				
-        			}else{
-        				alert("인증번호일치하지않습니다.");
-        			}
-        		}
-    		}
-    		   
-    	   });
-    	  
-        });
-
-</script>
-
 <!-- 스타일 적용 -->
-<style type="text/css">
+<style type="text/css"> 
 	#name{width:400px; text-transform: lowercase;}
 	#userid{width:400px; text-transform: lowercase;}
 	#pwd{width:400px;}
@@ -131,7 +51,7 @@
 	#email3Chk{width: 110px;}
 	#btnChkId{width: 90px;}
 	#emailCh{width: 200px;margin-left: 245px;}
-	#birth{width: 250px;}
+	#birth2{width: 250px;}
 	span#accordancePwd {margin-left: 245px; font-weight: bold; }
 	span#discordPwd {margin-left: 245px; font-weight: bold; }
 	#accordanceId{margin-left: 245px; font-weight: bold;}
@@ -165,15 +85,15 @@
 	<div class="w3ls-main">
 	<div class="w3ls-form">
 	
-<form action="<c:url value = '/member/memberWrite.do'/>" method="post" name = "frm">
-	<h2>REGiSTER</h2> 
+<form action="<c:url value = '/member/edit.do'/>" method="post" name = "frm">
+	<h2>마이페이지(개인정보수정)</h2> 
 		<ul class="fields1">
 			<!-- name -->
 			<li>	
 				<label class="w3ls-opt">이름</label>
 				<div class="w3ls-name">	
-					<input type="text" name="username" id = "name" 
-						placeholder="이름을 입력하세요.." required="required" maxlength="30"/>
+					<input type="text" name="username" id = "name" readonly="readonly"
+					value="${memberVo.username }"/>
 				</div>
 			</li>
 			
@@ -181,16 +101,9 @@
 			<li>
 				<label class="w3ls-opt">아이디</label>	
 				<span class="w3ls-name">
-					<input type="text" name="userid" id = "userid" 
-						placeholder="아이디를 입력하세요.." maxlength="15"/>
-					<input class="price" type="button" value="중복확인" id="btnChkId" 
-						 oninvalid="this.setCustomValidity('아이디는 반드시 입력되어야 합니다!')" required>
+					<input type="text" name="userid" id = "userid" readonly="readonly"
+					value="${sessionScope.userid}"/>
 				</span>
-				<li class="check_li">
-					<span class = "w3ls-name" id="accordanceId" stlye="color:red">
-						아이디는 영문대소문자,숫자로 시작하는 문자열만 가능합니다!
-					</span> 
-				</li>
 			</li>
 			
 			<!-- pwd -->
@@ -218,7 +131,8 @@
 			<li>
 				 <label class="w3ls-opt">생년월일</label>
 				 <span class="w3ls-name">
-   				 <input type="text" id="birth" name="birth" required="required"/>
+   				 <input type="text" id="birth2" name="birth" readonly="readonly"
+   				 value="${memberVo.birth }"/>
 				 </span>
 			</li>
 			
@@ -226,47 +140,79 @@
 			<li>
 				<label class="w3ls-opt">이메일</label>	
 					<input type="text" name="email1" id = "email1" 
-						placeholder="이메일을 입력해주세요" required="required"/>
+						placeholder="이메일을 입력해주세요" required="required"
+						value="${memberVo.email1 }"/>
 						<span id = "emailType">@</span>
-					
 					<!-- SELECT-OPTION -->
 					<span class="w3ls-text w3ls-name" id = "email2Chk">
 						<select id = "email2" name = "email2">
-							<option value="naver.com">naver.com</option>
-							<option value="google.com">google.com</option>
-							<option value="hanmail.net">hanmail.net</option>
-							<option value="nate.com">nate.com</option>
-							<option value="etc">직접 입력</option>
+						<c:set var="etc1" value=""/>
+					    <c:choose>
+        					<c:when test="${memberVo.email2=='naver.com'||
+        						memberVo.email2=='hanmail.net'||
+        						memberVo.email2=='nate.com'||
+        						memberVo.email2=='gmail.com'||
+        						empty vo.email2 }">
+        						<c:set var="etc1" value="N"/>
+        					</c:when>
+        						<c:otherwise>
+        							<c:set var="etc1" value="Y"/>
+        						</c:otherwise>
+       				 </c:choose>
+							<option value="naver.com"
+							<c:if test="${memberVo.email2=='naver.com' }">
+								selected="selected"
+							</c:if>
+							>naver.com</option>
+							<option value="google.com"
+							<c:if test="${memberVo.email2=='google.com' }">
+								selected="selected"
+							</c:if>
+							>google.com</option>
+							<option value="hanmail.net"
+							<c:if test="${memberVo.email2=='hanmail.net' }">
+								selected="selected"
+							</c:if>
+							>hanmail.net</option>
+							<option value="nate.com"
+							<c:if test="${memberVo.email2=='nate.com' }">
+								selected="selected"
+							</c:if>
+							>nate.com</option>
+							<option value="etc"
+							<c:if test="${etc1=='Y' }">
+								selected="selected"
+							</c:if>
+							>직접 입력</option>
 						</select>
 					</span>
 					<!-- email3 -->
 					<input type="text" name="email3" id = "email3"title="직접입력인 경우 이메일 뒷자리 보여줌"
-        				style="visibility:hidden"/><br>
-        			<input type="text" name="emailCh" id = "emailCh"/>
-					<input class="price" type="button" value="인증번호발송" name="email3Chk" id="email3Chk"/>
-					<span id="output" style="color: white;margin-left: 20px;">1:00 초</span>
+        				<c:if test="${etc1=='Y' }">
+        					style="visibility:visible;"
+        						value="${vo.email2 }"
+        				</c:if>
+						<c:if test="${etc1=='N' }">
+        						style="visibility:hidden"
+						</c:if>     
+        				/><br>
 			</li>
 			
 			<!-- hp1,hp2,hp3 -->
 			<li>
 				<span class="w3ls-text w3ls-name" id = "hp1Chk">
-					<select id = "hp1" name = "hp1" required="required">
-						<option value="010">010</option>
-						<option value="011">011</option>
-						<option value="019">019</option>
-						<option value="016">016</option>
-					</select>
+					<input type="text" name="hp1" id = "hp1" readonly="readonly" value="${memberVo.hp1 }"/>
 				</span>
 				
 				<label class="w3ls-opt">전화번호</label>	
-					<input type="text" name="hp2" id = "hp2" required="required" maxlength="4"/>
-					<input type="text" name="hp3" id = "hp3" required="required" maxlength="4"/>
+					<input type="text" name="hp2" id = "hp2" maxlength="4" readonly="readonly" value="${memberVo.hp2 }"/>
+					<input type="text" name="hp3" id = "hp3" maxlength="4" readonly="readonly" value="${memberVo.hp3 }"/>
 			</li>
 			
 			<!-- zipcode -->
 			<li>
 				<label class="w3ls-opt">우편번호</label>
-				<input type="text" name="zipcode" id = "zipcode"> 
+				<input type="text" name="zipcode" id = "zipcode" value="${memberVo.zipcode }"> 
 				
 				<!-- API연동 -->
 				<input class="price" type="button" value="우편번호 찾기" onclick="openZipSearch()">
@@ -275,24 +221,25 @@
 			<!-- address -->
 			<li>
 				<label class="w3ls-opt">주소</label>
-				<input type="text" name="address" id = "address"> 
+				<input type="text" name="address" id = "address" value="${memberVo.address }"> 
 			</li>
 			
 			<!-- addressDetail -->
 			<li>
 				<label class="w3ls-opt">상세주소</label>
-				<input type="text" name="addressDetail" id = "addressDetail"> 
+				<input type="text" name="addressDetail" id = "addressDetail" value="${memberVo.addressDetail }"> 
 			</li>
 			
 			<li>
 				<span class="w3ls-text w3ls-name" id = "genderChk">
 				<label class="w3ls-opt">성별</label>
-					<select id = "gender" name = "gender">
-						<option value="남">남</option>
-						<option value="여">여</option>
-					</select>
+					<input type="text" name="gender" id = "gender" readonly="readonly" value="${memberVo.gender }"/>
 					<label class="anim" style="margin-left: 100px;"> 
-					<input type="checkbox" class="checkbox" name = "mailAgreement"> 
+					<input type="checkbox" class="checkbox" name = "mailAgreement"
+					<c:if test="${memberVo.mailAgreement=='Y' }">
+						checked="checked"
+					</c:if>
+					> 
 					<span style="color: white;">Email 수신여부</span>
 					</label>
 				</span>
@@ -304,9 +251,6 @@
 		<input type="submit" id = "submit" value="회원 가입" style="font-weight: bold;">
 	</div>
 	
-	<!-- 중복/이메일 인증 -->
-	<input type="hidden" name="chkId" id="chkId" value="N">			<!-- 중복확인 -->
-	<input type="hidden" name="chkEmail" id="chkEmail" value="N">	<!-- email인증 -->
 </form>
 </div>
 </div>

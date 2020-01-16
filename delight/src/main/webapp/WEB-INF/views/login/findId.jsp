@@ -29,7 +29,23 @@
 					return false;
 				}
 			});	
+			
+			var email=$("#email").val();
+			var cnt=email.search("@");
+			var idxo=email.indexOf("@");
+			var sub=email.substring(idxo+1);
+			if(cnt==-1 && email!=''){
+				alert("올바르지않는 이메일형식입니다.");
+				$("#email").focus();
+				event.preventDefault();
+			}else if(email!='' && sub==''){
+				alert("올바르지않는 이메일형식입니다.");
+				$("#email").focus();
+				event.preventDefault();
+			}
+			
 		});
+		
 		
 	});
 </script>
@@ -69,7 +85,7 @@
 							<div class="login-agileits-top">
 								
 								<!-- form <-> action -->
-								<form action="<c:url value = '/member/login.do'/>" method="post" name = "frm">
+								<form action="<c:url value = '/login/findId.do'/>" method="post" name = "frm">
 									<p>이름</p>
 									<input type="text" class="infobox" name="name" id="name" placeholder="이름을 입력해주세요."/>
 									<p>이메일</p>

@@ -31,7 +31,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			out.print("<script type='text/javascript'>");
 			out.print("alert('로그인 하세요.');");
 			out.print("location.href='"+request.getContextPath()
-				+"/member/login.do';");
+				+"/login/login.do';");
 			out.print("</script>");
 			
 			return false; //다음 컨트롤러를 수행하지 않음

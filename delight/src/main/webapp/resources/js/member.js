@@ -77,9 +77,13 @@ $(function(){
 	 
 	//폼 submit시 중복확인 체크. 
 	$("form[name=frm]").submit(function(){
-		if($("#chkId").val()!='Y'){
+		if($("#chkId").val()=='N'){
 			alert("아이디 중복확인을 하세요(필수)");
 			$("#btnChkId").focus();
+			event.preventDefault();
+		}if($("#chkEmail").val()=='N'){
+			alert("이메일 인증 하세요!(필수)");
+			$("#chkEmail").focus();
 			event.preventDefault();
 		}
 	});
