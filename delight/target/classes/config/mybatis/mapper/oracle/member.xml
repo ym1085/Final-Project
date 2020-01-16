@@ -61,6 +61,10 @@
 		where userid=#{userid}
 	</update>
 	
+	<select id="selectOut" resultType="map">
+		select * from out_reason
+	</select>
+	
 </mapper>
 
 

@@ -41,6 +41,7 @@
 	
 		<interceptor>
 			<mapping path="/member/edit.do"/> <!-- 적용할 뷰페이지1 -->
+			<mapping path="/member/memberOut.do"/> <!-- 적용할 뷰페이지2 -->
 			<beans:ref bean="loginInterceptor"/>  <!-- 로그인 인터셉터 파일명 맨앞소문자  -->
 		</interceptor>
 	

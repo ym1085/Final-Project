@@ -1,5 +1,8 @@
 package com.fp.delight.member.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -177,7 +180,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/memberOut.do",method = RequestMethod.GET)
-	public void Out_get() {
+	public void Out_get(Model model,HttpSession session) {
 		logger.info("탈퇴화면보여주기");
+		String userid=(String)session.getAttribute("userid");
+		List<Map<String, Object>> list=memberService.selectOut();
+		
+		MemberVO memberVo=memberService.selectMember(userid);
+		
+		model.addAttribute("list",list);
+		model.addAttribute("memberVo",memberVo);
 	}
 }

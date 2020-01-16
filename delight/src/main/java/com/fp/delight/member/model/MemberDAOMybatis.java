@@ -1,5 +1,8 @@
 package com.fp.delight.member.model;
 
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -54,6 +57,11 @@ public class MemberDAOMybatis implements MemberDAO{
 	@Override
 	public int updateMember(MemberVO memberVo) {
 		return sqlSession.update(namespace+"updateMember",memberVo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectOut() {
+		return sqlSession.selectList(namespace+"selectOut");
 	}
 
 }

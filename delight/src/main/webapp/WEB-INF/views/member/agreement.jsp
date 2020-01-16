@@ -69,7 +69,8 @@
 		</div>
 		<div style="margin-top: 15px;">
 			<input type="submit" value="동의" class="btn btn-primary btn-lg" style="width: 250px;">
-			<input type="reset" value="비동의" class="btn btn-secondary btn-lg" style="width: 250px;">
+			<input type="reset" value="비동의" class="btn btn-secondary btn-lg" style="width: 250px;"
+			onclick = "location.href = '<c:url value="/index.do" />' ">
 		</div>		
 	</form>
 </article>

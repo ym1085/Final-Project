@@ -1,5 +1,7 @@
 package com.fp.delight.member.model;
 
+import java.util.List;
+import java.util.Map;
 
 public interface MemberService {
 	//로그인 처리
@@ -22,4 +24,5 @@ public interface MemberService {
 	int findePwdSet(MemberVO memberVo);
 	int updateLogOut(String userid);
 	int updateMember(MemberVO memberVo);
+	List<Map<String, Object>> selectOut();
 }	

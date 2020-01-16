@@ -1,5 +1,8 @@
 package com.fp.delight.member.model;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,6 +92,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int updateMember(MemberVO memberVo) {
 		return memberDao.updateMember(memberVo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectOut() {
+		return memberDao.selectOut();
 	}
 	
 }

@@ -1,5 +1,8 @@
 package com.fp.delight.member.model;
 
+import java.util.List;
+import java.util.Map;
+
 public interface MemberDAO {
 	String selectPwd(String userid);
 	MemberVO selectMember(String userid);
@@ -10,4 +13,5 @@ public interface MemberDAO {
 	int findePwdSet(MemberVO memberVo);
 	int updateLogOut(String userid);
 	int updateMember(MemberVO memberVo);
+	List<Map<String, Object>> selectOut();
 }

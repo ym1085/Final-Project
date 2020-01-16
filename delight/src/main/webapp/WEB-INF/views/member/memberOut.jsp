@@ -2,6 +2,22 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/main2Top.jsp" %>
 <link rel="stylesheet" href="<c:url value='/resources/css/memberOut.css' />">
+<script type="text/javascript" src ="<c:url value = '/resources/js/jquery-3.4.1.min.js'/>"></script>
+<script type="text/javascript">
+	$(function(){
+		$("form[name=frm123]").submit(function(){
+			if(!$("input[type=radio]").is(":checked")){
+				alert("사유를 선택해주세요.");
+				$("input[type=radio]").focus();
+				event.preventDefault();
+			}else if(!$("#chkAgree").is(":checked")){
+				alert("동의하셔야합니다.");
+				$("#chkAgree").focus();
+				event.preventDefault();
+			}
+		});
+	});
+</script>
 	<!-- 페이지 만들떄마다 복붙 -->
 	<div style="width: 13%; float: left; height: 100%;">
 		<!-- left side -->
@@ -32,13 +48,13 @@
 	
 	<div style="width: 87%; float: right;">
 	<div class="outDiv">
-	<form name="frm123">
+	<form action="<c:url value = '/member/memberOut.do'/>" method="post" name="frm123">
 		<div class="ofirstDiv">
 			<p>마이페이지(회원탈퇴)</p>
 		</div>
 		<div class="osecondDiv">
 			<img alt="별이미지" src="<c:url value='/resources/images/sta.jpg' />">
-			<p><span>이도형님(ID:TEST)의</span> 회원탈퇴 과정입니다.</p>
+			<p><span>${memberVo.username }님(ID:${sessionScope.userid})의</span> 회원탈퇴 과정입니다.</p>
 		</div>
 		<div class="othreeDiv">
 			<h2>회원탈퇴 주의 사항</h2><br>
@@ -55,13 +71,13 @@
 		</div>
 		<div class="ofourDiv">
 			<div class="in1">
-			<label>아이디</label><span>leedohyeong0</span>
+			<label>아이디</label><span>${sessionScope.userid}</span>
 			</div>
 			<div class="in2">
-			<label class="inla2">탈퇴 사유</label><input type="radio"><label>사유1</label>
-			<input type="radio" name="outReasonNo"><label>사유1</label>
-			<input type="radio" name="outReasonNo"><label>사유1</label>
-			<input type="radio" name="outReasonNo"><label>사유1</label>
+			<label class="inla2">탈퇴 사유</label>
+			<c:forEach var="map" items="${list }">
+			<input type="radio" name="outReasonNo" value="${map['OUT_REASON_SEQ'] }"><label>${map['OUT_REASON'] }</label>
+			</c:forEach>
 			<p>※ 회원탈퇴를 신청하시면 현재 로그인 된 아이디는 즉시탈퇴 처리 되며, 해당 아이디로는 재가입 하실 수 없습니다.</p>
 			</div>
 		</div>
@@ -70,7 +86,8 @@
 			<label>안내 사항을 모두 확인하였으며,탈퇴 시 아이디의 재사용 및 데이터 복구가 불가함에 동의합니다.</label>
 		</div>
 		<div class="olasteDiv2">
-		<input type="submit" value="회원탈퇴" class="btn btn-secondary btn-lg" id="sub"><input type="button" value="취소" class="btn btn-secondary btn-lg" id="can">
+		<input type="submit" value="회원탈퇴" class="btn btn-secondary btn-lg" id="sub">
+		<input type="button" value="취소" class="btn btn-secondary btn-lg" id="can" onclick = "location.href = '<c:url value="/index.do" />' ">
 		</div>		
 	</form>
 	</div>
