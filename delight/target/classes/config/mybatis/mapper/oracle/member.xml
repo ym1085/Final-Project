@@ -48,6 +48,12 @@
 		where userid=#{userid}
 	</update>
 	
+	<update id="updateLogOut" parameterType="string">
+		update tbl_user
+		set logout_date=sysdate
+		where userid=#{userid}
+	</update>
+	
 </mapper>
 
 

@@ -8,4 +8,5 @@ public interface MemberDAO {
 	String selectUserid(MemberVO memberVo);
 	int selectUserPwd(MemberVO memberVo);
 	int findePwdSet(MemberVO memberVo);
+	int updateLogOut(String userid);
 }

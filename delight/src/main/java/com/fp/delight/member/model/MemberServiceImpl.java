@@ -80,5 +80,10 @@ public class MemberServiceImpl implements MemberService{
 	public int findePwdSet(MemberVO memberVo) {
 		return memberDao.findePwdSet(memberVo);
 	}
+
+	@Override
+	public int updateLogOut(String userid) {
+		return memberDao.updateLogOut(userid);
+	}
 	
 }
