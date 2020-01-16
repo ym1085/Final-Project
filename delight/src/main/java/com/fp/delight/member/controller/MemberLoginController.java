@@ -78,8 +78,12 @@ public class MemberLoginController {
 	
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
-		session.removeAttribute("userid");
-		session.removeAttribute("userName");
+		String userid=(String)session.getAttribute("userid");
+		int cnt=memberService.updateLogOut(userid);
+		if(cnt>0) {
+			session.removeAttribute("userid");
+			session.removeAttribute("userName");
+		}
 		
 		return "redirect:/index.do";
 	}

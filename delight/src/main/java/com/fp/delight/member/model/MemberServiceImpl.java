@@ -1,5 +1,8 @@
 package com.fp.delight.member.model;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +52,51 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int insertMember(MemberVO memberVo) {
 		return memberDao.insertMember(memberVo);
+	}
+
+	@Override
+	public String selectUserid(MemberVO memberVo) {
+		return memberDao.selectUserid(memberVo);
+	}
+
+	@Override
+	public int selectUserChkInfo(MemberVO memberVo) {
+		int result=0;
+		
+		int cnt=memberDao.selectDupUserid(memberVo.getUserid());
+		
+		if(cnt>0) {
+			int cnt2=memberDao.selectUserPwd(memberVo);
+			if(cnt2>0) {
+				result=OK_INFO;//정보 일치
+			}else {
+				result=NO_INFO;//이메일 일치하지않음
+			}
+		}else {
+			result=NONE_USERID; //해당아이디 존재하지않음
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int findePwdSet(MemberVO memberVo) {
+		return memberDao.findePwdSet(memberVo);
+	}
+
+	@Override
+	public int updateLogOut(String userid) {
+		return memberDao.updateLogOut(userid);
+	}
+
+	@Override
+	public int updateMember(MemberVO memberVo) {
+		return memberDao.updateMember(memberVo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectOut() {
+		return memberDao.selectOut();
 	}
 	
 }
