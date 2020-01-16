@@ -30,7 +30,7 @@
 <script type="text/javascript">
 	
 </script>
-
+<!-- 푸쉬테스트 -->
 <!-- 스타일 적용 -->
 <style type="text/css">
 	#name{width:400px; text-transform: lowercase;}
