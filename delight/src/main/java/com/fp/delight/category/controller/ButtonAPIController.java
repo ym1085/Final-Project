@@ -1,4 +1,4 @@
-package com.fp.delight.index.controller;
+package com.fp.delight.category.controller;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -11,29 +11,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.fp.delight.api.ApiTest_Index;
 import com.fp.delight.performent.model.PerformentListVO;
 
-
 @Controller
-public class IndexController {
+@RequestMapping("/inc")
+public class ButtonAPIController {
 	private static final Logger logger
-		=LoggerFactory.getLogger(IndexController.class);
-	
-	@RequestMapping(value = "/index.do")
-	public String Index_get(Model model) {
-		logger.info("Index 화면 보여주기");
-    	
-    	try {
-    		ApiTest_Index apiTest = new ApiTest_Index();
-    		List<PerformentListVO> alist = apiTest.receiveAPI(); 
+	=LoggerFactory.getLogger(ButtonAPIController.class);
+
+	@RequestMapping(value = "/ButtonAPI.do")
+	public String buttonAPI_get(Model model) {
+		logger.info("ButtonAPI 화면 보여주기");
+		
+		try {
+			ApiTest_Index apiTest = new ApiTest_Index();
+			List<PerformentListVO> alist = apiTest.receiveAPI(); 
 			
 			model.addAttribute("alist", alist);
-    	} catch (MalformedURLException e) {
+		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
-		return "index";
-	}
-	
 		
+		return "ButtonAPI";
+	}
+
 }
