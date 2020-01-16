@@ -37,13 +37,18 @@
 	     <beans:property name="order" value="0" />
 	</beans:bean>	
 	
-		<interceptors>
+	<interceptors>
+	
+		<interceptor>
+			<mapping path="/member/edit.do"/> <!-- 적용할 뷰페이지1 -->
+			<beans:ref bean="loginInterceptor"/>  <!-- 로그인 인터셉터 파일명 맨앞소문자  -->
+		</interceptor>
+	
 		<interceptor>
 			<mapping path="/admin/**"/>
 			<exclude-mapping path="/admin/adminLogin.do"/>
 			<beans:ref bean="adminLoginInterceptor" />
 		</interceptor>	
-		
 		
 	</interceptors>
 	

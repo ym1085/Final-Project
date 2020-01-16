@@ -85,5 +85,10 @@ public class MemberServiceImpl implements MemberService{
 	public int updateLogOut(String userid) {
 		return memberDao.updateLogOut(userid);
 	}
+
+	@Override
+	public int updateMember(MemberVO memberVo) {
+		return memberDao.updateMember(memberVo);
+	}
 	
 }

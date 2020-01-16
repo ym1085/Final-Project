@@ -22,6 +22,13 @@
 		#{hp3}, #{zipcode}, #{address}, #{addressDetail}, #{gender}, #{mailAgreement}) <!--, #{mail_authen}-->
 	</insert>	
 	
+	<update id="updateMember" parameterType="memberVo">
+		update tbl_user
+		set email1=#{email1},email2=#{email2},zipcode=#{zipcode}, address=#{address},
+		address_Detail=#{addressDetail},mail_agreement=#{mailAgreement}
+		where userid=#{userid}
+	</update>
+	
 	<!-- 중복 체크 -->
 	<select id="selectDupUserid" parameterType="string" resultType="int">
 		select count(*) 
