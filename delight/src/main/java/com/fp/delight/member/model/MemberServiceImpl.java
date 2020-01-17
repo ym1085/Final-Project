@@ -98,5 +98,10 @@ public class MemberServiceImpl implements MemberService{
 	public List<Map<String, Object>> selectOut() {
 		return memberDao.selectOut();
 	}
+
+	@Override
+	public int withdrawMember(MemberVO memberVo) {
+		return memberDao.withdrawMember(memberVo);
+	}
 	
 }

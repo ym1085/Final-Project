@@ -65,6 +65,12 @@
 		select * from out_reason
 	</select>
 	
+	<update id="withdrawMember" parameterType="memberVo">
+		update tbl_user
+		set out_date=sysdate,out_reason_no=#{outReasonNo}
+		where userid=#{userid}
+	</update>
+	
 </mapper>
 
 
