@@ -190,4 +190,5 @@ public class MemberController {
 		model.addAttribute("list",list);
 		model.addAttribute("memberVo",memberVo);
 	}
+	
 }
