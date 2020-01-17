@@ -45,13 +45,14 @@ public class CkController {
 						String fileName = file.getName();
 						String fileOrginalName=file.getOriginalFilename();
 						byte[] bytes = file.getBytes();
-						String upPath = req.getServletContext().getRealPath("/img");
+						String upPath = req.getSession().getServletContext().getRealPath("img");
+						//String upPath = "D:/lecture/delight/delight2/delight/src/main/webapp/resources/img";
 
 						fileName = getUniqueFileName(fileOrginalName);
 						
-						int idx=fileName.lastIndexOf(".");
-						String fNamefolder=fileName.substring(0, idx);
-						upPath = upPath + "/"+fNamefolder;
+						//int idx=fileName.lastIndexOf(".");
+						//String fNamefolder=fileName.substring(0, idx);
+						//upPath = upPath + "/"+fNamefolder;
 						
 						File uploadFile = new File(upPath);
 						if(!uploadFile.exists()){
@@ -62,10 +63,10 @@ public class CkController {
 						out = new FileOutputStream(new File(upPath1));
                         out.write(bytes);
                         //8비트 배열 파일
-                        fileName = UUID.randomUUID().toString();
-						upPath = upPath + "/" +fileName;
-						out = new FileOutputStream(new File(upPath));
-                        out.write(bytes);
+                        //fileName = UUID.randomUUID().toString();
+						//upPath = upPath + "/" +fileName;
+						//out = new FileOutputStream(new File(upPath));
+                        //out.write(bytes);
 
                         
                         System.out.println("fileName="+fileName);
@@ -73,7 +74,8 @@ public class CkController {
                         
                         //String fName=new String(fileName.getBytes("euc-kr"),"8859_1");
                         System.out.println("fName="+fileName);
-                        String fileUrl = req.getContextPath() + "/img/"+fNamefolder +"/"+ fileName;
+                        //String fileUrl = req.getContextPath() + "/img/"+fNamefolder +"/"+ fileName;
+                        String fileUrl = req.getContextPath() + "/img/"+fileName;
                         System.out.println(fileUrl);
                         //<c:url value='/resources/ima/ddd.jpg'/>
                         // json 데이터로 등록
