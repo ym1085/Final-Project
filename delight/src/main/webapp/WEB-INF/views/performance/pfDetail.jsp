@@ -69,6 +69,7 @@
    .tabmenu ul li { line-height: 30px;}
 }
 </style>
+
 <script type="text/javascript" src="<c:url value ='/resources/js/jquery-3.4.1.min.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
@@ -174,6 +175,7 @@
 	         </select> 
 	         
 	         <button id="ticketing">예매하기></button>
+         	 
          </div>
       </div>
       </div>
