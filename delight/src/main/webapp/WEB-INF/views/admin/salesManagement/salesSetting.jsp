@@ -183,13 +183,13 @@ var ing="<tr><td colspan='4'>검색 중입니다. 잠시만 기다려주세요.<
 
 function openDetail(id){
 	window.open("/delight/admin/salesManagement/settingDetail.do?perfomid="+id,"detail",
-	"width=700,height=900,left=0,top=0,location=yes,resizable=yes");
+	"width=800,height=900,left=0,top=0,location=yes,resizable=yes");
 }
 
 
 function getList(){
 	$("tbody").find("tr").remove().end().append(ing);
-	
+	$("#pagediv").find("#pagedesk *").remove();
 	$.ajax({
 		url:"<c:url value='/admin/salesManagement/ticketsetting.do'/>",
 		type:"post",

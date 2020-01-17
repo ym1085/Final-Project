@@ -85,4 +85,9 @@ public class PerformanceController {
 		return "/performance/ptheaterdetail";
 	}
 	
+	@RequestMapping("/pfReservation.do")
+	public void Reservation() {
+		
+	}
+	
 }
