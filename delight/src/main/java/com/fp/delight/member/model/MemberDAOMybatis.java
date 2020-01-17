@@ -64,4 +64,9 @@ public class MemberDAOMybatis implements MemberDAO{
 		return sqlSession.selectList(namespace+"selectOut");
 	}
 
+	@Override
+	public int withdrawMember(MemberVO memberVo) {
+		return sqlSession.update(namespace+"withdrawMember",memberVo);
+	}
+
 }

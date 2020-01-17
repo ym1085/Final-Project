@@ -1,6 +1,9 @@
 package com.fp.delight.email;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -151,6 +154,48 @@ public class EmailController {
 		
 		
 		return key;
+	}
+	
+	@RequestMapping(value = "member/memberOut.do",method = RequestMethod.POST)
+	public String Out_post(@RequestParam int outReasonNo,HttpSession session,
+			HttpServletResponse response,Model model) {
+		String userid=(String)session.getAttribute("userid");
+		
+		MemberVO memberVo=memberService.selectMember(userid);
+		
+		memberVo.setOutReasonNo(outReasonNo);
+		
+		String msg="회원탈퇴중 문제발생",url="/member/memberOut.do";
+		int cnt=memberService.withdrawMember(memberVo);
+		if(cnt>0) {
+			String subject="안녕하세요 Delight입니다.";
+			String content=DM.dmWithdrawal(memberVo.getUsername());
+			String receiver=memberVo.getEmail1()+"@"+memberVo.getEmail2();
+			String sender="admin@herbmall.com";
+			
+			msg="이메일로 아이디 발송해드렸습니다.";
+			url="/login/login.do";
+			try {
+				emailSender.sendMail(subject, content, receiver, sender);
+				logger.info("이메일 발송 성공");
+			} catch (MessagingException e) {
+				logger.info("이메일 발송 실패!!");
+				e.printStackTrace();
+			}
+			
+			msg="회원탈퇴성공";
+			url="/index.do";
+			session.invalidate();
+			Cookie ck=new Cookie("ck_userid", userid);
+			ck.setPath("/");
+			ck.setMaxAge(0);
+			response.addCookie(ck);
+		}
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "common/message";
 	}
 	
 }

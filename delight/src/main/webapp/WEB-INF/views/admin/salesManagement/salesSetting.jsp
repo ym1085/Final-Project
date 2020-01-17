@@ -6,7 +6,8 @@
 <div class="content-wrapper">
 	<div id="frmdiv">
 		<form name="searchFrm">
-		<input type="text" value="1" name="curPage" id="curPage">
+		<input type="hidden" value="1" name="curPage" id="curPage">
+		<input type="hidden" value="0" name="totalP" id="totalP">
 		<span>장르</span>
 		<select id="type" name="type">
 			<option value="">장르 선택</option>
@@ -56,11 +57,19 @@
 			<div class="btn-group" role="group" id="pagedesk">
 				
 			</div>
-			<input type="text" id="blocksize" value="5">
-			<input type="text" id="firstpage">
-			<input type="text" id="lastpage" value="0">
 		</div>
 	</div>
+</div>
+<div id="variablebox">
+	<input type="hidden" id="blocksize" value="5">
+	<input type="hidden" id="firstpage">
+	<input type="hidden" id="lastpage" value="0">
+	<input type="hidden" id="stype">
+	<input type="hidden" id="ssido">
+	<input type="hidden" id="sgugun">
+	<input type="hidden" id="sstdate">
+	<input type="hidden" id="seddate">
+	<input type="hidden" id="sperfomName">
 </div>
 
 <%@include file="../inc/adminBottom.jsp" %>
@@ -139,76 +148,123 @@ $(function() {
 			$("#eddate").focus();
 			event.preventDefault();
 		}else{
-			//$("#curPage").val("1");
-			$.ajax({
-				url:"<c:url value='/admin/salesManagement/ticketsetting.do'/>",
-				type:"post",
-				data: /* type : $("#type option:selected").val(),
-					   sido : $("#sido option:selected").val(),
-					   gugun: $("#gugun option:selected").val(),
-					   stdate:$("#stdate").val(),
-					   eddate:$("#eddate").val(),
-					   perfomName:$("#perfomName").val() */
-					   $("form[name=searchFrm]").serialize(),
-					   
-				dataType:"json",
-				success:function(res){
-					var li=res.list;
-					var pageCount=res.cnt;
-					var str="";
-					$.each(li,function(idx,value){
-						str+="<tr><td><a href='<c:url value=""/>' >"+value.prfnm
-						+"</a></td><td>"+value.prfpdfrom
-						+"</td><td>"+value.prfpdto+"</td><td>"
-						+value.prfstate+"</td></tr>"
-					});
-					$("tbody").find("tr").remove().end().append(str);
-					
-					//paging
-					var cpage=$("#curPage").val();
-					var bsize=$("#blocksize").val();
-					var fpage=cpage-(cpage-1)%bsize;
-					$("#firstpage").val(fpage);
-					var lpage=fpage+(bsize-1);
-					if(lpage>pageCount){
-						lpage=pageCount;
-					}
-					$("#lastpage").val(lpage);
-					var pa="";
-					
-					//이전 블럭 버튼
-					if(fpage>1){
-						pa+="<button class='btn btn-social-icon btn-outline-youtube'> &lt;&lt;</button>";
-					}
-					
-					//페이지 번호
-						for(var i=fpage;i<=lpage;i++){
-							if(i==cpage){
-								pa+="<span class='btn btn-danger'>"+i+"</span>";
-							}else{
-								pa+="<button class='btn btn-danger'>"+i+"</button>";
-							}
-						}
-					
-					//다음 블럭 버튼
-					if(lpage<pageCount){
-						pa+="<button class='btn btn-social-icon btn-outline-youtube'> &gt;&gt;</button>";
-					}
-					
-					
-						$("#pagediv").find("#pagedesk *").remove();
-						$("#pagedesk").append(pa);
-
-				},
-				error:function(xhr, status, error){
-					alert("검색결과가 없습니다.");
-				}
-			});
+			$("#curPage").val("1");
+			$("#totalP").val("0");
+			getList();
 		}
 	});
 	
 	
 	
+	
 });
+
+function gopage(i){
+	if($("#stype").val()!=$("#type option:selected").val()){
+		alert("검색조건이 변경되었습니다. 다시 검색해주세요.");
+	}else if($("#ssido").val()!=$("#sido option:selected").val()){
+		alert("검색조건이 변경되었습니다. 다시 검색해주세요.");
+	}else if($("#sgugun").val()!=$("#gugun option:selected").val()){
+		alert("검색조건이 변경되었습니다. 다시 검색해주세요.");
+	}else if($("#sstdate").val()!=$("#stdate").val()){
+		alert("검색조건이 변경되었습니다. 다시 검색해주세요.");
+	}else if($("#seddate").val()!=$("#eddate").val()){
+		alert("검색조건이 변경되었습니다. 다시 검색해주세요.");
+	}else if($("#sperfomName").val()!=$("#perfomName").val()){
+		alert("검색조건이 변경되었습니다. 다시 검색해주세요.");
+	}else{
+		
+		$("#curPage").val(i);
+		getList();
+	}
+}
+
+var ing="<tr><td colspan='4'>검색 중입니다. 잠시만 기다려주세요.</td></tr>";
+
+function openDetail(id){
+	window.open("/delight/admin/salesManagement/settingDetail.do?perfomid="+id,"detail",
+	"width=700,height=900,left=0,top=0,location=yes,resizable=yes");
+}
+
+
+function getList(){
+	$("tbody").find("tr").remove().end().append(ing);
+	
+	$.ajax({
+		url:"<c:url value='/admin/salesManagement/ticketsetting.do'/>",
+		type:"post",
+		data: /* type : $("#type option:selected").val(),
+			   sido : $("#sido option:selected").val(),
+			   gugun: $("#gugun option:selected").val(),
+			   stdate:$("#stdate").val(),
+			   eddate:$("#eddate").val(),
+			   perfomName:$("#perfomName").val() */
+			   $("form[name=searchFrm]").serialize(),
+			   
+		dataType:"json",
+		success:function(res){
+			var li=res.list;
+			var pageCount=res.cnt;
+			$("#totalP").val(pageCount);
+			var str="";
+
+			$.each(li,function(idx,value){
+				str+="<tr><td><a href='#' onclick=openDetail('"+value.mt20id+"') >"+value.prfnm
+				+"</a></td><td>"+value.prfpdfrom
+				+"</td><td>"+value.prfpdto+"</td><td>"
+				+value.prfstate+"</td></tr>"
+			});
+			$("tbody").find("tr").remove().end().append(str);
+			
+			//paging
+			var cpage=$("#curPage").val();
+			var bsize=$("#blocksize").val();
+			var fpage=cpage-(cpage-1)%bsize;
+			$("#firstpage").val(fpage);
+			var lpage=fpage+(bsize-1);
+			if(lpage>pageCount){
+				lpage=pageCount;
+			}
+			$("#lastpage").val(lpage);
+			var pa="";
+			
+			//이전 블럭 버튼
+			if(fpage>1){
+				pa+="<button class='btn btn-social-icon btn-outline-youtube' onclick=gopage("+(fpage-1)+")> &lt;&lt;</button>";
+			}
+			
+			//페이지 번호
+				for(var i=fpage;i<=lpage;i++){
+					if(i==cpage){
+						pa+="<span class='btn btn-success'>"+i+"</span>";
+					}else{
+						pa+="<input type='button' value='"+i+"' class='btn btn-danger pgo' onclick=gopage("+i+")>";
+					}
+				}
+			
+			//다음 블럭 버튼
+			if(lpage<pageCount){
+				pa+="<button class='btn btn-social-icon btn-outline-youtube' onclick=gopage("+(lpage+1)+")> &gt;&gt;</button>";
+			}
+				
+			
+				$("#stype").val($("#type option:selected").val());
+				$("#ssido").val($("#sido option:selected").val());
+				$("#sgugun").val($("#gugun option:selected").val());
+				$("#sstdate").val($("#stdate").val());
+				$("#seddate").val($("#eddate").val());
+				$("#sperfomName").val($("#perfomName").val());
+			
+				$("#pagediv").find("#pagedesk *").remove();
+				$("#pagedesk").append(pa);
+
+		},
+		error:function(xhr, status, error){
+			//alert("검색결과가 없습니다.");
+			var er="<tr><td colspan='4'>검색 조건 결과가 없습니다.</td></tr>";
+			$("tbody").find("tr").remove().end().append(er);
+		}
+	});//ajax 끝
+}
 
 </script>

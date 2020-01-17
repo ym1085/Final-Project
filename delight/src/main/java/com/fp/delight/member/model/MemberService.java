@@ -25,4 +25,5 @@ public interface MemberService {
 	int updateLogOut(String userid);
 	int updateMember(MemberVO memberVo);
 	List<Map<String, Object>> selectOut();
+	int withdrawMember(MemberVO memberVo);
 }	
