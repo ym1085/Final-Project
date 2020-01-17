@@ -34,6 +34,7 @@
 	background-size: cover;
 }
 </style>
+
 </head>
 <body style="background: white;">
 		<!-- 라이트바 건들지마시오 -->
