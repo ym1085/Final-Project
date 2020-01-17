@@ -141,76 +141,82 @@
    <!-- 페이지 만들떄마다 복붙 -->
    <!-- div안에서작업 그외엔 건들지말것 -->
    <div style="width: 87%;float: right;" class="pfdetail">
-      
-      <!----------구분---------->
-      <h1 id="performtitle">공연 제목 영역</h1><br><hr>
-      <div class="top1">
-      <!-- 이미지는 디자인 때문에 넣어놨음  --><!-- API사용 뿌려줄거임  -->
-      <img alt="포스터 이미지 보여주기" src="<c:url value='/resources/images/perform2.jpg' />"> 
-                                                                           
-      <div class="top2">
-         <label id="performplace">공연장소</label>
-         <span id="performplace">김포아트홀 기본 공연장</span>
-         <br>
-         
-         <label id="performterm">공연기간</label>
-         <span id="performterm">2020.01.17</span>~<span>2020.01.27</span>
-         <br>
-         
-         <label id="limitage">입장연령</label>
-         <span id = "limitage">전체관람가</span>
-         <br>
-         
-         <label id="performtime">관람시간</label>
-         <span id="performtime">120분</span>
-         <br>
-         
-         <label id="performtype">장 르</label>
-         <span id="performtype" class = "type">연 극</span>
-         <br>
-         
-         <label id="ticketprice">티켓가격</label>
-         <span id = "ticketprice">전석 30,000원</span>
-         <br>
-         
-         <!-- 홈으로 -->
-         <div id="home">
-            <a href = "<c:url value = '/index.do'/>">
-               <img src="<c:url value ='/resources/images/home2.png'/>">
-            </a>
-         </div>
-         
-         <!-- 좋아요 -->
-         <div id="like">
-            <a href = "<c:url value= '#'/>">
-               <img src="<c:url value ='/resources/images/like.png'/>">
-            </a>
-         </div>
-         
-         <!-- 좋아요 개수 -->
-         <div id="likecount">
-            <div>1000</div>
-         </div>
-         
-         <div id = "calandar">
-	         <div id="calandarSub">
-	      		<h6>예매가능 공연 일자</h6>   
-	         	<span id="dateWhile">2020.03.14 ~ 2020.04.19</span>
+	  <c:if test="${empty map2}">
+	  	  <span style="color: red;font-weight: bold;">데이터가 존재하지 않습니다.</span>
+	  </c:if>
+	  
+	  <c:if test="${!empty map2}">
+		      <h1 id="performtitle">공연 제목 영역</h1><br><hr>
+		      <div class="top1">
+		      <!-- 이미지는 디자인 때문에 넣어놨음  --><!-- API사용 뿌려줄거임  -->
+		      <img alt="공연이미지" src="${map2['poster'] }">
+		                                                                           
+		      <div class="top2">
+		         <label id="performplace">공연장소</label>
+		         <span id="performplace">${map2['fcltynm'] }</span>
+		         <br>
+		         
+		         <label id="performterm">공연기간</label>
+		         <span id="performterm">${map2['prfpdfrom'] }</span>~<span>${map2['prfpdto'] }</span>
+		         <br>
+		         
+		         <label id="limitage">입장연령</label>
+		         <span id = "limitage">${map2['prfage'] }</span>
+		         <br>
+		         
+		         <label id="performtime">관람시간</label>
+		         <span id="performtime">${map2['prfruntime'] }</span>
+		         <br>
+		         
+		         <label id="performtype">장 르</label>
+		         <span id="performtype" class = "type">${map2['genrenm'] }</span>
+		         <br>
+		         
+		         <label id="ticketprice">티켓가격</label>
+		         <span id = "ticketprice">${map2['pcseguidance'] }</span>
+		         <br>
+	         <!-- 반복 끝 -->
+		
+		
+	         <!-- 홈으로 -->
+	         <div id="home">
+	            <a href = "<c:url value = '/index.do'/>">
+	               <img src="<c:url value ='/resources/images/home2.png'/>">
+	            </a>
 	         </div>
-	         <select id="selectDate" size="10" style="width: 200px">
-	         	<!-- 반복시작 -->
-	         	<option value="1">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
-	         	<option value="2">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
-	         	<option value="3">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
-	         	<!-- 반복 끝 -->
-	         </select> 
 	         
-	         <button id="ticketing">예매하기></button>
-         	 
-         </div>
-      </div>
-      </div>
-   </div>      
+	         <!-- 좋아요 -->
+	         <div id="like">
+	            <a href = "<c:url value= '#'/>">
+	               <img src="<c:url value ='/resources/images/like.png'/>">
+	            </a>
+	         </div>
+	         
+	         <!-- 좋아요 개수 -->
+	         <div id="likecount">
+	            <div>1000</div>
+	         </div>
+	         
+	         <div id = "calandar">
+		         <div id="calandarSub">
+		      		<h6>예매가능 공연 일자</h6>   
+		         	<span id="dateWhile">2020.03.14 ~ 2020.04.19</span>
+		         </div>
+		         <select id="selectDate" size="10" style="width: 200px">
+		         	<!-- 반복시작 -->
+		         	<option value="1">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
+		         	<option value="2">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
+		         	<option value="3">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
+		         	<!-- 반복 끝 -->
+		         </select> 
+		         
+		         <button id="ticketing">예매하기></button>
+	         </div>
+	      </div>
+	      </div>
+   </c:if>  
+</div>      
+   
    
    <div style="width: 87%;float: right;" class="pfdetail">
       <div class="body">
@@ -301,13 +307,15 @@
                         <!-- 공연 API_(dtguidance) -->
                          <span class="performtimesub">
                      		<img class="performtit" src="<c:url value='/resources/images/clock.png'/>">
-                                                                화요일 ~ 금요일(20:00), 토요일(16:00,19:00), 일요일(15:00,18:00)
+                            	${map2['dtguidance'] }                                 
                          </span>
                      </div><br>
                      
                      <h2>포스터</h2>
                      <div>
-                        <img id="mainposter" alt="포스터 보여주기" src="<c:url value = '/resources/images/theater.png'/>">
+                        <c:forEach var="list" items="${arr}">
+  	                      	<img id="mainposter" alt="포스터 보여주기" src="#">
+                        </c:forEach> 
                      </div><br>
                      
                      <!-- Map이든, list든 똑같이 뿌려주시면 됩니다.  -->
@@ -325,19 +333,20 @@
                            <tbody>
                               <tr>
                                  <th>주최</th>
-                                 <td>하남예술회관</td>
+                                 <td>${map2['entrpsnm'] }</td>
                               </tr>
                               <tr>
+                                 <!-- IF -->
                                  <th>등장인물</th>
-                                 <td>김영민,정주리,유재석</td>
+                                 <td>${map2['prfcast'] }</td>
                               </tr>
                               <tr>
                                  <th>관람등급</th>
-                                 <td>18세이상</td>
+                                 <td>${map2['prfage'] }</td>	
                               </tr>
                               <tr>
                                  <th>장소</th>
-                                 <td>하남예술회관</td>
+                                 <td>${map2['fcltynm'] }</td>	
                               </tr>
                            </tbody>
                         </table>

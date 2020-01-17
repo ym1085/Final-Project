@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.json.JSONArray;
@@ -60,6 +59,7 @@ public class AdminPerfomAPI {
 				Object xm=xmlJSONObj.getJSONObject("dbs").get("db");
 				if(xm instanceof JSONArray) {
 					JSONArray jsonarr=xmlJSONObj.getJSONObject("dbs").getJSONArray("db");
+					
 					if(pageCount==0) {
 						pageCount=pageCount(type, sido, gugun, stdate, eddate, perfomName);
 					}
@@ -69,6 +69,7 @@ public class AdminPerfomAPI {
 				}else if(xm instanceof JSONObject) {
 					JSONObject json=xmlJSONObj.getJSONObject("dbs").getJSONObject("db");
 					list2.add((PerformentListVO) mapper.readValue(json.toString(), new TypeReference<PerformentListVO>() {}));
+					
 					if(pageCount==0) {
 						pageCount=pageCount(type, sido, gugun, stdate, eddate, perfomName);
 					}
