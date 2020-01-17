@@ -11,9 +11,10 @@ public class PerformentController {
 	private final Logger logger
 		= LoggerFactory.getLogger(PerformentController.class);
 
-	@RequestMapping("pfDetail.do")
-	public void performentList() {
+	@RequestMapping("/pfdetail.do")
+	public String performentList() {
 		logger.info("공연 API, 공연목록 데이터 출력!");
 	
+		return "performance/pfDetail";
 	}
 }
