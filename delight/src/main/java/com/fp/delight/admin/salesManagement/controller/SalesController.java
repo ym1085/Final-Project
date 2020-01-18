@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.admin.perfom.AdminCommon;
 import com.fp.delight.admin.perfom.AdminPerfomAPI;
+import com.fp.delight.admin.salesManagement.Model.TicketSettingService;
+import com.fp.delight.admin.salesManagement.Model.TicketSettingVO;
 import com.fp.delight.performent.model.PerformentListVO;
 
 @Controller
@@ -29,6 +32,9 @@ public class SalesController {
 	public void salesSetting() {
 		logger.info("판매 표 수량 설정 페이지 보이기");
 	}
+	
+	@Autowired
+	private TicketSettingService ticketSettingService;
 	
 	@RequestMapping("/ticketsetting.do")
 	@ResponseBody
@@ -105,32 +111,152 @@ public class SalesController {
 		logger.info("좌석={}",seat);
 		AdminCommon adminCommon=new AdminCommon();
 		String[] dateArr=seldate.split("-");
-		Date d=new Date(Integer.parseInt(dateArr[0]),Integer.parseInt(dateArr[1])
-				, Integer.parseInt(dateArr[2]));
+		Date d=new Date(Integer.parseInt(dateArr[0]),Integer.parseInt(dateArr[1])-1
+				, Integer.parseInt(dateArr[2])-1);
+		logger.info("받아온 날짜 date 출력={}",d);
 		int dow=d.getDay(); //선택된 날의 요일
+		logger.info("선택된 날의 요일={}",dow);
 		int okidx=0;
-		String[] dayhourArr=dayhour.split(", ");
+		Map<String, Object> map=new HashMap<String, Object>();
 		
-		for(int i=0;i<dayhourArr.length;i++) {
-			String dh=dayhourArr[i];
-			if(dh.indexOf(" ~ ")!=-1) {
-				String temp=dh.substring(0, dh.indexOf("("));
-				int res=adminCommon.getDayofWeek(temp);
-				if(res==dow) {
-					okidx=i;
-					break;
-				}
-			}else {
-				String temp=dh.substring(0, dh.indexOf("("));
-				String[] tmp=temp.split(" ~ ");
-				int[] res=adminCommon.getdoubledow(tmp);
-				if(res[0]>res[1]) {
+		if(dayhour.indexOf(", ")!=-1) {
+			String[] dayhourArr=dayhour.split(", ");
+			
+			for(int i=0;i<dayhourArr.length;i++) {
+				String dh=dayhourArr[i];
+				if(dh.indexOf(" ~ ")!=-1) {
+					String temp=dh.substring(0, dh.indexOf("("));
+					String[] tmp=temp.split(" ~ ");
+					int[] res=adminCommon.getdoubledow(tmp);
+					if(res[0]>res[1]) {
+						if(res[1]==0) {
+							if((res[0]<=dow && dow<=6)||dow==0) {
+								okidx=i;
+								break;
+							}
+						}else {
+							logger.info("이경우는 잠깐 여기서 다시 생각좀");
+						}
+					}else {
+						if(dow>=res[0] && dow<=res[1]) {
+							okidx=i;
+							break;
+						}
+					}
+				}else {
+					String temp=dh.substring(0, dh.indexOf("("));
+					int res=adminCommon.getDayofWeek(temp);
+					if(res==dow) {
+						okidx=i;
+						break;
+					}
 					
 				}
+			}//for
+			
+			logger.info("선택된 날에 걸린 인덱스 idx={}",okidx);
+			
+			String sel=dayhourArr[okidx].substring(dayhourArr[okidx].indexOf("(")+1, dayhourArr[okidx].lastIndexOf(")"));
+			
+			
+			
+			if(sel.indexOf(",")!=-1) {
+				String[] hour=sel.split(",");
+				map.put("hour", hour);
+				map.put("result", 1);
+			}else {
+				String hour=sel;
+				map.put("hour", hour);
+				map.put("result", 0);	
 			}
 			
+		}else {
+			String temp=dayhour.substring(0, dayhour.indexOf("("));
+			if(temp.indexOf(" ~ ")!=-1) {
+				String[] arr=temp.split(" ~ ");
+				int[] qq=adminCommon.getdoubledow(arr);
+				if(qq[0]>qq[1]) {
+					if(qq[1]==0) {
+						if((qq[0]<=dow && dow<=6)||dow==0) {
+							String aa=temp.substring(temp.indexOf("(")+1, temp.lastIndexOf(")"));
+							if(aa.indexOf(",")!=-1) {
+								String[] hour=aa.split(",");
+								map.put("hour", hour);
+								map.put("result", 1);
+							}else {
+								String hour=aa;
+								map.put("hour", hour);
+								map.put("result", 0);
+							}
+						}
+					}else {
+						if(qq[0]<=dow && dow<=qq[1]) {
+							String aa=temp.substring(temp.indexOf("(")+1, temp.lastIndexOf(")"));
+							if(aa.indexOf(",")!=-1) {
+								String[] hour=aa.split(",");
+								map.put("hour", hour);
+								map.put("result", 1);
+							}else {
+								String hour=aa;
+								map.put("hour", hour);
+								map.put("result", 0);
+							}
+						}
+					}
+				}
+			}
+		}//if~ else(요일 시간 구하기 끝)
+		
+		if(seat.indexOf(", ")!=-1) {
+			String[] seatprice=seat.split(", ");
+			map.put("seatprice", seatprice);
+			map.put("seatresult", 1);
+		}else {
+			map.put("seatprice", seat);
+			map.put("seatresult", 0);
 		}
 		
-		return null;
+		return map;
 	}
+	
+	@RequestMapping("/insertticket.do")
+	@ResponseBody
+	public int insertticket(@RequestParam String seldate,@RequestParam String selhour,
+			@RequestParam String selseat,@RequestParam int ticketNum,
+			@RequestParam String mt20id,@RequestParam String prfnm) {
+		logger.info("표 수량 등록 파라미터 선택날짜={},선택시간={}",seldate,selhour);
+		logger.info("선택 좌석,정가={},정한 표수={}",selseat,ticketNum);
+		logger.info("공연 id={},공연명={}",mt20id,prfnm);
+		TicketSettingVO vo=new TicketSettingVO();
+		logger.info("세팅 전 vo={}",vo);
+		vo.setMt20id(mt20id);
+		vo.setPrfdate(seldate);
+		vo.setPrfhour(selhour);
+		vo.setSellticket(ticketNum);
+		vo.setSellclass(selseat.substring(0, selseat.indexOf("석")+1));
+		String price="";
+		int netprice=0;
+		if(selseat.indexOf(") ")!=-1) {  // ') '를 가지고 있음
+			price=selseat.substring(selseat.indexOf(") ")+2,selseat.lastIndexOf("원"));
+			price=price.replace(",", "");
+			netprice=Integer.parseInt(price);
+		}else {
+			price=selseat.substring(selseat.indexOf("석 ")+2,selseat.lastIndexOf("원"));
+			price=price.replace(",", "");
+			netprice=Integer.parseInt(price);
+		}
+			
+		vo.setNetprice(netprice);
+		vo.setPrfnm(prfnm);
+		logger.info("세팅 후 vo={}",vo);
+		
+		int cnt=ticketSettingService.insertticket(vo);
+		
+		
+		return cnt;
+		
+	}
+	
+	
+	
 }
