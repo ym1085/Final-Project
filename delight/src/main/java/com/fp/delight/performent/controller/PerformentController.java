@@ -1,17 +1,14 @@
-
 package com.fp.delight.performent.controller;
 
 import java.util.List;
 import java.util.Map;
-
+import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.fp.delight.performent.model.PerformentListVO;
 
 ///performance/pfDetail.do?mt20id=${vo.mt20id }'/>">
@@ -56,13 +53,26 @@ public class PerformentController {
 		}
 		return "performance/pfDetail";
 	}
-	
+
 	//결제진행창 보여주기
-	@RequestMapping(value = "/pfReservation.do", method = RequestMethod.GET)
-	public String showReservation() {
-		logger.info("결제진행화면 보여주기");
+	@RequestMapping("/pfReservation.do")
+	public String showReservation(@RequestParam String perfomid, HttpSession session,
+			Model model) {
+		String userid = (String)session.getAttribute("userid");
+		logger.info("결제 진행 화면 보여주기 위한 파라미터 perfomid={} userid={}", perfomid, userid);
 		
+		if(userid!=null && !userid.isEmpty() && perfomid!=null && !perfomid.isEmpty()) {
+			PerformentAPI perform = new PerformentAPI();
+			Map<String, Object> map = perform.performDetail(perfomid);
+			logger.info("결제진행 정보 데이터 뿌리기, map={} ", map);
+			
+			model.addAttribute("userid", userid);
+			model.addAttribute("map_pay",map);
+		}
+		
+		//결제 진행창으로 -> 유저아이디, 공연 상세정보 return. 
 		return "performance/pfReservation";
 	}
+	
 }
 
