@@ -25,6 +25,14 @@ public class MemberVO {
 	private int outReasonNo;
 	private int gradeSeq;
 	private String gradeName;
+	private String SALT;
+	
+	public String getSALT() {
+		return SALT;
+	}
+	public void setSALT(String sALT) {
+		SALT = sALT;
+	}
 	public String getUserid() {
 		return userid;
 	}
@@ -157,6 +165,7 @@ public class MemberVO {
 	public void setGradeName(String gradeName) {
 		this.gradeName = gradeName;
 	}
+	
 	@Override
 	public String toString() {
 		return "MemberVO [userid=" + userid + ", username=" + username + ", password=" + password + ", birth=" + birth
@@ -164,7 +173,8 @@ public class MemberVO {
 				+ ", zipcode=" + zipcode + ", address=" + address + ", addressDetail=" + addressDetail + ", gender="
 				+ gender + ", mailAgreement=" + mailAgreement + ", mailAuthen=" + mailAuthen + ", mileagePoint="
 				+ mileagePoint + ", logoutDate=" + logoutDate + ", joinDate=" + joinDate + ", outDate=" + outDate
-				+ ", outReasonNo=" + outReasonNo + ", gradeSeq=" + gradeSeq + ", gradeName=" + gradeName + "]";
+				+ ", outReasonNo=" + outReasonNo + ", gradeSeq=" + gradeSeq + ", gradeName=" + gradeName + ", SALT="
+				+ SALT + "]";
 	}
 
 	

@@ -51,8 +51,58 @@
 				settingdate(dateText);
 			}	
 		});
+		
+		$("#submit").click(function(){
+			if($("#seldate").val()==''){
+				alert("날짜를 선택해주시기 바랍니다.");
+				$("#seldate").focus();
+			}else if($("#selhour").val()==''){
+				alert("시간을 선택해주시기 바랍니다.");
+				$("#selhour").focus();
+			}else if($("#selseat").val()==''){
+				alert("좌석을 선택해주시기 바랍니다.");
+				$("#selseat").focus();
+			}else if($("#ticketNum").val()==''){
+				alert("티켓수를 정해주시기 바랍니다.");
+				$("#ticketNum").focus();
+			}else{
+				
+				insert();
+			}
+		});
+		
 
 	});
+	
+	function insert(){
+		$.ajax({
+			url:"<c:url value='/admin/salesManagement/insertticket.do'/>",
+			type:"post",
+			data:{
+				"seldate":$("#seldate").val(),
+				"selhour":$("#selhour").val(),
+				"selseat":$("#selseat").val(),
+				"ticketNum":$("#ticketNum").val(),
+				"mt20id":$("#mt20id").val(),
+				"prfnm":$("#prfnm").val()
+			},
+			success:function(res){
+				if(res=1){
+					alert("판매 표 등록완료!!");
+					self.close();
+					
+				}else{
+					alert("등록중 오류 발생");
+				}
+			},
+			error:function(xhr,status,error){
+				alert("Error : "+status+", "+error);
+			}
+		});
+		
+		
+	}
+	
 	
 	function settingdate(d){
 		var dayhour="${map['dtguidance'] }"
@@ -65,7 +115,35 @@
 					"seat":seat},
 			dataType:"json",
 			success:function(res){
-				alert(res);
+				//alert(res);
+				var r1=res.result;
+				var r2=res.seatresult;
+				var str="<option value=''>선택</option>";
+				if(r1==0){
+					var hour=res.hour;
+					str+="<option value='"+hour+"'>"+hour+"</option>";
+					$("#selhour").find("option").remove().end().append(str);
+				}else if(r1==1){
+					var hour=res.hour;
+					
+					$.each(hour,function(idx,value){
+						str+="<option value='"+value+"'>"+value+"</option>";
+					});
+					
+					$("#selhour").find("option").remove().end().append(str);
+				}
+				var str2="<option value=''>선택</option>";
+				if(r2==0){
+					var price=res.seatprice;
+					str2+="<option value='"+price+"'>"+price+"</option>";
+					$("#selseat").find("option").remove().end().append(str2);
+				}else if(r2==1){
+					var price=res.seatprice;
+					$.each(price,function(idx,value){
+						str2+="<option value='"+value+"'>"+value+"</option>";
+					});
+						$("#selseat").find("option").remove().end().append(str2);
+				}
 			},
 			error:function(xhr,status,error){
 				alert("Error : "+status+", "+error);
@@ -101,15 +179,15 @@
 	</div>
 	
 	<div class="content-wrapper" id="settingfrmdiv">
-	<form action="">
+	<form name="frm" action="" method="post">
 	<div>
 		<label>날짜 선택</label>
-		<input type="text" id="seldate">
+		<input type="text" id="seldate" name="seldate">
 	</div>
 	
 	<div>
 		<label>시간</label>
-		<select id="selhour">
+		<select id="selhour" name="selhour">
 			<option value="">선택</option>
 		</select>
 	</div>
@@ -117,18 +195,20 @@
 	
 	<div>
 		<label>좌석등급</label>
-		<select id="selseat" name="">
+		<select id="selseat" name="selseat">
 			<option value="">선택</option>
 		</select>
 	</div>
 	
 	<div>
 		<label>표 수량</label>
-		<input type="number" value="0" min="0" max="100" >
+		<input type="number" min="0" max="100" name="ticketNum" id="ticketNum">
 	</div>
 	<br>
+	<input type="hidden" value="${map['mt20id'] }" id="mt20id" name="mt20id">
+	<input type="hidden" value="${map['prfnm'] }" id="prfnm" name="prfnm"> 
 	<div class="text-center">
-		<input type="button" value="등록" class="btn btn-gradient-success btn-rounded btn-fw">
+		<input type="button" value="등록" class="btn btn-gradient-success btn-rounded btn-fw" id="submit">
 	</div>
 	
 	</form>

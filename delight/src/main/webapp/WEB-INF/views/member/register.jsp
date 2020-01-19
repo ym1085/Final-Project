@@ -86,7 +86,7 @@
         		}else{
         			if($("#emailCh").val()==key){
         				alert("인증완료");
-        				$("#chkEmail").val("Y");
+        				$("#mailAuthen").val("Y");
     	    			clearInterval(timerId);
     	            	$("#output").hide();
     	            	$output.text("01:00초");
@@ -100,10 +100,44 @@
         			}
         		}
     		}
-    		   
     	   });
     	  
-        });
+    	   
+		$("#userid").keyup(function(){
+			if(validate_userid($(this).val())
+					&& $(this).val().length>=2){
+				
+				$.ajax({
+					url:"<c:url value='/member/checkUserId.do'/>",
+					type:"post",
+					data:{"userid":$(this).val()},
+					dataType:"json",
+					success:function(res){
+						//alert(res);	
+						var str="";
+						if(res){
+							str="사용 가능한 아이디입니다.";
+							$("#chkId").val("Y");
+						}else{
+							str="이미 등록된 아이디 입니다!";
+							$("#chkId").val("N");
+						}
+						$("#checkError").html(str);
+						$("#checkError").show();
+					},
+					error:function(xhr, status, error){
+						alert("Error : " + status +"=>"+ error);
+					}
+				});
+				
+			}else {
+				$("#checkError").html("아이디 규칙에 맞지 않습니다.");
+				$("#checkError").show(); 
+				$("chkId").val("N");
+			}
+		});    	   
+   
+});
 
 </script>
 
@@ -139,6 +173,7 @@
 	table.ui-datepicker-calendar {margin-left: 18px;}
 	li.check_li {position: absolute;top: 23em;}
 	li.check_li2{position: absolute;top: 31.7em;}
+	span#checkError {margin-left: 247px;}
 </style>
 
 <!--style_sheet-->
@@ -183,14 +218,14 @@
 				<span class="w3ls-name">
 					<input type="text" name="userid" id = "userid" 
 						placeholder="아이디를 입력하세요.." maxlength="15"/>
-					<input class="price" type="button" value="중복확인" id="btnChkId" 
-						 oninvalid="this.setCustomValidity('아이디는 반드시 입력되어야 합니다!')" required>
+						
+					<!-- <input class="price" type="button" value="중복확인" id="btnChkId" 
+						 oninvalid="this.setCustomValidity('아이디는 반드시 입력되어야 합니다!')" required> -->
 				</span>
+				
 				<li class="check_li">
-					<span class = "w3ls-name" id="accordanceId" stlye="color:red">
-						아이디는 영문대소문자,숫자로 시작하는 문자열만 가능합니다!
-					</span> 
-				</li>
+					<span id="checkError"></span>
+				</li> 
 			</li>
 			
 			<!-- pwd -->
@@ -306,7 +341,7 @@
 	
 	<!-- 중복/이메일 인증 -->
 	<input type="hidden" name="chkId" id="chkId" value="N">			<!-- 중복확인 -->
-	<input type="hidden" name="chkEmail" id="chkEmail" value="N">	<!-- email인증 -->
+	<input type="hidden" name="mailAuthen" id="mailAuthen" value="N">	<!-- email인증 -->
 </form>
 </div>
 </div>
