@@ -14,6 +14,56 @@
 				#{sellticket},#{sellclass},#{netprice},#{prfnm})
 	</insert>
 	
+	<sql id="searchWhere">
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			where ${searchCondition} like '%' || #{searchKeyword} || '%'
+		</if>
+	</sql>
+	
+	<select id="selticket" resultType="map" parameterType="searchVo">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from 
+		    (	
+		    	select t.*,
+				(select count(*) from TBL_DISCOUNT d where d.TICKET_SEQ=t.ticket_seq) "count"
+				from TBL_TICKET t 
+				<include refid="searchWhere"></include>
+				order by ticket_seq desc
+		    ) A
+		) where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+		
+	</select>
+	
+	<select id="settingtotal" resultType="int" parameterType="searchVo">
+		select count(*)
+		from TBL_TICKET t 
+		<include refid="searchWhere"></include>
+		order by ticket_seq desc
+	</select>
+	
+	<select id="seldiscountByseq" parameterType="int" resultType="ticketDiscountVo">
+		select * from TBL_DISCOUNT where ticket_seq= #{ticketSeq}
+	</select>
+	
+	<insert id="discountInsert" parameterType="ticketDiscountVo">
+		<selectKey keyProperty="discountSeq" resultType="int" order="BEFORE">
+			select discount_seq.nextval from dual
+		</selectKey>
+		insert into TBL_DISCOUNT 
+		values(#{discountSeq},#{detail},#{percent},#{ticketSeq})
+	</insert>
+	
+	<update id="discountUpdate" parameterType="ticketDiscountVo">
+		update tbl_discount 
+		set detail=#{detail} , percent=#{percent} where ticket_seq=#{ticketSeq}
+	</update>
+	
 </mapper>
 
 

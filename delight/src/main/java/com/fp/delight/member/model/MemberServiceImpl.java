@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fp.delight.common.SHA256Util;
+
 @Service
 public class MemberServiceImpl implements MemberService{
 	
@@ -14,7 +16,12 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int loginCheck(String userid, String password) {
+		
+		String salt=memberDao.getSaltById(userid);
+		password=SHA256Util.getEncrypt(password, salt);
+		
 		String dbPwd=memberDao.selectPwd(userid);
+		
 		int result=0;
 		
 		if(dbPwd==null || dbPwd.isEmpty()) {
@@ -51,6 +58,14 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int insertMember(MemberVO memberVo) {
+		
+		String salt= SHA256Util.generateSalt();
+		memberVo.setSALT(salt);
+		
+		String password=memberVo.getPassword();
+		password= SHA256Util.getEncrypt(password, salt);
+		
+		memberVo.setPassword(password);
 		return memberDao.insertMember(memberVo);
 	}
 
@@ -103,5 +118,5 @@ public class MemberServiceImpl implements MemberService{
 	public int withdrawMember(MemberVO memberVo) {
 		return memberDao.withdrawMember(memberVo);
 	}
-	
+
 }

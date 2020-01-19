@@ -26,12 +26,12 @@ $(function(){
 	
 	
 	//중복확인 버튼 클릭- 아이디 중복확인 창 띄우기
-	$("#btnChkId").click(function(){
+	/*$("#btnChkId").click(function(){
 		var userid=$("#userid").val();
 		
 		window.open(ctx+"/member/checkUserid.do?userid="+userid,"아이디 중복 확인",
 			"width=450,height=300,left=450,top=350,location=yes,resizable=yes");
-	});
+	});*/
 	
 	
 	//비밀번호 중복 체크 
@@ -79,7 +79,7 @@ $(function(){
 	$("form[name=frm]").submit(function(){
 		if($("#chkId").val()=='N'){
 			alert("아이디 중복확인을 하세요(필수)");
-			$("#btnChkId").focus();
+			$("#userid").focus();
 			event.preventDefault();
 		}if($("#chkEmail").val()=='N'){
 			alert("이메일 인증 하세요!(필수)");

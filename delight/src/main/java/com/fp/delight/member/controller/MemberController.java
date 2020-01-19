@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.member.model.MemberService;
 import com.fp.delight.member.model.MemberVO;
+import com.fp.delight.performent.controller.PerformentAPI;
 
 @Controller
 @RequestMapping("/member")
@@ -90,25 +92,6 @@ public class MemberController {
 	@RequestMapping("/agreement.do")
 	public void agree_get() {
 		logger.info("회원 약관 동의 화면 보여주기");
-	}
-
-	@RequestMapping("/checkUserid.do")
-	public String checkUserid(@RequestParam(required = false) String userid,
-			Model model) {
-		logger.info("아이디 중복 확인 체크, 파라미터 userid={}", userid);
-	
-		int result = 0;
-		
-		if(userid!=null && !userid.isEmpty()) {
-			result = memberService.selectDupUserid(userid);
-			logger.info("아이디 중복확인 결과('0'=> 아이디 사용가능 '1'=> 아이디 중복), result={}", result);
-		}
-		
-		model.addAttribute("USEFUL_ID", MemberService.USEFUL_ID);
-		model.addAttribute("EXIST_ID", MemberService.EXIST_ID);
-		model.addAttribute("result", result);
-		
-		return "member/checkUserid";
 	}
 	
 	@RequestMapping(value = "/edit.do",method = RequestMethod.GET)
@@ -189,6 +172,35 @@ public class MemberController {
 		
 		model.addAttribute("list",list);
 		model.addAttribute("memberVo",memberVo);
+	}
+	
+	@RequestMapping("/checkUserId.do")
+	@ResponseBody
+	public boolean checkUserid(@RequestParam String userid,
+			Model model) {
+		logger.info("유저 아이디 중복체크, 아이디 userid={}", userid);
+		
+		int result = 0;
+		if(userid!=null && !userid.isEmpty()) {
+			result = memberService.selectDupUserid(userid);
+			logger.info("중복체크 결과 result={}", result);
+		}
+		
+		boolean bool = false;
+		if(result==MemberService.EXIST_ID) {
+			bool = false;	//아이디 존재
+		}else {
+			bool = true;	//아이디 사용 가능
+		}
+		
+		return bool;
+	}
+	
+	@RequestMapping("/myPage.do")
+	public String showMypage() {
+		logger.info("마이페이지 화면 보여주기");
+		
+		return "member/myPage.do";
 	}
 	
 }
