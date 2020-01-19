@@ -69,4 +69,9 @@ public class MemberDAOMybatis implements MemberDAO{
 		return sqlSession.update(namespace+"withdrawMember",memberVo);
 	}
 
+	@Override
+	public String getSaltById(String userid) {
+		return sqlSession.selectOne(namespace+"getSaltById",userid);
+	}
+
 }
