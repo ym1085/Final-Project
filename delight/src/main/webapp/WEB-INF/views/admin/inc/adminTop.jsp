@@ -160,7 +160,7 @@
 				  환불/결제내역 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/salesSetting.do'/>"> 
 				  판매수량 설정</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="#"> 
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/salesDiscount.do'/>"> 
 				  특별공연 할인</a></li>
                   <li class="nav-item"> <a class="nav-link" href="#"> 
 				  매출현황 </a></li>

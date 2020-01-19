@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.admin.perfom.AdminCommon;
 import com.fp.delight.admin.perfom.AdminPerfomAPI;
+import com.fp.delight.admin.salesManagement.Model.TicketDiscountVO;
 import com.fp.delight.admin.salesManagement.Model.TicketSettingService;
 import com.fp.delight.admin.salesManagement.Model.TicketSettingVO;
 import com.fp.delight.performent.model.PerformentListVO;
@@ -257,6 +258,14 @@ public class SalesController {
 		
 	}
 	
-	
-	
+	@RequestMapping("/salesDiscount.do")
+	public void salesDiscount(Model model) {
+		logger.info("특별 공연 할인 설정 페이지");
+		
+		List<Map<String, Object>> list=ticketSettingService.selticket();
+		
+		logger.info("검색 결과 list.size()={}",list.size());
+		
+		model.addAttribute("list", list);
+	}
 }

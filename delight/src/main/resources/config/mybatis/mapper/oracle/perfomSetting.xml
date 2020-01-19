@@ -14,6 +14,13 @@
 				#{sellticket},#{sellclass},#{netprice},#{prfnm})
 	</insert>
 	
+	<select id="selticket" resultType="map">
+		select t.*,
+		(select count(*) from TBL_DISCOUNT d where d.TICKET_SEQ=t.ticket_seq) "count"
+		from TBL_TICKET t order by ticket_seq desc
+	</select>
+	
+	
 </mapper>
 
 
