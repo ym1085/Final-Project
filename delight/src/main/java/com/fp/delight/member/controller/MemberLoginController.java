@@ -79,6 +79,7 @@ public class MemberLoginController {
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
 		String userid=(String)session.getAttribute("userid");
+		
 		int cnt=memberService.updateLogOut(userid);
 		if(cnt>0) {
 			session.removeAttribute("userid");
