@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fp.delight.performent.model.PerformentListVO;
@@ -54,6 +55,14 @@ public class PerformentController {
 			logger.info("추천 공연, map3={}", list);
 		}
 		return "performance/pfDetail";
+	}
+	
+	//결제진행창 보여주기
+	@RequestMapping(value = "/pfReservation.do", method = RequestMethod.GET)
+	public String showReservation() {
+		logger.info("결제진행화면 보여주기");
+		
+		return "performance/pfReservation";
 	}
 }
 

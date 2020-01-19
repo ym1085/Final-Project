@@ -195,4 +195,11 @@ public class MemberController {
 		return bool;
 	}
 	
+	@RequestMapping("/myPage.do")
+	public String showMypage() {
+		logger.info("마이페이지 화면 보여주기");
+	
+		return "member/myPage";
+	}
+	
 }

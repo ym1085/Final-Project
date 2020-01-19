@@ -72,7 +72,15 @@
                                     </li>
                                 </ul>
                             </div>
-                            <a href="<c:url value='/login/login.do'/>" class="btn_1 d-none d-lg-block" style="background-color: rgb(3, 169, 244);">로그인</a>
+                            	<c:if test="${!empty sessionScope.userid }">
+									<a href="<c:url value='/login/logout.do'/>" 
+		                            	class="btn_1 d-none d-lg-block" style="background-color: rgb(3, 169, 244);">로그아웃</a>
+								</c:if>
+                            
+                            	<c:if test="${empty sessionScope.userid }">
+		                            <a href="<c:url value='/login/login.do'/>" 
+		                            	class="btn_1 d-none d-lg-block" style="background-color: rgb(3, 169, 244);">로그인</a>
+								</c:if>
                         </nav>
                     </div>
                 </div>

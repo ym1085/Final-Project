@@ -54,7 +54,7 @@
     div#cancellationExplain {margin-top: 23px;}
     button.banner {width: 231px;height: 56px;border: none;background: #93f26c;color: white;font-size: 1.4em;font-weight: bold;margin-top: 45px;box-shadow: 3px 1px 6px 2px #7df183}
     #mainposter{width: 100%; height: 100%;}
-    .performDetailtable > tbody > tr th{background-color:#fbfbfb;padding-left: 10px; font-weight: 400;font-family: serif;}
+    .performDetailtable > tbody > tr th{background-color:#fbfbfb;padding-left: 10px; font-weight: 400;font-family: serif;margin-bottom:80px;}
  	.performDetailtable > tbody > tr td{padding-left: 13px;font-family: serif;}
  	.explinToperform {width:100%;height:130px;margin-top: 30px;border: 0.3px dotted;}  
     .explinToperform > div > span > span:nth-child(1){margin-left: 10px;}
@@ -67,6 +67,8 @@
     span#parentSpan2 {margin-left: 10px;}
     span#parentSpan3 {margin-left: 10px;}
     span#parentSpan4 {margin-left: 10px;}
+    table.performDetailtable {margin-bottom: 70px;}
+    
     
    /*다 없애고 수정해야 될 가능성이 있음(밤샘각)*/
    ul{list-style:none;}
@@ -92,13 +94,18 @@
 
 <script type="text/javascript" src="<c:url value ='/resources/js/jquery-3.4.1.min.js'/>"></script>
 <script type="text/javascript">
+	function showReservation(){
+		location.href="<c:url value='/performance/pfReservation.do'/>"
+	}
+	
+	
 	$(function(){
 		$('button#ticketing').hover(function() {
 			$(this).css('box-shadow', '3px 1px 6px 2px #a05260');	/* box-shadow: 6px 6px 8px 1px #a05260; */
 		},function(){
 			$(this).css('box-shadow', '');
 		});
-		firtstspan3
+		
 		$('button.banner').hover(function() {
 			$(this).html("You can join us!");
 			$(this).css('box-shadow', '5px 5px 7px 1px #7df183')
@@ -134,7 +141,6 @@
 			}, 400);
 
 		}).scroll();
-		
 		
 	});
 </script>
@@ -243,7 +249,7 @@
 		         	<!-- 반복 끝 -->
 		         </select> 
 		         
-		         <button id="ticketing">예매하기></button>
+		         <button onclick="showReservation();" id="ticketing">예매하기></button>
 	         </div>
 	      </div>
 	      </div>
@@ -388,7 +394,7 @@
                      <div>
                      	<!-- 아 이부분 죽고싶었다.. 진짜 -->
                      	<c:set var="variable" value="${map2.styurls.styurl}"></c:set> 
-  						<c:out value="${variable}"></c:out> --%>
+  						<%-- <c:out value="${variable}"></c:out> --%> 
   						
   						<c:if test="${fn:contains(variable,',')}">
 	    					<c:forEach var="i" begin="0" end="5">
@@ -662,7 +668,7 @@
 		 <div id="floatMenu">
 		 	<a href="<c:url value='/index.do'/>">
 		 		<button class="banner">Click Here!</button>
-		 		<img alt="배너" src="<c:url value='/resources/images/banner1.jpg'/>">
+		 			<img alt="배너" src="<c:url value='/resources/images/banner1.jpg'/>">
 		 	</a>
 		 </div>
 
