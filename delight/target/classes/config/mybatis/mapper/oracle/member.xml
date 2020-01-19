@@ -17,9 +17,9 @@
 		
 	<insert id="insertMember" parameterType="memberVo">
 		insert into tbl_user(userid, username, password, birth, email1, email2, hp1, hp2, 
-			hp3, zipcode, address, address_detail, gender, mail_agreement,SALT) <!-- , mail_authen -->
+			hp3, zipcode, address, address_detail, gender, mail_agreement,mail_authen,SALT) <!-- , mail_authen -->
 		values(#{userid}, #{username}, #{password}, #{birth}, #{email1}, #{email2}, #{hp1}, #{hp2}, 
-		#{hp3}, #{zipcode}, #{address}, #{addressDetail}, #{gender}, #{mailAgreement},#{SALT}) <!--, #{mail_authen}-->
+		#{hp3}, #{zipcode}, #{address}, #{addressDetail}, #{gender}, #{mailAgreement},#{mailAuthen},#{SALT}) <!--, #{mail_authen}-->
 	</insert>	
 	
 	<update id="updateMember" parameterType="memberVo">

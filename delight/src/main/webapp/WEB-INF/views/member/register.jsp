@@ -86,7 +86,7 @@
         		}else{
         			if($("#emailCh").val()==key){
         				alert("인증완료");
-        				$("#chkEmail").val("Y");
+        				$("#mailAuthen").val("Y");
     	    			clearInterval(timerId);
     	            	$("#output").hide();
     	            	$output.text("01:00초");
@@ -341,7 +341,7 @@
 	
 	<!-- 중복/이메일 인증 -->
 	<input type="hidden" name="chkId" id="chkId" value="N">			<!-- 중복확인 -->
-	<input type="hidden" name="chkEmail" id="chkEmail" value="N">	<!-- email인증 -->
+	<input type="hidden" name="mailAuthen" id="mailAuthen" value="N">	<!-- email인증 -->
 </form>
 </div>
 </div>
