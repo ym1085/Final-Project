@@ -3,6 +3,7 @@
 <%@ include file="../inc/main2Top.jsp" %>
 
 <style type="text/css">
+   /* 마지막에 링크 빼서 연결할거임 수정하지말아주세요 틀 깨져요. */
    .top1 {height: 450px;padding: 30px;width: 75%;margin: 30px;}
    .top2 {height: 100%;width: 400px;float: left;margin-left: 15px;}
    .top1>img {height: 100%;width: 250px;float: left;}
@@ -52,6 +53,20 @@
     .booking{margin-bottom: 8px;}
     div#cancellationExplain {margin-top: 23px;}
     button.banner {width: 231px;height: 56px;border: none;background: #93f26c;color: white;font-size: 1.4em;font-weight: bold;margin-top: 45px;box-shadow: 3px 1px 6px 2px #7df183}
+    #mainposter{width: 100%; height: 100%;}
+    .performDetailtable > tbody > tr th{background-color:#fbfbfb;padding-left: 10px; font-weight: 400;font-family: serif;}
+ 	.performDetailtable > tbody > tr td{padding-left: 13px;font-family: serif;}
+ 	.explinToperform {width:100%;height:130px;margin-top: 30px;border: 0.3px dotted;}  
+    .explinToperform > div > span > span:nth-child(1){margin-left: 10px;}
+	span#firtstspan {margin-left: 110px;}
+	span#firtstspan2 {margin-left: 95px;}
+    span#firtstspan4 {margin-left: 77px;}
+    span#firtstspan3 {margin-left: 78px;}
+    span#firtstspan5 {margin-left: 60px;}
+    span#parentSpan1 {margin-left: 10px;}
+    span#parentSpan2 {margin-left: 10px;}
+    span#parentSpan3 {margin-left: 10px;}
+    span#parentSpan4 {margin-left: 10px;}
     
    /*다 없애고 수정해야 될 가능성이 있음(밤샘각)*/
    ul{list-style:none;}
@@ -83,12 +98,22 @@
 		},function(){
 			$(this).css('box-shadow', '');
 		});
-	
+		firtstspan3
 		$('button.banner').hover(function() {
 			$(this).html("You can join us!");
 			$(this).css('box-shadow', '5px 5px 7px 1px #7df183')
 		},function(){
 			$(this).html("Click Here!");
+		});
+	
+		$('#firtstspan3').hover(function() {
+			$(this).css('backgroundColor', '#fcf8e3');
+			$(this).css('color', 'red');
+			$(this).css('font-weight', 'bold');
+		},function(){
+			$(this).css('backgroundColor', '');
+			$(this).css('color', 'black');
+			$(this).css('font-weight', '');
 		});
 		
 		// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
@@ -109,6 +134,8 @@
 			}, 400);
 
 		}).scroll();
+		
+		
 	});
 </script>
  
@@ -146,14 +173,20 @@
 	  </c:if>
 	  
 	  <c:if test="${!empty map2}">
-		      <h1 id="performtitle">공연 제목 영역</h1><br><hr>
+		      <h1 id="performtitle">${map2['prfnm']}</h1><br><hr>
 		      <div class="top1">
 		      <!-- 이미지는 디자인 때문에 넣어놨음  --><!-- API사용 뿌려줄거임  -->
-		      <img alt="공연이미지" src="${map2['poster'] }">
+		      <img alt="공연이미지" src="${map2['poster']}">
 		                                                                           
 		      <div class="top2">
 		         <label id="performplace">공연장소</label>
-		         <span id="performplace">${map2['fcltynm'] }</span>
+		         <%-- <c:set var = "performName" value="${map2['fcltynm']}"/>
+		          --%>
+		         <%-- <c:if test="${fn:length(performName)>10 }">
+		         </c:if> --%>
+		         <%--<c:if test="${fn:length(performName)<=10}">
+		         </c:if>--%>
+		         <span id="performplace" style="width:400px">${map2_location['fcltynm'] }</span>
 		         <br>
 		         
 		         <label id="performterm">공연기간</label>
@@ -202,7 +235,7 @@
 		      		<h6>예매가능 공연 일자</h6>   
 		         	<span id="dateWhile">2020.03.14 ~ 2020.04.19</span>
 		         </div>
-		         <select id="selectDate" size="10" style="width: 200px">
+		         <select id="selectDate" size="12" style="width: 200px">
 		         	<!-- 반복시작 -->
 		         	<option value="1">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
 		         	<option value="2">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
@@ -230,14 +263,20 @@
                   <div class="tabCon" id="tabConFirth">
                     <!-- MAP_API -->
                   <div id="map" style="width: 100%; height: 400px;"></div>
+                  <input type="text" value="${map2_location['la']}" id="x">
+				  <input type="text" value="${map2_location['lo']}" id="y">	
+                  
                   <script type="text/javascript"
                      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=10fa2266e01525ae7b07ab1cc6053105"></script>
                   <script>
-                     var mapContainer = document
+                     var x=document.getElementById('x').value;
+					 var y=document.getElementById('y').value;
+       
+					 var mapContainer = document
                            .getElementById('map'), // 지도를 표시할 div 
+					 
                      mapOption = {
-                        center : new kakao.maps.LatLng(37.52112,
-                              127.12836360000005), // 지도 중심좌표
+                        center : new kakao.maps.LatLng(x,y), // 지도 중심좌표
                         level : 4   // 지도 확대 레벨
                      };
 
@@ -246,7 +285,7 @@
 
                      // 마커가 표시될 위치입니다 - API 작업 후 각 위도/경도 변경해줄겁니다.
                      var markerPosition = new kakao.maps.LatLng(
-                           37.52112, 127.12836360000005);
+                           x, y);
 
                      // 마커를 생성합니다
                      var marker = new kakao.maps.Marker({
@@ -257,10 +296,9 @@
                      marker.setMap(map);
                      
                      //API 작업 후 - 위도/경도 변경 해줄겁니다.
-                     var iwContent = '<div style="padding:5px;font-weight:bold">공연장소이름<br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>',
+                     var iwContent = '<div style="padding:5px;font-weight:bold;width:170px;">${map2_location['fcltynm']}<br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>',
                      // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-                     iwPosition = new kakao.maps.LatLng(37.52112,
-                           127.12836360000005); //인포윈도우 표시 위치입니다.
+                     iwPosition = new kakao.maps.LatLng(x,y); //인포윈도우 표시 위치입니다.
 
                      // 인포윈도우를 생성합니다
                      var infowindow = new kakao.maps.InfoWindow({
@@ -272,17 +310,51 @@
                      infowindow.open(map, marker);
                   </script>
                   <!-- MAP_API -->
+   				  <div class="explinToperform">
+						<div>
+							<span id="parentSpan1">
+								주소  <span id="firtstspan">${map2_location["adres"]}</span>
+							</span> 
+						</div>
+						<div>
+							<span id="parentSpan2">
+								연락처  <span id="firtstspan2">${map2_location["telno"]}</span>
+							</span> 
+						</div>
+   				  		<div>
+   				  			<c:set var="url" value="${map2_location['relateurl']}"/>
+							<c:if test="${!empty url}">
+	   				  			<a href="${map2_location['relateurl']}">
+	   				  				<span id="parentSpan3">
+	   				  					홈페이지  <span id="firtstspan3">${map2_location["relateurl"]}</span>
+   				  					</span>		
+	 				  			</a>s 
+							</c:if>
+							
+							<c:if test="${empty url}">
+   				  				<span id="parentSpan3">
+   				  					홈페이지  <span style="color:red;font-style: bold;" 
+   				  						id="firtstspan4">홈페이지가 존재하지 않습니다!</span>
+  				  				</span>
+							</c:if>
+ 				  		</div>
+						<div>
+							<span id="parentSpan4">
+								공연시설명  <span id="firtstspan5">${map2_location["fcltynm"]}</span>
+							</span>	
+						</div>
+   				  </div>
    				  
-   				  <h4 class="park">주차장</h4>
+   				  <h4 class="park" style="font-weight: bold;">주차장</h4>
                   <div class="explainPark">
            	       	<div class="explainParkSub">
-           	       		<h4 class="parkInfo"><mark style="font-weight: bold">주차 안내</mark></h4>
+           	       		<h4 class="parkInfo" style="font-weight: bold;">주차 안내</h4>
            	       		<span id="explainParkImpl" class="explainParkImpl" style="line-height: 5px">
            	       		Delight 주차장은 상시 만차되며 공연장 주변의 교통이 매우 혼잡하여 주차에 많은 시간이 걸리오니
            	       		대중교통을 적극 이용해 주시기 바랍니다.
            	       		특히 공연장 특성상 공연 종료 후 한꺼번에 출차가 진행되어 출차 시간이 많이 걸리며 귀가시간에 지장이 있을 수 있습니다.
-           	       		<br><br>또한 Delight 주차장 만차에 대비하여 인근 주차장 정보를 사전에 확인 후 방문해 주시기 바라며,
-           	       		주차요금은 해당 주차장의 요금기준으로 <br>적용됩니다.<br><br>
+           	       		<br><br><mark style="color:red;">또한 Delight 주차장 만차에 대비하여 인근 주차장 정보를 사전에 확인 후 방문해 주시기 바라며,
+           	       		주차요금은 해당 주차장의 요금기준으로 <br>적용됩니다.</mark><br><br>
            	       		
            	       		1. 주차장 운영시간 : 07:00~24:00(단, 공연 종료 시간에 따라 유동적으로 운영)<br>
            	       		 ※ 공연 종료 후 30분 이내 출차 부탁드립니다.<br>
@@ -294,6 +366,7 @@
            	       		</span>
            	       	</div>
                   </div>
+   				  <!-- E -->     
                 </div>
               </li>
                
@@ -313,20 +386,30 @@
                      
                      <h2>포스터</h2>
                      <div>
-                        <c:forEach var="list" items="${arr}">
-  	                      	<img id="mainposter" alt="포스터 보여주기" src="#">
-                        </c:forEach> 
+                     	<!-- 아 이부분 죽고싶었다.. 진짜 -->
+                     	<c:set var="variable" value="${map2.styurls.styurl}"></c:set> 
+  						<c:out value="${variable}"></c:out> --%>
+  						
+  						<c:if test="${fn:contains(variable,',')}">
+	    					<c:forEach var="i" begin="0" end="5">
+	  		                    <c:if test="${!empty map2.styurls.styurl[i]}">
+		  		                    <img id="mainposter" alt="포스터 보여주기" src="${map2.styurls.styurl[i]}">
+	  		                    </c:if>
+	    					</c:forEach> 
+						</c:if>
+  						<!-- 김영민 -->
+						<c:if test="${not fn:contains(variable,',')}">
+	  		                <img id="mainposter" alt="포스터 보여주기" src="${map2.styurls['styurl']}">
+						</c:if>
                      </div><br>
                      
                      <!-- Map이든, list든 똑같이 뿌려주시면 됩니다.  -->
                      <h2>공연 상세설명</h2> 
                      <div>
-                        <table>
+                        <table class="performDetailtable" border="1">
                            <colgroup>
                               <col style="width: 20%">
-                              <col style="width: 20%">
-                              <col style="width: 20%">
-                              <col style="width: 20%">
+                              <col style="width: 30%">
                            </colgroup>
                         
                            <!-- td에 API데이터 가져오면 됨 -->
@@ -338,7 +421,13 @@
                               <tr>
                                  <!-- IF -->
                                  <th>등장인물</th>
-                                 <td>${map2['prfcast'] }</td>
+                                 <c:if test="${empty map2['prfcast'] }">
+                                 	<td style="color:red;font-weight: bold;">등장인물 정보는 비공개입니다.</td>
+                                 </c:if>
+  									
+  								 <c:if test="${!empty map2['prfcast'] }">
+                                 	<td>등장인물 정보는 비공개입니다.</td>
+                                 </c:if>
                               </tr>
                               <tr>
                                  <th>관람등급</th>
@@ -535,91 +624,37 @@
              <!-- list,map[]이용 -->
                <li>
                   <div>
-                     <span>
-                        <a href = "<c:url value= '#'/>">
-                              <img class ="imgbox" 
-                                 width="208px" height="284px" src="<c:url value ='/resources/images/perform1.jpg'/>">
-                        </a>
-                     </span>
-                     <span>
-                        <span class="util">[공연명] : 우리연애할까</span><br>
-                     </span>
-                     <span>
-                     <!-- stDate~endDate -->
-                         <span class="util">2020.01.17</span>~<span>2020.01.27</span>   
-                     </span>
+          			 <!-- 반복 시작 -->
+          			 <!-- 예진씨 메서드 참고해 사용 -->
+                     <c:forEach var="vo" items="${list}">
+	                     <span>
+	                        <a href = "<c:url value= '/performance/pfDetail.do?perfomid=${vo.mt20id }'/>">
+	                              <img class ="imgbox" 
+	                                 width="208px" height="284px" src="${vo.poster}">
+	                        </a>
+	                     </span>
+	                     <span>
+	                     	<c:set var="pName" value="${vo.prfnm}"/> 
+	                     	<c:if test="${fn:length(pName)>10}"> 
+	 	                       <span class="util">
+	 	                       		[공연명] : ${fn:substring(pName,0,9)}..
+ 	                       	   </span><br>
+	                     	</c:if>
+	                     	
+	                     	<c:if test="${fn:length(pName)<=10}"> 
+	 	                       <span class="util">
+	 	                       		[공연명] : ${fn:substring(pName,0,8)}
+ 	                       	   </span><br>
+	                     	</c:if>    
+	                     </span>
+	                     <span>
+	                     <!-- stDate~endDate -->
+	                         <span class="util">${vo.prfpdfrom }</span>~<span>${vo.prfpdto}</span>   
+	                     </span>
+                     </c:forEach>
+	                 <!-- 반복끝 -->
                   </div>
                </li>
-               <!-- 반복끝 -->
-               
-               <!-- 여기부터 로직 다 제거 할겁니다. --> 
-               <!-- 샘플 데이터 -->
-               <li>
-                  <div>
-                     <span>
-                        <a href = "<c:url value= '#'/>">
-                              <img class ="imgbox" 
-                                 width="208px" height="284px" src="<c:url value ='/resources/images/perform2.jpg'/>">
-                        </a>
-                     </span>
-                     <span>
-                        <span class="util">[공연명] : 연애의발견</span><br>
-                     </span>
-                     <span>
-                        <span class="util">2020.01.17</span>~<span>2020.01.27</span>
-                     </span>
-                  </div>
-               </li>
-               <li>
-                  <div>
-                     <span>
-                        <a href = "<c:url value= '#'/>">
-                              <img class ="imgbox" 
-                                 width="208px" height="284px" src="<c:url value ='/resources/images/perform3.jpg'/>">
-                        </a>
-                     </span>
-                     <span>
-                        <span class="util">[공연명] : 미이라</span><br>
-                     </span>
-                     <span>
-                        <span class="util">2020.01.17</span>~<span>2020.01.27</span>
-                     </span>
-                  </div>
-               </li>
-               <li>
-                  <div>
-                     <span>
-                        <a href = "<c:url value= '#'/>">
-                              <img class ="imgbox" 
-                                 width="208px" height="284px" src="<c:url value ='/resources/images/perform4.jpg'/>">
-                        </a>
-                     </span>
-                     <span>
-                        <span class="util">[공연명] : 지킬 앤 하이드</span><br>
-                     </span>
-                     <span>
-                        <span class="util">2020.01.17</span>~<span>2020.01.27</span>
-                     </span>
-                  </div>
-               </li>
-               <li>
-                  <div>
-                     <span>
-                        <a href = "<c:url value= '#'/>">
-                              <img class ="imgbox" 
-                                 width="208px" height="284px" src="<c:url value ='/resources/images/perform5.jpg'/>">
-                        </a>
-                     </span>
-                     <span>
-                        <span class="util">[공연명] : 캣츠</span><br>
-                     </span>
-                     <span>
-                        <span class="util">2020.01.17</span>~<span>2020.01.27</span>
-                     </span>
-                  </div>
-               </li>
-            </ul>
-            <!-- 여기까지 다 제거할겁니다. -->
             
          </div>
          </div>
@@ -635,3 +670,4 @@
       
    <!-- div안에서작업 그외엔 건들지말것 -->   
 <%@ include file="../inc/main2Bottom.jsp" %>
+
