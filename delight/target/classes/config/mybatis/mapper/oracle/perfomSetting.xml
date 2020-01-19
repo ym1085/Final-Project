@@ -4,6 +4,16 @@
 
 <mapper namespace="com.mybatis.mapper.perfomSetting">
 	
+	<insert id="insertticket" parameterType="ticketSettingVo">
+		<selectKey keyProperty="ticketSeq" resultType="int" order="BEFORE">
+			select ticket_seq.nextval from dual
+		</selectKey>
+		insert into tbl_ticket(ticket_seq,mt20id,prfdate,
+		prfhour,sellticket,sellclass,netprice,prfnm)
+		values(#{ticketSeq},#{mt20id},#{prfdate},#{prfhour},
+				#{sellticket},#{sellclass},#{netprice},#{prfnm})
+	</insert>
+	
 </mapper>
 
 

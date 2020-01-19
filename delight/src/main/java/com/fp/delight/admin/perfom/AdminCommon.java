@@ -26,7 +26,6 @@ public class AdminCommon {
 	public int[] getdoubledow(String[] dowArr) {
 		int[] res=new int[2];
 		for(int i=0;i<dowArr.length;i++) {
-			res[i]=0;
 			if(dowArr[i].equals("일요일")) {
 				res[i]=0;
 			}else if(dowArr[i].equals("월요일")) {
@@ -41,6 +40,8 @@ public class AdminCommon {
 				res[i]=5;
 			}else if(dowArr[i].equals("토요일")) {
 				res[i]=6;
+			}else if(dowArr[i].equals("HOL")) {
+				res[i]=-1;
 			}
 			
 		}
