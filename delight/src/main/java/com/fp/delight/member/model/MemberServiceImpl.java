@@ -58,6 +58,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int insertMember(MemberVO memberVo) {
+		
 		String salt= SHA256Util.generateSalt();
 		memberVo.setSALT(salt);
 		
@@ -117,5 +118,5 @@ public class MemberServiceImpl implements MemberService{
 	public int withdrawMember(MemberVO memberVo) {
 		return memberDao.withdrawMember(memberVo);
 	}
-	
+
 }
