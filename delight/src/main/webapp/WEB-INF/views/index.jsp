@@ -72,7 +72,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <a href="#" class="btn_1 d-none d-lg-block" style="background-color: rgb(3, 169, 244);">로그인</a>
+                            <a href="<c:url value='/login/login.do'/>" class="btn_1 d-none d-lg-block" style="background-color: rgb(3, 169, 244);">로그인</a>
                         </nav>
                     </div>
                 </div>

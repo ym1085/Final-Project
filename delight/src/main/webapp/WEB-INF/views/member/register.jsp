@@ -104,7 +104,7 @@
     	  
     	   
 		$("#userid").keyup(function(){
-			if(validate_usid($(this).val())
+			if(validate_userid($(this).val())
 					&& $(this).val().length>=2){
 				
 				$.ajax({
@@ -131,7 +131,7 @@
 				});
 				
 			}else {
-				$("#checkError").html("");
+				$("#checkError").html("아이디 규칙에 맞지 않습니다.");
 				$("#checkError").show(); 
 				$("chkId").val("N");
 			}
