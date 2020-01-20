@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fp.delight.like.model.LikeService;
 import com.fp.delight.like.model.LikeVO;
+import com.fp.delight.performent.model.PerfomService;
 //github.com/delight123123/delight2.git
 import com.fp.delight.performent.model.PerformentListVO;
 
@@ -28,6 +29,9 @@ public class PerformentController {
 	
 	@Autowired
 	private LikeService likeService;
+	
+	@Autowired
+	private PerfomService perfomService;
 	
 	@RequestMapping("/pfDetail.do")
 	public String performentList_post(@RequestParam String perfomid,HttpSession session,
@@ -53,6 +57,8 @@ public class PerformentController {
 		if(likeCount==0) {
 			likeCount=0;
 		}
+		
+		List<Map<String, Object>> rvlist=perfomService.selectreserList(perfomid);
 		
 		PerformentAPI perform = null; 
 		Map<String, Object> map = null;		//공연상세보기 - 전체 데이터 사용
@@ -83,6 +89,7 @@ public class PerformentController {
 			logger.info("추천 공연, map3={}", list);
 		}
 		
+		model.addAttribute("rvlist",rvlist);
 		model.addAttribute("heart",heart);
 		model.addAttribute("likeCount",likeCount);
 		

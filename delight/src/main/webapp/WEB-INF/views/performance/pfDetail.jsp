@@ -265,10 +265,15 @@
 		         	<span id="dateWhile">2020.03.14 ~ 2020.04.19</span>
 		         </div>
 		         <select id="selectDate" size="12" style="width: 200px">
+		         	<c:if test="${empty rvlist }">
+		         	<option>예매가능한 날 이 없습니다.</option>	
+		         	</c:if>
 		         	<!-- 반복시작 -->
-		         	<option value="1">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
-		         	<option value="2">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
-		         	<option value="3">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
+		         	<c:if test="${!empty rvlist }">
+		         	<c:forEach var="rvmap" items="${rvlist }">
+		         	<option value="${rvmap['TICKET_SEQ'] }">날짜:${rvmap['PRFDATE'] }시간:${rvmap['PRFHOUR'] }남은 표 장수:${rvmap['LAST'] }/${rvmap['SELLTICKET'] }</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
+		         	</c:forEach>
+		         	</c:if>
 		         	<!-- 반복 끝 -->
 		         </select> 
 		         
