@@ -1,7 +1,5 @@
 package com.fp.delight.common;
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,26 +11,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 @Component
-public class LoginInterceptor extends HandlerInterceptorAdapter{
+public class AjaxLoginInterceptor extends HandlerInterceptorAdapter{
 	private static final Logger logger
-		=LoggerFactory.getLogger(LoginInterceptor.class);
+		=LoggerFactory.getLogger(AjaxLoginInterceptor.class);
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		logger.info("컨트롤러 수행 전 먼저 호출 - preHandle()");
-		//잠깐만
+
 		HttpSession session=request.getSession();
 		String userid=(String) session.getAttribute("userid");
 		if(userid==null || userid.isEmpty()) {
-			response.setContentType("text/html;charset=utf-8");
-			PrintWriter out=response.getWriter();
-			
-			out.print("<script type='text/javascript'>");
-			out.print("alert('로그인 하세요.');");
-			out.print("location.href='"+request.getContextPath()
-				+"/login/login.do';");
-			out.print("</script>");
+			response.sendError(500);
 			return false; //다음 컨트롤러를 수행하지 않음
 		}
 		

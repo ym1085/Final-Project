@@ -13,7 +13,6 @@
 		values(#{ticketSeq},#{mt20id},#{prfdate},#{prfhour},
 				#{sellticket},#{sellclass},#{netprice},#{prfnm})
 	</insert>
-	
 </mapper>
 
 
