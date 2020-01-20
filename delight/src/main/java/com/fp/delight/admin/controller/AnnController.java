@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.fp.delight.ann.model.AnnListVO;
 import com.fp.delight.ann.model.AnnService;
 import com.fp.delight.ann.model.AnnVO;
 import com.fp.delight.common.PaginationInfo;
@@ -98,4 +99,21 @@ public class AnnController {
 		
 	}
 	
+	@RequestMapping("/normultiex.do")
+	public String normultiex(@ModelAttribute AnnListVO annListVo,Model model) {
+		logger.info("일반 공지 멀티 노출 설정 파라미터 annListVo={}",annListVo);
+		List<AnnVO> list=annListVo.getAnnList();
+		
+		int cnt=annService.annMultiExpo(list);
+		
+		String msg="노출 설정 중 오류 발생", url="/admin/announcement/annInc.do";
+		if(cnt>0) {
+			msg="선택한 공지 글을 노출 설정하였습니다.";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
 }

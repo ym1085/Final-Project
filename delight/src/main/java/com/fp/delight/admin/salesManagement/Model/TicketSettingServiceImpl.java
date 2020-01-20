@@ -44,4 +44,9 @@ public class TicketSettingServiceImpl implements TicketSettingService{
 		return ticketSettingDao.discountUpdate(ticketDiscountVo);
 	}
 
+	@Override
+	public int discountDel(int ticketSeq) {
+		return ticketSettingDao.discountDel(ticketSeq);
+	}
+
 }

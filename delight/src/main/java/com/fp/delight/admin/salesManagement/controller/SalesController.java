@@ -335,4 +335,14 @@ public class SalesController {
 		
 		return res;
 	}
+	
+	@RequestMapping("/discountDel.do")
+	@ResponseBody
+	public int discountDel(@RequestParam int ticketSeq) {
+		logger.info("특별할인 설정 삭제 시작 파라미터 ticketSeq={}",ticketSeq);
+		
+		int res=ticketSettingService.discountDel(ticketSeq);
+		
+		return res;
+	}
 }

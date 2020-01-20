@@ -37,4 +37,14 @@ public class AnnDAOMybatis implements AnnDAO{
 	public int eventTotal(AnnVO annVo) {
 		return sqlSession.selectOne(namespace+"eventTotal", annVo);
 	}
+
+	@Override
+	public int normalDel(int annSeq) {
+		return sqlSession.delete(namespace+"normalDel",annSeq);
+	}
+
+	@Override
+	public int annExposure(int annSeq) {
+		return sqlSession.update(namespace+"annExposure", annSeq);
+	}
 }

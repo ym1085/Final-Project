@@ -2,7 +2,6 @@
    pageEncoding="UTF-8"%>
 <%@ include file="../inc/main2Top.jsp" %>
 
-
 <style type="text/css">
    /* 마지막에 링크 빼서 연결할거임 수정하지말아주세요 틀 깨져요. */
    .top1 {height: 450px;padding: 30px;width: 75%;margin: 30px;}
@@ -96,11 +95,10 @@
 <script type="text/javascript" src="<c:url value ='/resources/js/jquery-3.4.1.min.js'/>"></script>
 <script type="text/javascript">
 	function showReservation(){
-		location.href="<c:url value='/performance/pfReservation.do?perfomid=${map2["mt20id"]}'/>"
+		$("form[name='payfrm']").submit();	
 	}
 	
 	$(function(){
-		
 		$("#likeBt").click(function(){
 			$.ajax({
 				type:"get",
@@ -123,6 +121,7 @@
 				}
 			});	
 		});
+
 		
 		$('button#ticketing').hover(function() {
 			$(this).css('box-shadow', '3px 1px 6px 2px #a05260');	/* box-shadow: 6px 6px 8px 1px #a05260; */
@@ -264,6 +263,17 @@
 		      		<h6>예매가능 공연 일자</h6>   
 		         	<span id="dateWhile">2020.03.14 ~ 2020.04.19</span>
 		         </div>
+		
+		         <!-- 예매 버튼 클릭 시 -> pfReservationController로 이동 후 결제 진행   -->
+				  <form name = "payfrm" action="<c:url value='/performance/pfReservation.do'/>" method="post" >
+			 	 		<input type="hidden" name="perfomid" value="${param.mt20id}"> 			<!-- 공연id -->
+			  			<input type="hidden" name="perfomtitle" value="${map2['prfnm']}">	 		<!-- 공연명 -->
+			  			<input type="hidden" name="perfomtype" value="${map2['genrenm']}"> 		<!-- 공연장르 -->
+			  			<input type="hidden" name="perfomfacilityid" value="${param.mt10id }">	<!-- 공연시설id -->
+			  			<input type="hidden" name="" value="">
+			  			<input type="hidden" name="" value="">
+			  			<input type="hidden" name="" value="">
+			 
 		         <select id="selectDate" size="12" style="width: 200px">
 		         	<c:if test="${empty rvlist }">
 		         	<option>예매가능한 날 이 없습니다.</option>	
@@ -276,7 +286,7 @@
 		         	</c:if>
 		         	<!-- 반복 끝 -->
 		         </select> 
-		         
+		         </form>
 		         <button onclick="showReservation();" id="ticketing">예매하기></button>
 	         </div>
 	      </div>

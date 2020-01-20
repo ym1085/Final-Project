@@ -45,6 +45,11 @@ public class TicketSettingDAOMybatis implements TicketSettingDAO{
 	public int discountUpdate(TicketDiscountVO ticketDiscountVo) {
 		return sqlSession.update(namespace+"discountUpdate", ticketDiscountVo);
 	}
+
+	@Override
+	public int discountDel(int ticketSeq) {
+		return sqlSession.delete(namespace+"discountDel",ticketSeq);
+	}
 	
 	
 }

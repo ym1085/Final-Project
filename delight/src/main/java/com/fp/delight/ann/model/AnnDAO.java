@@ -8,4 +8,7 @@ public interface AnnDAO {
 	int normalTotal(AnnVO annVo);
 	List<AnnVO> eventSearch(AnnVO annVo);
 	int eventTotal(AnnVO annVo);
+	int normalDel(int annSeq);
+	int annExposure(int annSeq);
+	
 }
