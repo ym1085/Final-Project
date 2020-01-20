@@ -5,10 +5,15 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fp.delight.member.model.MemberService;
+import com.fp.delight.member.model.MemberVO;
 import com.fp.delight.performent.model.PerformentListVO;
 
 ///performance/pfDetail.do?mt20id=${vo.mt20id }'/>">
@@ -18,15 +23,17 @@ public class PerformentController {
 	private final Logger logger
 		= LoggerFactory.getLogger(PerformentController.class);
 	
+	@Autowired
+	private MemberService memberService;
+	
 	@RequestMapping("/pfDetail.do")
-	public String performentList_post(@RequestParam String perfomid,
+	public String performentList_post(@RequestParam String perfomid,HttpSession session,
 			Model model) {
 		logger.info("메인 페이지 공연 포스터 클릭=>, 공연 아이디 perfomid : ,"+perfomid);
 		
 		PerformentAPI perform = null; 
 		Map<String, Object> map = null;		//공연상세보기 - 전체 데이터 사용
 		Map<String, Object> map2 = null;	//공연지역상세 - 위도,경도 사용
-		
 		
 		if(perfomid!=null && !perfomid.isEmpty()) {
 			perform = new PerformentAPI();
@@ -51,6 +58,7 @@ public class PerformentController {
 			model.addAttribute("list", list);
 			logger.info("추천 공연, map3={}", list);
 		}
+		
 		return "performance/pfDetail";
 	}
 
@@ -73,6 +81,38 @@ public class PerformentController {
 		//결제 진행창으로 -> 유저아이디, 공연 상세정보 return. 
 		return "performance/pfReservation";
 	}
+	
+	//결제진행 import
+	@RequestMapping("/import.do")
+	public String showImport(@RequestParam String perfomid, HttpSession session,
+			Model model) {
+		logger.info("결제진행 창 Import 보여주기, 공연id={}", perfomid);
+		
+		String userid = (String)session.getAttribute("userid");
+		logger.info("로그인 된 유저 아이디 : userid={}", userid);
+		
+		MemberVO memberVo = new MemberVO();
+		
+		//String hp = "";
+		//String hp1 = "";
+		//String hp2 = "";
+		//String hp3 = "";
+		if(userid!=null && !userid.isEmpty()) {
+			memberVo = memberService.selectMember(userid);
+			
+			//hp1 = memberVo.getHp1();
+			//hp2 = memberVo.getHp2();
+			//hp3 = memberVo.getHp3();
+
+			model.addAttribute("memberVo", memberVo);
+		}
+		
+		model.addAttribute("perfomid", perfomid);
+		
+		return "performance/import";
+	}
+	
+	
 	
 }
 

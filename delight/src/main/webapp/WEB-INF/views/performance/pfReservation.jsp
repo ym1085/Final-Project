@@ -68,7 +68,6 @@
  <div id="pfReservation">
 	
 	<div class="inner">
-
 		<!-- Board pfReservation -->
 			<div class="board-pfReservation">
 				<!-- 일반 게시판 리스트 -->
@@ -189,7 +188,9 @@
 		<input type="checkbox"><label>개인정보 제 3자가 제공에 동의합니다.</label>
 	</div>
 	<div class="payInfo7">
-		<input type="submit" value="결제하기 Place your payment">
+		<a href="<c:url value='/performance/import.do?perfomid=${param.perfomid}'/>">
+			<input type="button" value="결제하기 Place your payment">
+		</a>
 	</div>
 	<div class="payInfo8">
 	<p>
