@@ -175,6 +175,9 @@ p.no-ct {
 .per-list #s2:before{
 	content: '3';
 }
+.per-list #s3:before{
+	content: '4';
+}
 .per-list .per-q {
 	padding: 20px 45px 20px 70px;
 	cursor:pointer;
@@ -231,6 +234,10 @@ p.no-ct {
 	margin-bottom: 1.5%;
 }
 .per-list #s2{
+	margin-top: 1.5%;
+	border-top:2px solid #0383ce;
+}
+h3#s3{
 	margin-top: 1.5%;
 	border-top:2px solid #0383ce;
 }
@@ -347,3 +354,8 @@ p.no-ct {
 .MentInfo #title{
 	width: 300px;
 }
+.reserTitle{
+	margin: 21px;
+	margin-left: 38%;
+}
+input#checkM {margin-left: 2.8%;margin-right: 1%;}

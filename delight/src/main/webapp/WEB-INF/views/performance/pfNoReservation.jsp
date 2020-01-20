@@ -57,7 +57,7 @@
 	<!-- div안에서작업 그외엔 건들지말것 -->
 	
 <div style="width: 87%; float: right; height: 1194px;">
-	<h1 class="reserTitle">회원 예매하기</h1>
+	<h1 class="reserTitle">비회원 예매하기</h1>
 	<hr>
 <form>
 <div class="MentInfo">
@@ -168,18 +168,6 @@
 					<div class="i11">
 						<p>특별할인</p><p class="fp2">얼리버드</p><span>5%</span>
 						<span>적용완료</span>
-					</div>
-					<div class="i11">
-						<p>등급할인</p><p class="fp2">현재등급 : b</p><span>1%</span>
-						<span>적용완료</span>
-					</div>
-					<div class="i11">
-						<p>회원권 할인</p><p class="fp2">회원권</p><span>5%</span>
-						<span>적용완료</span>
-					</div>
-					<div class="i11">
-						<p>마일리지 사용</p><p class="fp2">소유하신마일리지 1000p</p>
-						<input type="checkbox" id="checkM"><span>적용하기</span>
 					</div>
 					</div>
 					

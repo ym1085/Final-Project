@@ -88,7 +88,7 @@ public class PerformentController {
 		
 		return "performance/pfDetail";
 	}
-
+/*
 	//결제진행창 보여주기
 	@RequestMapping("/pfReservation.do")
 	public String showReservation(@RequestParam String perfomid, HttpSession session,
@@ -107,6 +107,12 @@ public class PerformentController {
 		
 		//결제 진행창으로 -> 유저아이디, 공연 상세정보 return. 
 		return "performance/pfReservation";
+	}*/
+	
+	//결제진행창 보여주기
+	@RequestMapping("/pfNoReservation.do")
+	public void showReservation() {
+		
 	}
 	
 }
