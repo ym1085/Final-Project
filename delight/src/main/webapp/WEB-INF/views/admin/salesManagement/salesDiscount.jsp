@@ -130,6 +130,9 @@
 th{
 	font-weight: bold;
 }
+.divPage{
+	margin-bottom: 10px;
+}
 </style>
 
 <script type="text/javascript">
@@ -143,9 +146,10 @@ $(function() {
 	$("table button").click(function() {
 		var pfname=$(this).parent().parent().find("#name").text();
 		var ticketseq=$(this).next().val();
-		
-		window.open("/delight/admin/salesManagement/discountsetting.do?pfname="+pfname+"&ticketseq="+ticketseq,"discount",
-		"width=400,height=328,left=0,top=0,location=yes,resizable=yes");
+		var pf=pfname.replace("[","(");
+		pf=pf.replace("]",")");
+		window.open("/delight/admin/salesManagement/discountsetting.do?pfname="+pf+"&ticketseq="+ticketseq,"discount",
+		"width=500,height=328,left=0,top=0,location=yes,resizable=yes");
 		
 	});
 	

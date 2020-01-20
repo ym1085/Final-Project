@@ -67,6 +67,15 @@
 		select count(*) from TBL_ANN where ann_type='2'
 		<include refid="searchWhere2"></include>
 	</select>
+	
+	<delete id="normalDel" parameterType="int">
+		delete from tbl_ann where ann_seq=#{annSeq}
+	</delete>
+	
+	<update id="annExposure" parameterType="int">
+		update tbl_ann set ann_show='Y' where ann_seq=#{annSeq}
+	</update>
+	
 </mapper>
 
 

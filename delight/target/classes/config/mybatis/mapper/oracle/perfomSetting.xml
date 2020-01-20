@@ -64,6 +64,9 @@
 		set detail=#{detail} , percent=#{percent} where ticket_seq=#{ticketSeq}
 	</update>
 	
+	<delete id="discountDel" parameterType="int">
+		delete from tbl_discount where ticket_seq=#{ticketSeq}
+	</delete>
 </mapper>
 
 

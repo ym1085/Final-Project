@@ -12,4 +12,5 @@ public interface TicketSettingDAO {
 	TicketDiscountVO seldiscountByseq(int ticketSeq);
 	int discountInsert(TicketDiscountVO ticketDiscountVo);
 	int discountUpdate(TicketDiscountVO ticketDiscountVo);
+	int discountDel(int ticketSeq);
 }

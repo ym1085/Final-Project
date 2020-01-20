@@ -8,4 +8,6 @@ public interface AnnService {
 	int normalTotal(AnnVO annVo);
 	List<AnnVO> eventSearch(AnnVO annVo);
 	int eventTotal(AnnVO annVo);
+	int annMultiDel(List<AnnVO> list);
+	int annMultiExpo(List<AnnVO> list);
 }
