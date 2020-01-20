@@ -25,7 +25,7 @@
             name : 'Delight 티켓 예매 결제',
             amount : 100,
             buyer_email : '${memberVo.email1}',		
-            buyer_name : '${memberVo.name}',
+            buyer_name : '${memberVo.username}',
             buyer_tel : '010-2907-1885',
             buyer_addr : '경기도',
             buyer_postcode : '${memberVo.zipcode}',

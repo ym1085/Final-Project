@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.fp.delight.like.model.LikeService;
@@ -16,6 +17,7 @@ import com.fp.delight.like.model.LikeVO;
 import com.fp.delight.performent.model.PerfomService;
 import com.fp.delight.member.model.MemberService;
 import com.fp.delight.member.model.MemberVO;
+import com.fp.delight.performent.model.PerformentDetailVO;
 import com.fp.delight.performent.model.PerformentListVO;
 
 ///performance/pfDetail.do?mt20id=${vo.mt20id }'/>">
@@ -99,9 +101,14 @@ public class PerformentController {
 
 	//결제진행창 보여주기
 	@RequestMapping("/pfReservation.do")
-	public String showReservation(@RequestParam String perfomid, HttpSession session,
+	public String showReservation(@ModelAttribute PerformentDetailVO performentDetailVo, HttpSession session,
 			Model model) {
+		//로그인 한 유저
 		String userid = (String)session.getAttribute("userid");
+		
+		//공연id
+		String perfomid = performentDetailVo.getMt10id();
+		
 		logger.info("결제 진행 화면 보여주기 위한 파라미터 perfomid={} userid={}", perfomid, userid);
 		
 		if(userid!=null && !userid.isEmpty() && perfomid!=null && !perfomid.isEmpty()) {
@@ -109,8 +116,11 @@ public class PerformentController {
 			Map<String, Object> map = perform.performDetail(perfomid);
 			logger.info("결제진행 정보 데이터 뿌리기, map={} ", map);
 			
-			model.addAttribute("userid", userid);
-			model.addAttribute("map_pay",map);
+			MemberVO memberVo = memberService.selectMember(userid);
+			logger.info("결제진행 정보 데이터 뿌리기, memberVo={}", memberVo);
+			
+			model.addAttribute("memberVo", memberVo);	//유저 정보
+			model.addAttribute("map_pay",map);			//해당 공연에 대한 상세정보 
 		}
 		
 		//결제 진행창으로 -> 유저아이디, 공연 상세정보 return. 
