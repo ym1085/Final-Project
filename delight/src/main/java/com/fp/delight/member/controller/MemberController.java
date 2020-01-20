@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.member.model.MemberService;
 import com.fp.delight.member.model.MemberVO;
+import com.fp.delight.performent.controller.PerformentAPI;
 
 @Controller
 @RequestMapping("/member")
@@ -198,8 +199,8 @@ public class MemberController {
 	@RequestMapping("/myPage.do")
 	public String showMypage() {
 		logger.info("마이페이지 화면 보여주기");
-	
-		return "member/myPage";
+		
+		return "member/myPage.do";
 	}
 	
 }

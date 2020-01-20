@@ -96,7 +96,7 @@
 <script type="text/javascript" src="<c:url value ='/resources/js/jquery-3.4.1.min.js'/>"></script>
 <script type="text/javascript">
 	function showReservation(){
-		location.href="<c:url value='/performance/pfReservation.do'/>"
+		location.href="<c:url value='/performance/pfReservation.do?perfomid=${map2["mt20id"]}'/>"
 	}
 	
 	$(function(){

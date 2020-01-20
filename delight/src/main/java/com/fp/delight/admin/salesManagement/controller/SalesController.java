@@ -13,14 +13,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.admin.perfom.AdminCommon;
 import com.fp.delight.admin.perfom.AdminPerfomAPI;
+import com.fp.delight.admin.salesManagement.Model.TicketDiscountVO;
 import com.fp.delight.admin.salesManagement.Model.TicketSettingService;
 import com.fp.delight.admin.salesManagement.Model.TicketSettingVO;
+import com.fp.delight.common.PaginationInfo;
+import com.fp.delight.common.SearchVO;
+import com.fp.delight.common.Utility;
 import com.fp.delight.performent.model.PerformentListVO;
 
 @Controller
@@ -257,6 +262,77 @@ public class SalesController {
 		
 	}
 	
+	@RequestMapping("/salesDiscount.do")
+	public void salesDiscount(@ModelAttribute SearchVO searchVo,Model model) {
+		logger.info("특별 공연 할인 설정 페이지");
+		
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(Utility.SETTING_RECORD_COUNT);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		
+		searchVo.setRecordCountPerPage(Utility.SETTING_RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		int totalRecord=ticketSettingService.settingtotal(searchVo);
+		pagingInfo.setTotalRecord(totalRecord);
+		logger.info("totalRecord={}",totalRecord);
+		
+		logger.info("값 셋팅 후 searchVo={}",searchVo);
+		
+		List<Map<String, Object>> list=ticketSettingService.selticket(searchVo);
+		
+		logger.info("검색 결과 list.size()={}",list.size());
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
+	}
 	
+	@RequestMapping("/discountsetting.do")
+	public void discountsetting(@RequestParam String pfname,@RequestParam int ticketseq,Model model) {
+		logger.info("특별 공연 할인 설정 페이지 보기");
+		
+		TicketDiscountVO vo=ticketSettingService.seldiscountByseq(ticketseq);
+		
+		logger.info("설정 확인 검색 결과 vo={}",vo);
+		
+		model.addAttribute("vo", vo);
+	}
 	
+	@RequestMapping("/discountInsert.do")
+	@ResponseBody
+	public int discountInsert(@RequestParam String detail,@RequestParam int percent,
+			@RequestParam int ticketSeq,@RequestParam int type) {
+		
+		TicketDiscountVO vo=new TicketDiscountVO();
+		
+		vo.setDetail(detail);
+		vo.setPercent(percent);
+		vo.setTicketSeq(ticketSeq);
+		
+		logger.info("특별 할인 등록 파라미터 vo={},타입={}",vo,type);
+		int res=0;
+		
+		if(type==0) {
+			logger.info("type이 0 이므로 insert 진행");
+			int cnt=ticketSettingService.discountInsert(vo);
+			if(cnt>0) {
+				res=1;
+			}else {
+				res=-1;
+			}
+		}else if(type==1) {
+			logger.info("type이 1이므로 update 진행");
+			int cnt=ticketSettingService.discountUpdate(vo);
+			if(cnt>0) {
+				res=2;
+			}else {
+				res=-1;
+			}
+		}else {
+			res=-1;
+		}
+		
+		return res;
+	}
 }
