@@ -62,6 +62,7 @@ public class MemberLoginController {
 				
 				msg=memberVo.getUsername()+"님 환영합니다.";
 				url="/index.do";
+				
 			}else if(result==MemberService.DISAGREE_PWD) {
 				msg="비밀번호가 일치하지 않습니다.";
 			}else if(result==MemberService.NONE_USERID)   {

@@ -43,21 +43,4 @@ public class IndexController {
     	
 		return "index";
 	}
-	
-	@RequestMapping(value = "/index2.do")
-	public void main2(HttpSession session,Model model) {
-		logger.info("index 화면 보여주기");
-		
-		String userid=(String)session.getAttribute("userid");
-		
-		logger.info("userid={}",userid);
-		
-		if(userid!=null && !userid.isEmpty()) {
-			MemberVO memberVo=memberService.selectMember(userid);
-			logger.info("memberVo={}",memberVo);
-			model.addAttribute("memberVo",memberVo);
-		}
-		
-		
-	}
 }

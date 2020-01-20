@@ -15,7 +15,7 @@
    #home{width: 64px; height:63px;z-index:1;float:left;margin-top:115px;box-shadow: 0px 1px 4px 0px grey;}
    #home>a>img{z-index:-1;margin: 10px 0px 0px 12px;}
    #like{width: 64px; height:63px;z-index:1;float:left;margin-top:115px;box-shadow: 0px 1px 4px 0px grey;}
-   #like>a>img{z-index:-1;margin: 10px 0px 0px 12px;}
+   #like img{z-index:-1;margin: 11px 0px 0px 8px;}
    #likecount{width: 64px; height:63px;z-index:1;float:left;margin-top:115px;box-shadow: 0px 1px 4px 0px grey;}
    #likecount>div{z-index:-1;text-align: center;line-height: 3.5em; font-weight: 600;}
    div#calandar {width: 258px;height: 393px;position: absolute;top:162px;left:1186px; border:0.5px solid #f3eeee;padding: 10px 10px 10px 30px;background-color: #f7f7f7;} /* 수정필요 */ 
@@ -68,7 +68,7 @@
     span#parentSpan3 {margin-left: 10px;}
     span#parentSpan4 {margin-left: 10px;}
     table.performDetailtable {margin-bottom: 70px;}
-    
+    button#likeBt {background: white;border: none;outline: none;}
     
    /*다 없애고 수정해야 될 가능성이 있음(밤샘각)*/
    ul{list-style:none;}
@@ -95,11 +95,34 @@
 <script type="text/javascript" src="<c:url value ='/resources/js/jquery-3.4.1.min.js'/>"></script>
 <script type="text/javascript">
 	function showReservation(){
-		location.href="<c:url value='/performance/pfReservation.do?perfomid=${map2["mt20id"]}'/>"
+		$("form[name='payfrm']").submit();	
 	}
 	
-	
 	$(function(){
+		$("#likeBt").click(function(){
+			$.ajax({
+				type:"get",
+				url:"<c:url value='/like.do'/>",
+				data:{"perfomid":$("#perfomid").val()},
+				dataType:"json",
+				success:function(res){
+					$(".llqqllqq").text(res.count);
+					if(res.img=='like'){
+						$("#likeimgbt").attr("src","<c:url value='/resources/images/like.png'/>");
+					}else{
+						$("#likeimgbt").attr("src","<c:url value='/resources/images/like2.png'/>");
+					}
+				},
+				error:function(x,e){
+					if(x.status==500){
+						alert("로그인해주세요.");
+						location.href="<c:url value='/login/login.do' />";
+					}
+				}
+			});	
+		});
+
+		
 		$('button#ticketing').hover(function() {
 			$(this).css('box-shadow', '3px 1px 6px 2px #a05260');	/* box-shadow: 6px 6px 8px 1px #a05260; */
 		},function(){
@@ -141,7 +164,6 @@
 			}, 400);
 
 		}).scroll();
-		
 	});
 </script>
  
@@ -174,6 +196,7 @@
    <!-- 페이지 만들떄마다 복붙 -->
    <!-- div안에서작업 그외엔 건들지말것 -->
    <div style="width: 87%;float: right;" class="pfdetail">
+   <input type="hidden" name="perfomid" id="perfomid" value="${param.perfomid }">
 	  <c:if test="${empty map2}">
 	  	  <span style="color: red;font-weight: bold;">데이터가 존재하지 않습니다.</span>
 	  </c:if>
@@ -226,14 +249,13 @@
 	         
 	         <!-- 좋아요 -->
 	         <div id="like">
-	            <a href = "<c:url value= '#'/>">
-	               <img src="<c:url value ='/resources/images/like.png'/>">
-	            </a>
+	         	<button id="likeBt">
+              	 <img id="likeimgbt" src="<c:url value ='/resources/images/${heart }'/>">
+	         	</button>
 	         </div>
-	         
 	         <!-- 좋아요 개수 -->
 	         <div id="likecount">
-	            <div>1000</div>
+	            <div class="llqqllqq">${likeCount }</div>
 	         </div>
 	         
 	         <div id = "calandar">
@@ -241,14 +263,27 @@
 		      		<h6>예매가능 공연 일자</h6>   
 		         	<span id="dateWhile">2020.03.14 ~ 2020.04.19</span>
 		         </div>
-		         <select id="selectDate" size="12" style="width: 200px">
-		         	<!-- 반복시작 -->
-		         	<option value="1">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
-		         	<option value="2">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
-		         	<option value="3">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
-		         	<!-- 반복 끝 -->
-		         </select> 
-		         
+		
+		         <!-- 예매 버튼 클릭 시 -> pfReservationController로 이동 후 결제 진행   -->
+				  <form name = "payfrm" action="<c:url value='/performance/pfReservation.do'/>" method="post" >
+			 	 		<input type="hidden" name="perfomid" value="${param.mt20id}"> 			<!-- 공연id -->
+			  			<input type="hidden" name="perfomtitle" value="${map2['prfnm']}">	 		<!-- 공연명 -->
+			  			<input type="hidden" name="perfomtype" value="${map2['genrenm']}"> 		<!-- 공연장르 -->
+			  			<input type="hidden" name="perfomfacilityid" value="${param.mt10id }">	<!-- 공연시설id -->
+			  			<input type="hidden" name="" value="">
+			  			<input type="hidden" name="" value="">
+			  			<input type="hidden" name="" value="">
+			 
+				        <select id="selectDate" size="12" style="width: 200px">
+			       	 		<!-- 반복시작 -->
+			       	  		<c:forEach var="" items="">
+				         		<option value="1">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
+				         		<option value="2">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
+				         		<option value="3">요일:시간:남은 표 장수</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
+			       	  		</c:forEach>
+			         		<!-- 반복 끝 -->
+			         	</select> 
+		         </form>
 		         <button onclick="showReservation();" id="ticketing">예매하기></button>
 	         </div>
 	      </div>
