@@ -47,8 +47,8 @@
 	            <c:forEach var = "vo" items="${alist }">          	
 	            	<div class="swiper-slide">
 	            		<div class = "testImg">
-	            			<a href="<c:url value='/performance/pfDetail.do?perfomid=${vo.mt20id}'/>">
-	            				<img src="${vo.poster }" class="img-responsive" width="240px" height="240px">
+	            			<a href="<c:url value='/performance/pfDetail.do?perfomid=${vo.mt20id}&perfomfacility=${vo.mt10id}'/>">
+	            				<img src="${vo.poster}" class="img-responsive" width="240px" height="240px">
 	            			</a>
 	            			<br>
 	            			<h5><b>${vo.prfnm }</b></h5> 
