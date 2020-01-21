@@ -209,6 +209,7 @@
 		<select>
 			<option>신용카드</option>
 			<option>계좌이체</option>
+			<option>무통장입금</option>
 		</select>
 	</div>
 	<div class="payInfo6">

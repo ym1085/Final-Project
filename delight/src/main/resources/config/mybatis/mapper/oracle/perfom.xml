@@ -4,10 +4,10 @@
 
 <mapper namespace="com.mybatis.mapper.perfom">
 	
-	<select id="selectreserList" parameterType="string" resultType="map">
+	<!-- <select id="selectreserList" parameterType="string" resultType="map">
 		select * from detailview
 		where mt20id=#{perfomid} and prfdate>=sysdate and prfhour>to_char(sysdate,'HH') and last>0
-	</select>
+	</select> -->
    
 </mapper>
 
