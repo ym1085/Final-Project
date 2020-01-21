@@ -266,14 +266,11 @@
 		
 		         <!-- 예매 버튼 클릭 시 -> pfReservationController로 이동 후 결제 진행   -->
 				  <form name = "payfrm" action="<c:url value='/performance/pfReservation.do'/>" method="post" >
-			 	 		<input type="hidden" name="perfomid" value="${param.mt20id}"> 			<!-- 공연id -->
-			  			<input type="hidden" name="perfomtitle" value="${map2['prfnm']}">	 		<!-- 공연명 -->
+			 	 		<input type="hidden" name="perfomid" value="${map2['mt20id']}"> 		<!-- 공연id -->
+			  			<input type="hidden" name="perfomtitle" value="${map2['prfnm']}">	 	<!-- 공연명 -->
 			  			<input type="hidden" name="perfomtype" value="${map2['genrenm']}"> 		<!-- 공연장르 -->
-			  			<input type="hidden" name="perfomfacilityid" value="${param.mt10id }">	<!-- 공연시설id -->
-			  			<input type="hidden" name="" value="">
-			  			<input type="hidden" name="" value="">
-			  			<input type="hidden" name="" value="">
-			 
+			  			<input type="hidden" name="perfomfacilityid" value="${map2['mt10id']}">	<!-- 공연시설id -->
+			  			
 		         <select id="selectDate" size="12" style="width: 250px">
 		         	<c:if test="${empty tclist }">
 		         	<option>예매가능한 공연 일자가  없습니다.</option>	
@@ -286,6 +283,7 @@
 		         	</c:if>
 		         	<!-- 반복 끝 -->
 		         </select> 
+
 		         </form>
 		         <button onclick="showReservation();" id="ticketing">예매하기></button>
 	         </div>
