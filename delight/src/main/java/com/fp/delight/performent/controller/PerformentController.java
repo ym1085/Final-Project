@@ -61,7 +61,7 @@ public class PerformentController {
 			likeCount=0;
 		}
 		
-		List<Map<String, Object>> rvlist=perfomService.selectreserList(perfomid);
+		//List<Map<String, Object>> rvlist=perfomService.selectreserList(perfomid);
 		
 		PerformentAPI perform = null; 
 		Map<String, Object> map = null;		//공연상세보기 - 전체 데이터 사용
@@ -91,7 +91,7 @@ public class PerformentController {
 			logger.info("추천 공연, map3={}", list);
 		}
 		
-		model.addAttribute("rvlist",rvlist);
+		//model.addAttribute("rvlist",rvlist);
 
 		model.addAttribute("heart",heart);
 		model.addAttribute("likeCount",likeCount);

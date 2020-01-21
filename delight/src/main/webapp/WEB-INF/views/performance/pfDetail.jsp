@@ -274,7 +274,7 @@
 			  			<input type="hidden" name="" value="">
 			  			<input type="hidden" name="" value=""> -->
 
-		         <select id="selectDate" size="12" style="width: 200px">
+		       <%--   <select id="selectDate" size="12" style="width: 200px">
 		         		<c:if test="${empty rvlist }">
 		         		<option>예매가능한 날 이 없습니다.</option>	
 		         		</c:if>
@@ -285,7 +285,7 @@
 		         		</c:forEach>
 		         		</c:if>
 		         		<!-- 반복 끝 -->
-		         </select> 
+		         </select>  --%>
 
 		         </form>
 		         <button onclick="showReservation();" id="ticketing">예매하기></button>
