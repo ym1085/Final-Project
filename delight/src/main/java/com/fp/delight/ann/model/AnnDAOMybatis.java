@@ -47,4 +47,16 @@ public class AnnDAOMybatis implements AnnDAO{
 	public int annExposure(int annSeq) {
 		return sqlSession.update(namespace+"annExposure", annSeq);
 	}
+
+	@Override
+	public int annUnExposure(int annSeq) {
+		return sqlSession.update(namespace+"annUnExposure", annSeq);
+	}
+
+	@Override
+	public AnnVO selAnnBySeq(int annSeq) {
+		return sqlSession.selectOne(namespace+"selAnnBySeq", annSeq);
+	}
+
+
 }

@@ -10,4 +10,6 @@ public interface AnnService {
 	int eventTotal(AnnVO annVo);
 	int annMultiDel(List<AnnVO> list);
 	int annMultiExpo(List<AnnVO> list);
+	int annUnExposure(List<AnnVO> list);
+	AnnVO selAnnBySeq(int annSeq);
 }

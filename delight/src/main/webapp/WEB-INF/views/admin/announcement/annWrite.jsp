@@ -57,7 +57,9 @@
 	
 	height: 100%;
 }
-
+#viewdiv img{
+	width: 100%;
+}
 #write{
 	width: 100%;
 	margin: 0 auto;
