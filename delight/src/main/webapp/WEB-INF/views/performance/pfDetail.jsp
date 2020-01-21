@@ -18,7 +18,7 @@
    #like img{z-index:-1;margin: 11px 0px 0px 8px;}
    #likecount{width: 64px; height:63px;z-index:1;float:left;margin-top:115px;box-shadow: 0px 1px 4px 0px grey;}
    #likecount>div{z-index:-1;text-align: center;line-height: 3.5em; font-weight: 600;}
-   div#calandar {width: 258px;height: 393px;position: absolute;top:162px;left:1186px; border:0.5px solid #f3eeee;padding: 10px 10px 10px 30px;background-color: #f7f7f7;} /* 수정필요 */ 
+   div#calandar {width: 307px;height: 393px;position: absolute;top:162px;left:1150px; border:0.5px solid #f3eeee;padding: 33px 10px 10px 30px;background-color: #f7f7f7;} /* 수정필요 */ 
    .body{height:100%; padding:30px;width:75%;margin:30px;border-top: 0.7px dotted gray;}
    .section {width:70%;height:100%;float:left; padding: 5px 5px 5px 5px;}
    .aside{width:25%;height:90%; border: 1px solid #efe7e7;float:left;margin-left:50px;padding: 5px 5px 5px 5px;}
@@ -261,7 +261,7 @@
 	         <div id = "calandar">
 		         <div id="calandarSub">
 		      		<h6>예매가능 공연 일자</h6>   
-		         	<span id="dateWhile">2020.03.14 ~ 2020.04.19</span>
+		         	<span id="dateWhile">${map2['prfpdfrom'] }~${map2['prfpdto'] }</span>
 		         </div>
 		
 		         <!-- 예매 버튼 클릭 시 -> pfReservationController로 이동 후 결제 진행   -->
@@ -274,14 +274,14 @@
 			  			<input type="hidden" name="" value="">
 			  			<input type="hidden" name="" value="">
 			 
-		         <select id="selectDate" size="12" style="width: 200px">
-		         	<c:if test="${empty rvlist }">
-		         	<option>예매가능한 날 이 없습니다.</option>	
+		         <select id="selectDate" size="12" style="width: 250px">
+		         	<c:if test="${empty tclist }">
+		         	<option>예매가능한 공연 일자가  없습니다.</option>	
 		         	</c:if>
 		         	<!-- 반복시작 -->
-		         	<c:if test="${!empty rvlist }">
-		         	<c:forEach var="rvmap" items="${rvlist }">
-		         	<option value="${rvmap['TICKET_SEQ'] }">날짜:${rvmap['PRFDATE'] }시간:${rvmap['PRFHOUR'] }남은 표 장수:${rvmap['LAST'] }/${rvmap['SELLTICKET'] }</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
+		         	<c:if test="${!empty tclist }">
+		         	<c:forEach var="tcvo" items="${tclist }">
+		         	<option value="${tcvo.ticketSeq}">날짜:${tcvo.prfdate },시간:${tcvo.prfhour },남은 표 장수:(${tcvo.sellticket-tcvo.selled }/${tcvo.sellticket })</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
 		         	</c:forEach>
 		         	</c:if>
 		         	<!-- 반복 끝 -->

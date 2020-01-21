@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.fp.delight.like.model.LikeService;
 import com.fp.delight.like.model.LikeVO;
-import com.fp.delight.performent.model.PerfomService;
 import com.fp.delight.member.model.MemberService;
 import com.fp.delight.member.model.MemberVO;
 import com.fp.delight.performent.model.PerformentListVO;
+import com.fp.delight.ticket.controller.TicketService;
+import com.fp.delight.ticket.controller.TicketVO;
 
 ///performance/pfDetail.do?mt20id=${vo.mt20id }'/>">
 @Controller
@@ -32,7 +33,7 @@ public class PerformentController {
 	private LikeService likeService;
 	
 	@Autowired
-	private PerfomService perfomService;
+	private TicketService ticketService;
 	
 	@RequestMapping("/pfDetail.do")
 	public String performentList_post(@RequestParam String perfomid,HttpSession session,
@@ -59,7 +60,8 @@ public class PerformentController {
 			likeCount=0;
 		}
 		
-		List<Map<String, Object>> rvlist=perfomService.selectreserList(perfomid);
+		List<TicketVO> tclist=ticketService.selectreserList(perfomid);
+		logger.info("rvlist.size={}",tclist);
 		
 		PerformentAPI perform = null; 
 		Map<String, Object> map = null;		//공연상세보기 - 전체 데이터 사용
@@ -89,7 +91,7 @@ public class PerformentController {
 			logger.info("추천 공연, map3={}", list);
 		}
 		
-		model.addAttribute("rvlist",rvlist);
+		model.addAttribute("tclist",tclist);
 
 		model.addAttribute("heart",heart);
 		model.addAttribute("likeCount",likeCount);
@@ -97,7 +99,7 @@ public class PerformentController {
 		return "performance/pfDetail";
 	}
 
-	//결제진행창 보여주기
+	//회원결제진행창 보여주기
 	@RequestMapping("/pfReservation.do")
 	public String showReservation(@RequestParam String perfomid, HttpSession session,
 			Model model) {
@@ -117,7 +119,7 @@ public class PerformentController {
 		return "performance/pfReservation";
 	}
 	
-	//결제진행창 보여주기
+	//비회원결제진행창 보여주기
 	@RequestMapping("/pfNoReservation.do")
 	public void showReservation() {
 		
@@ -152,8 +154,6 @@ public class PerformentController {
 		
 		return "performance/import";
 	}
-	
-	
 	
 }
 
