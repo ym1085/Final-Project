@@ -12,14 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.fp.delight.like.model.LikeService;
 import com.fp.delight.like.model.LikeVO;
 import com.fp.delight.member.model.MemberService;
 import com.fp.delight.member.model.MemberVO;
 import com.fp.delight.performent.model.PerformentDetailVO;
 import com.fp.delight.performent.model.PerformentListVO;
-import com.fp.delight.ticket.controller.TicketService;
-import com.fp.delight.ticket.controller.TicketVO;
+import com.fp.delight.ticket.model.TicketService;
+import com.fp.delight.ticket.model.TicketVO;
 
 ///performance/pfDetail.do?mt20id=${vo.mt20id }'/>">
 @Controller
@@ -109,7 +111,7 @@ public class PerformentController {
 		String userid = (String)session.getAttribute("userid");
 		
 		//공연id
-		String perfomid = performentDetailVo.getMt10id();
+		String perfomid = performentDetailVo.getMt20id();
 		
 		logger.info("결제 진행 화면 보여주기 위한 파라미터 perfomid={} userid={}", perfomid, userid);
 		
@@ -164,6 +166,5 @@ public class PerformentController {
 		
 		return "performance/import";
 	}
-	
 }
 

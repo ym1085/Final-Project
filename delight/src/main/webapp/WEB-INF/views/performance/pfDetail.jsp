@@ -9,7 +9,7 @@
    .top1>img {height: 100%;width: 250px;float: left;}
    .top2>div{border: 1px solid #dfd5d5;width:10px;height:50px;margin-right: 8px;}
    .top2>label {padding-left: 15px;line-height: 1.7em;padding-right: 30px;font-family: 맑은고딕;color:#000;}
-   #performtitle{text-align: center;font-family: 맑은고딕; font-weight: bold; margin-top: 25px;}
+   #performtitle{text-align: center;font-family: 맑은고딕; font-weight: bold; margin-top: 25px;padding-right: 25%;}
    .type{margin-left:27px;}
    span{color:#000;}
    #home{width: 64px; height:63px;z-index:1;float:left;margin-top:115px;box-shadow: 0px 1px 4px 0px grey;}
@@ -86,7 +86,7 @@
    .tabmenu input:checked ~ .tabCon{display:block;}
    .box-more{background-color: #fafafa;padding: 25px 20px 25px 130px;}
    .tabmenu ul li { line-height: 30px;}
-   
+   select#selectDate2 {width: 250px;}
    /* 삭제하지마세요 - 사이드 배너 */
    #floatMenu {position: absolute;width: 230px;height: 700px;left: 1487px;top:120px;}
 }
@@ -97,9 +97,12 @@
 	$(function(){
 		
 		$("form[name=payfrm]").submit(function(){
-			if(!$("select option:selected").val()){
-				alert("예매하실 일자를 선택해주세요.");
-				$("#selectDate").focus();
+			if($("#selectDate option").val()=='dateN'){
+				alert("현재 공연중이 아닙니다!");
+				event.preventDefault();
+			}else if(!$("#selectDate option").text()){
+				alert("예매할 일자를 선택해주세요.");
+				$("#selectDate2").focus();
 				event.preventDefault();
 			}
 		});
@@ -169,6 +172,28 @@
 			}, 400);
 
 		}).scroll();
+		
+		if($("#selectDate2 select option").val()!=''){
+			$("#selectDate2").change(function(){
+				if($("#selectDate select option:selected").val("dateY")){
+					$("#selectDate option").text("");
+				}
+				$.ajax({
+					type:"post",
+					url:"<c:url value='/ticketCategory.do'/>",
+					data:{"ticketSeq":$("#selectDate2").val()},
+					dataType:"json",
+					success:function(res){
+						var last=res.sellticket-res.selled;
+						var result=res.sellclass+", "+"잔여석:"+last+"석";
+						$("#selectDate option").text(result);
+					},
+					error:function(xhr,status,error){
+					}
+				});	
+			});
+		}
+		
 		
 	});
 </script>
@@ -272,23 +297,31 @@
 		
 		         <!-- 예매 버튼 클릭 시 -> pfReservationController로 이동 후 결제 진행   -->
 				  <form name = "payfrm" action="<c:url value='/performance/pfReservation.do'/>" method="post" >
-			 	 		<input type="hidden" name="perfomid" value="${map2['mt20id']}"> 		<!-- 공연id -->
-			  			<input type="hidden" name="perfomtitle" value="${map2['prfnm']}">	 	<!-- 공연명 -->
-			  			<input type="hidden" name="perfomtype" value="${map2['genrenm']}"> 		<!-- 공연장르 -->
-			  			<input type="hidden" name="perfomfacilityid" value="${map2['mt10id']}">	<!-- 공연시설id -->
-			  			
-		         <select id="selectDate" size="12" style="width: 250px">
-		         	<c:if test="${empty tclist }">
-		         	<option>예매가능한 공연 일자가  없습니다.</option>	
-		         	</c:if>
+			 	 		<input type="hidden" name="mt20id" value="${map2['mt20id']}"> 		<!-- 공연id -->
+			  			<input type="hidden" name="prfnm" value="${map2['prfnm']}">	 	<!-- 공연명 -->
+			  			<input type="hidden" name="genrenm" value="${map2['genrenm']}"> 		<!-- 공연장르 -->
+			  			<input type="hidden" name="mt10id" value="${map2['mt10id']}">	<!-- 공연시설id -->
+			  	
+			  	<c:if test="${!empty tclist }">
+				  	<select id="selectDate2">
+				  	<option value='dateY'>선택해주세요</option>
 		         	<!-- 반복시작 -->
-		         	<c:if test="${!empty tclist }">
 		         	<c:forEach var="tcvo" items="${tclist }">
-		         	<option value="${tcvo.ticketSeq}">날짜:${tcvo.prfdate },시간:${tcvo.prfhour },남은 표 장수:(${tcvo.sellticket-tcvo.selled }/${tcvo.sellticket })</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
+		         	<option value="${tcvo.ticketSeq}">날짜:${tcvo.prfdate },  시간:${tcvo.prfhour }</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
 		         	</c:forEach>
-		         	</c:if>
 		         	<!-- 반복 끝 -->
-		         </select> 
+		         	</select>
+		         	<select id="selectDate" size="12" style="width: 250px">
+		         		<option></option>
+		        	 </select> 
+			  	</c:if>
+			  	
+		         	<c:if test="${empty tclist }">
+		    	     <select id="selectDate" size="12" style="width: 250px">
+			         	<option value="dateN">예매가능한 공연 일자가  없습니다.</option>	
+		    	     </select> 
+		         	</c:if>
+		         	
 		         <input type="submit" id="ticketing" value="예매하기>" />
 		         </form>
 	         </div>

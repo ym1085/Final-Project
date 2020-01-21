@@ -231,10 +231,6 @@
 	</div>
 </div>
 </form>
-	<input type="text" name="perfomid" value="${memberVo.perfomid }">
-	<input type="text" name="perfomid" value="${memberVo.perfomid }">
-	<input type="text" name="perfomid" value="${memberVo.perfomid }">
-	<input type="text" name="perfomid" value="${memberVo.perfomid }">
 </div>
 	<!-- div안에서작업 그외엔 건들지말것 -->
 	
