@@ -10,5 +10,6 @@ public interface AnnDAO {
 	int eventTotal(AnnVO annVo);
 	int normalDel(int annSeq);
 	int annExposure(int annSeq);
-	
+	int annUnExposure(int annSeq);
+	AnnVO selAnnBySeq(int annSeq);
 }

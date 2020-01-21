@@ -16,6 +16,7 @@ function pageFunc2(curPage){
 	document.frmPage.currentPage.value=curPage;
 	document.frmPage.submit();
 }
+
 $(function() {
 	$("#normalbt").click(function() {
 		$("#aa1").val($("#searchCondition option:selected").val());
@@ -40,6 +41,75 @@ $(function() {
 		}else{
 			alert("노출할 공지글을 선택해주세요.");
 		}
+	});
+	
+	$("#normalExpoCancle").click(function() {
+		if($("#normal tbody input[type=checkbox]:checked").length>0){
+			$('form[name=frmSearch]').prop("action",
+			"<c:url value='/admin/announcement/normultiunex.do'/>");	
+			$('form[name=frmSearch]').submit();
+		}else{
+			alert("노출 취소 할 공지글을 선택해주세요.");
+		}
+	});
+	
+	$("#eventExposure").click(function() {
+		if($("#event tbody input[type=checkbox]:checked").length>0){
+			$('form[name=frmSearch2]').prop("action",
+			"<c:url value='/admin/announcement/entmultiex.do'/>");	
+			$('form[name=frmSearch2]').submit();
+		}else{
+			alert("노출할 이벤트글을 선택해주세요.");
+		}
+	});
+	
+	$("#eventExpoCancle").click(function() {
+		if($("#event tbody input[type=checkbox]:checked").length>0){
+			$('form[name=frmSearch2]').prop("action",
+			"<c:url value='/admin/announcement/entmultiunex.do'/>");	
+			$('form[name=frmSearch2]').submit();
+		}else{
+			alert("노출 취소 할 이벤트글을 선택해주세요.");
+		}
+	});
+	
+	$("#normal thead input[type=checkbox]").click(function(){
+		$("#normal tbody input[type=checkbox]")
+			.prop("checked", this.checked);
+	});
+	
+	$("#event thead input[type=checkbox]").click(function(){
+		$("#event tbody input[type=checkbox]")
+			.prop("checked", this.checked);
+	});
+	
+	$("#normalDel").click(function() {
+		if($("#normal tbody input[type=checkbox]:checked").length>0){
+			$('form[name=frmSearch]').prop("action",
+			"<c:url value='/admin/announcement/multiDel.do?type=1'/>");	
+			$('form[name=frmSearch]').submit();
+		}else{
+			alert("삭제할 공지글을 선택해주세요.");
+		}
+	});
+	
+	$("#eventDel").click(function() {
+		if($("#event tbody input[type=checkbox]:checked").length>0){
+			$('form[name=frmSearch2]').prop("action",
+			"<c:url value='/admin/announcement/multiDel.do?type=2'/>");	
+			$('form[name=frmSearch2]').submit();
+		}else{
+			alert("삭제할 이벤트 글을 선택해주세요.");
+		}
+	});
+	
+	$("table a").each(function() {
+		$(this).click(function() {
+			var seq=$(this).parent().parent().find("input[type=checkbox]").val();
+			window.open("/delight/admin/announcement/annDetail.do?annSeq="+seq,"detail",
+			"width=800,height=890,left=0,top=0,location=yes,resizable=no");
+			
+		});
 	});
 	
 });
@@ -109,7 +179,7 @@ $(function() {
 				<td><fmt:formatDate value="${vo.annRegdate }" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-				<select class="setup form-control-sm">
+				<select class="setup form-control-xm">
 					<option value="">선택</option>
 					<option value="1">노출</option>
 					<option value="2">상단고정</option>
@@ -230,7 +300,7 @@ $(function() {
 				<td><fmt:formatDate value="${vo2.annRegdate }" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-				<select class="setup form-control-sm">
+				<select class="setup form-control-xm">
 					<option value="">선택</option>
 					<option value="1">노출</option>
 					<option value="2">상단고정</option>

@@ -78,4 +78,28 @@ public class AnnServiceImpl implements AnnService{
 		return cnt;
 	}
 
+	@Override
+	@Transactional
+	public int annUnExposure(List<AnnVO> list) {
+		int cnt=0;
+		try {
+			for(AnnVO vo : list) {
+				int annSeq=vo.getAnnSeq();
+				if(annSeq!=0) {
+					cnt=annDao.annUnExposure(annSeq);
+				}
+			}
+		}catch(RuntimeException e) {
+			e.printStackTrace();
+			cnt=-1;
+		}
+		
+		return cnt;
+	}
+
+	@Override
+	public AnnVO selAnnBySeq(int annSeq) {
+		return annDao.selAnnBySeq(annSeq);
+	}
+
 }

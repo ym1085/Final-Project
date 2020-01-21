@@ -76,6 +76,14 @@
 		update tbl_ann set ann_show='Y' where ann_seq=#{annSeq}
 	</update>
 	
+	<update id="annUnExposure" parameterType="int">
+		update tbl_ann set ann_show='N' where ann_seq=#{annSeq}
+	</update>
+	
+	<select id="selAnnBySeq" parameterType="int" resultType="annVo">
+		select * from tbl_ann where ann_seq=#{annSeq}
+	</select>
+	
 </mapper>
 
 

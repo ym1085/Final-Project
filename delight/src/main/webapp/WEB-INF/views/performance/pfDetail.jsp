@@ -323,7 +323,7 @@
 		         	</c:if>
 		         	
 		         <input type="submit" id="ticketing" value="예매하기>" />
-		         </form>
+	         </form>
 	         </div>
 	      </div>
 	      </div>

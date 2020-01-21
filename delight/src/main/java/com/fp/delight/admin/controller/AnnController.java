@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fp.delight.ann.model.AnnListVO;
 import com.fp.delight.ann.model.AnnService;
@@ -116,4 +117,95 @@ public class AnnController {
 		
 		return "common/message";
 	}
+	
+	@RequestMapping("/normultiunex.do")
+	public String normultiunex(@ModelAttribute AnnListVO annListVo,Model model) {
+		logger.info("일반 공지 멀티 노출 취소 파라미터 annListVo={}",annListVo);
+		
+		List<AnnVO> list=annListVo.getAnnList();
+		
+		int cnt=annService.annUnExposure(list);
+		String msg="노출 취소 설정 중 오류 발생", url="/admin/announcement/annInc.do";
+		if(cnt>0) {
+			msg="선택한 공지 글을 노출 취소 하였습니다.";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	@RequestMapping("/entmultiex.do")
+	public String entmultiex(@ModelAttribute AnnListVO annListVo,Model model) {
+		logger.info("이벤트 공지 멀티 노출 설정 파라미터 annListVo={}",annListVo);
+		List<AnnVO> list=annListVo.getAnnList();
+		
+		int cnt=annService.annMultiExpo(list);
+		
+		String msg="노출 설정 중 오류 발생", url="/admin/announcement/annInc.do";
+		if(cnt>0) {
+			msg="선택한 이벤트 글을 노출 설정하였습니다.";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	@RequestMapping("/entmultiunex.do")
+	public String entmultiunex(@ModelAttribute AnnListVO annListVo,Model model) {
+		logger.info("이벤트 공지 멀티 노출 취소 파라미터 annListVo={}",annListVo);
+		
+		List<AnnVO> list=annListVo.getAnnList();
+		
+		int cnt=annService.annUnExposure(list);
+		String msg="노출 취소 설정 중 오류 발생", url="/admin/announcement/annInc.do";
+		if(cnt>0) {
+			msg="선택한 이벤트 글을 노출 취소 하였습니다.";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	@RequestMapping("/multiDel.do")
+	public String multiDel(@ModelAttribute AnnListVO annListVo,
+			@RequestParam int type,Model model) {
+		logger.info("파라미터 annListVo={}",annListVo);
+		
+		List<AnnVO> list=annListVo.getAnnList();
+		
+		int cnt=annService.annMultiDel(list);
+		String msg="삭제 중 오류 발생", url="/admin/announcement/annInc.do";
+		if(cnt>0 && type==1) {
+			msg="선택한 공지 글을 삭제 하였습니다.";
+		}else if(cnt>0 && type==2) {
+			msg="선택한 이벤트 글을 삭제하였습니다.";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+		
+	}
+	
+	@RequestMapping("/annDetail.do")
+	public void annDetail(@RequestParam int annSeq,Model model) {
+		logger.info("공지글 상세보기 파라미터 annSeq={}",annSeq);
+		
+		AnnVO vo=annService.selAnnBySeq(annSeq);
+		
+		logger.info("공지글 검색 결과 vo={}",vo);
+		
+		model.addAttribute("vo", vo);
+		
+		
+	}
+	
+	
 }
