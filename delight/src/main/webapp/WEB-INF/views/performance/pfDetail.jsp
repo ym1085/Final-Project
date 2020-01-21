@@ -44,7 +44,7 @@
     #calandarSub h6{font-size: 12px; font-family:-webkit-body;}
     #dateWhile{font-size: 11px; font-family:-webkit-body; font-weight: 400;}
     select#selectDate {border: none;margin-top: 7px;font-weight: 400;}
-    button#ticketing {width: 200px;height: 45px;border: none;background: red;border-radius: 5px;color: white;font-size: 1.1em;font-weight: bold;margin-top: 45px;  box-shadow: 6px 6px 8px 1px #a05260;}
+    input#ticketing {width: 200px;height: 45px;border: none;background: red;border-radius: 5px;color: white;font-size: 1.1em;font-weight: bold;margin-top: 45px;  box-shadow: 6px 6px 8px 1px #a05260;}
     #selectDate > option{font-size: 10px;}
     .cancellationTable > th,td{height: 50px;}
     .cancellationTable tr th {background-color:#fbfbfb;padding-left: 10px; font-weight: 400;font-family: serif;}
@@ -94,11 +94,16 @@
 
 <script type="text/javascript" src="<c:url value ='/resources/js/jquery-3.4.1.min.js'/>"></script>
 <script type="text/javascript">
-	function showReservation(){
-		$("form[name='payfrm']").submit();	
-	}
-	
 	$(function(){
+		
+		$("form[name=payfrm]").submit(function(){
+			if(!$("select option:selected").val()){
+				alert("예매하실 일자를 선택해주세요.");
+				$("#selectDate").focus();
+				event.preventDefault();
+			}
+		});
+		
 		$("#likeBt").click(function(){
 			$.ajax({
 				type:"get",
@@ -164,6 +169,7 @@
 			}, 400);
 
 		}).scroll();
+		
 	});
 </script>
  
@@ -283,9 +289,8 @@
 		         	</c:if>
 		         	<!-- 반복 끝 -->
 		         </select> 
-
+		         <input type="submit" id="ticketing" value="예매하기>" />
 		         </form>
-		         <button onclick="showReservation();" id="ticketing">예매하기></button>
 	         </div>
 	      </div>
 	      </div>
