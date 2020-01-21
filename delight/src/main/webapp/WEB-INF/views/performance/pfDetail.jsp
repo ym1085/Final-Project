@@ -276,21 +276,21 @@
 			  			<input type="hidden" name="perfomtitle" value="${map2['prfnm']}">	 	<!-- 공연명 -->
 			  			<input type="hidden" name="perfomtype" value="${map2['genrenm']}"> 		<!-- 공연장르 -->
 			  			<input type="hidden" name="perfomfacilityid" value="${map2['mt10id']}">	<!-- 공연시설id -->
-			  			
-		         <select id="selectDate" size="12" style="width: 250px">
-		         	<c:if test="${empty tclist }">
-		         	<option>예매가능한 공연 일자가  없습니다.</option>	
-		         	</c:if>
-		         	<!-- 반복시작 -->
-		         	<c:if test="${!empty tclist }">
-		         	<c:forEach var="tcvo" items="${tclist }">
-		         	<option value="${tcvo.ticketSeq}">날짜:${tcvo.prfdate },시간:${tcvo.prfhour },남은 표 장수:(${tcvo.sellticket-tcvo.selled }/${tcvo.sellticket })</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
-		         	</c:forEach>
-		         	</c:if>
-		         	<!-- 반복 끝 -->
-		         </select> 
+	
+				        <select id="selectDate" size="12" style="width: 250px">
+				         	<c:if test="${empty tclist }">
+				         	<option>예매가능한 공연 일자가  없습니다.</option>	
+				         	</c:if>
+				         	<!-- 반복시작 -->
+				         	<c:if test="${!empty tclist }">
+				         	<c:forEach var="tcvo" items="${tclist }">
+				         	<option value="${tcvo.ticketSeq}">날짜:${tcvo.prfdate },시간:${tcvo.prfhour },남은 표 장수:(${tcvo.sellticket-tcvo.selled }/${tcvo.sellticket })</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
+				         	</c:forEach>
+				         	</c:if>
+				         	<!-- 반복 끝 -->
+				        </select> 
 		         <input type="submit" id="ticketing" value="예매하기>" />
-		         </form>
+	         </form>
 	         </div>
 	      </div>
 	      </div>

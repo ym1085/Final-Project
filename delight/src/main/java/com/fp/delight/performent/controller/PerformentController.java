@@ -62,6 +62,7 @@ public class PerformentController {
 			likeCount=0;
 		}
 		
+
 		List<TicketVO> tclist=ticketService.selectreserList(perfomid);
 		logger.info("rvlist.size={}",tclist);
 		
@@ -93,6 +94,7 @@ public class PerformentController {
 			logger.info("추천 공연, map3={}", list);
 		}
 		
+
 		model.addAttribute("tclist",tclist);
 
 		model.addAttribute("heart",heart);
