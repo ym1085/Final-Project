@@ -246,7 +246,7 @@
 		         </c:if> --%>
 		         <%--<c:if test="${fn:length(performName)<=10}">
 		         </c:if>--%>
-		         <span id="performplace" style="width:400px">${map2_location['fcltynm'] }</span>
+		         <span id="performplace" style="width:400px">${map2_location['fcltynm']}</span>
 		         <br>
 		         
 		         <label id="performterm">공연기간</label>
@@ -296,21 +296,24 @@
 		         </div>
 		
 		         <!-- 예매 버튼 클릭 시 -> pfReservationController로 이동 후 결제 진행   -->
-				  <form name = "payfrm" action="<c:url value='/performance/pfReservation.do'/>" method="post" >
-			 	 		<input type="hidden" name="mt20id" value="${map2['mt20id']}"> 		<!-- 공연id -->
-			  			<input type="hidden" name="prfnm" value="${map2['prfnm']}">	 	<!-- 공연명 -->
-			  			<input type="hidden" name="genrenm" value="${map2['genrenm']}"> 		<!-- 공연장르 -->
-			  			<input type="hidden" name="mt10id" value="${map2['mt10id']}">	<!-- 공연시설id -->
+				 <form name = "payfrm" action="<c:url value='/performance/pfReservation.do'/>" method="post" >
+			 	 		<input type="hidden" name="mt20id" value="${map2['mt20id']}"> 				<!-- 공연id -->
+			  			<input type="hidden" name="mt10id" value="${map2['mt10id']}">				<!-- 공연시설id -->
+			  			<input type="hidden" name="prfnm" value="${map2['prfnm']}">	 				<!-- 공연명 -->
+			  			<input type="hidden" name="genrenm" value="${map2['genrenm']}"> 			<!-- 공연장르 -->
+			  			<input type="hidden" name="fcltynm" value="${map2_location['fcltynm']}"> 	<!-- 공연시설명 -->
 			  	
 			  	<c:if test="${!empty tclist }">
-				  	<select id="selectDate2">
-				  	<option value='dateY'>선택해주세요</option>
+				  	<select name="ticketSeq" id="selectDate2">
+				  		<option value='dateY'>선택해주세요</option>
 		         	<!-- 반복시작 -->
 		         	<c:forEach var="tcvo" items="${tclist }">
-		         	<option value="${tcvo.ticketSeq}">날짜:${tcvo.prfdate },  시간:${tcvo.prfhour }</option>	<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
+		         		<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
+		         		<option value="${tcvo.ticketSeq}">날짜:${tcvo.prfdate },  시간:${tcvo.prfhour }</option>	
 		         	</c:forEach>
 		         	<!-- 반복 끝 -->
 		         	</select>
+		         	
 		         	<select id="selectDate" size="12" style="width: 250px">
 		         		<option></option>
 		        	 </select> 

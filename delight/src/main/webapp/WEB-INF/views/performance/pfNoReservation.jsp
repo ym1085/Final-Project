@@ -24,9 +24,31 @@
 				$q.toggleClass("on");
 				$ct.stop().slideToggle('fast');
 			});
-		});
 		
+			//예매자명
+			if($(".UndefinedUname").val()!=''){
+				$(".UndefinedUname").attr("readonly", "readonly");
+				$(".UndefinedUname").css("background-color", "#f6f3f3");
+			}
+			
+			//예매자 이메일
+			if($(".UndefinedUemail").val()!=''){
+				$(".UndefinedUemail").attr("readonly", "readonly");
+				$(".UndefinedUemail").css("background-color", "#f6f3f3");
+			}
+			
+			if($(".infoBox").val()!=''){
+				$(".infoBox").each(function(idx){
+					$(this).attr("readonly", "readonly");
+					$(this).css("background-color", "#f6f3f3");
+				});
+			}
+		});
 	</script>
+	
+	<style type="text/css">
+		input.infoBox {border-color: lightgray;}
+	</style>
 	
 	<!-- 페이지 만들떄마다 복붙 -->
 	<div style="width: 13%; float: left; height: 100%;">
@@ -61,11 +83,15 @@
 	<hr>
 <form>
 <div class="MentInfo">
-	<input type="text">
-	<input type="text">
-	<input type="text" id="title">
-	<input type="text">
-	<input type="text">
+	<input class="infoBox" id ="perfomplace" type="text" name="fcltynm" value="${param.fcltynm }">				<!-- 공연장소 -->
+	<input class="infoBox" type="text" name="prfnm" value="${param.prfnm }">									<!-- 공연제목 -->
+	<input class="infoBox" type="text" name="genrenm" value="${param.genrenm }">								<!-- 공연타입 -->
+	<input class="infoBox" type="text" name="prfdate" value="${tkVo.prfdate }">									<!-- 공연날짜 -->			
+	<input class="infoBox" type="text" name="prfhour" value="${tkVo.prfhour }">									<!-- 공연시간 -->
+	
+	<input type="hidden" name="mt20id" value="${param.mt20id }">												<!-- 공연id -->
+	<input type="hidden" name="mt10id" value="${param.mt10id }">		
+	
 </div>
  <div id="pfReservation">
 	
@@ -149,8 +175,10 @@
 					<div class="per-a" id="s12">
 						<div class="i12">
 							<span>★</span><p>예매자 정보 Reservation Information</p><br>
-							<label>예매자명 Name</label><input type="text"><br>
-							<label>예매자 이메일 Ticket Email</label><input type="text">
+							<label>예매자명 Name</label>
+							<input class="UndefinedUname" type="text" name="UndefinedUname"><br>
+							<label>예매자 이메일 Ticket Email</label>
+							<input class="UndefinedUemail" type="text" name="UndefinedUemail">
 						</div>
 						<div class="i12">
 							<span>★</span><p>관람자 정보 Audlence Information</p><br>

@@ -176,7 +176,8 @@
     </section>
     <br><br>
     
-    <!-- 푸터 시작 --><!-- clear: both; -->
+    <!-- 푸터 시작 -->
+    <!-- clear: both; -->
     <footer class="footer-area" style="background: #08223a; data-position:fixed;">
         <div class="container-fluid"> 
             <div class="row justify-content-center">
@@ -198,8 +199,6 @@
         </div>
     </footer> 
     <!-- footer part end-->
-    
-     
     <!-- jquery plugins here-->
     <script src="${pageContext.request.contextPath}/resources/idx_resource/js/jquery-1.12.1.min.js"></script>
     <!-- popper js -->

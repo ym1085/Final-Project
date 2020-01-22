@@ -108,12 +108,15 @@ public class PerformentController {
 	//회원결제진행창 보여주기
 	@RequestMapping("/pfReservation.do")
 	public String showReservation(@ModelAttribute PerformentDetailVO performentDetailVo, HttpSession session,
-			Model model) {
+			Model model, @RequestParam int ticketSeq) {
 		//로그인 한 유저
 		String userid = (String)session.getAttribute("userid");
 		
 		//공연id
 		String perfomid = performentDetailVo.getMt20id();
+		
+		//관리자가 등록한 티켓에 대한 시퀸스를 가져옴 - Id대신 Name 추가
+		logger.info("select~option selectDate2={}", ticketSeq); //2
 		
 		logger.info("결제 진행 화면 보여주기 위한 파라미터 perfomid={} userid={}", perfomid, userid);
 		
@@ -125,19 +128,68 @@ public class PerformentController {
 			MemberVO memberVo = memberService.selectMember(userid);
 			logger.info("결제진행 정보 데이터 뿌리기, memberVo={}", memberVo);
 			
+			String email1 = memberVo.getEmail1();
+			String email2 = memberVo.getEmail2();
+			
+			String email = "";
+			if(email1!=null && !email1.isEmpty() && email2!=null && !email2.isEmpty()) {
+				email = email1+"@"+email2;
+			}
+			
+			logger.info("유저 이메일 통합, 파라미터 email={} " + email);
+			
+			model.addAttribute("email", email);			//이메일 쪼개서 하나로 통합
 			model.addAttribute("memberVo", memberVo);	//유저 정보
 			model.addAttribute("map_pay",map);			//해당 공연에 대한 상세정보 
+		
+			//유저의 회원 등급 조회
+			String memberGrade = memberService.selectMemberGrade(userid);
+			logger.info("로그인 한 유저의 회원등급 정보, 파라미터 memberGrade={}", memberGrade);
+		
+			//회원 등급 조회
+			model.addAttribute("membergrade", memberGrade);
+		
+			//공연 SEQ를 넘겨받아 해당 공연에 대한 공연정보를 다시 가져온다.
+			TicketVO tkVo =  ticketService.selectCategory(ticketSeq);
+			logger.info("해당 공연에 대한 공연 티켓정보, tkVo==>{} ", tkVo);
+		
+			//해당 공연결과 저장
+			model.addAttribute("tkVo", tkVo);
+			
+			Map<String, Object> map_membership = memberService.selectMemberShip(userid);
+			logger.info("유저의 회원권 검색, 파라미터 map_membership={}", map_membership);
+			
+			//유저 회원권[이렇게 한 컨트롤러에서 많은 작업 상관없겠지??]
+			model.addAttribute("map_membership", map_membership);
 		}
 		
 		//결제 진행창으로 -> 유저아이디, 공연 상세정보 return. 
 		return "performance/pfReservation";
 	}
 	
+	
 	//비회원결제진행창 보여주기
 	@RequestMapping("/pfNoReservation.do")
-	public void showReservation() {
+	public String showReservation(@ModelAttribute PerformentDetailVO performentDetailVo, 
+			Model model, @RequestParam int ticketSeq) {
+		logger.info("비회원 결제진행창으로부터의 진행사항, 파라미터 performentDetailVo={} ticketSeq={} ", performentDetailVo);
 		
-	}
+		//공연id
+		String perfomid = performentDetailVo.getMt20id();
+		
+		logger.info("결제 진행 화면 보여주기 위한 파라미터 perfomid={} ", perfomid);
+	
+		if(perfomid!=null && !perfomid.isEmpty()) {
+			PerformentAPI perform = new PerformentAPI();
+			Map<String, Object> map = perform.performDetail(perfomid);
+			logger.info("결제진행 정보 데이터 뿌리기, map={} ", map);
+			
+			//해당 공연에 대한 상세정보 
+			model.addAttribute("map_pay",map);	
+		}
+	
+		return "performance/pfNoReservation";
+	}//E
 	
 	//결제진행 import
 	@RequestMapping("/import.do")

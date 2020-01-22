@@ -14,6 +14,20 @@
 		select * from tbl_user
 		where userid=#{userid} and out_date is null
 	</select>
+	
+	<select id="selectMemberShip" parameterType="string" resultType="map">
+		select b.*
+		from tbl_user a join tbl_premium b
+		on a.userid = b.userid
+		where a.userid=#{userid}
+	</select>
+	
+	<select id="selectMemberGrade" parameterType="string" resultType="string">
+   		select b.grade_name
+		from tbl_user a join tbl_grade b
+		on a.grade_seq = b.grade_seq
+		where userid = #{userid}
+    </select>		
 		
 	<insert id="insertMember" parameterType="memberVo">
 		insert into tbl_user(userid, username, password, birth, email1, email2, hp1, hp2, 

@@ -119,4 +119,14 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.withdrawMember(memberVo);
 	}
 
+	@Override
+	public String selectMemberGrade(String userid) {
+		return memberDao.selectMemberGrade(userid);
+	}
+
+	@Override
+	public Map<String, Object> selectMemberShip(String userid) {
+		return memberDao.selectMemberShip(userid);
+	}
+
 }

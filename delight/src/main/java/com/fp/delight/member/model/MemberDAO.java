@@ -16,4 +16,6 @@ public interface MemberDAO {
 	List<Map<String, Object>> selectOut();
 	int withdrawMember(MemberVO memberVo);
 	String getSaltById(String userid);
+	String selectMemberGrade(String userid);
+	Map<String, Object> selectMemberShip(String userid);
 }

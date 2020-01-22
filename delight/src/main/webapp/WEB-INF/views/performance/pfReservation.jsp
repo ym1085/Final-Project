@@ -24,9 +24,36 @@
 				$q.toggleClass("on");
 				$ct.stop().slideToggle('fast');
 			});
+			
+			//예매자명
+			if($(".username").val()!=''){
+				$(".username").attr("readonly", "readonly");
+				$(".username").css("background-color", "#f6f3f3");
+			}
+			
+			//예매자 이메일
+			if($(".useremail").val()!=''){
+				$(".useremail").attr("readonly", "readonly");
+				$(".useremail").css("background-color", "#f6f3f3");
+			}
+			
+			if($(".infoBox").val()!=''){
+				$(".infoBox").each(function(idx){
+					$(this).attr("readonly", "readonly");
+					$(this).css("background-color", "#f6f3f3");
+				});
+			}
 		});
-		
 	</script>
+	
+	<style>
+		.username{width: 200px;padding-left: 2px;border-radius: 3px;}
+		.useremail{width: 230px;padding-left: 2px;border-radius: 3px;}
+		.username2{width: 200px;padding-left: 2px;border-radius: 3px;}
+		.useremail2{width: 230px;padding-left: 2px;border-radius: 3px;}
+		#perfomplace{width: 250px;}
+		input.infoBox {border-color: lightgray;}
+	</style>
 	
 	<!-- 페이지 만들떄마다 복붙 -->
 	<div style="width: 13%; float: left; height: 100%;">
@@ -61,11 +88,15 @@
 	<hr>
 <form>
 <div class="MentInfo">
-	<input type="text">
-	<input type="text">
-	<input type="text" id="title">
-	<input type="text">
-	<input type="text">
+	<input class="infoBox" id ="perfomplace" type="text" name="fcltynm" value="${param.fcltynm }">				<!-- 공연장소 -->
+	<input class="infoBox" type="text" name="prfnm" value="${param.prfnm }">									<!-- 공연제목 -->
+	<input class="infoBox" type="text" name="genrenm" value="${param.genrenm }">								<!-- 공연타입 -->
+	<input class="infoBox" type="text" name="prfdate" value="${tkVo.prfdate }">									<!-- 공연날짜 -->			
+	<input class="infoBox" type="text" name="prfhour" value="${tkVo.prfhour }">									<!-- 공연시간 -->
+	
+	<input type="hidden" name="mt20id" value="${param.mt20id }">												<!-- 공연id -->
+	<input type="hidden" name="mt10id" value="${param.mt10id }">												<!-- 공연시설id -->
+	
 </div>
  <div id="pfReservation">
 	
@@ -148,13 +179,19 @@
 					<div class="per-a" id="s12">
 						<div class="i12">
 							<span>★</span><p>예매자 정보 Reservation Information</p><br>
-							<label>예매자명 Name</label><input type="text"><br>
-							<label>예매자 이메일 Ticket Email</label><input type="text">
+							<label>예매자명 Name</label>
+							<input class="username" type="text" name="username" value="${memberVo.username }"><br>
+							
+							<label>예매자 이메일 Ticket Email</label>
+							<input class="useremail" type="text" name="useremail" value="${email}">
 						</div>
 						<div class="i12">
 							<span>★</span><p>관람자 정보 Audlence Information</p><br>
-							<label>관람자명 Name</label><input type="text"><br>
-							<label>관람자 이메일  Spectator Email</label><input type="text">							
+							<label>관람자명 Name</label>
+							<input class="username2" type="text" name="username2"><br>
+							
+							<label>관람자 이메일  Spectator Email</label>
+							<input class="useremail2" type="text" name="useremail2">							
 						</div>
 					</div>
 					
@@ -169,15 +206,15 @@
 						<span>적용완료</span>
 					</div>
 					<div class="i11">
-						<p>등급할인</p><p class="fp2">현재등급 : b</p><span>1%</span>
+						<p>등급할인</p><p class="fp2">현재등급 : <mark style="color:silver;color: black;">${membergrade}</mark> </p><span>1%</span>
 						<span>적용완료</span>
 					</div>
 					<div class="i11">
-						<p>회원권 할인</p><p class="fp2">회원권</p><span>5%</span>
+						<p>회원권 할인</p><p class="fp2">회원권 : <mark style="color:silver;color: black;">${map_membership['NAME']}</mark></p><span>5%</span>
 						<span>적용완료</span>
 					</div>
 					<div class="i11">
-						<p>마일리지 사용</p><p class="fp2">소유하신마일리지 1000p</p>
+						<p>마일리지 사용</p><p class="fp2">소유하신마일리지 : <mark style="color:silver;color: black">${memberVo.mileagePoint}</mark> </p>
 						<input type="checkbox" id="checkM"><span>적용하기</span>
 					</div>
 					</div>

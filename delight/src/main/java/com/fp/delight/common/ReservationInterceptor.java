@@ -33,6 +33,7 @@ public class ReservationInterceptor extends HandlerInterceptorAdapter{
 			out.print("location.href='"+request.getContextPath()
 				+"/performance/pfNoReservation.do';");
 			out.print("</script>");
+			
 			return false; //다음 컨트롤러를 수행하지 않음
 		}
 		
