@@ -43,6 +43,60 @@
 					$(this).css("background-color", "#f6f3f3");
 				});
 			}
+			
+			var t1=0;
+			var t2=0;
+			var t3=0;
+			var t4=0;
+			var total=0;
+		
+			$(".B").change(function(){
+			//일반 SELECT-OPTION CLICK
+			$("#choosePrice").change(function(){
+				var selectNum = parseInt(this.value);  
+				var netPrice = $("#netprice").val();
+				
+				t1 = selectNum * netPrice;
+				total=t1+t2+t3+t4;
+				$("#ticketPriceSum").html(total+"원");
+			});
+			
+			//예술 관련 학교 및 학과 장학생 SELECT-OPTION CLICK
+			$("#choosestPrice").change(function(){
+				var selectNum = parseInt(this.value);  
+				var stPrice = $("#stprice").val();
+				
+				t2 = selectNum * stPrice;
+				total=t1+t2+t3+t4;
+				
+				$("#ticketPriceSum").html(total+"원");
+			});
+				
+			//장애인 SELECT-OPTION CLICK
+			$("#choosedisPrice").change(function(){
+				var selectNum = parseInt(this.value);  
+				var disprice = $("#disprice").val();
+				
+				t3 = selectNum * disprice;
+				total=t1+t2+t3+t4;
+				$("#ticketPriceSum").html(total+"원");
+			});
+			
+			//기초 수급 대상자 SELECT-OPTION CLICK
+			$("#choosedisPrice2").change(function(){
+				var selectNum = parseInt(this.value);  
+				var disprice = $("#disprice").val();
+				
+				t4 = selectNum * disprice;
+				total=t1+t2+t3+t4;
+				$("#ticketPriceSum").html(total+"원");
+			});
+		
+			$("#ticketPriceSum").html(total+"원");
+		
+		});//E
+			
+			
 		});
 	</script>
 	
@@ -110,8 +164,11 @@
 					<h3 class="per-q" id="s1">가격 선택 Choose a price</h3>
 					<div class="per-a" id="s11">
 					<div class="i11">
-						<p>일반</p><p class="fp2">만19세~64세</p><span>20,000원</span>
-						<select>
+						<p>일반</p><p class="fp2">만19세~64세</p>
+						<span>
+							20,000원
+						</span>
+						<select name="choosePricepf" id="choosePricepf" class="C">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -126,8 +183,9 @@
 						</select>
 					</div>
 					<div class="i11">
-						<p>예술 관련 학교 및 학과 재학생 (현장 확인)</p><p class="fp2">학생증지참</p><span>8,000원</span>
-						<select>
+						<p>예술 관련 학교 및 학과 재학생 (현장 확인)</p><p class="fp2">학생증지참</p>
+						<span>8,000원</span>
+						<select name="choosePricepfst" id="choosePricepfst" class="C">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -143,7 +201,7 @@
 					</div>
 					<div class="i11">
 						<p>장애인</p><p class="fp2">1~3급 장애인 [현장에서 신분증 확인 필요]</p><span>10,000원</span>
-						<select>
+						<select name="choosePricedis" id="choosePricedis" class="C">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
