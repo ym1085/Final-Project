@@ -47,13 +47,9 @@
 		
 		<interceptor>
 			<mapping path="/like.do"/>
-			<beans:ref bean="ajaxLoginInterceptor"/>  <!-- 로그인 인터셉터 파일명 맨앞소문자  -->
+			<beans:ref bean="ajaxLoginInterceptor"/>  <!-- ajax 좋아요 인터셉터 파일명 맨앞소문자  -->
 		</interceptor>
 		
-		<interceptor>
-			<mapping path="/performance/pfReservation.do"/>
-			<beans:ref bean="reservationInterceptor"/>
-		</interceptor>
 		
 		<interceptor>
 			<mapping path="/admin/**"/>

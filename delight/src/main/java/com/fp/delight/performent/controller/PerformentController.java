@@ -108,7 +108,7 @@ public class PerformentController {
 	//회원결제진행창 보여주기
 	@RequestMapping("/pfReservation.do")
 	public String showReservation(@ModelAttribute PerformentDetailVO performentDetailVo, HttpSession session,
-			Model model, @RequestParam int ticketSeq) {
+			Model model,@RequestParam int ticketSeq) {
 		//로그인 한 유저
 		String userid = (String)session.getAttribute("userid");
 		
