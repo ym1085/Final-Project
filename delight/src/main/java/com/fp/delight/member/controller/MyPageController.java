@@ -36,8 +36,5 @@ public class MyPageController {
 	public void myinqueryTab() {
 		
 	}
-	@RequestMapping("/test123.do")
-	public void test123() {
-		
-	}
+
 }
