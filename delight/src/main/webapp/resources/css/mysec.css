@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+.mysecDiv {
+	width: 100%;
+	height: 100%;
+	margin-left: 35px;
+	margin-right: 20px;
+	margin-top: 15px;
+	margin-bottom: 6%;
+}
+
+.mytit {
+	margin-bottom: 20px;
+	float: left;
+}
+
+.mytable {
+	border-collapse: collapse;
+	clear: both;
+}
+
+th#heading {
+	border-top: 3px solid black;
+	line-height: 2;
+	border-bottom: 1.5px solid #a7a4a4;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.mytitSub {
+	float: left;
+	line-height: 2.5;
+	margin-left: 72%;
+	text-decoration: underline;
+}
+.mytitSubre {
+	float: left;
+	line-height: 2.5;
+	margin-left: 79.5%;
+	text-decoration: underline;
+}
+.mytitSubinq {
+	float: left;
+	line-height: 2.5;
+	margin-left: 73%;
+	text-decoration: underline;
+}
+.mytitSublike {
+	float: left;
+	line-height: 2.5;
+	margin-left: 77.5%;
+	text-decoration: underline;
+}
+
+#mybody>tr>td {
+	border-bottom: 1px solid #f3ebeb;
+	padding-left: 10px;
+}
+
+#mybody>tr {
+	height: 120px;
+}
+#mybody div,img{
+	width: 91px;
+	height: 103px;
+	float: left;
+}
+.mybodyP{
+	 margin-top: 10%;
+	 margin-left: 30%;
+}
+.mybodylikeP{
+	margin-left: 7.4%;
+}
+.mybodylikeP:first-of-type{
+	margin-top: 10px;
+}
+.mybodyBt{
+	margin: 0;
+	border: 1px solid black;
+	background: black; 
+	color: white;
+	width: 100%;
+	outline: none;
+}
+h1.mysecTitle{
+	margin-left: 40%;
+}
+hr.mysecLine{
+	margin-bottom: 3%;
+}
