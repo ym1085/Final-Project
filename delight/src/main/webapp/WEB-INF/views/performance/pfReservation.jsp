@@ -96,8 +96,8 @@
 	
 	<input type="hidden" name="mt20id" value="${param.mt20id }">												<!-- 공연id -->
 	<input type="hidden" name="mt10id" value="${param.mt10id }">												<!-- 공연시설id -->
-	
 </div>
+
  <div id="pfReservation">
 	
 	<div class="inner">
@@ -159,6 +159,7 @@
 					</div>
 					<div class="i11">
 						<p>기초수급대상자</p><p class="fp2"># 증빙서류 지참</p><span>10,000원</span>
+						
 						<select>
 							<option>0</option>
 							<option>1</option>
@@ -173,6 +174,7 @@
 							<option>10</option>
 						</select>
 					</div>
+					
 					</div>
 					
 					<h3 class="per-q"  id="s2">예약자 및 관람 자 정보 Reservation and audience information</h3>

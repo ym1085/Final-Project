@@ -408,10 +408,10 @@
    				  			<c:set var="url" value="${map2_location['relateurl']}"/>
 							<c:if test="${!empty url}">
 	   				  			<a href="${map2_location['relateurl']}">
-	   				  				<span id="parentSpan3">
+	   								<span id="parentSpan3">
 	   				  					홈페이지  <span id="firtstspan3">${map2_location["relateurl"]}</span>
    				  					</span>		
-	 				  			</a>s 
+	 				  			</a> 
 							</c:if>
 							
 							<c:if test="${empty url}">

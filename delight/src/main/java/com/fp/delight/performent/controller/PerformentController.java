@@ -125,9 +125,12 @@ public class PerformentController {
 			Map<String, Object> map = perform.performDetail(perfomid);
 			logger.info("결제진행 정보 데이터 뿌리기, map={} ", map);
 			
+			//해당 공연에 대한 상세정보 
+			model.addAttribute("map_pay",map);			
+	
 			MemberVO memberVo = memberService.selectMember(userid);
 			logger.info("결제진행 정보 데이터 뿌리기, memberVo={}", memberVo);
-			
+
 			String email1 = memberVo.getEmail1();
 			String email2 = memberVo.getEmail2();
 			
