@@ -189,8 +189,15 @@ public class PerformentController {
 			
 			//해당 공연에 대한 상세정보 
 			model.addAttribute("map_pay",map);	
+			
+			//공연 SEQ를 넘겨받아 해당 공연에 대한 공연정보를 다시 가져온다.
+			TicketVO tkVo =  ticketService.selectCategory(ticketSeq);
+			logger.info("해당 공연에 대한 공연 티켓정보, tkVo==>{} ", tkVo);
+		
+			//해당 공연결과 저장
+			model.addAttribute("tkVo", tkVo);
 		}
-	
+		
 		return "performance/pfNoReservation";
 	}//E
 	

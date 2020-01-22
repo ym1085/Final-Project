@@ -77,12 +77,28 @@
 	</update>
 	
 	<update id="annUnExposure" parameterType="int">
-		update tbl_ann set ann_show='N' where ann_seq=#{annSeq}
+		update tbl_ann set ann_show='N',ann_top='N' where ann_seq=#{annSeq}
 	</update>
 	
 	<select id="selAnnBySeq" parameterType="int" resultType="annVo">
 		select * from tbl_ann where ann_seq=#{annSeq}
 	</select>
+	
+	<select id="anntopchk" parameterType="string" resultType="int">
+		select count(*) from tbl_ann where ann_type=#{annType} and ann_top='Y'
+	</select>
+	
+	<select id="anntopinfo" parameterType="string" resultType="annVo">
+		select * from tbl_ann where ann_type=#{annType} and ann_top='Y'
+	</select>
+	
+	<update id="topSetting" parameterType="int">
+		update tbl_ann set ann_top='Y' where ann_seq=#{annSeq}
+	</update>
+	
+	<update id="unTopSetting" parameterType="int">
+		update tbl_ann set ann_top='N' where ann_seq=#{annSeq}
+	</update>
 	
 </mapper>
 

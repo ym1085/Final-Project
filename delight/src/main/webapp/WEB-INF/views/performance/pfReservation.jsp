@@ -43,6 +43,60 @@
 					$(this).css("background-color", "#f6f3f3");
 				});
 			}
+			
+			var t1=0;
+			var t2=0;
+			var t3=0;
+			var t4=0;
+			var total=0;
+		
+			$(".C").change(function(){
+			//일반 SELECT-OPTION CLICK
+			$("#choosePricepf").change(function(){
+				var selectNum = parseInt(this.value);  
+				var netPrice = $("#netprice").val();
+				
+				t1 = selectNum * netPrice;
+				total=t1+t2+t3+t4;
+				$("#ticketPriceSum").html(total+"원");
+			});
+			
+			//예술 관련 학교 및 학과 장학생 SELECT-OPTION CLICK
+			$("#choosePricepfst").change(function(){
+				var selectNum = parseInt(this.value);  
+				var stPrice = $("#stprice").val();
+				
+				t2 = selectNum * stPrice;
+				total=t1+t2+t3+t4;
+				
+				$("#ticketPriceSum").html(total+"원");
+			});
+				
+			//장애인 SELECT-OPTION CLICK
+			$("#choosePricedis").change(function(){
+				var selectNum = parseInt(this.value);  
+				var disprice = $("#disprice").val();
+				
+				t3 = selectNum * disprice;
+				total=t1+t2+t3+t4;
+				$("#ticketPriceSum").html(total+"원");
+			});
+			
+			//기초 수급 대상자 SELECT-OPTION CLICK
+			$("#choosePricedis2").change(function(){
+				var selectNum = parseInt(this.value);  
+				var disprice = $("#disprice").val();
+				
+				t4 = selectNum * disprice;
+				total=t1+t2+t3+t4;
+				$("#ticketPriceSum").html(total+"원");
+			});
+		
+			$("#ticketPriceSum").html(total+"원");
+		
+		});//E
+			
+			
 		});
 	</script>
 	
@@ -106,12 +160,38 @@
 				<!-- 일반 게시판 리스트 -->
 				<div class="per-list">
 					<!-- <p class="no-ct">등록된 게시물이 없습니다.</p> -->
-
+					<c:set var="tkPrice" value="${tkVo.netprice}"/>
+					<c:set var="stPriceMid" value="${tkPrice * 60 / 100}"/> 		<!-- 3400 -->
+					<c:set var="stPriceFinal" value="${tkPrice - stPriceMid}" />	<!-- 20000 - 3400 -->
+					
+					<!-- 소수 나머지 자리 제거 -->
+					<fmt:parseNumber var="stPriceFinalTotal" integerOnly="true" value="${stPriceFinal}"/>
+					
+					<!-- 학생가 할인 17% 가격 -->
+					<%-- <c:out value="${stPriceFinalTotal}"/> --%>
+					
+					<c:set var="disPriceMid" value="${tkPrice * 50 / 100}" />
+					<c:set var="disPriceFinal" value="${tkPrice - disPriceMid}" />
+					
+					<!-- 소수 나머지 자리 제거 -->
+					<fmt:parseNumber var="disPriceFinalTotal" integerOnly="true" value="${disPriceFinal}"/>
+					
+					<!-- 장애인/기초수급대상자 50% -->
+					<%-- <c:out value="${disPriceFinalTotal }"/> --%>
+					
+					<!-- 여기 지우지 마세요 -->
+					<input type="hidden" id="netprice" value="${tkVo.netprice}">
+					<input type="hidden" id="stprice" value="${stPriceFinalTotal}"> 
+					<input type="hidden" id="disprice" value="${disPriceFinalTotal}"> 
+					
 					<h3 class="per-q" id="s1">가격 선택 Choose a price</h3>
 					<div class="per-a" id="s11">
 					<div class="i11">
-						<p>일반</p><p class="fp2">만19세~64세</p><span>20,000원</span>
-						<select>
+						<p>일반</p><p class="fp2">만19세~64세</p>
+						<span>
+							20,000원
+						</span>
+						<select name="choosePricepf" id="choosePricepf" class="C">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -126,8 +206,9 @@
 						</select>
 					</div>
 					<div class="i11">
-						<p>예술 관련 학교 및 학과 재학생 (현장 확인)</p><p class="fp2">학생증지참</p><span>8,000원</span>
-						<select>
+						<p>예술 관련 학교 및 학과 재학생 (현장 확인)</p><p class="fp2">학생증지참</p>
+						<span>8,000원</span>
+						<select name="choosePricepfst" id="choosePricepfst" class="C">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -143,7 +224,7 @@
 					</div>
 					<div class="i11">
 						<p>장애인</p><p class="fp2">1~3급 장애인 [현장에서 신분증 확인 필요]</p><span>10,000원</span>
-						<select>
+						<select name="choosePricedis" id="choosePricedis" class="C">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -160,7 +241,7 @@
 					<div class="i11">
 						<p>기초수급대상자</p><p class="fp2"># 증빙서류 지참</p><span>10,000원</span>
 						
-						<select>
+						<select name="choosePricedis2" id="choosePricedis2" class="C">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -234,7 +315,8 @@
 		<p>관람일</p><br><span>2020.01.18(토) 19:00</span>
 	</div>
 	<div class="payInfo3">
-		<p>티켓금액</p><br><span>￦ 0 원</span>
+		<p>티켓금액</p><br>
+		<span id="ticketPriceSum">￦ 0 원</span>
 	</div>
 	<div class="payInfo4">
 		<p>취소수수료</p><br>
