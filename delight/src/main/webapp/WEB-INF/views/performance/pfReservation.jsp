@@ -49,7 +49,7 @@
 			var t3=0;
 			var t4=0;
 			var total=0;
-		
+			
 			$(".C").change(function(){
 			//일반 SELECT-OPTION CLICK
 			$("#choosePricepf").change(function(){
@@ -58,7 +58,32 @@
 				
 				t1 = selectNum * netPrice;
 				total=t1+t2+t3+t4;
+				
+				var discount = 0;
+				if($("#gradeName").val()!=null){
+					if($("#gradeName").val()=='s'){
+						discount = total - (total*0.01);
+						total = discount;
+					}else if($("#gradeName").val()=='g'){
+						discount = total - (total*0.02);
+						total = discount;
+					}else if($("#gradeName").val()=='p'){
+						discount = total - (total*0.03);
+						total = discount;
+					}else if($("#gradeName").val()=='vip'){
+						discount = total - (total*0.04);
+						total = discount;
+					}
+				}
+				
+				var discountNormal = 0;
+				if($("#normalPrice").html()=='기본'){
+					discountNormal = total - (total*0.05);
+					total = discountNormal;
+				}
+				
 				$("#ticketPriceSum").html(total+"원");
+				
 			});
 			
 			//예술 관련 학교 및 학과 장학생 SELECT-OPTION CLICK
@@ -68,6 +93,29 @@
 				
 				t2 = selectNum * stPrice;
 				total=t1+t2+t3+t4;
+				
+				var discount = 0;
+				if($("#gradeName").val()!=null){
+					if($("#gradeName").val()=='s'){
+						discount = total - (total*0.01);
+						total = discount;
+					}else if($("#gradeName").val()=='g'){
+						discount = total - (total*0.02);
+						total = discount;
+					}else if($("#gradeName").val()=='p'){
+						discount = total - (total*0.03);
+						total = discount;
+					}else if($("#gradeName").val()=='vip'){
+						discount = total - (total*0.04);
+						total = discount;
+					}
+				}
+				
+				var discountNormal = 0;
+				if($("#normalPrice").html()=='기본'){
+					discountNormal = total - (total*0.05);
+					total = discountNormal;
+				}
 				
 				$("#ticketPriceSum").html(total+"원");
 			});
@@ -79,6 +127,30 @@
 				
 				t3 = selectNum * disprice;
 				total=t1+t2+t3+t4;
+				
+				var discount = 0;
+				if($("#gradeName").val()!=null){
+					if($("#gradeName").val()=='s'){
+						discount = total - (total*0.01);
+						total = discount;
+					}else if($("#gradeName").val()=='g'){
+						discount = total - (total*0.02);
+						total = discount;
+					}else if($("#gradeName").val()=='p'){
+						discount = total - (total*0.03);
+						total = discount;
+					}else if($("#gradeName").val()=='vip'){
+						discount = total - (total*0.04);
+						total = discount;
+					}
+				}
+				
+				var discountNormal = 0;
+				if($("#normalPrice").html()=='기본'){
+					discountNormal = total - (total*0.05);
+					total = discountNormal;
+				}
+				
 				$("#ticketPriceSum").html(total+"원");
 			});
 			
@@ -89,15 +161,35 @@
 				
 				t4 = selectNum * disprice;
 				total=t1+t2+t3+t4;
+				
+				var discount = 0;
+				if($("#gradeName").val()!=null){
+					if($("#gradeName").val()=='s'){
+						discount = total - (total*0.01);
+						total = discount;
+					}else if($("#gradeName").val()=='g'){
+						discount = total - (total*0.02);
+						total = discount;
+					}else if($("#gradeName").val()=='p'){
+						discount = total - (total*0.03);
+						total = discount;
+					}else if($("#gradeName").val()=='vip'){
+						discount = total - (total*0.04);
+						total = discount;
+					}
+				}//if
+				
+				var discountNormal = 0;
+				if($("#normalPrice").html()=='기본'){
+					discountNormal = total - (total*0.05);
+					total = discountNormal;
+				}
+				
 				$("#ticketPriceSum").html(total+"원");
 			});
-		
-			$("#ticketPriceSum").html(total+"원");
-		
-		});//E
 			
-			
-		});
+		});//SubEnd
+	});//End
 	</script>
 	
 	<style>
@@ -183,7 +275,8 @@
 					<input type="hidden" id="netprice" value="${tkVo.netprice}">
 					<input type="hidden" id="stprice" value="${stPriceFinalTotal}"> 
 					<input type="hidden" id="disprice" value="${disPriceFinalTotal}"> 
-					
+					<input type="hidden" id="gradeName" value="${membergrade['GRADE_NAME']}">
+					 
 					<h3 class="per-q" id="s1">가격 선택 Choose a price</h3>
 					<div class="per-a" id="s11">
 					<div class="i11">
@@ -208,7 +301,7 @@
 					<div class="i11">
 						<p>예술 관련 학교 및 학과 재학생 (현장 확인)</p><p class="fp2">학생증지참</p>
 						<span>8,000원</span>
-						<select name="choosePricepfst" id="choosePricepfst" class="C">
+						<select style="margin-left:7px" name="choosePricepfst" id="choosePricepfst" class="C">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -281,24 +374,31 @@
 					<h3 class="per-q" id="s3">추가 할인 Additional discount</h3>
 					<div class="per-a" id="s13">
 					<div class="i11">
-						<p>기본</p><p class="fp2">기본</p><span>5%</span>
-						<span>적용완료</span>
+						<p>기본</p>
+						<p class="fp2" id="normalPrice">기본</p>
+						<span>5%</span>
+						<span>적용</span>
 					</div>
 					<div class="i11">
 						<p>특별할인</p><p class="fp2">얼리버드</p><span>5%</span>
-						<span>적용완료</span>
+						<span>적용</span>
 					</div>
 					<div class="i11">
-						<p>등급할인</p><p class="fp2">현재등급 : <mark style="color:silver;color: black;">${membergrade}</mark> </p><span>1%</span>
-						<span>적용완료</span>
+						<p>등급할인</p>
+						<p class="fp2">
+							현재등급 : <mark style="color:silver;color: black;">${membergrade['GRADE_NAME']}</mark> 
+						</p>
+						
+						<span>${membergrade['GRADE_BENEFIT']}%</span>
+						<span>적용</span>
 					</div>
 					<div class="i11">
 						<p>회원권 할인</p><p class="fp2">회원권 : <mark style="color:silver;color: black;">${map_membership['NAME']}</mark></p><span>5%</span>
-						<span>적용완료</span>
+						<span>적용</span>
 					</div>
 					<div class="i11">
 						<p>마일리지 사용</p><p class="fp2">소유하신마일리지 : <mark style="color:silver;color: black">${memberVo.mileagePoint}</mark> </p>
-						<input type="checkbox" id="checkM"><span>적용하기</span>
+						<input type="checkbox" id="checkM"><span>적용</span>
 					</div>
 					</div>
 					
@@ -316,7 +416,9 @@
 	</div>
 	<div class="payInfo3">
 		<p>티켓금액</p><br>
-		<span id="ticketPriceSum">￦ 0 원</span>
+		<span id="ticketPriceSum">
+			￦ 0 원
+		</span>
 	</div>
 	<div class="payInfo4">
 		<p>취소수수료</p><br>

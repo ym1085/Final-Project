@@ -22,8 +22,8 @@
 		where a.userid=#{userid}
 	</select>
 	
-	<select id="selectMemberGrade" parameterType="string" resultType="string">
-   		select b.grade_name
+	<select id="selectMemberGrade" parameterType="string" resultType="map">
+   		select b.*
 		from tbl_user a join tbl_grade b
 		on a.grade_seq = b.grade_seq
 		where userid = #{userid}

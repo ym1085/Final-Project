@@ -119,7 +119,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public String selectMemberGrade(String userid) {
+	public Map<String, Object> selectMemberGrade(String userid) {
 		return memberDao.selectMemberGrade(userid);
 	}
 
