@@ -26,7 +26,7 @@ public class AreaController {
 	@Autowired
 	private AreaService areaSerive;
 	
-	@RequestMapping(value = "/inc/inc_area.do" ,method = RequestMethod.GET)
+	@RequestMapping(value = "/inc/inc_area.do")
 	public String area(Model model) {
 		logger.info("지역 시,도 목록 검색 시작");
 		

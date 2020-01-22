@@ -117,7 +117,7 @@
                             <a class="nav-link active" id="perform-tab" data-toggle="tab" href="#perform" role="tab" aria-controls="perform" aria-selected="true">공연</a>
                             </li>
                             <li class="nav-item">
-                            <a class="nav-link" id="region-tab" data-toggle="tab" href="#region" role="tab" aria-controls="region" aria-selected="false">지역</a>
+                           		<a class="nav-link" id="area-tab" data-toggle="tab" href="#area" role="tab" aria-controls="area" aria-selected="false">지역</a>
                             </li>
                         </ul>
                     </div>
@@ -127,13 +127,13 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="perform" role="tabpanel" aria-labelledby="perform-tab">
                                 <div class="booking_form">
-                                    <form action="<c:url value="/performance/pfDetail.do"/>" method="post">
+                                    <form action="<c:url value="/mainSearchResult/mainPerformSearch.do"/>" method="post">
                                         <div class="form-row">
                                             <div class="form_colum">
-                                                <input id="datepicker_1" placeholder="startDay" name="startDay">
+                                                <input id="datepicker_1" placeholder="startDay" name="startDay" required="required">
                                             </div>
                                             <div class="form_colum">
-                                                <input id="datepicker_2" placeholder="endDay" name="endDay">
+                                                <input id="datepicker_2" placeholder="endDay" name="endDay" required="required">
                                             </div>
 	                                        <div class="form_colum">
 	                                        	<input id="performName" name="performName" type="text" 
@@ -141,21 +141,19 @@
 	                                        		style="width:300px; height:50px;font-size:15px;">
 	                                        </div>
 	                                        <div class="form_btn" type="submit">
-	                                        	<!-- <a href="#" class="btn_1" id="Search">검색</a> -->
-	                                        	<input id="Search" name="Search" type="submit" class="btn_1"  value="검색">
+	                                        	<input id="pfSearch" name="pfSearch" type="submit" class="btn_1" value="검색">
 	                                        </div>   
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="region" role="tabpanel" aria-labelledby="region-tab">
+                            <div class="tab-pane fade" id="area" role="tabpanel" aria-labelledby="area-tab">
                                 <div class="booking_form">
-                                    <form action="#">
-                                        <div class="form_colum" style="text-align: center">
-                                        	<input id="regionName" name="regionName" type="text" placeholder="지역명을 입력하세요"
-                                            	style="width:600px; height:50px;font-size:15px;">                      
-	                                        <a href="${pageContext.request.contextPath}/performance/pfDetail.do" class="btn_1">검색</a>                                                                             
-                                        </div>
+                                    <form action="<c:url value="/mainSearchResult/mainAreaSearch.do"/>" method="post">
+                                    	<div class="form_colum" style="text-align: center;">
+	                                    	<c:import url="/inc/inc_area.do"></c:import>&nbsp;&nbsp;&nbsp;
+			                                <input id="arSearch" name="arSearch" type="submit" class="btn_1" value="검색">
+		                                </div>                                                                        
                                     </form>
                                 </div>
                             </div>                         
