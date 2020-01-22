@@ -50,9 +50,9 @@
 			var t4=0;
 			var total=0;
 		
-			$(".B").change(function(){
+			$(".C").change(function(){
 			//일반 SELECT-OPTION CLICK
-			$("#choosePrice").change(function(){
+			$("#choosePricepf").change(function(){
 				var selectNum = parseInt(this.value);  
 				var netPrice = $("#netprice").val();
 				
@@ -62,7 +62,7 @@
 			});
 			
 			//예술 관련 학교 및 학과 장학생 SELECT-OPTION CLICK
-			$("#choosestPrice").change(function(){
+			$("#choosePricepfst").change(function(){
 				var selectNum = parseInt(this.value);  
 				var stPrice = $("#stprice").val();
 				
@@ -73,7 +73,7 @@
 			});
 				
 			//장애인 SELECT-OPTION CLICK
-			$("#choosedisPrice").change(function(){
+			$("#choosePricedis").change(function(){
 				var selectNum = parseInt(this.value);  
 				var disprice = $("#disprice").val();
 				
@@ -83,7 +83,7 @@
 			});
 			
 			//기초 수급 대상자 SELECT-OPTION CLICK
-			$("#choosedisPrice2").change(function(){
+			$("#choosePricedis2").change(function(){
 				var selectNum = parseInt(this.value);  
 				var disprice = $("#disprice").val();
 				
@@ -160,7 +160,30 @@
 				<!-- 일반 게시판 리스트 -->
 				<div class="per-list">
 					<!-- <p class="no-ct">등록된 게시물이 없습니다.</p> -->
-
+					<c:set var="tkPrice" value="${tkVo.netprice}"/>
+					<c:set var="stPriceMid" value="${tkPrice * 60 / 100}"/> 		<!-- 3400 -->
+					<c:set var="stPriceFinal" value="${tkPrice - stPriceMid}" />	<!-- 20000 - 3400 -->
+					
+					<!-- 소수 나머지 자리 제거 -->
+					<fmt:parseNumber var="stPriceFinalTotal" integerOnly="true" value="${stPriceFinal}"/>
+					
+					<!-- 학생가 할인 17% 가격 -->
+					<%-- <c:out value="${stPriceFinalTotal}"/> --%>
+					
+					<c:set var="disPriceMid" value="${tkPrice * 50 / 100}" />
+					<c:set var="disPriceFinal" value="${tkPrice - disPriceMid}" />
+					
+					<!-- 소수 나머지 자리 제거 -->
+					<fmt:parseNumber var="disPriceFinalTotal" integerOnly="true" value="${disPriceFinal}"/>
+					
+					<!-- 장애인/기초수급대상자 50% -->
+					<%-- <c:out value="${disPriceFinalTotal }"/> --%>
+					
+					<!-- 여기 지우지 마세요 -->
+					<input type="hidden" id="netprice" value="${tkVo.netprice}">
+					<input type="hidden" id="stprice" value="${stPriceFinalTotal}"> 
+					<input type="hidden" id="disprice" value="${disPriceFinalTotal}"> 
+					
 					<h3 class="per-q" id="s1">가격 선택 Choose a price</h3>
 					<div class="per-a" id="s11">
 					<div class="i11">
@@ -218,7 +241,7 @@
 					<div class="i11">
 						<p>기초수급대상자</p><p class="fp2"># 증빙서류 지참</p><span>10,000원</span>
 						
-						<select>
+						<select name="choosePricedis2" id="choosePricedis2" class="C">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -292,7 +315,8 @@
 		<p>관람일</p><br><span>2020.01.18(토) 19:00</span>
 	</div>
 	<div class="payInfo3">
-		<p>티켓금액</p><br><span>￦ 0 원</span>
+		<p>티켓금액</p><br>
+		<span id="ticketPriceSum">￦ 0 원</span>
 	</div>
 	<div class="payInfo4">
 		<p>취소수수료</p><br>

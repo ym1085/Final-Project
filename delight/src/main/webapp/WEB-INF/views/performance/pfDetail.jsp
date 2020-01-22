@@ -294,6 +294,7 @@
 		      		<h6>예매가능 공연 일자</h6>   
 		         	<span id="dateWhile">${map2['prfpdfrom'] }~${map2['prfpdto'] }</span>
 		         </div>
+		         <!-- commit용 -->
 		         <!-- 예매 버튼 클릭 시 -> pfReservationController로 이동 후 결제 진행   -->
 				  <form name = "payfrm" method="post" 
 				  		<c:if test="${empty sessionScope.userid }">

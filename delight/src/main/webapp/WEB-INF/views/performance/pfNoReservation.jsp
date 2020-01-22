@@ -191,9 +191,7 @@
 						<p>일반</p><p class="fp2">만19세~64세</p>
 						
 						<span class="A">
-							<span>
-								<fnt:formatNumber value="${tkVo.netprice }" pattern="#,###"/>원
-							</span>
+							<fnt:formatNumber value="${tkVo.netprice }" pattern="#,###"/>원
 						</span>
 						
 						<select name="choosePrice" id="choosePrice" class="B">
@@ -214,9 +212,7 @@
 					<div class="i11">
 						<p>예술 관련 학교 및 학과 재학생 (현장 확인)</p><p class="fp2">학생증지참</p>
 						<span class="A">
-							<span>
-								<fnt:formatNumber value="${stPriceFinalTotal}" pattern="#,###"/>원 
-							</span>
+							<fnt:formatNumber value="${stPriceFinalTotal}" pattern="#,###"/>원 
 						</span>
 						<select name="choosestPrice" id="choosestPrice" class="B">
 							<option>0</option>
@@ -236,9 +232,7 @@
 					<div class="i11">
 						<p>장애인</p><p class="fp2">1~3급 장애인 [현장에서 신분증 확인 필요]</p>
 						<span class="A">
-							<span>
-								<fnt:formatNumber value="${disPriceFinalTotal}" pattern="#,###"/>원
-							</span>
+							<fnt:formatNumber value="${disPriceFinalTotal}" pattern="#,###"/>원
 						</span>
 						<select name="choosedisPrice" id="choosedisPrice" class="B">
 							<option>0</option>
@@ -258,9 +252,7 @@
 					<div class="i11">
 						<p>기초수급대상자</p><p class="fp2"># 증빙서류 지참</p>
 						<span class="A">
-							<span>
-								<fnt:formatNumber value="${disPriceFinalTotal}" pattern="#,###"/>원 
-							</span>
+							<fnt:formatNumber value="${disPriceFinalTotal}" pattern="#,###"/>원 
 						</span>
 						<select name="choosedisPrice2" id="choosedisPrice2" class="B">
 							<option>0</option>
