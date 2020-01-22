@@ -294,16 +294,22 @@
 		      		<h6>예매가능 공연 일자</h6>   
 		         	<span id="dateWhile">${map2['prfpdfrom'] }~${map2['prfpdto'] }</span>
 		         </div>
-		
 		         <!-- 예매 버튼 클릭 시 -> pfReservationController로 이동 후 결제 진행   -->
-				  <form name = "payfrm" action="<c:url value='/performance/pfReservation.do'/>" method="post" >
+				  <form name = "payfrm" method="post" 
+				  		<c:if test="${empty sessionScope.userid }">
+				  			action="<c:url value='/performance/pfNoReservation.do'/>"
+				  		</c:if>
+				  		<c:if test="${!empty sessionScope.userid }">
+				  			action="<c:url value='/performance/pfReservation.do'/>"
+				  		</c:if>		
+				  >
 			 	 		<input type="hidden" name="mt20id" value="${map2['mt20id']}"> 		<!-- 공연id -->
 			  			<input type="hidden" name="prfnm" value="${map2['prfnm']}">	 	<!-- 공연명 -->
 			  			<input type="hidden" name="genrenm" value="${map2['genrenm']}"> 		<!-- 공연장르 -->
 			  			<input type="hidden" name="mt10id" value="${map2['mt10id']}">	<!-- 공연시설id -->
 			  	
 			  	<c:if test="${!empty tclist }">
-				  	<select id="selectDate2">
+				  	<select id="selectDate2" name="ticketSeq">
 				  	<option value='dateY'>선택해주세요</option>
 		         	<!-- 반복시작 -->
 		         	<c:forEach var="tcvo" items="${tclist }">
@@ -323,7 +329,7 @@
 		         	</c:if>
 		         	
 		         <input type="submit" id="ticketing" value="예매하기>" />
-	         </form>
+	         	</form>
 	         </div>
 	      </div>
 	      </div>
