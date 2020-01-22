@@ -58,5 +58,25 @@ public class AnnDAOMybatis implements AnnDAO{
 		return sqlSession.selectOne(namespace+"selAnnBySeq", annSeq);
 	}
 
+	@Override
+	public int anntopchk(String annType) {
+		return sqlSession.selectOne(namespace+"anntopchk", annType);
+	}
+
+	@Override
+	public AnnVO anntopinfo(String annType) {
+		return sqlSession.selectOne(namespace+"anntopinfo",annType);
+	}
+
+	@Override
+	public int topSetting(int annSeq) {
+		return sqlSession.update(namespace+"topSetting", annSeq);
+	}
+
+	@Override
+	public int unTopSetting(int annSeq) {
+		return sqlSession.update(namespace+"unTopSetting", annSeq);
+	}
+
 
 }

@@ -12,4 +12,10 @@ public interface AnnService {
 	int annMultiExpo(List<AnnVO> list);
 	int annUnExposure(List<AnnVO> list);
 	AnnVO selAnnBySeq(int annSeq);
+	int anntopchk(String annType);
+	AnnVO anntopinfo(String annType);
+	int topSetting(int annSeq);
+	int unTopSetting(int annSeq);
+	int annExpo(int annSeq);
+	int annUnExpo(int annSeq);
 }

@@ -9,7 +9,5 @@
       $( 'body' ).toggleClass( "open" );   
    });
    </script>
-	<!-- 라이트바 건들지마시오 -->
-
 </body>
 </html>

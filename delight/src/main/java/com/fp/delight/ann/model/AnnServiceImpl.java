@@ -102,4 +102,34 @@ public class AnnServiceImpl implements AnnService{
 		return annDao.selAnnBySeq(annSeq);
 	}
 
+	@Override
+	public int anntopchk(String annType) {
+		return annDao.anntopchk(annType);
+	}
+
+	@Override
+	public AnnVO anntopinfo(String annType) {
+		return annDao.anntopinfo(annType);
+	}
+
+	@Override
+	public int topSetting(int annSeq) {
+		return annDao.topSetting(annSeq);
+	}
+
+	@Override
+	public int unTopSetting(int annSeq) {
+		return annDao.unTopSetting(annSeq);
+	}
+
+	@Override
+	public int annExpo(int annSeq) {
+		return annDao.annExposure(annSeq);
+	}
+
+	@Override
+	public int annUnExpo(int annSeq) {
+		return annDao.annUnExposure(annSeq);
+	}
+
 }

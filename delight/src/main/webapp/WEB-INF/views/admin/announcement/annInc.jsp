@@ -45,9 +45,11 @@ $(function() {
 	
 	$("#normalExpoCancle").click(function() {
 		if($("#normal tbody input[type=checkbox]:checked").length>0){
-			$('form[name=frmSearch]').prop("action",
-			"<c:url value='/admin/announcement/normultiunex.do'/>");	
-			$('form[name=frmSearch]').submit();
+			if(confirm("상단 고정글은 상단 고정도 해제 됩니다. 진행하시겠습니까?")){
+				$('form[name=frmSearch]').prop("action",
+				"<c:url value='/admin/announcement/normultiunex.do'/>");	
+				$('form[name=frmSearch]').submit();
+			}
 		}else{
 			alert("노출 취소 할 공지글을 선택해주세요.");
 		}
@@ -65,9 +67,11 @@ $(function() {
 	
 	$("#eventExpoCancle").click(function() {
 		if($("#event tbody input[type=checkbox]:checked").length>0){
-			$('form[name=frmSearch2]').prop("action",
-			"<c:url value='/admin/announcement/entmultiunex.do'/>");	
-			$('form[name=frmSearch2]').submit();
+			if(confirm("상단 고정글은 상단 고정도 해제 됩니다. 진행하시겠습니까?")){
+				$('form[name=frmSearch2]').prop("action",
+				"<c:url value='/admin/announcement/entmultiunex.do'/>");	
+				$('form[name=frmSearch2]').submit();
+			}
 		}else{
 			alert("노출 취소 할 이벤트글을 선택해주세요.");
 		}
@@ -154,7 +158,7 @@ $(function() {
 				<th>공지제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
-				<th>설정</th>
+				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -179,12 +183,7 @@ $(function() {
 				<td><fmt:formatDate value="${vo.annRegdate }" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-				<select class="setup form-control-xm">
-					<option value="">선택</option>
-					<option value="1">노출</option>
-					<option value="2">상단고정</option>
-					<option value="3">삭제</option>
-				</select>
+				<button class="btn btn-gradient-danger btn-sm">삭제</button>
 				</td>
 				</tr>
 			<c:set var="idx" value="${idx+1}" />
@@ -275,7 +274,7 @@ $(function() {
 				<th>공지제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
-				<th>설정</th>
+				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -300,12 +299,7 @@ $(function() {
 				<td><fmt:formatDate value="${vo2.annRegdate }" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-				<select class="setup form-control-xm">
-					<option value="">선택</option>
-					<option value="1">노출</option>
-					<option value="2">상단고정</option>
-					<option value="3">삭제</option>
-				</select>
+				<button class="btn btn-gradient-danger btn-sm">삭제</button>
 				</td>
 				</tr>
 			<c:set var="idx2" value="${idx2+1}" />
