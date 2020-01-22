@@ -294,9 +294,15 @@
 		      		<h6>예매가능 공연 일자</h6>   
 		         	<span id="dateWhile">${map2['prfpdfrom'] }~${map2['prfpdto'] }</span>
 		         </div>
-		
 		         <!-- 예매 버튼 클릭 시 -> pfReservationController로 이동 후 결제 진행   -->
-				 <form name = "payfrm" action="<c:url value='/performance/pfReservation.do'/>" method="post" >
+				  <form name = "payfrm" method="post" 
+				  		<c:if test="${empty sessionScope.userid }">
+				  			action="<c:url value='/performance/pfNoReservation.do'/>"
+				  		</c:if>
+				  		<c:if test="${!empty sessionScope.userid }">
+				  			action="<c:url value='/performance/pfReservation.do'/>"
+				  		</c:if>		
+				  >
 			 	 		<input type="hidden" name="mt20id" value="${map2['mt20id']}"> 				<!-- 공연id -->
 			  			<input type="hidden" name="mt10id" value="${map2['mt10id']}">				<!-- 공연시설id -->
 			  			<input type="hidden" name="prfnm" value="${map2['prfnm']}">	 				<!-- 공연명 -->
@@ -304,8 +310,8 @@
 			  			<input type="hidden" name="fcltynm" value="${map2_location['fcltynm']}"> 	<!-- 공연시설명 -->
 			  	
 			  	<c:if test="${!empty tclist }">
-				  	<select name="ticketSeq" id="selectDate2">
-				  		<option value='dateY'>선택해주세요</option>
+				  	<select id="selectDate2" name="ticketSeq">
+				  	<option value='dateY'>선택해주세요</option>
 		         	<!-- 반복시작 -->
 		         	<c:forEach var="tcvo" items="${tclist }">
 		         		<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
@@ -326,7 +332,7 @@
 		         	</c:if>
 		         	
 		         <input type="submit" id="ticketing" value="예매하기>" />
-	         </form>
+	         	</form>
 	         </div>
 	      </div>
 	      </div>
@@ -408,10 +414,10 @@
    				  			<c:set var="url" value="${map2_location['relateurl']}"/>
 							<c:if test="${!empty url}">
 	   				  			<a href="${map2_location['relateurl']}">
-	   				  				<span id="parentSpan3">
+	   								<span id="parentSpan3">
 	   				  					홈페이지  <span id="firtstspan3">${map2_location["relateurl"]}</span>
    				  					</span>		
-	 				  			</a>s 
+	 				  			</a> 
 							</c:if>
 							
 							<c:if test="${empty url}">

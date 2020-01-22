@@ -23,6 +23,4 @@ public class AdminLoginDAOMybatis implements AdminLoginDAO{
 		return sqlSession.selectOne(namespace+"selectAdmin", userid);
 	}
 	
-	
-	
 }

@@ -108,7 +108,7 @@ public class PerformentController {
 	//회원결제진행창 보여주기
 	@RequestMapping("/pfReservation.do")
 	public String showReservation(@ModelAttribute PerformentDetailVO performentDetailVo, HttpSession session,
-			Model model, @RequestParam int ticketSeq) {
+			Model model,@RequestParam int ticketSeq) {
 		//로그인 한 유저
 		String userid = (String)session.getAttribute("userid");
 		
@@ -125,9 +125,12 @@ public class PerformentController {
 			Map<String, Object> map = perform.performDetail(perfomid);
 			logger.info("결제진행 정보 데이터 뿌리기, map={} ", map);
 			
+			//해당 공연에 대한 상세정보 
+			model.addAttribute("map_pay",map);			
+	
 			MemberVO memberVo = memberService.selectMember(userid);
 			logger.info("결제진행 정보 데이터 뿌리기, memberVo={}", memberVo);
-			
+
 			String email1 = memberVo.getEmail1();
 			String email2 = memberVo.getEmail2();
 			
@@ -186,8 +189,15 @@ public class PerformentController {
 			
 			//해당 공연에 대한 상세정보 
 			model.addAttribute("map_pay",map);	
+			
+			//공연 SEQ를 넘겨받아 해당 공연에 대한 공연정보를 다시 가져온다.
+			TicketVO tkVo =  ticketService.selectCategory(ticketSeq);
+			logger.info("해당 공연에 대한 공연 티켓정보, tkVo==>{} ", tkVo);
+		
+			//해당 공연결과 저장
+			model.addAttribute("tkVo", tkVo);
 		}
-	
+		
 		return "performance/pfNoReservation";
 	}//E
 	

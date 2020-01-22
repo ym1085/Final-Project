@@ -1,6 +1,8 @@
 package com.fp.delight.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.ann.model.AnnListVO;
 import com.fp.delight.ann.model.AnnService;
@@ -207,5 +210,72 @@ public class AnnController {
 		
 	}
 	
+	@RequestMapping("/topChk.do")
+	@ResponseBody
+	public Object annTopChk(@RequestParam String type) {
+		logger.info("상단 고정 있는지 확인하기 파라미터 type={}",type);
+		Map<String, Object> map=new HashMap<String, Object>();
+		int res=annService.anntopchk(type);
+		logger.info("상단 고정 검색 결과 res={}",res);
+		if(res==1) {
+			AnnVO vo=annService.anntopinfo(type);
+			map.put("topinfo", vo);
+			map.put("result",res);
+		}else {
+			map.put("result", res);
+		}
+		
+		return map;
+		
+	}
 	
+	@RequestMapping("/alTopCancle.do")
+	@ResponseBody
+	public int alTopCancle(@RequestParam int annSeq) {
+		logger.info("전 상단글 내리기 파라미터 alseq={}",annSeq);
+		
+		int res=annService.unTopSetting(annSeq);
+		
+		return res;
+	}
+	
+	@RequestMapping("/topsetting.do")
+	@ResponseBody
+	public int topsetting(@RequestParam int annSeq) {
+		logger.info("상단 고정 파라미터 annSeq={}",annSeq);
+		
+		int res=annService.topSetting(annSeq);
+		
+		return res;
+	}
+	
+	@RequestMapping("/topCancle.do")
+	@ResponseBody
+	public int topCancle(@RequestParam int annSeq) {
+		logger.info("상단 고정 취소 파라미터 annSeq={}",annSeq);
+		
+		int res=annService.unTopSetting(annSeq);
+		
+		return res;
+	}
+	
+	@RequestMapping("/expo.do")
+	@ResponseBody
+	public int expo(@RequestParam int annSeq) {
+		logger.info("노출 설정 파라미터 annSeq={}",annSeq);
+		
+		int res=annService.annExpo(annSeq);
+		
+		return res;
+	}
+	
+	@RequestMapping("/unExpo.do")
+	@ResponseBody
+	public int unexpo(@RequestParam int annSeq) {
+		logger.info("노출 취소 파라미터 annSeq={}",annSeq);
+		
+		int res=annService.annUnExpo(annSeq);
+		
+		return res;
+	}
 }

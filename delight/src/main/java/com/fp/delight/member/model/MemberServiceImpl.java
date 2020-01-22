@@ -18,22 +18,21 @@ public class MemberServiceImpl implements MemberService{
 	public int loginCheck(String userid, String password) {
 		
 		String salt=memberDao.getSaltById(userid);
-		password=SHA256Util.getEncrypt(password, salt);
-		
-		String dbPwd=memberDao.selectPwd(userid);
 		
 		int result=0;
 		
-		if(dbPwd==null || dbPwd.isEmpty()) {
+		if(salt==null || salt.isEmpty()) {
 			result=NONE_USERID;
 		}else {
+			password=SHA256Util.getEncrypt(password, salt);
+			String dbPwd=memberDao.selectPwd(userid);
 			if(dbPwd.equals(password)) {
 				result=LOGIN_OK;
 			}else {
 				result=DISAGREE_PWD;
 			}
 		}
-		
+		System.out.println(result);
 		return result;
 	}
 
