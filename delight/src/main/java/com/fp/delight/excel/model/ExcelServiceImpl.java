@@ -37,10 +37,10 @@ public class ExcelServiceImpl implements ExcelService{
 	@Override
 	public List<AreaSidoVO> ExcelSido(MultipartFile file, HttpServletRequest request) {
 		List<AreaSidoVO> list=new ArrayList<AreaSidoVO>();
+		String originFileName=file.getOriginalFilename();
+		String fileName=getUniqueFileName(originFileName);
+		String upPath=getFilePath(request);
 		try {
-			String originFileName=file.getOriginalFilename();
-			String fileName=getUniqueFileName(originFileName);
-			String upPath=getFilePath(request);
 			File f=new File(upPath, fileName);
 			file.transferTo(f);
 			
@@ -88,6 +88,11 @@ public class ExcelServiceImpl implements ExcelService{
 			e.printStackTrace();
 		} catch (InvalidFormatException e) {
 			e.printStackTrace();
+		}finally {
+			File f=new File(upPath, fileName);
+			if(f.exists() && f.canRead()) {
+				f.delete();
+			}
 		}
 		
 		return list;
@@ -98,10 +103,10 @@ public class ExcelServiceImpl implements ExcelService{
 	@Override
 	public List<AreaGugunVO> ExcelGugun(MultipartFile file, HttpServletRequest request) {
 		List<AreaGugunVO> list=new ArrayList<AreaGugunVO>();
+		String originFileName=file.getOriginalFilename();
+		String fileName=getUniqueFileName(originFileName);
+		String upPath=getFilePath(request);
 		try {
-			String originFileName=file.getOriginalFilename();
-			String fileName=getUniqueFileName(originFileName);
-			String upPath=getFilePath(request);
 			File f=new File(upPath, fileName);
 			file.transferTo(f);
 			
@@ -150,6 +155,11 @@ public class ExcelServiceImpl implements ExcelService{
 			e.printStackTrace();
 		} catch (InvalidFormatException e) {
 			e.printStackTrace();
+		}finally {
+			File f=new File(upPath, fileName);
+			if(f.exists() && f.canRead()) {
+				f.delete();
+			}
 		}
 		
 		return list;

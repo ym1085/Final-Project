@@ -26,6 +26,6 @@ public interface MemberService {
 	int updateMember(MemberVO memberVo);
 	List<Map<String, Object>> selectOut();
 	int withdrawMember(MemberVO memberVo);
-	String selectMemberGrade(String userid);
+	Map<String, Object> selectMemberGrade(String userid);
 	Map<String, Object> selectMemberShip(String userid); 
 }	

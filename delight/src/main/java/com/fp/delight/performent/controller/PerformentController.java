@@ -146,16 +146,16 @@ public class PerformentController {
 			model.addAttribute("map_pay",map);			//해당 공연에 대한 상세정보 
 		
 			//유저의 회원 등급 조회
-			String memberGrade = memberService.selectMemberGrade(userid);
+			Map<String, Object> memberGrade = memberService.selectMemberGrade(userid);
 			logger.info("로그인 한 유저의 회원등급 정보, 파라미터 memberGrade={}", memberGrade);
-		
+			
 			//회원 등급 조회
 			model.addAttribute("membergrade", memberGrade);
-		
+			
 			//공연 SEQ를 넘겨받아 해당 공연에 대한 공연정보를 다시 가져온다.
 			TicketVO tkVo =  ticketService.selectCategory(ticketSeq);
 			logger.info("해당 공연에 대한 공연 티켓정보, tkVo==>{} ", tkVo);
-		
+			
 			//해당 공연결과 저장
 			model.addAttribute("tkVo", tkVo);
 			
@@ -189,8 +189,15 @@ public class PerformentController {
 			
 			//해당 공연에 대한 상세정보 
 			model.addAttribute("map_pay",map);	
+			
+			//공연 SEQ를 넘겨받아 해당 공연에 대한 공연정보를 다시 가져온다.
+			TicketVO tkVo =  ticketService.selectCategory(ticketSeq);
+			logger.info("해당 공연에 대한 공연 티켓정보, tkVo==>{} ", tkVo);
+		
+			//해당 공연결과 저장
+			model.addAttribute("tkVo", tkVo);
 		}
-	
+		
 		return "performance/pfNoReservation";
 	}//E
 	

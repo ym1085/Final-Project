@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.FAQ">
+	
+	<insert id="FAQwrite" parameterType="FAQVo">
+		<selectKey keyProperty="faqSeq" resultType="int" order="BEFORE">
+			select faq_seq.nextval from dual
+		</selectKey>
+			insert into tbl_faq 
+			values(#{faqSeq},#{faqTitle},#{faqContent},#{faqType},default,#{userid})
+	</insert>
+	
+	<sql id="searchWhere">
+			where faq_type like '%' || #{searchKeyword} || '%'	
+	</sql>
+	<sql id="searchWhere2">
+		<if test="searchKeyword2!=null and searchKeyword2!=''">
+			and ${searchCondition2} like '%' || #{searchKeyword2} || '%'
+		</if>
+	</sql>
+	
+	<select id="faqsearch" parameterType="FAQVo" resultType="FAQVo">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from 
+		    (	
+		    	select * from tbl_faq
+			    <include refid="searchWhere"></include>
+			    <include refid="searchWhere2"></include>
+				order by faq_seq desc
+		    ) A
+		) where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="faqtotal" resultType="int" parameterType="FAQVo">
+		select count(*) from tbl_faq
+		<include refid="searchWhere"></include>
+		<include refid="searchWhere2"></include>
+	</select>
+	
+	<delete id="faqdel" parameterType="int">
+		delete from tbl_faq where faq_seq=#{faqSeq}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+

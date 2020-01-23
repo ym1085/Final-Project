@@ -43,4 +43,9 @@ public class IndexController {
     	
 		return "index";
 	}
+	
+	@RequestMapping("/index2.do")
+	public void index2() {
+		
+	}
 }

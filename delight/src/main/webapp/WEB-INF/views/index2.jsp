@@ -35,5 +35,5 @@
 
 	</div>
 	<!-- div안에서작업 그외엔 건들지말것 -->
-	
+
 <%@ include file="inc/main2Bottom.jsp" %>

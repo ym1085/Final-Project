@@ -44,7 +44,7 @@
     #calandarSub h6{font-size: 12px; font-family:-webkit-body;}
     #dateWhile{font-size: 11px; font-family:-webkit-body; font-weight: 400;}
     select#selectDate {border: none;margin-top: 7px;font-weight: 400;}
-    input#ticketing {width: 200px;height: 45px;border: none;background: red;border-radius: 5px;color: white;font-size: 1.1em;font-weight: bold;margin-top: 45px;  box-shadow: 6px 6px 8px 1px #a05260;}
+    input#ticketing {margin-left: 25px;width: 200px;height: 45px;border: none;background: red;border-radius: 5px;color: white;font-size: 1.1em;font-weight: bold;margin-top: 45px;  box-shadow: 6px 6px 8px 1px #a05260;}
     #selectDate > option{font-size: 10px;}
     .cancellationTable > th,td{height: 50px;}
     .cancellationTable tr th {background-color:#fbfbfb;padding-left: 10px; font-weight: 400;font-family: serif;}
@@ -69,6 +69,7 @@
     span#parentSpan4 {margin-left: 10px;}
     table.performDetailtable {margin-bottom: 70px;}
     button#likeBt {background: white;border: none;outline: none;}
+    select#selectDate2 {width: 250px;border: 0.5px solid #ece8e8;}
     
    /*다 없애고 수정해야 될 가능성이 있음(밤샘각)*/
    ul{list-style:none;}
@@ -294,6 +295,7 @@
 		      		<h6>예매가능 공연 일자</h6>   
 		         	<span id="dateWhile">${map2['prfpdfrom'] }~${map2['prfpdto'] }</span>
 		         </div>
+		         <!-- commit용 -->
 		         <!-- 예매 버튼 클릭 시 -> pfReservationController로 이동 후 결제 진행   -->
 				  <form name = "payfrm" method="post" 
 				  		<c:if test="${empty sessionScope.userid }">
@@ -315,7 +317,7 @@
 		         	<!-- 반복시작 -->
 		         	<c:forEach var="tcvo" items="${tclist }">
 		         		<!-- value==ticket_seq -->	<!-- 공연별 판매가능 수량 테이블의 티켓_seq를 참조 -->
-		         		<option value="${tcvo.ticketSeq}">날짜:${tcvo.prfdate },  시간:${tcvo.prfhour }</option>	
+		         		<option value="${tcvo.ticketSeq}">날짜 : ${tcvo.prfdate }, 시간 : ${tcvo.prfhour }</option>	
 		         	</c:forEach>
 		         	<!-- 반복 끝 -->
 		         	</select>

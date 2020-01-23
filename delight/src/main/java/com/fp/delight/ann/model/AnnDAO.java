@@ -12,4 +12,9 @@ public interface AnnDAO {
 	int annExposure(int annSeq);
 	int annUnExposure(int annSeq);
 	AnnVO selAnnBySeq(int annSeq);
+	int anntopchk(String annType);
+	AnnVO anntopinfo(String annType);
+	int topSetting(int annSeq);
+	int unTopSetting(int annSeq);
+	
 }
