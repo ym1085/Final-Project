@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fnt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../inc/main2Top.jsp" %>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -44,6 +46,7 @@
 				});
 			}
 			
+			/* 변수 */
 			var t1=0;
 			var t2=0;
 			var t3=0;
@@ -81,6 +84,7 @@
 					discountNormal = total - (total*0.05);
 					total = discountNormal;
 				}
+				
 				
 				$("#ticketPriceSum").html(total+"원");
 				
@@ -187,8 +191,42 @@
 				
 				$("#ticketPriceSum").html(total+"원");
 			});
+		
+			
+			//마일리지 사용
+			var mileage = 0;
+			$("#checkM").click(function(){
+				if($("#checkM").is(':checked')) {
+					//체크되있을시
+					var check = $("#mileage").html();
+					mileage = 1000+parseInt(check);
+					
+					if(mileage==1000){
+						discountMile = total - (mileage*0.05);
+						total = discountMile; 
+					}
+					
+					$("#ticketPriceSum").html(total+"원");
+				} else {
+					//체크 안되있을 시
+					discountMile = total + (mileage*0.05);
+					total = discountMile;
+					
+					$("#ticketPriceSum").html(total+"원");
+				}
+			});
+		
+			$("#agreeBt").click(function(){
+				//약관 동의
+				if($("#checkAgreeSub").is(':checked')) {
+					alert("김영민");
+				} else {
+					alert("니미");	
+				}
+			});
 			
 		});//SubEnd
+			
 	});//End
 	</script>
 	
@@ -253,8 +291,8 @@
 				<div class="per-list">
 					<!-- <p class="no-ct">등록된 게시물이 없습니다.</p> -->
 					<c:set var="tkPrice" value="${tkVo.netprice}"/>
-					<c:set var="stPriceMid" value="${tkPrice * 60 / 100}"/> 		<!-- 3400 -->
-					<c:set var="stPriceFinal" value="${tkPrice - stPriceMid}" />	<!-- 20000 - 3400 -->
+					<c:set var="stPriceMid" value="${tkPrice * 60 / 100}"/> 		
+					<c:set var="stPriceFinal" value="${tkPrice - stPriceMid}" />	
 					
 					<!-- 소수 나머지 자리 제거 -->
 					<fmt:parseNumber var="stPriceFinalTotal" integerOnly="true" value="${stPriceFinal}"/>
@@ -282,7 +320,7 @@
 					<div class="i11">
 						<p>일반</p><p class="fp2">만19세~64세</p>
 						<span>
-							20,000원
+							<fnt:formatNumber value="${tkVo.netprice }" pattern="#,###"/>원
 						</span>
 						<select name="choosePricepf" id="choosePricepf" class="C">
 							<option>0</option>
@@ -300,7 +338,9 @@
 					</div>
 					<div class="i11">
 						<p>예술 관련 학교 및 학과 재학생 (현장 확인)</p><p class="fp2">학생증지참</p>
-						<span>8,000원</span>
+						<span>
+							<fnt:formatNumber value="${stPriceFinalTotal}" pattern="#,###"/>원
+						</span>
 						<select style="margin-left:7px" name="choosePricepfst" id="choosePricepfst" class="C">
 							<option>0</option>
 							<option>1</option>
@@ -316,7 +356,10 @@
 						</select>
 					</div>
 					<div class="i11">
-						<p>장애인</p><p class="fp2">1~3급 장애인 [현장에서 신분증 확인 필요]</p><span>10,000원</span>
+						<p>장애인</p><p class="fp2">1~3급 장애인 [현장에서 신분증 확인 필요]</p>
+						<span>
+							<fnt:formatNumber value="${disPriceFinalTotal}" pattern="#,###"/>원
+						</span>
 						<select name="choosePricedis" id="choosePricedis" class="C">
 							<option>0</option>
 							<option>1</option>
@@ -332,7 +375,10 @@
 						</select>
 					</div>
 					<div class="i11">
-						<p>기초수급대상자</p><p class="fp2"># 증빙서류 지참</p><span>10,000원</span>
+						<p>기초수급대상자</p><p class="fp2"># 증빙서류 지참</p>
+						<span>
+							<fnt:formatNumber value="${disPriceFinalTotal}" pattern="#,###"/>원 
+						</span>
 						
 						<select name="choosePricedis2" id="choosePricedis2" class="C">
 							<option>0</option>
@@ -397,8 +443,8 @@
 						<span>적용</span>
 					</div>
 					<div class="i11">
-						<p>마일리지 사용</p><p class="fp2">소유하신마일리지 : <mark style="color:silver;color: black">${memberVo.mileagePoint}</mark> </p>
-						<input type="checkbox" id="checkM"><span>적용</span>
+						<p>마일리지 사용</p><p class="fp2">소유하신마일리지 : <mark id="mileage" style="color:silver;color: black">${memberVo.mileagePoint}</mark> </p>
+						<input type="checkbox" id="checkM" name="checkbox"><span>적용</span>
 					</div>
 					</div>
 					
@@ -412,13 +458,11 @@
 		[클래식/무용]LOOK_Second Sight
 	</div>
 	<div class="payInfo2">
-		<p>관람일</p><br><span>2020.01.18(토) 19:00</span>
+		<p>관람일</p><br><span>${tkVo.prfdate} - ${tkVo.prfhour}</span>
 	</div>
 	<div class="payInfo3">
 		<p>티켓금액</p><br>
-		<span id="ticketPriceSum">
-			￦ 0 원
-		</span>
+		<span id="ticketPriceSum"></span>
 	</div>
 	<div class="payInfo4">
 		<p>취소수수료</p><br>
@@ -436,12 +480,14 @@
 		</select>
 	</div>
 	<div class="payInfo6">
-		<input type="checkbox"><label>취소수수료 및 취소기한을 확인 하였으며 동의합니다.</label><br>
-		<input type="checkbox"><label>개인정보 제 3자가 제공에 동의합니다.</label>
+		<input type="checkbox" id="checkAgree" name="checkAgree">
+		<label>취소수수료 및 취소기한을 확인 하였으며 동의합니다.</label><br>
+		<input type="checkbox" id="checkAgreeSub" name="checkAgreeSub">
+		<label>개인정보 제 3자가 제공에 동의합니다.</label>
 	</div>
 	<div class="payInfo7">
 		<a href="<c:url value='/performance/import.do?perfomid=${param.perfomid}'/>">
-			<input type="button" value="결제하기 Place your payment">
+			<input type="button" name="agreeBt" id="agreeBt" value="결제하기 Place your payment">
 		</a>
 	</div>
 	<div class="payInfo8">

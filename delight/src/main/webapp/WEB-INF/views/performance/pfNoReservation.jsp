@@ -60,6 +60,13 @@
 				
 				t1 = selectNum * netPrice;
 				total=t1+t2+t3+t4;
+				
+				var discountNormal = 0;
+				if($("#normalPrice").html()=='기본'){
+					discountNormal = total - (total*0.05);
+					total = discountNormal;
+				}
+				
 				$("#ticketPriceSum").html(total+"원");
 			});
 			
@@ -71,6 +78,12 @@
 				t2 = selectNum * stPrice;
 				total=t1+t2+t3+t4;
 				
+				var discountNormal = 0;
+				if($("#normalPrice").html()=='기본'){
+					discountNormal = total - (total*0.05);
+					total = discountNormal;
+				}
+				
 				$("#ticketPriceSum").html(total+"원");
 			});
 				
@@ -81,6 +94,13 @@
 				
 				t3 = selectNum * disprice;
 				total=t1+t2+t3+t4;
+				
+				var discountNormal = 0;
+				if($("#normalPrice").html()=='기본'){
+					discountNormal = total - (total*0.05);
+					total = discountNormal;
+				}
+				
 				$("#ticketPriceSum").html(total+"원");
 			});
 			
@@ -91,14 +111,19 @@
 				
 				t4 = selectNum * disprice;
 				total=t1+t2+t3+t4;
+				
+				var discountNormal = 0;
+				if($("#normalPrice").html()=='기본'){
+					discountNormal = total - (total*0.05);
+					total = discountNormal;
+				}
+				
 				$("#ticketPriceSum").html(total+"원");
 			});
-		
-			$("#ticketPriceSum").html(total+"원");
-		
-		});//E
-		
+			
+			
 		});
+	});
 	</script>
 	
 	<style type="text/css">
@@ -184,6 +209,7 @@
 					<input type="hidden" id="netprice" value="${tkVo.netprice}">
 					<input type="hidden" id="stprice" value="${stPriceFinalTotal}"> 
 					<input type="hidden" id="disprice" value="${disPriceFinalTotal}"> 
+					<input type="hidden" id="gradeName" value="${membergrade['GRADE_NAME']}">
 					
 					<h3 class="per-q" id="s1">가격 선택 Choose a price</h3>
 					<div class="per-a" id="s11">
@@ -292,12 +318,14 @@
 					<h3 class="per-q" id="s3">추가 할인 Additional discount</h3>
 					<div class="per-a" id="s13">
 					<div class="i11">
-						<p>기본</p><p class="fp2">기본</p><span>5%</span>
-						<span>적용완료</span>
+						<p>기본</p>
+						<p class="fp2" id="normalPrice">기본</p>
+						<span>5%</span>
+						<span>적용</span>
 					</div>
 					<div class="i11">
 						<p>특별할인</p><p class="fp2">얼리버드</p><span>5%</span>
-						<span>적용완료</span>
+						<span>적용</span>
 					</div>
 					</div>
 					
@@ -311,7 +339,7 @@
 		[클래식/무용]LOOK_Second Sight
 	</div>
 	<div class="payInfo2">
-		<p>관람일</p><br><span>2020.01.18(토) 19:00</span>
+		<p>관람일</p><br><span>${tkVo.prfdate } - ${tkVo.prfhour}</span>
 	</div>
 	<div class="payInfo3">
 		<p>티켓금액</p><br>
