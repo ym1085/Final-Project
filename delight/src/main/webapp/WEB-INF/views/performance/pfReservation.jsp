@@ -46,6 +46,18 @@
 				});
 			}
 			
+			//결제진행 체크박스
+			$("#agreeBt").click(function(){
+				//약관 동의
+				if($("#checkAgreeSub").is(':checked') && $("#checkAgree").is(':checked')) {
+					alert("결제를 진행하겠습니다!");
+				} else {
+					alert("이용약관에 동의하셔야 결제를 진행할 수 있습니다!");
+					event.preventDefault();
+				}
+			});
+			
+			
 			/* 변수 */
 			var t1=0;
 			var t2=0;
@@ -53,8 +65,29 @@
 			var t4=0;
 			var total=0;
 			
-			$(".C").change(function(){
-			//일반 SELECT-OPTION CLICK
+			var one=$(".one").html();
+			var two=$(".one2").html();
+			var three=$(".one3").html();
+			var four=$(".one4").html();
+			var mileage=$("#mileage").html();
+			
+			var one = parseInt(one);
+			var two = parseInt(two);
+			var three = parseInt(three);
+			var four = parseInt(four);
+			var five = parseInt(mileage);
+			
+			alert(five);
+			
+			var salePrice = 0;
+			var totalDiscountPrice = 0;
+			var tmp = false;
+			
+			$("#checkM").click(function(){
+				tmp = $('[id=checkM]').is(':checked'); 
+				//alert(tmp);
+			});
+			
 			$("#choosePricepf").change(function(){
 				var selectNum = parseInt(this.value);  
 				var netPrice = $("#netprice").val();
@@ -62,32 +95,20 @@
 				t1 = selectNum * netPrice;
 				total=t1+t2+t3+t4;
 				
-				var discount = 0;
-				if($("#gradeName").val()!=null){
-					if($("#gradeName").val()=='s'){
-						discount = total - (total*0.01);
-						total = discount;
-					}else if($("#gradeName").val()=='g'){
-						discount = total - (total*0.02);
-						total = discount;
-					}else if($("#gradeName").val()=='p'){
-						discount = total - (total*0.03);
-						total = discount;
-					}else if($("#gradeName").val()=='vip'){
-						discount = total - (total*0.04);
-						total = discount;
+				if(tmp==true) {
+					if(selectNum==0){
+						salePrice = (one+two+three+four)*0
+						totalDiscountPrice = total-total*salePrice;
+					}else {
+						salePrice = (one+two+three+four)/100
+						totalDiscountPrice = (total-total*salePrice)-five;
 					}
+				}else if(tmp==false){
+					salePrice = (one+two+three+four)/100
+					totalDiscountPrice = total-total*salePrice;
 				}
-				
-				var discountNormal = 0;
-				if($("#normalPrice").html()=='기본'){
-					discountNormal = total - (total*0.05);
-					total = discountNormal;
-				}
-				
-				
-				$("#ticketPriceSum").html(total+"원");
-				
+		
+				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
 			
 			//예술 관련 학교 및 학과 장학생 SELECT-OPTION CLICK
@@ -97,31 +118,11 @@
 				
 				t2 = selectNum * stPrice;
 				total=t1+t2+t3+t4;
-				
-				var discount = 0;
-				if($("#gradeName").val()!=null){
-					if($("#gradeName").val()=='s'){
-						discount = total - (total*0.01);
-						total = discount;
-					}else if($("#gradeName").val()=='g'){
-						discount = total - (total*0.02);
-						total = discount;
-					}else if($("#gradeName").val()=='p'){
-						discount = total - (total*0.03);
-						total = discount;
-					}else if($("#gradeName").val()=='vip'){
-						discount = total - (total*0.04);
-						total = discount;
-					}
-				}
-				
-				var discountNormal = 0;
-				if($("#normalPrice").html()=='기본'){
-					discountNormal = total - (total*0.05);
-					total = discountNormal;
-				}
-				
-				$("#ticketPriceSum").html(total+"원");
+
+				salePrice = (one+two+three+four)/100
+				totalDiscountPrice = total-(total*(salePrice));
+		
+				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
 				
 			//장애인 SELECT-OPTION CLICK
@@ -131,31 +132,11 @@
 				
 				t3 = selectNum * disprice;
 				total=t1+t2+t3+t4;
-				
-				var discount = 0;
-				if($("#gradeName").val()!=null){
-					if($("#gradeName").val()=='s'){
-						discount = total - (total*0.01);
-						total = discount;
-					}else if($("#gradeName").val()=='g'){
-						discount = total - (total*0.02);
-						total = discount;
-					}else if($("#gradeName").val()=='p'){
-						discount = total - (total*0.03);
-						total = discount;
-					}else if($("#gradeName").val()=='vip'){
-						discount = total - (total*0.04);
-						total = discount;
-					}
-				}
-				
-				var discountNormal = 0;
-				if($("#normalPrice").html()=='기본'){
-					discountNormal = total - (total*0.05);
-					total = discountNormal;
-				}
-				
-				$("#ticketPriceSum").html(total+"원");
+	
+				salePrice = (one+two+three+four)/100
+				totalDiscountPrice = total-(total*(salePrice));
+		
+				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
 			
 			//기초 수급 대상자 SELECT-OPTION CLICK
@@ -165,69 +146,12 @@
 				
 				t4 = selectNum * disprice;
 				total=t1+t2+t3+t4;
-				
-				var discount = 0;
-				if($("#gradeName").val()!=null){
-					if($("#gradeName").val()=='s'){
-						discount = total - (total*0.01);
-						total = discount;
-					}else if($("#gradeName").val()=='g'){
-						discount = total - (total*0.02);
-						total = discount;
-					}else if($("#gradeName").val()=='p'){
-						discount = total - (total*0.03);
-						total = discount;
-					}else if($("#gradeName").val()=='vip'){
-						discount = total - (total*0.04);
-						total = discount;
-					}
-				}//if
-				
-				var discountNormal = 0;
-				if($("#normalPrice").html()=='기본'){
-					discountNormal = total - (total*0.05);
-					total = discountNormal;
-				}
-				
-				$("#ticketPriceSum").html(total+"원");
-			});
+	
+				salePrice = (one+two+three+four)/100
+				totalDiscountPrice = total-(total*(salePrice));
 		
-			
-			//마일리지 사용
-			var mileage = 0;
-			$("#checkM").click(function(){
-				if($("#checkM").is(':checked')) {
-					//체크되있을시
-					var check = $("#mileage").html();
-					mileage = parseInt(check);
-					
-					if(mileage>0){
-						discountMile = total - (mileage*0.05);
-						total = discountMile; 
-					}
-					
-					$("#ticketPriceSum").html(total+"원");
-				} else {
-					//체크 안되있을 시
-					discountMile = total + (mileage*0.05);
-					total = discountMile;
-					
-					$("#ticketPriceSum").html(total+"원");
-				}
+				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
-		
-			$("#agreeBt").click(function(){
-				//약관 동의
-				if($("#checkAgreeSub").is(':checked')) {
-					alert("김영민");
-				} else {
-					alert("니미");	
-				}
-			});
-			
-		});//SubEnd
-			
-	});//End
 	</script>
 	
 	<style>
@@ -314,7 +238,7 @@
 					<input type="hidden" id="stprice" value="${stPriceFinalTotal}"> 
 					<input type="hidden" id="disprice" value="${disPriceFinalTotal}"> 
 					<input type="hidden" id="gradeName" value="${membergrade['GRADE_NAME']}">
-					 
+			
 					<h3 class="per-q" id="s1">가격 선택 Choose a price</h3>
 					<div class="per-a" id="s11">
 					<div class="i11">
@@ -322,7 +246,7 @@
 						<span>
 							<fnt:formatNumber value="${tkVo.netprice }" pattern="#,###"/>원
 						</span>
-						<select name="choosePricepf" id="choosePricepf" class="C">
+						<select name="choosePricepf" id="choosePricepf" class="selectOne">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -341,7 +265,7 @@
 						<span>
 							<fnt:formatNumber value="${stPriceFinalTotal}" pattern="#,###"/>원
 						</span>
-						<select style="margin-left:7px" name="choosePricepfst" id="choosePricepfst" class="C">
+						<select style="margin-left:7px" name="choosePricepfst" id="choosePricepfst" class="selectOne">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -360,7 +284,7 @@
 						<span>
 							<fnt:formatNumber value="${disPriceFinalTotal}" pattern="#,###"/>원
 						</span>
-						<select name="choosePricedis" id="choosePricedis" class="C">
+						<select name="choosePricedis" id="choosePricedis" class="selectOne">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -380,7 +304,7 @@
 							<fnt:formatNumber value="${disPriceFinalTotal}" pattern="#,###"/>원 
 						</span>
 						
-						<select name="choosePricedis2" id="choosePricedis2" class="C">
+						<select name="choosePricedis2" id="choosePricedis2" class="selectOne">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -422,29 +346,63 @@
 					<div class="i11">
 						<p>기본</p>
 						<p class="fp2" id="normalPrice">기본</p>
-						<span>5%</span>
+						<span class="one">5%</span>
 						<span>적용</span>
 					</div>
 					<div class="i11">
-						<p>특별할인</p><p class="fp2">얼리버드</p><span>5%</span>
+						<p>특별할인</p>
+						<!-- 수정해야됨 -->
+						<p class="fp2">얼리버드</p>
+						<span class="one2">5%</span>
 						<span>적용</span>
 					</div>
 					<div class="i11">
 						<p>등급할인</p>
 						<p class="fp2">
-							현재등급 : <mark style="color:silver;color: black;">${membergrade['GRADE_NAME']}</mark> 
+							<c:if test="${empty membergrade['GRADE_NAME']}">
+								현재등급 : <mark style="color:silver;color: black;">회원 등급이 존재하지 않습니다.</mark> 
+							</c:if>
+							
+							<c:if test="${!empty membergrade['GRADE_NAME']}">
+								현재등급 : <mark style="color:silver;color: black;">${membergrade['GRADE_NAME']}</mark> 
+							</c:if>
 						</p>
 						
-						<span>${membergrade['GRADE_BENEFIT']}%</span>
+						<span class="one3">${membergrade['GRADE_BENEFIT']}%</span>
 						<span>적용</span>
 					</div>
 					<div class="i11">
-						<p>회원권 할인</p><p class="fp2">회원권 : <mark style="color:silver;color: black;">${map_membership['NAME']}</mark></p><span>5%</span>
+						<p>회원권 할인</p>
+							<c:if test="${empty map_membership['NAME']}">
+								<p class="fp2">
+									회원권 : <mark id="memberShip" style="color:silver;color: black;">
+											<a href="<c:url value='#'/>">회원권을 구매하시려면 클릭해주세요</a>
+										   </mark>
+								</p>
+							</c:if>
+							
+							<c:if test="${!empty map_membership['NAME']}">
+								<p class="fp2">
+									회원권 : <mark id="memberShip" style="color:silver;color: black;">
+										${map_membership['NAME']}
+									</mark>
+								</p>
+							</c:if>
+						<span class="one4">5%</span>
 						<span>적용</span>
 					</div>
 					<div class="i11">
-						<p>마일리지 사용</p><p class="fp2">소유하신마일리지 : <mark id="mileage" style="color:silver;color: black">${memberVo.mileagePoint}</mark> </p>
-						<input type="checkbox" id="checkM" name="checkbox"><span>적용</span>
+						<p>마일리지 사용</p>
+						<p class="fp2">
+							<c:if test="${empty memberVo.mileagePoint}">
+								소유하신마일리지 : <mark id="mileage" style="color:silver;color: black">0</mark> 
+							</c:if>
+							
+							<c:if test="${!empty memberVo.mileagePoint}">
+								소유하신마일리지 : <mark id="mileage" style="color:silver;color: black">${memberVo.mileagePoint}</mark> 
+							</c:if>
+						</p>
+						<input type="checkbox" id="checkM" name="checkbox"><span>적용</span>	<!--  -->
 					</div>
 					</div>
 					
@@ -480,10 +438,8 @@
 		</select>
 	</div>
 	<div class="payInfo6">
-		<input type="checkbox" id="checkAgree" name="checkAgree">
-		<label>취소수수료 및 취소기한을 확인 하였으며 동의합니다.</label><br>
-		<input type="checkbox" id="checkAgreeSub" name="checkAgreeSub">
-		<label>개인정보 제 3자가 제공에 동의합니다.</label>
+		<input type="checkbox" id="checkAgree" name="checkAgree"><label>취소수수료 및 취소기한을 확인 하였으며 동의합니다.</label><br>
+		<input type="checkbox" id="checkAgreeSub" name="checkAgreeSub"><label>개인정보 제 3자가 제공에 동의합니다.</label>
 	</div>
 	<div class="payInfo7">
 		<a href="<c:url value='/performance/import.do?perfomid=${param.perfomid}'/>">

@@ -46,6 +46,17 @@
 				});
 			}
 			
+			//결제진행 체크박스
+			$("#agreeBt2").click(function(){
+				//약관 동의
+				if($("#checkAgreeSub2").is(':checked') && $("#checkAgree2").is(':checked')) {
+					alert("결제를 진행하겠습니다!");
+				} else {
+					alert("이용약관에 동의하셔야 결제를 진행할 수 있습니다!");
+					event.preventDefault();
+				}
+			});
+			
 			var t1=0;
 			var t2=0;
 			var t3=0;
@@ -361,11 +372,11 @@
 		</select>
 	</div>
 	<div class="payInfo6">
-		<input type="checkbox"><label>취소수수료 및 취소기한을 확인 하였으며 동의합니다.</label><br>
-		<input type="checkbox"><label>개인정보 제 3자가 제공에 동의합니다.</label>
+		<input type="checkbox" id="checkAgree2"><label>취소수수료 및 취소기한을 확인 하였으며 동의합니다.</label><br>
+		<input type="checkbox" id="checkAgreeSub2"><label>개인정보 제 3자가 제공에 동의합니다.</label>
 	</div>
 	<div class="payInfo7">
-		<input type="submit" value="결제하기 Place your payment">
+		<input type="submit" id="agreeBt2" value="결제하기 Place your payment">
 	</div>
 	<div class="payInfo8">
 	<p>
