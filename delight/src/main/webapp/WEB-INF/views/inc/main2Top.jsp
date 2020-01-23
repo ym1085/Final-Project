@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:import url="/category/categoryList.do"></c:import>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -28,7 +27,8 @@
 <!-- left css-->
 <link rel="stylesheet"
 	href="<c:url value='/resources/idxresources/css/main.css' />">
-
+		<script type="text/javascript" 
+	src="<c:url value='/resources/js/jquery-3.4.1.min.js'/>"></script>
 <style type="text/css">
 .left-sidebar {
 	background-image:

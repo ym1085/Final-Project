@@ -46,21 +46,44 @@
 				});
 			}
 			
+			//결제진행 체크박스
+			$("#agreeBt2").click(function(){
+				//약관 동의
+				if($("#checkAgreeSub2").is(':checked') && $("#checkAgree2").is(':checked')) {
+					alert("결제를 진행하겠습니다!");
+				} else {
+					alert("이용약관에 동의하셔야 결제를 진행할 수 있습니다!");
+					$(this).focus();
+					event.preventDefault();
+				}
+			});
+			
 			var t1=0;
 			var t2=0;
 			var t3=0;
 			var t4=0;
 			var total=0;
 		
-			$(".B").change(function(){
-			//일반 SELECT-OPTION CLICK
+			var oneSub=$("#oneSub").html();
+			var twoSub=$("#oneSub2").html();
+			
+			var oneSub=parseInt(oneSub);
+			var twoSub=parseInt(twoSub);
+			
+			//alert(oneSub);	//값 안들어오면 이 곳 체크해보세요
+			//alert(twoSub);	//값 안들어오면 이 곳 체크해보세요
+			
 			$("#choosePrice").change(function(){
 				var selectNum = parseInt(this.value);  
 				var netPrice = $("#netprice").val();
 				
 				t1 = selectNum * netPrice;
 				total=t1+t2+t3+t4;
-				$("#ticketPriceSum").html(total+"원");
+				
+				salePrice = (oneSub+twoSub)/100
+				totalDiscountPrice = total-total*salePrice;
+				
+				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
 			
 			//예술 관련 학교 및 학과 장학생 SELECT-OPTION CLICK
@@ -71,7 +94,10 @@
 				t2 = selectNum * stPrice;
 				total=t1+t2+t3+t4;
 				
-				$("#ticketPriceSum").html(total+"원");
+				salePrice = (oneSub+twoSub)/100
+				totalDiscountPrice = total-total*salePrice;
+				
+				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
 				
 			//장애인 SELECT-OPTION CLICK
@@ -81,7 +107,11 @@
 				
 				t3 = selectNum * disprice;
 				total=t1+t2+t3+t4;
-				$("#ticketPriceSum").html(total+"원");
+				
+				salePrice = (oneSub+twoSub)/100
+				totalDiscountPrice = total-total*salePrice;
+				
+				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
 			
 			//기초 수급 대상자 SELECT-OPTION CLICK
@@ -91,14 +121,14 @@
 				
 				t4 = selectNum * disprice;
 				total=t1+t2+t3+t4;
-				$("#ticketPriceSum").html(total+"원");
+				
+				salePrice = (oneSub+twoSub)/100
+				totalDiscountPrice = total-total*salePrice;
+				
+				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
-		
-			$("#ticketPriceSum").html(total+"원");
-		
-		});//E
-		
-		});
+			
+	});
 	</script>
 	
 	<style type="text/css">
@@ -184,6 +214,7 @@
 					<input type="hidden" id="netprice" value="${tkVo.netprice}">
 					<input type="hidden" id="stprice" value="${stPriceFinalTotal}"> 
 					<input type="hidden" id="disprice" value="${disPriceFinalTotal}"> 
+					<input type="hidden" id="gradeName" value="${membergrade['GRADE_NAME']}">
 					
 					<h3 class="per-q" id="s1">가격 선택 Choose a price</h3>
 					<div class="per-a" id="s11">
@@ -292,12 +323,17 @@
 					<h3 class="per-q" id="s3">추가 할인 Additional discount</h3>
 					<div class="per-a" id="s13">
 					<div class="i11">
-						<p>기본</p><p class="fp2">기본</p><span>5%</span>
-						<span>적용완료</span>
+						<p>기본</p>
+						<p class="fp2" id="normalPrice">기본</p>
+						<span id="oneSub">5%</span>
+						<span>적용</span>
 					</div>
 					<div class="i11">
-						<p>특별할인</p><p class="fp2">얼리버드</p><span>5%</span>
-						<span>적용완료</span>
+						<!-- 이 부분 수정해야합니다++++++++++++++++++++++ -->
+						<p>특별할인</p><p class="fp2">얼리버드</p>
+						<span id="oneSub2">5%</span>
+						<span>적용</span>
+						<!-- 이 부분 수정해야합니다++++++++++++++++++++++ -->
 					</div>
 					</div>
 					
@@ -311,7 +347,7 @@
 		[클래식/무용]LOOK_Second Sight
 	</div>
 	<div class="payInfo2">
-		<p>관람일</p><br><span>2020.01.18(토) 19:00</span>
+		<p>관람일</p><br><span>${tkVo.prfdate } - ${tkVo.prfhour}</span>
 	</div>
 	<div class="payInfo3">
 		<p>티켓금액</p><br>
@@ -333,11 +369,11 @@
 		</select>
 	</div>
 	<div class="payInfo6">
-		<input type="checkbox"><label>취소수수료 및 취소기한을 확인 하였으며 동의합니다.</label><br>
-		<input type="checkbox"><label>개인정보 제 3자가 제공에 동의합니다.</label>
+		<input type="checkbox" id="checkAgree2"><label>취소수수료 및 취소기한을 확인 하였으며 동의합니다.</label><br>
+		<input type="checkbox" id="checkAgreeSub2"><label>개인정보 제 3자가 제공에 동의합니다.</label>
 	</div>
 	<div class="payInfo7">
-		<input type="submit" value="결제하기 Place your payment">
+		<input type="submit" id="agreeBt2" value="결제하기 Place your payment">
 	</div>
 	<div class="payInfo8">
 	<p>

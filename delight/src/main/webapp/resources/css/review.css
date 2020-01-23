@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+.mysecDiv {
+	width: 80%;
+	height: 100%;
+	margin-left: 35px;
+	margin-right: 20px;
+	margin-top: 15px;
+	margin-bottom: 6%;
+}
+
+.mysecDiv div {
+	width: 100%;
+	margin-bottom: 1.5%;
+}
+
+.writeReview3 div, img {
+	width: 140px;
+	height: 172px;
+	float: left;
+}
+
+.writeReview {
+	padding: 15px 3px;
+	border-bottom: 3px solid black;
+}
+
+.writeReview4 a {
+	float: left;
+	margin-bottom: 10px;
+}
+
+.writeReview4 .stainfo {
+	font-size: 1.3em;
+	float: left;
+	margin-top: 4px;
+}
+
+.writeReview3 {
+	height: 172px;
+}
+
+p#star_grade {
+	margin-left: 12%;
+}
+
+p.mybodyP {
+	float: left;
+	margin-top: 4%;
+	margin-left: 1%;
+	font-size: 1.1em;
+	font-weight: bold;
+	color: black;
+}
+
+.writeReview4 {
+	height: 30px;
+}
+
+.writeReview5 {
+	height: 30px;
+}
+
+.writeReview5 * {
+	width: 100%;
+}
+
+input#inqueryTitle {
+	height: 30px;
+	margin-top: 8px;
+}
+
+.writeReview6 * {
+	width: 100%;
+}
+
+.writeReview6 {
+	height: 350px;
+	border: 1px solid gray;
+	margin-top: 1%;
+}
+
+.review6info {
+	font-size: 15px;
+	position: absolute;
+	bottom: 82px;
+	width: 115px;
+	right: 16.5%;
+	font-weight: bold;
+	color: black;
+}
+#inqueryContent{
+	width: 100%;
+	height: 90%;
+	margin-top: 1%;
+	border: 0;
+	resize: none;
+	outline: none;
+}
+.contenttitle{
+	margin-top: 4%;
+}
+.writeReview7 {
+    height: 40px;
+    text-align: center;
+}
+input.infoWrite {
+    width: 104px;
+    height: 100%;
+    outline: none;
+    border: 0;
+    background: black;
+    color: white;
+    font-weight: bold;
+}
+input[type="file"] {
+    margin-left: 27px;
+}

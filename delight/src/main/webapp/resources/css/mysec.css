@@ -34,18 +34,21 @@ th#heading {
 	margin-left: 72%;
 	text-decoration: underline;
 }
+
 .mytitSubre {
 	float: left;
 	line-height: 2.5;
 	margin-left: 79.5%;
 	text-decoration: underline;
 }
+
 .mytitSubinq {
 	float: left;
 	line-height: 2.5;
 	margin-left: 73%;
 	text-decoration: underline;
 }
+
 .mytitSublike {
 	float: left;
 	line-height: 2.5;
@@ -61,32 +64,162 @@ th#heading {
 #mybody>tr {
 	height: 120px;
 }
-#mybody div,img{
+
+#mybody div, img {
 	width: 91px;
 	height: 103px;
 	float: left;
 }
-.mybodyP{
-	 margin-top: 10%;
-	 margin-left: 30%;
+
+.mybodyP {
+	margin-top: 10%;
+	margin-left: 30%;
 }
-.mybodylikeP{
+
+.mybodylikeP {
 	margin-left: 7.4%;
 }
-.mybodylikeP:first-of-type{
+
+.mybodylikeP:first-of-type {
 	margin-top: 10px;
 }
-.mybodyBt{
+
+.mybodyBt {
 	margin: 0;
 	border: 1px solid black;
-	background: black; 
+	background: black;
 	color: white;
 	width: 100%;
 	outline: none;
 }
-h1.mysecTitle{
+
+h1.mysecTitle {
 	margin-left: 40%;
 }
-hr.mysecLine{
+
+hr.mysecLine {
 	margin-bottom: 3%;
+}
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 43%; /* Could be more or less, depending on screen size */
+	height: 40%;
+}
+
+.modal-content .inq1 {
+	height: 40%;
+	padding: 30px;
+}
+
+input.date1 {
+	margin-top: 6px;
+	margin-left: 5px;
+	width: 70px;
+	height: 26px;
+	background: white;
+	border: 1px solid rgb(217, 217, 217);
+	color: gray;
+}
+
+input#endDay {
+	border: 1px solid rgb(217, 217, 217);
+	margin-left: 5px;
+}
+
+input#startDay {
+	border: 1px solid rgb(217, 217, 217);
+	margin-left: 5px;
+}
+
+input#listsubmit {
+	margin-left: 5px;
+	background: black;
+	border: none;
+	color: white;
+	width: 70px;
+	height: 26px;
+}
+
+input#btDay7 {
+	margin-left: 15px;
+}
+
+.canslereser {
+	width: 84%;
+	height: 50px;
+	border-bottom: 2px solid black;
+	padding: 10px 0px;
+	margin-top: 3%;
+}
+
+.cansledl {
+	width: 100%;
+	float: left;
+	height: 40px;
+	float: left;
+}
+
+.cansledl dd, dt {
+	float: left;
+}
+
+.cansleList {
+	width: 84%;
+	padding: 31px 2px;
+	height: 80px;
+	border-bottom: 1px solid gray;
+}
+
+.cansleList input {
+	margin-left: 60px;
+}
+
+.cansleList .cansleTitle{
+	height: 100%;
+	float: left;
+	color: black;
+	font-weight: bold;
+	margin-left: 1%;
+	
+	
+}
+input.cansleSub {
+    outline: none;
+    margin-left: 37%;
+    margin-top: 1.5%;
+    width: 98px;
+    height: 37px;
+    border: 0;
+    background: black;
+    color: white;
+    font-weight: bold;
+}
+.cansleList p{
+	margin-left: 16%;
+}
+.cansleList .gkfdls{
+	color: red;
+	font-weight: bold;
+}
+.cansletjfaud{
+	margin: 15px 5px;
+	font-weight: bold;
 }

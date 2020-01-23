@@ -3,6 +3,7 @@
 <%@ include file="../inc/main2Top.jsp" %>
 <link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/mysec.css' />"/>
 
+
 	<!-- 페이지 만들떄마다 복붙 -->
 	<div style="width: 13%; float: left; height: 100%;">
 		<!-- left side -->
@@ -39,7 +40,6 @@
 	<c:import url="/member/imp/mylike.do"></c:import>
 	<c:import url="/member/imp/myinquery.do"></c:import>
 	<c:import url="/member/imp/myreview.do"></c:import>
-	
 	</div>
 	<!-- div안에서작업 그외엔 건들지말것 -->
 	
