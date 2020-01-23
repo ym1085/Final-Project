@@ -73,6 +73,10 @@ public class MyPageController {
 	public void myWriteReviewList() {
 		
 	}
+	@RequestMapping("/myreserCansle.do")
+	public void myreserCansle() {
+		
+	}
 
 
 }

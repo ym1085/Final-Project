@@ -128,31 +128,98 @@ hr.mysecLine {
 	height: 40%;
 	padding: 30px;
 }
+
 input.date1 {
 	margin-top: 6px;
 	margin-left: 5px;
-	width: 70px;	
+	width: 70px;
 	height: 26px;
 	background: white;
 	border: 1px solid rgb(217, 217, 217);
 	color: gray;
 }
-input#endDay{
+
+input#endDay {
 	border: 1px solid rgb(217, 217, 217);
 	margin-left: 5px;
 }
-input#startDay{
+
+input#startDay {
 	border: 1px solid rgb(217, 217, 217);
 	margin-left: 5px;
 }
-input#listsubmit{
+
+input#listsubmit {
 	margin-left: 5px;
 	background: black;
 	border: none;
 	color: white;
-	width: 70px;	
+	width: 70px;
 	height: 26px;
 }
-input#btDay7{
+
+input#btDay7 {
 	margin-left: 15px;
+}
+
+.canslereser {
+	width: 84%;
+	height: 50px;
+	border-bottom: 2px solid black;
+	padding: 10px 0px;
+	margin-top: 3%;
+}
+
+.cansledl {
+	width: 100%;
+	float: left;
+	height: 40px;
+	float: left;
+}
+
+.cansledl dd, dt {
+	float: left;
+}
+
+.cansleList {
+	width: 84%;
+	padding: 31px 2px;
+	height: 80px;
+	border-bottom: 1px solid gray;
+}
+
+.cansleList input {
+	margin-left: 60px;
+}
+
+.cansleList .cansleTitle{
+	height: 100%;
+	float: left;
+	color: black;
+	font-weight: bold;
+	margin-left: 1%;
+	
+	
+}
+input.cansleSub {
+    outline: none;
+    margin-left: 37%;
+    margin-top: 1.5%;
+    width: 98px;
+    height: 37px;
+    border: 0;
+    background: black;
+    color: white;
+    font-weight: bold;
+}
+.cansleList p{
+	margin-left: 16%;
+}
+.cansleList .gkfdls{
+	color: red;
+	font-weight: bold;
+}
+.cansletjfaud{
+	margin: 15px 5px;
+	font-weight: bold;
 }
