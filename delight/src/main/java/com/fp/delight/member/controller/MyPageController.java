@@ -6,35 +6,61 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/member/imp")
+@RequestMapping("/member")
 public class MyPageController {
 	private static final Logger logger
 	=LoggerFactory.getLogger(MyPageController.class);
 	
-	@RequestMapping("/mysec.do")
+	@RequestMapping("/imp/mysec.do")
 	public void mysec() {
 		
 	}
 	
-	@RequestMapping("/mysecCan.do")
+	@RequestMapping("/imp/mysecCan.do")
 	public void mysecCan() {
 		
 	}
-	@RequestMapping("/mylike.do")
+	@RequestMapping("/imp/mylike.do")
 	public void mylike() {
 		
 	}
-	@RequestMapping("/myinquery.do")
+	@RequestMapping("/imp/myinquery.do")
 	public void myinquery() {
 		
 	}
-	@RequestMapping("/myreview.do")
+	@RequestMapping("/imp/myreview.do")
 	public void myreview() {
 		
 	}
-	@RequestMapping("/myinqueryTab.do")
-	public void myinqueryTab() {
+	@RequestMapping("/mysecList.do")
+	public void mysecList() {
 		
 	}
+	
+	@RequestMapping("/mysecCanList.do")
+	public void mysecCanList() {
+		
+	}
+	@RequestMapping("/mylikeList.do")
+	public void mylikeList() {
+		
+	}
+	@RequestMapping("/myinqueryList.do")
+	public void myinqueryList() {
+		
+	}
+	@RequestMapping("/myreviewList.do")
+	public void myreviewList() {
+		
+	}
+	@RequestMapping("/mysnewPer.do")
+	public void mysnewPer() {
+		
+	}
+	@RequestMapping("/myWriteReview.do")
+	public void myWriteReview() {
+		
+	}
+
 
 }

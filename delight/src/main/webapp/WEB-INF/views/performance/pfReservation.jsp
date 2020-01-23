@@ -199,9 +199,9 @@
 				if($("#checkM").is(':checked')) {
 					//체크되있을시
 					var check = $("#mileage").html();
-					mileage = 1000+parseInt(check);
+					mileage = parseInt(check);
 					
-					if(mileage==1000){
+					if(mileage>0){
 						discountMile = total - (mileage*0.05);
 						total = discountMile; 
 					}
