@@ -77,7 +77,7 @@
 			var four = parseInt(four);
 			var five = parseInt(mileage);
 			
-			alert(five);
+			//alert(five); //값 안들어오면 이 곳 체크해보세요
 			
 			var salePrice = 0;
 			var totalDiscountPrice = 0;
@@ -119,8 +119,18 @@
 				t2 = selectNum * stPrice;
 				total=t1+t2+t3+t4;
 
-				salePrice = (one+two+three+four)/100
-				totalDiscountPrice = total-(total*(salePrice));
+				if(tmp==true) {
+					if(selectNum==0){
+						salePrice = (one+two+three+four)*0
+						totalDiscountPrice = total-total*salePrice;
+					}else {
+						salePrice = (one+two+three+four)/100
+						totalDiscountPrice = (total-total*salePrice)-five;
+					}
+				}else if(tmp==false){
+					salePrice = (one+two+three+four)/100
+					totalDiscountPrice = total-total*salePrice;
+				}
 		
 				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
@@ -133,8 +143,18 @@
 				t3 = selectNum * disprice;
 				total=t1+t2+t3+t4;
 	
-				salePrice = (one+two+three+four)/100
-				totalDiscountPrice = total-(total*(salePrice));
+				if(tmp==true) {
+					if(selectNum==0){
+						salePrice = (one+two+three+four)*0
+						totalDiscountPrice = total-total*salePrice;
+					}else {
+						salePrice = (one+two+three+four)/100
+						totalDiscountPrice = (total-total*salePrice)-five;
+					}
+				}else if(tmp==false){
+					salePrice = (one+two+three+four)/100
+					totalDiscountPrice = total-total*salePrice;
+				}
 		
 				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
@@ -147,11 +167,22 @@
 				t4 = selectNum * disprice;
 				total=t1+t2+t3+t4;
 	
-				salePrice = (one+two+three+four)/100
-				totalDiscountPrice = total-(total*(salePrice));
+				if(tmp==true) {
+					if(selectNum==0){
+						salePrice = (one+two+three+four)*0
+						totalDiscountPrice = total-total*salePrice;
+					}else {
+						salePrice = (one+two+three+four)/100
+						totalDiscountPrice = (total-total*salePrice)-five;
+					}
+				}else if(tmp==false){
+					salePrice = (one+two+three+four)/100
+					totalDiscountPrice = total-total*salePrice;
+				}
 		
 				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
+		});
 	</script>
 	
 	<style>
@@ -351,10 +382,11 @@
 					</div>
 					<div class="i11">
 						<p>특별할인</p>
-						<!-- 수정해야됨 -->
+						<!-- 수정해야됨	+++++++++++++++++++++++++++++++++++++++++ -->
 						<p class="fp2">얼리버드</p>
-						<span class="one2">5%</span>
+						<span class="one2">5%</span>	<!-- 할인율 받아와서 적용 -->
 						<span>적용</span>
+						<!-- 수정해야됨	+++++++++++++++++++++++++++++++++++++++++ -->
 					</div>
 					<div class="i11">
 						<p>등급할인</p>

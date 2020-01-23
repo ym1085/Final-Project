@@ -53,6 +53,7 @@
 					alert("결제를 진행하겠습니다!");
 				} else {
 					alert("이용약관에 동의하셔야 결제를 진행할 수 있습니다!");
+					$(this).focus();
 					event.preventDefault();
 				}
 			});
@@ -63,8 +64,15 @@
 			var t4=0;
 			var total=0;
 		
-			$(".B").change(function(){
-			//일반 SELECT-OPTION CLICK
+			var oneSub=$("#oneSub").html();
+			var twoSub=$("#oneSub2").html();
+			
+			var oneSub=parseInt(oneSub);
+			var twoSub=parseInt(twoSub);
+			
+			//alert(oneSub);	//값 안들어오면 이 곳 체크해보세요
+			//alert(twoSub);	//값 안들어오면 이 곳 체크해보세요
+			
 			$("#choosePrice").change(function(){
 				var selectNum = parseInt(this.value);  
 				var netPrice = $("#netprice").val();
@@ -72,13 +80,10 @@
 				t1 = selectNum * netPrice;
 				total=t1+t2+t3+t4;
 				
-				var discountNormal = 0;
-				if($("#normalPrice").html()=='기본'){
-					discountNormal = total - (total*0.05);
-					total = discountNormal;
-				}
+				salePrice = (oneSub+twoSub)/100
+				totalDiscountPrice = total-total*salePrice;
 				
-				$("#ticketPriceSum").html(total+"원");
+				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
 			
 			//예술 관련 학교 및 학과 장학생 SELECT-OPTION CLICK
@@ -89,13 +94,10 @@
 				t2 = selectNum * stPrice;
 				total=t1+t2+t3+t4;
 				
-				var discountNormal = 0;
-				if($("#normalPrice").html()=='기본'){
-					discountNormal = total - (total*0.05);
-					total = discountNormal;
-				}
+				salePrice = (oneSub+twoSub)/100
+				totalDiscountPrice = total-total*salePrice;
 				
-				$("#ticketPriceSum").html(total+"원");
+				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
 				
 			//장애인 SELECT-OPTION CLICK
@@ -106,13 +108,10 @@
 				t3 = selectNum * disprice;
 				total=t1+t2+t3+t4;
 				
-				var discountNormal = 0;
-				if($("#normalPrice").html()=='기본'){
-					discountNormal = total - (total*0.05);
-					total = discountNormal;
-				}
+				salePrice = (oneSub+twoSub)/100
+				totalDiscountPrice = total-total*salePrice;
 				
-				$("#ticketPriceSum").html(total+"원");
+				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
 			
 			//기초 수급 대상자 SELECT-OPTION CLICK
@@ -123,17 +122,12 @@
 				t4 = selectNum * disprice;
 				total=t1+t2+t3+t4;
 				
-				var discountNormal = 0;
-				if($("#normalPrice").html()=='기본'){
-					discountNormal = total - (total*0.05);
-					total = discountNormal;
-				}
+				salePrice = (oneSub+twoSub)/100
+				totalDiscountPrice = total-total*salePrice;
 				
-				$("#ticketPriceSum").html(total+"원");
+				$("#ticketPriceSum").html(totalDiscountPrice+"원");
 			});
 			
-			
-		});
 	});
 	</script>
 	
@@ -331,12 +325,15 @@
 					<div class="i11">
 						<p>기본</p>
 						<p class="fp2" id="normalPrice">기본</p>
-						<span>5%</span>
+						<span id="oneSub">5%</span>
 						<span>적용</span>
 					</div>
 					<div class="i11">
-						<p>특별할인</p><p class="fp2">얼리버드</p><span>5%</span>
+						<!-- 이 부분 수정해야합니다++++++++++++++++++++++ -->
+						<p>특별할인</p><p class="fp2">얼리버드</p>
+						<span id="oneSub2">5%</span>
 						<span>적용</span>
+						<!-- 이 부분 수정해야합니다++++++++++++++++++++++ -->
 					</div>
 					</div>
 					
