@@ -132,4 +132,9 @@ public class AnnServiceImpl implements AnnService{
 		return annDao.annUnExposure(annSeq);
 	}
 
+	@Override
+	public int annDel(int annSeq) {
+		return annDao.normalDel(annSeq);
+	}
+
 }

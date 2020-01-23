@@ -117,10 +117,9 @@
 				  공지작성 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/announcement/annInc.do'/>"> 
 				  공지목록/설정 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="#"> 
-				  자주묻는질문작성 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="#"> 
-				  자주묻는질문목록/설정 </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/FAQ/FAQManagement.do'/>"> 
+				  자주묻는질문 관리 </a></li>
+                  
                 </ul>
               </div>
             </li>

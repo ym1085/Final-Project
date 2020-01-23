@@ -18,14 +18,16 @@ function pageFunc2(curPage){
 }
 
 $(function() {
-	$("#normalbt").click(function() {
+	$("form[name=frmSearch]").submit(function() {
+		event.preventDefault();
 		$("#aa1").val($("#searchCondition option:selected").val());
 		$("#aa2").val($("#searchKeyword").val());
 		$("#bb1").val($("#searchCondition2 option:selected").val());
 		$("#bb2").val($("#searchKeyword2").val());
 		$("form[name=frmPage]").submit();
 	});
-	$("#eventbt").click(function() {
+	$("form[name=frmSearch2]").submit(function() {
+		event.preventDefault();
 		$("#bb1").val($("#searchCondition2 option:selected").val());
 		$("#bb2").val($("#searchKeyword2").val());
 		$("#aa1").val($("#searchCondition option:selected").val());
@@ -116,6 +118,30 @@ $(function() {
 		});
 	});
 	
+	$("#normal tbody button,#event tbody button").click(function() {
+		var se=$(this).parent().parent().find("input[type=checkbox]").val();
+		if(confirm("해당 공지글을 삭제 하시겠습니까?")){
+			$.ajax({
+				url: "<c:url value='/admin/announcement/annDel.do'/>",
+				type:"post",
+				data: {
+					annSeq : se
+				},
+				success:function(res){
+					if(res==1){
+						alert("해당글을 삭제하였습니다.");
+						$("form[name=frmPage]").submit();
+					}else{
+						alert("삭제중 오류 발생!!");
+					}
+				},
+				error:function(xhr,status,error){
+					alert("Error : "+status+", "+error);
+				}
+			});
+		}
+	});
+	
 });
 
 </script>
@@ -183,7 +209,7 @@ $(function() {
 				<td><fmt:formatDate value="${vo.annRegdate }" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-				<button class="btn btn-gradient-danger btn-sm">삭제</button>
+				<button type="button" class="btn btn-gradient-danger btn-sm">삭제</button>
 				</td>
 				</tr>
 			<c:set var="idx" value="${idx+1}" />
@@ -194,14 +220,14 @@ $(function() {
 	</table>
 	</div>
 	<div id="btdiv" class="text-right">
-		<button class="btn btn-gradient-danger btn-sm" id="normalExposure">선택 노출</button>
-		<button class="btn btn-gradient-danger btn-sm" id="normalExpoCancle">선택 노출 취소</button>
-		<button class="btn btn-gradient-danger btn-sm" id="normalDel">선택 삭제</button>
+		<button type="button" class="btn btn-gradient-danger btn-sm" id="normalExposure">선택 노출</button>
+		<button type="button" class="btn btn-gradient-danger btn-sm" id="normalExpoCancle">선택 노출 취소</button>
+		<button type="button" class="btn btn-gradient-danger btn-sm" id="normalDel">선택 삭제</button>
 	</div>
 <div class="divPage text-center">
 	 <!-- 이전블럭으로 이동 -->
 	<c:if test="${pagingInfo.firstPage>1 }">	
-		<button class='btn btn-social-icon btn-outline-youtube btn-sm' onclick="pageFunc(${pagingInfo.firstPage-1})"> &lt;&lt;</button>
+		<button type="button" class='btn btn-social-icon btn-outline-youtube btn-sm' onclick="pageFunc(${pagingInfo.firstPage-1})"> &lt;&lt;</button>
 	</c:if>
 	<!-- 페이지 번호 추가 -->						
 	
@@ -218,7 +244,7 @@ $(function() {
 	
 	<!-- 다음블럭으로 이동 -->
 	<c:if test="${pagingInfo.lastPage<pagingInfo.totalPage }">
-		<button class="btn btn-social-icon btn-outline-youtube btn-sm" onclick="pageFunc(${pagingInfo.lastPage+1})"> &gt;&gt;</button>
+		<button type="button" class="btn btn-social-icon btn-outline-youtube btn-sm" onclick="pageFunc(${pagingInfo.lastPage+1})"> &gt;&gt;</button>
 	</c:if>	
 	</div><!-- 페이징 -->
 	
@@ -243,7 +269,7 @@ $(function() {
         </select>   
         <input type="text" name="searchKeyword" title="검색어 입력" id="searchKeyword" class="form-control-sm"
         	value="${param.searchKeyword}">   
-		<input type="button" value="검색" id="normalbt" class="btn btn-gradient-dark btn-rounded btn-sm">
+		<input type="submit" value="검색" id="normalbt" class="btn btn-gradient-dark btn-rounded btn-sm">
 	</div>
 	
     </form>
@@ -299,7 +325,7 @@ $(function() {
 				<td><fmt:formatDate value="${vo2.annRegdate }" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-				<button class="btn btn-gradient-danger btn-sm">삭제</button>
+				<button type="button" class="btn btn-gradient-danger btn-sm">삭제</button>
 				</td>
 				</tr>
 			<c:set var="idx2" value="${idx2+1}" />
@@ -310,14 +336,14 @@ $(function() {
 	</table>
 	</div>
 	<div id="btdiv2" class="text-right">
-		<button class="btn btn-gradient-danger btn-sm" id="eventExposure">선택 노출</button>
-		<button class="btn btn-gradient-danger btn-sm" id="eventExpoCancle">선택 노출  취소</button>
-		<button class="btn btn-gradient-danger btn-sm" id="eventDel">선택 삭제</button>
+		<button type="button" class="btn btn-gradient-danger btn-sm" id="eventExposure">선택 노출</button>
+		<button type="button" class="btn btn-gradient-danger btn-sm" id="eventExpoCancle">선택 노출  취소</button>
+		<button type="button" class="btn btn-gradient-danger btn-sm" id="eventDel">선택 삭제</button>
 	</div>
 <div class="divPage text-center">
 	 <!-- 이전블럭으로 이동 -->
 	<c:if test="${pagingInfo2.firstPage>1 }">	
-		<button class='btn btn-social-icon btn-outline-youtube btn-sm' onclick="pageFunc2(${pagingInfo.firstPage-1})"> &lt;&lt;</button>
+		<button type="button" class='btn btn-social-icon btn-outline-youtube btn-sm' onclick="pageFunc2(${pagingInfo.firstPage-1})"> &lt;&lt;</button>
 	</c:if>
 	<!-- 페이지 번호 추가 -->						
 	
@@ -359,7 +385,7 @@ $(function() {
         </select>   
         <input type="text" name="searchKeyword2" title="검색어 입력"
         	value="${param.searchKeyword2}" id="searchKeyword2" class="form-control-sm">   
-		<input type="button" value="검색" id="eventbt" class="btn btn-gradient-dark btn-rounded btn-sm">
+		<input type="submit" value="검색" id="eventbt" class="btn btn-gradient-dark btn-rounded btn-sm">
 	</div>
     </form>
 	</div>

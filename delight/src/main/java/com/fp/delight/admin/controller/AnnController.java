@@ -278,4 +278,14 @@ public class AnnController {
 		
 		return res;
 	}
+	
+	@RequestMapping("/annDel.do")
+	@ResponseBody
+	public int annDel(@RequestParam int annSeq) {
+		logger.info("공지글 삭제 파라미터 annSeq={}",annSeq);
+		
+		int res=annService.annDel(annSeq);
+		
+		return res;
+	}
 }

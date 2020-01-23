@@ -18,4 +18,6 @@ public interface AnnService {
 	int unTopSetting(int annSeq);
 	int annExpo(int annSeq);
 	int annUnExpo(int annSeq);
+	int annDel(int annSeq);
+	
 }

@@ -26,7 +26,7 @@
 		<span>공연명</span>
 		<input type="text" id="perfomName" name="perfomName">
 		
-		<button type="button">검색</button>
+		<button type="submit">검색</button>
 		</form>
 	</div>
 	<div class="card" id="tableparent">
@@ -134,7 +134,8 @@ $(function() {
 		monthNames: ["1월","2월","3월","4월","5월","6월",
 			"7월","8월","9월","10월","11월","12월"]});
 	
-	$("form[name=searchFrm] button").click(function(){
+	$("form[name=searchFrm]").submit(function(){
+		event.preventDefault();
 		if($("#type option:selected").val()==''){
 			alert("장르를 선택하시기 바랍니다.");
 			$("#type").focus();
@@ -230,7 +231,7 @@ function getList(){
 			
 			//이전 블럭 버튼
 			if(fpage>1){
-				pa+="<button class='btn btn-social-icon btn-outline-youtube' onclick=gopage("+(fpage-1)+")> &lt;&lt;</button>";
+				pa+="<button type='button' class='btn btn-social-icon btn-outline-youtube' onclick=gopage("+(fpage-1)+")> &lt;&lt;</button>";
 			}
 			
 			//페이지 번호
@@ -244,7 +245,7 @@ function getList(){
 			
 			//다음 블럭 버튼
 			if(lpage<pageCount){
-				pa+="<button class='btn btn-social-icon btn-outline-youtube' onclick=gopage("+(lpage+1)+")> &gt;&gt;</button>";
+				pa+="<button type='button' class='btn btn-social-icon btn-outline-youtube' onclick=gopage("+(lpage+1)+")> &gt;&gt;</button>";
 			}
 				
 			

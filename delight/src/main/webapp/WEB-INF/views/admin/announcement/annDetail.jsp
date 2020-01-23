@@ -74,6 +74,10 @@
 				unexpoBefore();
 			}
 		});
+		
+		$("#del").click(function() {
+			annDel();
+		});
 	});
 	
 	
@@ -234,6 +238,30 @@
 				alert("Error : "+status+", "+error);
 			}
 		});
+	}
+	
+	function annDel(){
+		if(confirm("해당 공지글을 삭제 하시겠습니까?")){
+			$.ajax({
+				url: "<c:url value='/admin/announcement/annDel.do'/>",
+				type:"post",
+				data: {
+					annSeq : annseq
+				},
+				success:function(res){
+					if(res==1){
+						alert("해당글을 삭제하였습니다.");
+						$(opener.document).find("form[name=frmPage]").submit();
+						self.close();
+					}else{
+						alert("삭제중 오류 발생!!");
+					}
+				},
+				error:function(xhr,status,error){
+					alert("Error : "+status+", "+error);
+				}
+			});
+		}
 	}
 </script>
 </head>

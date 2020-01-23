@@ -100,6 +100,7 @@
 		update tbl_ann set ann_top='N' where ann_seq=#{annSeq}
 	</update>
 	
+	
 </mapper>
 
 
