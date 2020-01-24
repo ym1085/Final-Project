@@ -32,5 +32,15 @@ public class FAQDAOMybatis implements FAQDAO{
 	public int faqdel(int faqSeq) {
 		return sqlSession.delete(namespace+"faqdel", faqSeq);
 	}
+
+	@Override
+	public FAQVO faqDetail(int faqSeq) {
+		return sqlSession.selectOne(namespace+"faqDetail", faqSeq);
+	}
+
+	@Override
+	public int faqEdit(FAQVO FAQVo) {
+		return sqlSession.update(namespace+"faqEdit", FAQVo);
+	}
 	
 }

@@ -71,15 +71,19 @@
 						<td>${map['SELLCLASS'] }</td>
 						<td>${map['SELLTICKET'] }</td>
 						<td>
-						<c:if test="${prfdh>nowDate }">공연 전</c:if>
-						<c:if test="${prfdh<=nowDate }">공연 종료</c:if>
+						<c:if test="${prfdh>nowDate }">공연 종료</c:if>
+						<c:if test="${prfdh<=nowDate }">공연 전</c:if>
 						</td>
 						<td>
 							<c:if test="${map['count']==0 }">N</c:if>
 							<c:if test="${map['count']==1 }">Y</c:if>
 						</td>
-						<td><button type="button" class="btn btn-gradient-info btn-rounded btn-sm">설정</button>
-						<input type="hidden" value="${map['TICKET_SEQ'] }"></td>
+						<td>
+						<c:if test="${prfdh<=nowDate }">
+						<button type="button" class="btn btn-gradient-info btn-rounded btn-sm">설정</button>
+						<input type="hidden" value="${map['TICKET_SEQ'] }">
+						</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 			</c:if>

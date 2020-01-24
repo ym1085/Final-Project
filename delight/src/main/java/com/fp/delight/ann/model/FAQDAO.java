@@ -7,4 +7,6 @@ public interface FAQDAO {
 	List<FAQVO> FAQSearch(FAQVO FAQVo);
 	int faqtotal(FAQVO FAQVo);
 	int faqdel(int faqSeq);
+	FAQVO faqDetail(int faqSeq);
+	int faqEdit(FAQVO FAQVo);
 }

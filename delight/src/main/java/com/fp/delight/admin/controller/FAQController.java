@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fp.delight.ann.model.FAQListVO;
 import com.fp.delight.ann.model.FAQService;
 import com.fp.delight.ann.model.FAQVO;
 import com.fp.delight.common.PaginationInfo;
@@ -86,6 +87,64 @@ public class FAQController {
 		int res=faqService.faqdel(faqSeq);
 		
 		return res;
+	}
+	
+	@RequestMapping("/faqMultiDel.do")
+	public String faqMultiDel(@ModelAttribute FAQListVO faqListVo,Model model) {
+		logger.info("FAQ 멀티 삭제 파라미터 faqListVo={}",faqListVo);
+		List<FAQVO> list=faqListVo.getFaqList();
+		int res=faqService.faqMultiDel(list);
+		
+		String msg="삭제 중 오류 발생", url="/admin/FAQ/FAQManagement.do";
+		if(res>0) {
+			msg="선택한 FAQ를 삭제 하였습니다.";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	@RequestMapping("/FAQDetail.do")
+	public void FAQDetail(@RequestParam int faqSeq,Model model) {
+		logger.info("FAQ 상세보기 파라미터faqSeq={}",faqSeq);
+		
+		FAQVO vo=faqService.faqDetail(faqSeq);
+		
+		logger.info("FAQ 검색결과 vo={}",vo);
+		
+		model.addAttribute("vo", vo);
+	}
+	
+	@RequestMapping("/delatDetail.do")
+	@ResponseBody
+	public int delatDetail(@RequestParam int faqSeq) {
+		logger.info("FAQ상세보기에서 삭제하기 파라미터 faqSeq={}",faqSeq);
+		
+		int res=faqService.faqdel(faqSeq);
+		
+		return res;
+	}
+	
+	@RequestMapping("/FAQEdit.do")
+	public void faqEdit(@RequestParam int faqSeq,Model model) {
+		logger.info("FAQ수정하기 화면 파라미터 faqSeq={}",faqSeq);
+		
+		FAQVO vo=faqService.faqDetail(faqSeq);
+		
+		model.addAttribute("vo", vo);
+	}
+	
+	@RequestMapping("/faqEdit.do")
+	@ResponseBody
+	public int faqEdit(@ModelAttribute FAQVO faqVo,HttpSession session) {
+		String userid=(String) session.getAttribute("adminUserid");
+		faqVo.setUserid(userid);
+		
+		logger.info("FAQ 수정하기 파라미터 faqVo={}",faqVo);
+		
+		return faqService.faqEdit(faqVo);
 	}
 	
 }

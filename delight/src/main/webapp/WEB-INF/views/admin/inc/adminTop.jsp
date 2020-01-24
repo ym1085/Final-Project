@@ -46,7 +46,7 @@
                 <div class="nav-profile-img">
                 </div>
                 <div class="nav-profile-text">
-                  <p class="mb-1 text-black">관리자</p>
+                  <p class="mb-1 text-black">${sessionScope.adminUserName}</p>
                 </div>
               </a>
               <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
@@ -93,7 +93,7 @@
                   <!--change to offline or busy as needed-->
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
-                  <span class="font-weight-bold mb-2">관리자 이름</span>
+                  <span class="font-weight-bold mb-2">${sessionScope.adminUserName}</span>
                   <span class="text-secondary text-small">관리자</span>
                 </div>
               </a>
@@ -134,6 +134,8 @@
               <div class="collapse" id="user">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="#"> 
+				  등급별 혜택 관리 </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="#"> 
 				  회원목록 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="#"> 
 				  문의목록 </a></li>
@@ -159,6 +161,8 @@
 				  환불/결제내역 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/salesSetting.do'/>"> 
 				  판매수량 설정</a></li>
+				  <li class="nav-item"> <a class="nav-link" href="#"> 
+				  판매수량 설정 목록 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/salesDiscount.do'/>"> 
 				  특별공연 할인</a></li>
                   <li class="nav-item"> <a class="nav-link" href="#"> 

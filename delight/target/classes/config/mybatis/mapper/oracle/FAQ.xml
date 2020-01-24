@@ -48,6 +48,16 @@
 	<delete id="faqdel" parameterType="int">
 		delete from tbl_faq where faq_seq=#{faqSeq}
 	</delete>
+	
+	<select id="faqDetail" parameterType="int" resultType="FAQVo">
+		select * from tbl_faq where faq_seq=#{faqSeq}
+	</select>
+	
+	<update id="faqEdit" parameterType="FAQVo">
+		update tbl_faq set faq_title=#{faqTitle},faq_type=#{faqType},faq_content=#{faqContent}
+		,userid=#{userid}
+		where faq_seq=#{faqSeq}
+	</update>
 </mapper>
 
 

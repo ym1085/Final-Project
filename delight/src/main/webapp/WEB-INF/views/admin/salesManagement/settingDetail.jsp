@@ -90,7 +90,6 @@
 				if(res=1){
 					alert("판매 표 등록완료!!");
 					self.close();
-					
 				}else{
 					alert("등록중 오류 발생");
 				}

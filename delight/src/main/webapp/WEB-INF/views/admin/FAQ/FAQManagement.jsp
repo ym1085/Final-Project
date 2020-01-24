@@ -50,6 +50,7 @@
 				>기타</option>
 			</select>
 			</div>
+			<form id="frm">
 			<div id="tablediv">
 				<table class="table text-center table-bordered">
 				<colgroup>
@@ -75,11 +76,12 @@
 						</tr>
 						</c:if>
 						<c:if test="${!empty list }">
+						<c:set var="idx" value="0" />
 						<c:forEach var="vo" items="${list }">
 						<tr>
 							<td>
 							<input type="checkbox" id="chk_${idx }" 
-							name="annList[${idx }].annSeq" 
+							name="faqList[${idx }].faqSeq" 
 							value="${vo.faqSeq }">
 							</td>
 							<td>${vo.faqType }</td>
@@ -89,6 +91,7 @@
 							</td>
 							<td><input type="button" value="삭제" class="btn btn-dark btn-sm"></td>
 						</tr>
+						<c:set var="idx" value="${idx+1}" />
 						</c:forEach>
 						</c:if>
 					</tbody>
@@ -123,7 +126,7 @@
 				</c:if>	
 			</div><!-- 페이징 -->
 			
-			<form id="frm">
+			
 				<div class="divSearch text-center">
    	
 			        <select name="searchCondition2" id="searchCondition2" class="form-control-sm">
@@ -178,6 +181,12 @@ $(function() {
 		"width=800,height=890,left=0,top=0,location=yes,resizable=yes");
 	});
 	
+	$("table tbody a").click(function() {
+		var seq=$(this).parent().parent().find("input[type=checkbox]").val();
+		window.open("/delight/admin/FAQ/FAQDetail.do?faqSeq="+seq, "FAQDetail",
+		"width=800,height=890,left=0,top=0,location=yes,resizable=yes");
+	});
+	
 	$("#type").change(function() {
 		$("#aa2").val($("#type option:selected").val());
 		$("#aa3").val("1");
@@ -204,6 +213,19 @@ $(function() {
 			faqDel(faqs);
 		}
 	});
+	
+	$("#multiDel").click(function() {
+		if($("#tablediv tbody input[type=checkbox]:checked").length>0){
+			if(confirm("선택한 FAQ를 삭제하시겠습니까?")){
+				$('#frm').prop("action",
+				"<c:url value='/admin/FAQ/faqMultiDel.do'/>");	
+				$('#frm').submit();
+			}
+		}else{
+			alert("노출 취소 할 이벤트글을 선택해주세요.");
+		}
+	});
+	
 });
 
 function faqDel(faqseq){
