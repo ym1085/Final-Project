@@ -48,7 +48,7 @@
 	</select>
 	
 	<select id="seldiscountByseq" parameterType="int" resultType="ticketDiscountVo">
-		select * from TBL_DISCOUNT where ticket_seq= #{ticketSeq}
+		select * from TBL_DISCOUNT where ticket_seq=#{ticketSeq}
 	</select>
 	
 	<insert id="discountInsert" parameterType="ticketDiscountVo">

@@ -27,6 +27,18 @@
 				$ct.stop().slideToggle('fast');
 			});
 		
+				
+			$('#ticketPriceSum').hover(function() {
+				if($("#ticketPriceSum").val()!=''){
+					$("#ticketPriceSum").attr("readonly", "readonly");
+				}  
+				
+				$(this).css('box-shadow', '3px 1px 6px 2px lightgray');
+			},function(){
+				$(this).css('box-shadow', '');
+			});
+			
+			
 			//예매자명
 			if($(".UndefinedUname").val()!=''){
 				$(".UndefinedUname").attr("readonly", "readonly");
@@ -47,23 +59,52 @@
 			}
 			
 			//결제진행 체크박스
+			//Import결제창 진행을 위해 2개의 form태그를 submit해주는 이벤트
 			$("#agreeBt2").click(function(){
-				//약관 동의
-				if($("#checkAgreeSub2").is(':checked') && $("#checkAgree2").is(':checked')) {
-					alert("결제를 진행하겠습니다!");
-				} else {
-					alert("이용약관에 동의하셔야 결제를 진행할 수 있습니다!");
-					$(this).focus();
+				//예매자/관람자 정보 받기
+				if($("input[name=unusername]").val()==''){
+					alert("예매자명은 반드시 입력되어야합니다.");
 					event.preventDefault();
+				}else if($("input[name=unuseremail]").val()==''){
+					alert("예매자 이메일은 반드시 입력되어야합니다.");
+					event.preventDefault();
+				}else if($("input[name=unusername2]").val()==''){
+					alert("관람자명은 반드시 입력되어야합니다.");
+					event.preventDefault();
+				}else if($("input[name=unuseremail2]").val()==''){
+					alert("관람자 이메일은 반드시 입력되어야합니다.");
+					event.preventDefault();
+				}else {
+					//약관 동의
+					if($("#checkAgreeSub2").is(':checked') && $("#checkAgree2").is(':checked')) {
+						if($("#ticketPriceSum").val()!='' && $("#ticketPriceSubmit").val()!=''){
+							alert("결제를 진행하겠습니다!");
+							$("#paymentImport").submit();
+						}else {
+							alert("티켓 수량과 가격을 선택하시지 않았습니다!");
+						}
+					}else {
+						alert("이용약관에 동의하셔야 결제를 진행할 수 있습니다!");
+						event.preventDefault();
+					}
 				}
 			});
 			
+			//티켓 * 가격
 			var t1=0;
 			var t2=0;
 			var t3=0;
 			var t4=0;
-			var total=0;
+			var total=0;	//티켓 * 가격 총합
 		
+			//티켓 수량을 위한 변수
+			var tNum1=0;
+			var tNum2=0;
+			var tNum3=0;
+			var tNum4=0;
+			var tNumtotal=0; //티켓 수량 총합
+			
+			//퍼센트를 읽어와서 형 변환 후 진행
 			var oneSub=$("#oneSub").html();
 			var twoSub=$("#oneSub2").html();
 			
@@ -74,16 +115,28 @@
 			//alert(twoSub);	//값 안들어오면 이 곳 체크해보세요
 			
 			$("#choosePrice").change(function(){
-				var selectNum = parseInt(this.value);  
-				var netPrice = $("#netprice").val();
+				var selectNum = parseInt(this.value);	//티켓수량
+				var netPrice = $("#netprice").val();	//정가
 				
+				//티켓 수량 관련
+				tNum1 = selectNum;
+				tNumtotal=tNum1+tNum2+tNum3+tNum4;
+				
+				//티켓 가격 관련
 				t1 = selectNum * netPrice;
 				total=t1+t2+t3+t4;
 				
 				salePrice = (oneSub+twoSub)/100
 				totalDiscountPrice = total-total*salePrice;
 				
-				$("#ticketPriceSum").html(totalDiscountPrice+"원");
+				//티켓 가격 셋팅
+				$("#ticketPriceSum").val(totalDiscountPrice+"원");
+				
+				//비상탈출구
+				$("#ticketPriceSubmit").val(totalDiscountPrice+"원");
+				
+				//티켓 수량 셋팅
+				$("input[name=ticketCount]").val(tNumtotal);
 			});
 			
 			//예술 관련 학교 및 학과 장학생 SELECT-OPTION CLICK
@@ -91,13 +144,25 @@
 				var selectNum = parseInt(this.value);  
 				var stPrice = $("#stprice").val();
 				
+				//티켓 수량 관련
+				tNum2 = selectNum;
+				tNumtotal=tNum1+tNum2+tNum3+tNum4;
+				
+				//티켓 가격 관련
 				t2 = selectNum * stPrice;
 				total=t1+t2+t3+t4;
 				
 				salePrice = (oneSub+twoSub)/100
 				totalDiscountPrice = total-total*salePrice;
 				
-				$("#ticketPriceSum").html(totalDiscountPrice+"원");
+				//티켓 가격 셋팅
+				$("#ticketPriceSum").val(totalDiscountPrice+"원");
+
+				//비상탈출구
+				$("#ticketPriceSubmit").val(totalDiscountPrice+"원");
+				
+				//티켓 수량 셋팅
+				$("input[name=ticketCount]").val(tNumtotal);
 			});
 				
 			//장애인 SELECT-OPTION CLICK
@@ -105,13 +170,25 @@
 				var selectNum = parseInt(this.value);  
 				var disprice = $("#disprice").val();
 				
+				//티켓 수량 관련
+				tNum3 = selectNum;
+				tNumtotal=tNum1+tNum2+tNum3+tNum4;
+				
+				//티켓 가격 관련
 				t3 = selectNum * disprice;
 				total=t1+t2+t3+t4;
 				
 				salePrice = (oneSub+twoSub)/100
 				totalDiscountPrice = total-total*salePrice;
 				
-				$("#ticketPriceSum").html(totalDiscountPrice+"원");
+				//티켓 가격 셋팅
+				$("#ticketPriceSum").val(totalDiscountPrice+"원");
+				
+				//비상탈출구
+				$("#ticketPriceSubmit").val(totalDiscountPrice+"원");
+				
+				//티켓 수량 셋팅
+				$("input[name=ticketCount]").val(tNumtotal);
 			});
 			
 			//기초 수급 대상자 SELECT-OPTION CLICK
@@ -119,13 +196,25 @@
 				var selectNum = parseInt(this.value);  
 				var disprice = $("#disprice").val();
 				
+				//티켓 수량 관련
+				tNum4 = selectNum;
+				tNumtotal=tNum1+tNum2+tNum3+tNum4;
+				
+				//티켓 가격 관련
 				t4 = selectNum * disprice;
 				total=t1+t2+t3+t4;
 				
 				salePrice = (oneSub+twoSub)/100
 				totalDiscountPrice = total-total*salePrice;
 				
-				$("#ticketPriceSum").html(totalDiscountPrice+"원");
+				//티켓 가격 셋팅
+				$("#ticketPriceSum").val(totalDiscountPrice+"원");
+				
+				//비상탈출구
+				$("#ticketPriceSubmit").val(totalDiscountPrice+"원");
+				
+				//티켓 수량 셋팅
+				$("input[name=ticketCount]").val(tNumtotal);
 			});
 			
 	});
@@ -138,6 +227,7 @@
 		.UndefinedUemail2{width: 230px;padding-left: 3px;border-radius: 3px;}
 		#perfomplace{width: 250px;}
 		input.infoBox {border-color: lightgray;}
+		#ticketPriceSum{border: 0.1px solid lightgray;height: 25px;}
 	</style>
 	
 	<!-- 페이지 만들떄마다 복붙 -->
@@ -171,17 +261,13 @@
 <div style="width: 87%; float: right; height: 1194px;">
 	<h1 class="reserTitle">비회원 예매하기</h1>
 	<hr>
-<form>
 <div class="MentInfo">
 	<input class="infoBox" id ="perfomplace" type="text" name="fcltynm" value="${param.fcltynm }">				<!-- 공연장소 -->
 	<input class="infoBox" type="text" name="prfnm" value="${param.prfnm }">									<!-- 공연제목 -->
 	<input class="infoBox" type="text" name="genrenm" value="${param.genrenm }">								<!-- 공연타입 -->
 	<input class="infoBox" type="text" name="prfdate" value="${tkVo.prfdate }">									<!-- 공연날짜 -->			
 	<input class="infoBox" type="text" name="prfhour" value="${tkVo.prfhour }">									<!-- 공연시간 -->
-	
-	<input type="hidden" name="mt20id" value="${param.mt20id }">												<!-- 공연id -->
-	<input type="hidden" name="mt10id" value="${param.mt10id }">												<!-- 공연시설id -->
-	
+
 </div>
  <div id="pfReservation">
 	
@@ -211,8 +297,8 @@
 					<%-- <c:out value="${disPriceFinalTotal }"/> --%>
 					
 					<!-- 여기 지우지 마세요 -->
-					<input type="hidden" id="netprice" value="${tkVo.netprice}">
-					<input type="hidden" id="stprice" value="${stPriceFinalTotal}"> 
+					<input type="hidden" id="netprice" value="${tkVo.netprice}">					<!-- 정가 -->
+					<input type="hidden" id="stprice" value="${stPriceFinalTotal}"> 				
 					<input type="hidden" id="disprice" value="${disPriceFinalTotal}"> 
 					<input type="hidden" id="gradeName" value="${membergrade['GRADE_NAME']}">
 					
@@ -245,7 +331,7 @@
 						<span class="A">
 							<fnt:formatNumber value="${stPriceFinalTotal}" pattern="#,###"/>원 
 						</span>
-						<select name="choosestPrice" id="choosestPrice" class="B">
+						<select name="choosestPrice" id="choosestPrice" class="B" style="margin-left: 7px;">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -303,21 +389,37 @@
 					
 					<h3 class="per-q"  id="s2">예약자 및 관람 자 정보 Reservation and audience information</h3>
 					<div class="per-a" id="s12">
-						<div class="i12">
-							<span>★</span><p>예매자 정보 Reservation Information</p><br>
-							<label>예매자명 Name</label>
-							<input class="UndefinedUname" type="text" name="UndefinedUname"><br>
-							<label>예매자 이메일 Ticket Email</label>
-							<input class="UndefinedUemail" type="text" name="UndefinedUemail">
-						</div>
-						<div class="i12">
-							<span>★</span><p>관람자 정보 Audlence Information</p><br>
-							<label>관람자명 Name</label>
-							<input class="UndefinedUname2" type="text" name="UndefinedUname2"><br>
+						<form id="paymentImport" name="importSubmit" method="post" action="<c:url value='/performance/import.do'/>">
+							<div class="i12">
+								<span>★</span><p>예매자 정보 Reservation Information</p><br>
+								<label>예매자명 Name</label>
+								<input class="UndefinedUname" type="text" name="unusername"><br>
+								
+								<label>예매자 이메일 Ticket Email</label>
+								<input class="UndefinedUemail" type="text" name="unuseremail">
+							</div>
+							<div class="i12">
+								<span>★</span><p>관람자 정보 Audlence Information</p><br>
+									<label>관람자명 Name</label>
+									<input class="UndefinedUname2" type="text" name="unusername2"><br>
+									
+									<label>관람자 이메일  Spectator Email</label>
+									<input class="UndefinedUemail2" type="text" name="unuseremail2">							
+							</div>
 							
-							<label>관람자 이메일  Spectator Email</label>
-							<input class="UndefinedUemail2" type="text" name="UndefinedUemail2">							
-						</div>
+							<!-- performentController로 데이터 전송하기 위해 숨겨두었습니다. ajax를 사용하면 될 것 같기는한데 우선은..-->
+							<input type="hidden" name="ticketPriceSubmit" id="ticketPriceSubmit" value="">		
+							<input type="hidden" name="mt20id" value="${param.mt20id }">												<!-- 공연id -->
+							<input type="hidden" name="mt10id" value="${param.mt10id }">												<!-- 공연시설id -->
+							<input type="hidden" name="prfdate" value="${tkVo.prfdate }">												<!-- 공연날짜 -->
+							<input type="hidden" name="prfhour" value="${tkVo.prfhour }">												<!-- 공연시간 -->
+							<input type="hidden" name="ticketCount" value="">															<!-- 티켓수량 --> 
+							<input type="hidden" name="fcltynm" value="${param.fcltynm }">												<!-- 공연장소 -->
+							<input type="hidden" name="prfnm" value="${param.prfnm }">													<!-- 공연제목 -->
+							<input type="hidden" name="genrenm" value="${param.genrenm }">												<!-- 공연타입 -->
+							<input type="hidden" name="ticketSeq" value="${tkVo.ticketSeq }">											<!-- 티켓SEQ --> 												
+							<input type="hidden" name="ticketSeat" value="${tkVo.sellclass }">											<!-- 선택한 좌석 SEQ-->
+						</form>
 					</div>
 					
 					<h3 class="per-q" id="s3">추가 할인 Additional discount</h3>
@@ -329,11 +431,25 @@
 						<span>적용</span>
 					</div>
 					<div class="i11">
-						<!-- 이 부분 수정해야합니다++++++++++++++++++++++ -->
-						<p>특별할인</p><p class="fp2">얼리버드</p>
-						<span id="oneSub2">5%</span>
+						<p>특별할인</p>
+						<c:if test="${empty ticketVo.detail}">
+							<p class="fp2">현재 특별할인이 존재하지 않습니다</p>
+						</c:if>
+						
+						<c:if test="${!empty ticketVo.detail}">
+							<p class="fp2">
+								<mark>${ticketVo.detail}</mark>
+							</p>
+						</c:if>
+						
+						<c:if test="${empty ticketVo.percent}">
+							<span id="oneSub2">0%</span>	<!-- 할인율 받아와서 적용 -->
+						</c:if>
+					
+						<c:if test="${!empty ticketVo.percent}">
+							<span id="oneSub2">${ticketVo.percent}%</span>	<!-- 할인율 받아와서 적용 -->
+						</c:if>	
 						<span>적용</span>
-						<!-- 이 부분 수정해야합니다++++++++++++++++++++++ -->
 					</div>
 					</div>
 					
@@ -351,7 +467,8 @@
 	</div>
 	<div class="payInfo3">
 		<p>티켓금액</p><br>
-		<span id="ticketPriceSum"></span>
+			<!--<span id="ticketPriceSum" name="ticketPriceSum" value=""></span>-->										<!-- 유저가 정한 티켓 총 가격 -->
+			<input type="text" name="ticketPriceSum" id="ticketPriceSum" value="">										<!-- 티켓가격 -->
 	</div>
 	<div class="payInfo4">
 		<p>취소수수료</p><br>
@@ -373,7 +490,7 @@
 		<input type="checkbox" id="checkAgreeSub2"><label>개인정보 제 3자가 제공에 동의합니다.</label>
 	</div>
 	<div class="payInfo7">
-		<input type="submit" id="agreeBt2" value="결제하기 Place your payment">
+		<input type="button" name="agreeBt2" id="agreeBt2" value="결제하기 Place your payment">
 	</div>
 	<div class="payInfo8">
 	<p>

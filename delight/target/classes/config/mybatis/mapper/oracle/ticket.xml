@@ -16,7 +16,17 @@
 		select * from tbl_ticket
 		where ticket_seq=#{ticketSeq}
 	</select>
-   
+    
+    <select id="">
+    
+    </select>
+    
+    <update id="updateticketForPayment" parameterType="ticketVo">
+   		update tbl_ticket
+		set selled = selled+#{selled}
+		where ticket_seq = #{ticketSeq}
+   </update>
+    
 </mapper>
 
 

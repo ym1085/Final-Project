@@ -13,6 +13,7 @@ public class TicketVO {
 	private int netprice;
 	private int selled;
 	private Timestamp regdate;
+	
 	public int getTicketSeq() {
 		return ticketSeq;
 	}

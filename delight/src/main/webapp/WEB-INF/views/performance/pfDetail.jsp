@@ -44,7 +44,7 @@
     #calandarSub h6{font-size: 12px; font-family:-webkit-body;}
     #dateWhile{font-size: 11px; font-family:-webkit-body; font-weight: 400;}
     select#selectDate {border: none;margin-top: 7px;font-weight: 400;}
-    input#ticketing {margin-left: 25px;width: 200px;height: 45px;border: none;background: red;border-radius: 5px;color: white;font-size: 1.1em;font-weight: bold;margin-top: 45px;  box-shadow: 6px 6px 8px 1px #a05260;}
+    input#ticketing {margin-left: 25px;width: 200px;height: 45px;border: none;background: red;border-radius: 5px;color: white;font-size: 1.1em;font-weight: bold;margin-top: 35px;  box-shadow: 6px 6px 8px 1px #a05260;}
     #selectDate > option{font-size: 10px;}
     .cancellationTable > th,td{height: 50px;}
     .cancellationTable tr th {background-color:#fbfbfb;padding-left: 10px; font-weight: 400;font-family: serif;}

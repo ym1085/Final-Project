@@ -21,6 +21,11 @@ public class TicketServiceImpl implements TicketService{
 		return ticketDao.selectCategory(ticketSeq);
 	}
 
+	@Override
+	public int updateTicketForPayment(TicketVO ticketVo) {
+		return ticketDao.updateTicketForPayment(ticketVo);
+	}
+
 
 	
 }

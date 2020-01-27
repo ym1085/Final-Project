@@ -5,4 +5,5 @@ import java.util.List;
 public interface TicketService {
 	List<TicketVO> selectreserList(String perfomid);
 	TicketVO selectCategory(int ticketSeq);
+	int updateTicketForPayment(TicketVO ticketVo);
 }
