@@ -52,6 +52,10 @@
 			}	
 		});
 		
+		$("#selseat").change(function() {
+			settingchk();
+		});
+		
 		$("#submit").click(function(){
 			if($("#seldate").val()==''){
 				alert("날짜를 선택해주시기 바랍니다.");
@@ -142,6 +146,32 @@
 						str2+="<option value='"+value+"'>"+value+"</option>";
 					});
 						$("#selseat").find("option").remove().end().append(str2);
+				}
+			},
+			error:function(xhr,status,error){
+				alert("Error : "+status+", "+error);
+			}
+		});
+	}
+	
+	function settingchk() {
+		$.ajax({
+			url: "<c:url value='/admin/salesManagement/settingchk.do'/>",
+			type:"post",
+			data: {
+				"seldate":$("#seldate").val(),
+				"selhour":$("#selhour").val(),
+				"selseat":$("#selseat").val(),
+				"mt20id":$("#mt20id").val(),
+				"prfnm":$("#prfnm").val()
+			},
+			success:function(res){
+				if(res==1){
+					alert("이미 등록된 표 설정이 있습니다." 
+							+"수정을 원하시면 목록에서 하시기 바랍니다.");
+					$("#submit").css("visibility","hidden");
+				}else{
+					$("#submit").css("visibility","visible");
 				}
 			},
 			error:function(xhr,status,error){

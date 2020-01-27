@@ -49,4 +49,34 @@ public class TicketSettingServiceImpl implements TicketSettingService{
 		return ticketSettingDao.discountDel(ticketSeq);
 	}
 
+	@Override
+	public int settingchk(TicketSettingVO ticketSettingVo) {
+		return ticketSettingDao.settingchk(ticketSettingVo);
+	}
+
+	@Override
+	public List<Map<String, Object>> settingList(SearchVO searchVo) {
+		return ticketSettingDao.settingList(searchVo);
+	}
+
+	@Override
+	public int settingListTotal(SearchVO searchVo) {
+		return ticketSettingDao.settingListTotal(searchVo);
+	}
+
+	@Override
+	public TicketSettingVO setiingBySeq(int ticketSeq) {
+		return ticketSettingDao.setiingBySeq(ticketSeq);
+	}
+
+	@Override
+	public int settingEdit(TicketSettingVO ticketSettingVo) {
+		return ticketSettingDao.settingEdit(ticketSettingVo);
+	}
+
+	@Override
+	public int settingDel(int ticketSeq) {
+		return ticketSettingDao.settingDel(ticketSeq);
+	}
+
 }

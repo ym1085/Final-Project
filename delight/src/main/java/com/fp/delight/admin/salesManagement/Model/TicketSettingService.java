@@ -13,4 +13,10 @@ public interface TicketSettingService {
 	int discountInsert(TicketDiscountVO ticketDiscountVo);
 	int discountUpdate(TicketDiscountVO ticketDiscountVo);
 	int discountDel(int ticketSeq);
+	int settingchk(TicketSettingVO ticketSettingVo);
+	List<Map<String, Object>> settingList(SearchVO searchVo);
+	int settingListTotal(SearchVO searchVo);
+	TicketSettingVO setiingBySeq(int ticketSeq);
+	int settingEdit(TicketSettingVO ticketSettingVo);
+	int settingDel(int ticketSeq);
 }

@@ -68,6 +68,79 @@
 		delete from tbl_discount where ticket_seq=#{ticketSeq}
 	</delete>
 
+	   
+    <select id="settingchk" parameterType="ticketSettingVo" resultType="int">
+    	select count(*) from tbl_ticket
+		where mt20id=#{mt20id} and prfnm=#{prfnm} 
+		and prfdate=#{prfdate} and prfhour=#{prfhour}
+		and sellclass=#{sellclass} and netprice=#{netprice}
+    </select>
+    
+    <sql id="searchWhere2">
+			where situation like '%' || #{searchKeyword} || '%'	
+	</sql>
+	<sql id="searchWhere3">
+		<if test="searchKeyword2!=null and searchKeyword2!=''">
+			and ${searchCondition2} like '%' || #{searchKeyword2} || '%'
+		</if>
+	</sql>
+    
+    <select id="settingList" parameterType="searchVo" resultType="map">
+    	select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from 
+		    (	
+		    	select *
+				from 
+				(
+				    select ticket_seq,mt20id,
+				    prfnm,prfdate,prfhour,
+				    sellticket,sellclass,
+				    netprice,selled,regdate,
+				    case when to_date(prfdate)>sysdate then 'N'
+				                                else 'Y' end situation
+				    from tbl_ticket
+				)
+			    <include refid="searchWhere2"></include>
+			    <include refid="searchWhere3"></include>
+				order by ticket_seq desc
+		    ) A
+		) where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+    </select>
+    
+    <select id="settingListTotal" resultType="int" parameterType="searchVo">
+    	select count(*)
+		from 
+		(
+		    select ticket_seq,mt20id,
+		    prfnm,prfdate,prfhour,
+		    sellticket,sellclass,
+		    netprice,selled,regdate,
+		    case when to_date(prfdate)>sysdate then 'N'
+		                                else 'Y' end situation
+		    from tbl_ticket
+		)
+	    <include refid="searchWhere2"></include>
+	    <include refid="searchWhere3"></include>
+    </select>
+    
+    <select id="setiingBySeq" parameterType="int" resultType="ticketSettingVo">
+    	select * from tbl_ticket where ticket_seq=#{ticketSeq}
+    </select>
+    
+    <update id="settingEdit" parameterType="ticketSettingVo">
+    	update tbl_ticket set sellticket=#{sellticket}
+    	where ticket_seq=#{ticketSeq}
+    </update>
+    
+    <delete id="settingDel" parameterType="int">
+    	delete from tbl_ticket where ticket_seq=#{ticketSeq}
+    </delete>
 </mapper>
 
 

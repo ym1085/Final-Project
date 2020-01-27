@@ -9,6 +9,7 @@ public class TicketSettingVO {
 	private String prfhour;
 	private int sellticket;
 	private String sellclass;
+	private int selled;
 	private int netprice;
 	private String prfnm;
 	private Timestamp regdate;
@@ -67,12 +68,19 @@ public class TicketSettingVO {
 	public void setPrfnm(String prfnm) {
 		this.prfnm = prfnm;
 	}
+	public int getSelled() {
+		return selled;
+	}
+	public void setSelled(int selled) {
+		this.selled = selled;
+	}
 	@Override
 	public String toString() {
 		return "TicketSettingVO [ticketSeq=" + ticketSeq + ", mt20id=" + mt20id + ", prfdate=" + prfdate + ", prfhour="
-				+ prfhour + ", sellticket=" + sellticket + ", sellclass=" + sellclass + ", netprice=" + netprice
-				+ ", prfnm=" + prfnm + ", regdate=" + regdate + "]";
+				+ prfhour + ", sellticket=" + sellticket + ", sellclass=" + sellclass + ", selled=" + selled
+				+ ", netprice=" + netprice + ", prfnm=" + prfnm + ", regdate=" + regdate + "]";
 	}
+	
 	
 	
 	

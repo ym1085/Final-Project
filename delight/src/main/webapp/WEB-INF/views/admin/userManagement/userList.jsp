@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@include file="../inc/adminTop.jsp" %>
 
 <script type="text/javascript">
@@ -45,17 +42,7 @@ $(function() {
 		}
 	});
 	
-	$("#normalExpoCancle").click(function() {
-		if($("#normal tbody input[type=checkbox]:checked").length>0){
-			if(confirm("상단 고정글은 상단 고정도 해제 됩니다. 진행하시겠습니까?")){
-				$('form[name=frmSearch]').prop("action",
-				"<c:url value='/admin/announcement/normultiunex.do'/>");	
-				$('form[name=frmSearch]').submit();
-			}
-		}else{
-			alert("노출 취소 할 공지글을 선택해주세요.");
-		}
-	});
+
 	
 	$("#eventExposure").click(function() {
 		if($("#event tbody input[type=checkbox]:checked").length>0){
@@ -67,17 +54,6 @@ $(function() {
 		}
 	});
 	
-	$("#eventExpoCancle").click(function() {
-		if($("#event tbody input[type=checkbox]:checked").length>0){
-			if(confirm("상단 고정글은 상단 고정도 해제 됩니다. 진행하시겠습니까?")){
-				$('form[name=frmSearch2]').prop("action",
-				"<c:url value='/admin/announcement/entmultiunex.do'/>");	
-				$('form[name=frmSearch2]').submit();
-			}
-		}else{
-			alert("노출 취소 할 이벤트글을 선택해주세요.");
-		}
-	});
 	
 	$("#normal thead input[type=checkbox]").click(function(){
 		$("#normal tbody input[type=checkbox]")
@@ -162,36 +138,40 @@ $(function() {
 </form>
     
 <div id="parent">
-	<!-- 일반 공지글 설정 -->
+	<!-- 비탈퇴 회원 설정 -->
 	<div class="content-wrapper" id="normal">
 	<div>
 		<form name="frmSearch" method="post" 
    		action='<c:url value="/admin/announcement/annInc.do"/>'>
-		<div class="display-4">일반 공지글 설정</div>
+		<div class="display-4">비탈퇴 회원 설정</div>
 		
 		<div>
 		<table class="table table-bordered table-dark text-center">
 		<colgroup>
 			<col style="width: 5%;">
-			<col style="width: 60%;">
+			<col style="width: 20%;">
+			<col style="width: 22%;">
 			<col style="width: 10%;">
-			<col style="width: 15%;">
+			<col style="width: 23%;">
+			<col style="width: 10%;">
 			<col style="width: 10%;">
 		</colgroup>
 		<thead>
 			<tr>
 				<th><input type="checkbox" id="chk"></th>
-				<th>공지제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
-				<th>삭제</th>
+				<th>아이디</th>
+				<th>생년월일</th>
+				<th>성별</th>
+				<th>로그아웃 일자</th>
+				<th>등급</th>
+				<th>탈퇴</th>
 			</tr>
 		</thead>
 		<tbody>
 		<!-- 반복 시작 -->
 		<c:if test="${empty list }">
 			<tr style="text-align: center">
-				<td colspan="5">데이터가 존재하지 않습니다.</td>
+				<td colspan="7">데이터가 존재하지 않습니다.</td>
 			</tr>
 		</c:if>
 		<c:if test="${!empty list }">
@@ -202,14 +182,12 @@ $(function() {
 						name="annList[${idx }].annSeq" 
 						value="${vo.annSeq }"></td>
 				<td><a href="#">${vo.annTitle }</a>
-				<sup class="text-info"><c:if test="${vo.annTop=='Y' }">상단고정</c:if></sup>
-				<sub class="text-primary"><c:if test="${vo.annShow=='Y' }">노출</c:if></sub>
 				</td>
 				<td>${vo.userid }</td>
 				<td><fmt:formatDate value="${vo.annRegdate }" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-				<button type="button" class="btn btn-gradient-danger btn-sm">삭제</button>
+				<button type="button" class="btn btn-gradient-danger btn-sm">탈퇴</button>
 				</td>
 				</tr>
 			<c:set var="idx" value="${idx+1}" />
@@ -220,9 +198,7 @@ $(function() {
 	</table>
 	</div>
 	<div id="btdiv" class="text-right">
-		<button type="button" class="btn btn-gradient-danger btn-sm" id="normalExposure">선택 노출</button>
-		<button type="button" class="btn btn-gradient-danger btn-sm" id="normalExpoCancle">선택 노출 취소</button>
-		<button type="button" class="btn btn-gradient-danger btn-sm" id="normalDel">선택 삭제</button>
+		<button type="button" class="btn btn-gradient-danger btn-sm" id="normalDel">선택 강퇴</button>
 	</div>
 <div class="divPage text-center">
 	 <!-- 이전블럭으로 이동 -->
@@ -251,21 +227,16 @@ $(function() {
 	<div class="divSearch text-center">
    	
         <select name="searchCondition" id="searchCondition" class="form-control-sm">
-            <option value="ann_title" 
-            	 <c:if test="${param.searchCondition=='ann_title' }">
-            		selected="selected"
-            	</c:if> 
-            >공지제목</option>
             <option value="userid" 
             	 <c:if test="${param.searchCondition=='userid' }">
             		selected="selected"
             	</c:if> 
-            >작성자</option>
-            <option value="ann_regdate" 
-            	 <c:if test="${param.searchCondition=='ann_regdate' }">
+            >아이디</option>
+            <option value="birth" 
+            	 <c:if test="${param.searchCondition=='birth' }">
             		selected="selected"
             	</c:if> 
-            >작성일</option>
+            >생년월일</option>
         </select>   
         <input type="text" name="searchKeyword" title="검색어 입력" id="searchKeyword" class="form-control-sm"
         	value="${param.searchKeyword}">   
@@ -289,25 +260,29 @@ $(function() {
 	<table class="table table-bordered text-center">
 	<colgroup>
 			<col style="width: 5%;">
-			<col style="width: 60%;">
-			<col style="width: 10%;">
-			<col style="width: 15%;">
+			<col style="width: 20%;">
+			<col style="width: 20%;">
+			<col style="width: 5%;">
+			<col style="width: 20%;">
+			<col style="width: 20%;">
 			<col style="width: 10%;">
 	</colgroup>
 		<thead>
 			<tr>
 				<th><input type="checkbox" id="chk2"></th>
-				<th>공지제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
-				<th>삭제</th>
+				<th>아이디</th>
+				<th>생년월일</th>
+				<th>성별</th>
+				<th>탈퇴일</th>
+				<th>탈퇴사유</th>
+				<th>탈퇴취소</th>
 			</tr>
 		</thead>
 		<tbody>
 		<!-- 반복 시작 -->
 		<c:if test="${empty list2 }">
 			<tr style="text-align: center">
-				<td colspan="5">데이터가 존재하지 않습니다.</td>
+				<td colspan="7">데이터가 존재하지 않습니다.</td>
 			</tr>
 		</c:if>
 		<c:if test="${!empty list2 }">
@@ -318,14 +293,12 @@ $(function() {
 						name="annList[${idx2 }].annSeq" 
 						value="${vo2.annSeq }"></td>
 				<td><a href="#">${vo2.annTitle }</a>
-				<sup class="text-info"><c:if test="${vo2.annTop=='Y' }">상단고정</c:if></sup>
-				<sub class="text-primary"><c:if test="${vo2.annShow=='Y' }">노출</c:if></sub>
 				</td>
 				<td>${vo2.userid }</td>
 				<td><fmt:formatDate value="${vo2.annRegdate }" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-				<button type="button" class="btn btn-gradient-danger btn-sm">삭제</button>
+				<button type="button" class="btn btn-gradient-danger btn-sm">탈퇴 취소</button>
 				</td>
 				</tr>
 			<c:set var="idx2" value="${idx2+1}" />
@@ -336,9 +309,7 @@ $(function() {
 	</table>
 	</div>
 	<div id="btdiv2" class="text-right">
-		<button type="button" class="btn btn-gradient-danger btn-sm" id="eventExposure">선택 노출</button>
-		<button type="button" class="btn btn-gradient-danger btn-sm" id="eventExpoCancle">선택 노출  취소</button>
-		<button type="button" class="btn btn-gradient-danger btn-sm" id="eventDel">선택 삭제</button>
+		<button type="button" class="btn btn-gradient-danger btn-sm" id="eventDel">선택 탈퇴 취소</button>
 	</div>
 <div class="divPage text-center">
 	 <!-- 이전블럭으로 이동 -->
@@ -367,21 +338,16 @@ $(function() {
 	<div class="divSearch text-center">
    	
         <select name="searchCondition2" id="searchCondition2" class="form-control-sm">
-            <option value="ann_title" 
-            	 <c:if test="${param.searchCondition2=='ann_title' }">
-            		selected="selected"
-            	</c:if> 
-            >공지제목</option>
             <option value="userid" 
             	 <c:if test="${param.searchCondition2=='userid' }">
             		selected="selected"
             	</c:if> 
-            >작성자</option>
-            <option value="ann_regdate" 
-            	 <c:if test="${param.searchCondition2=='ann_regdate' }">
+            >공지제목</option>
+            <option value="birth" 
+            	 <c:if test="${param.searchCondition2=='birth' }">
             		selected="selected"
             	</c:if> 
-            >작성일</option>
+            >생년월일</option>
         </select>   
         <input type="text" name="searchKeyword2" title="검색어 입력"
         	value="${param.searchKeyword2}" id="searchKeyword2" class="form-control-sm">   
@@ -392,6 +358,7 @@ $(function() {
 	
 	</div>
 </div>
+
 <%@include file="../inc/adminBottom.jsp" %>
 <style type="text/css">
 #normal{
@@ -430,8 +397,9 @@ table a:hover{
 </style>
 <script type="text/javascript">
 $(function() {
-	$("#announcement").addClass("active");
-	$("#ann").addClass("show");
+	$("#userManagement").addClass("active");
+	$("#user").addClass("show");
+	
 });
 
 </script>

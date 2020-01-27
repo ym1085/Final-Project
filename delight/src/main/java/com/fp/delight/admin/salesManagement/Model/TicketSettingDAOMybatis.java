@@ -50,6 +50,36 @@ public class TicketSettingDAOMybatis implements TicketSettingDAO{
 	public int discountDel(int ticketSeq) {
 		return sqlSession.delete(namespace+"discountDel",ticketSeq);
 	}
+
+	@Override
+	public int settingchk(TicketSettingVO ticketSettingVo) {
+		return sqlSession.selectOne(namespace+"settingchk", ticketSettingVo);
+	}
+
+	@Override
+	public List<Map<String, Object>> settingList(SearchVO searchVo) {
+		return sqlSession.selectList(namespace+"settingList", searchVo);
+	}
+
+	@Override
+	public int settingListTotal(SearchVO searchVo) {
+		return sqlSession.selectOne(namespace+"settingListTotal", searchVo);
+	}
+
+	@Override
+	public TicketSettingVO setiingBySeq(int ticketSeq) {
+		return sqlSession.selectOne(namespace+"setiingBySeq", ticketSeq);
+	}
+
+	@Override
+	public int settingEdit(TicketSettingVO ticketSettingVo) {
+		return sqlSession.update(namespace+"settingEdit", ticketSettingVo);
+	}
+
+	@Override
+	public int settingDel(int ticketSeq) {
+		return sqlSession.delete(namespace+"settingDel", ticketSeq);
+	}
 	
 	
 }

@@ -2,36 +2,49 @@
     pageEncoding="UTF-8"%>
 <%@include file="../inc/adminTop.jsp" %>
 <!-- 페이징 처리 관련 form -->
-<form action="<c:url value='/admin/salesManagement/salesDiscount.do'/>" 
+<form action="<c:url value='/admin/salesManagement/settingList.do'/>" 
 	name="frmPage" method="post">
 	<input type="hidden" name="searchCondition" 
-		value="${param.searchCondition}">
+		value="situaction" id="aa1">
 	<input type="hidden" name="searchKeyword" 
-		value="${param.searchKeyword}">
-	<input type="hidden" name="currentPage" value="${pagingInfo.currentPage }">
+		value="${param.searchKeyword}" id="aa2">
+	<input type="hidden" name="currentPage" value="${pagingInfo.currentPage }"  id="aa3">
+	
+	<input type="hidden" name="searchCondition2"
+		value="${param.searchCondition2}" id="bb1">
+	<input type="hidden" name="searchKeyword2" 
+		value="${param.searchKeyword2}" id="bb2">
 </form>
 <div class="content-wrapper">
 
-<div class="card">
-	<div>
-		<form name="searchfrm" id="searchfrm"
-		 method="post"  action="<c:url value='/admin/salesManagement/salesDiscount.do'/>">
-		<input type="hidden" value="prfnm" name="searchCondition">
-			<div id="frmdiv">
-				<span>공연명 검색</span>
-				<input type="text" class="form-control" style="width: 150px;" id="pfmname" name="searchKeyword" value="${param.searchKeyword}">
-				<button type="submit" class="btn btn-gradient-danger btn-md">검색</button>
-			</div>
-		</form>	
-	</div>
-	
+	<form name="frmSearch" method="post" 
+   		action='<c:url value="/admin/salesManagement/settingList.do"/>'>
+<div class="card">	
 	<div class="card-body">
-		<table class="table text-center table-bordered">
+			<div class="text-right" id="typebox">
+				<span>현재 상황</span> <select name="searchKeyword" id="type"
+					class="form-control-sm">
+					<option value="">전체</option>
+					<option value="N"
+						<c:if test="${param.searchKeyword=='N' }">
+			            		selected="selected"
+			        </c:if>>공연
+						전</option>
+					<option value="Y"
+						<c:if test="${param.searchKeyword=='Y' }">
+			            		selected="selected"
+			        </c:if>>공연
+						종료</option>
+				</select>
+			</div>
+			<div id="tablediv">
+			<table class="table text-center table-bordered">
 		<colgroup>
 			<col style="width: 30%;">
 			<col style="width: 15%;">
 			<col style="width: 15%;">
 			<col style="width: 10%;">
+			<col style="width: 3%;">
 			<col style="width: 3%;">
 			<col style="width: 5%;">
 			<col style="width: 10%;">
@@ -44,16 +57,17 @@
 				<th>공연일</th>
 				<th>공연 시간</th>
 				<th>좌석 등급</th>
-				<th>장 수</th>
+				<th>설정 수</th>
+				<th>판매된 수</th>
 				<th>현재 상황</th>
-				<th>할인 등록 유무</th>
-				<th>설정</th>
+				<th>수량 변경</th>
+				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:if test="${empty list }">
 				<tr>
-					<td colspan="8">등록된 공연표가 없습니다.</td>
+					<td colspan="9">등록된 공연표가 없습니다.</td>
 				</tr>
 			</c:if>
 			<c:if test="${!empty list }">
@@ -71,6 +85,7 @@
 						<td>${map['PRFHOUR'] }</td>
 						<td>${map['SELLCLASS'] }</td>
 						<td>${map['SELLTICKET'] }</td>
+						<td>${map['SELLED'] }</td>
 						<td>
 						<c:choose>
 							<c:when test="${prfdh>nowDate }">공연 전</c:when>
@@ -79,12 +94,14 @@
 						
 						</td>
 						<td>
-							<c:if test="${map['count']==0 }">N</c:if>
-							<c:if test="${map['count']==1 }">Y</c:if>
+						<c:if test="${map['SITUATION']=='N'&& (map['SELLTICKET']-map['SELLED'])>=0 }">
+							<input type="button" value="수량 변경" class="btn btn-gradient-info btn-rounded btn-sm editwindow">
+							<input type="hidden" value="${map['TICKET_SEQ'] }">
+						</c:if>
 						</td>
 						<td>
-						<c:if test="${prfdh>nowDate }">
-						<button type="button" class="btn btn-gradient-info btn-rounded btn-sm">설정</button>
+						<c:if test="${map['SELLED']=='0'&&map['SITUATION']=='N' }">
+						<button type="button" class="btn btn-gradient-info btn-rounded btn-sm del">삭제</button>
 						<input type="hidden" value="${map['TICKET_SEQ'] }">
 						</c:if>
 						</td>
@@ -93,6 +110,7 @@
 			</c:if>
 		</tbody>
 		</table>
+		</div>
 	</div>
 	<div class="divPage text-center">
 	 <!-- 이전블럭으로 이동 -->
@@ -117,7 +135,29 @@
 		<button class="btn btn-social-icon btn-outline-youtube" onclick="pageFunc(${pagingInfo.lastPage+1})"> &gt;&gt;</button>
 	</c:if>	
 	</div><!-- 페이징 -->
+	
+	<div class="divSearch text-center">
+   	
+        <select name="searchCondition2"  class="form-control-sm" id="searchCondition2">
+            <option value="prfnm" 
+            	<c:if test="${param.searchCondition2=='prfnm' }">
+            		selected="selected"
+            	</c:if>
+            >공연명</option>
+            <option value="prfhour" 
+            	<c:if test="${param.searchCondition2=='prfhour' }">
+            		selected="selected"
+            	</c:if>
+            >공연일</option>
+            
+        </select>   
+        <input type="text" name="searchKeyword2" title="검색어 입력" id="searchKeyword2"
+        	value="${param.searchKeyword2}"  class="form-control-sm">   
+		<input type="submit" value="검색" id="searchbt" class="btn btn-gradient-dark btn-rounded btn-sm">
+    
+</div>
 </div> <!-- 카드 -->
+</form>
 </div> <!-- content -->
 
 
@@ -141,6 +181,12 @@ th{
 .divPage{
 	margin-bottom: 10px;
 }
+#tablediv{
+	width: 100%;
+}
+#typebox{
+	margin-bottom: 10px;
+}
 </style>
 
 <script type="text/javascript">
@@ -151,17 +197,53 @@ $(function() {
 	$("#frmdiv").css("float","right");
 	$("form[name=searchfrm]").css("overflow","hidden");
 	
-	$("table button").click(function() {
-		var pfname=$(this).parent().parent().find("#name").text();
+	$("#type").change(function() {
+		$("#aa2").val($("#type option:selected").val());
+		$("#bb1").val("");
+		$("#bb2").val("");
+		$("form[name=frmPage]").submit();
+		
+	});
+	
+	$(".del").click(function() {
+		var seq=$(this).next().val();
+		if(confirm("해당 설정을 삭제하시겠습니까?")){
+			del(seq);
+		}
+	});
+	
+	$(".editwindow").click(function() {
 		var ticketseq=$(this).next().val();
-		var pf=pfname.replace("[","(");
-		pf=pf.replace("]",")");
-		window.open("/delight/admin/salesManagement/discountsetting.do?pfname="+pf+"&ticketseq="+ticketseq,"discount",
+		window.open("/delight/admin/salesManagement/settingEdit.do?ticketseq="+ticketseq,"discount",
 		"width=500,height=328,left=0,top=0,location=yes,resizable=yes");
 		
 	});
 	
 });
+
+function del(seq){
+	$.ajax({
+		url:"<c:url value='/admin/salesManagement/settingDel.do'/>",
+		type:"post",
+		data:
+			{
+				ticketSeq:seq
+			}
+		,
+		success:function(res){
+			 if(res==1){
+				alert("표 수량 설정 삭제완료!!");
+				location.reload();
+			}else {
+				alert("삭제 중 오류 발생");
+			}
+			
+		},
+		error:function(xhr,status,error){
+			alert("Error : "+status+", "+error);
+		}
+	});
+}
 
 function pageFunc(curPage){
 	document.frmPage.currentPage.value=curPage;

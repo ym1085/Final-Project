@@ -2,7 +2,9 @@ package com.fp.delight.member.model;
 
 import java.sql.Timestamp;
 
-public class MemberVO {
+import com.fp.delight.common.SearchVO;
+
+public class MemberVO extends SearchVO {
 	private String userid;
 	private String username;
 	private String password;
@@ -165,7 +167,6 @@ public class MemberVO {
 	public void setGradeName(String gradeName) {
 		this.gradeName = gradeName;
 	}
-	
 	@Override
 	public String toString() {
 		return "MemberVO [userid=" + userid + ", username=" + username + ", password=" + password + ", birth=" + birth
@@ -174,8 +175,10 @@ public class MemberVO {
 				+ gender + ", mailAgreement=" + mailAgreement + ", mailAuthen=" + mailAuthen + ", mileagePoint="
 				+ mileagePoint + ", logoutDate=" + logoutDate + ", joinDate=" + joinDate + ", outDate=" + outDate
 				+ ", outReasonNo=" + outReasonNo + ", gradeSeq=" + gradeSeq + ", gradeName=" + gradeName + ", SALT="
-				+ SALT + "]";
+				+ SALT + ", toString()=" + super.toString() + "]";
 	}
+	
+	
 
 	
 }

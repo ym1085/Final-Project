@@ -16,6 +16,7 @@
 		select * from tbl_ticket
 		where ticket_seq=#{ticketSeq}
 	</select>
+
    
 </mapper>
 

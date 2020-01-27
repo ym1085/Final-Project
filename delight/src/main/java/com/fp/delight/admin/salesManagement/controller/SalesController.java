@@ -345,4 +345,100 @@ public class SalesController {
 		
 		return res;
 	}
+	
+	@RequestMapping("/settingchk.do")
+	@ResponseBody
+	public int settingchk(@RequestParam String seldate,@RequestParam String selhour,
+			@RequestParam String selseat,@RequestParam String mt20id,
+			@RequestParam String prfnm) {
+		logger.info("표 수량 등록 파라미터 선택날짜={},선택시간={}",seldate,selhour);
+		logger.info("선택 좌석,정가={}",selseat);
+		logger.info("공연 id={},공연명={}",mt20id,prfnm);
+		TicketSettingVO vo=new TicketSettingVO();
+		logger.info("세팅 전 vo={}",vo);
+		vo.setMt20id(mt20id);
+		vo.setPrfdate(seldate);
+		vo.setPrfhour(selhour);
+		vo.setSellclass(selseat.substring(0, selseat.indexOf("석")+1));
+		String price="";
+		int netprice=0;
+		if(selseat.indexOf(") ")!=-1) {  // ') '를 가지고 있음
+			price=selseat.substring(selseat.indexOf(") ")+2,selseat.lastIndexOf("원"));
+			price=price.replace(",", "");
+			netprice=Integer.parseInt(price);
+		}else {
+			price=selseat.substring(selseat.indexOf("석 ")+2,selseat.lastIndexOf("원"));
+			price=price.replace(",", "");
+			netprice=Integer.parseInt(price);
+		}
+			
+		vo.setNetprice(netprice);
+		vo.setPrfnm(prfnm);
+		logger.info("세팅 후 vo={}",vo);
+		
+		int res=ticketSettingService.settingchk(vo);
+		
+		return res;
+		
+	}
+	
+	@RequestMapping("/settingList.do")
+	public void settingList(SearchVO searchVo,Model model) {
+		logger.info("표 수량 설정 목록 파라미터 searchVo={}",searchVo);
+		
+		PaginationInfo pagingInfo=new PaginationInfo();
+		
+		pagingInfo.setBlockSize(Utility.ANNBLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(Utility.SETTING_RECORD_COUNT);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		
+		searchVo.setRecordCountPerPage(Utility.SETTING_RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		int totalRecord=ticketSettingService.settingListTotal(searchVo);
+		pagingInfo.setTotalRecord(totalRecord);
+		logger.info("표 수량 설정 목록 total={}",totalRecord);
+		
+		List<Map<String, Object>> list=ticketSettingService.settingList(searchVo);
+		logger.info("list={}",list);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+		
+	}
+	
+	@RequestMapping("/settingEdit.do")
+	public void settingEdit(@RequestParam int ticketseq,Model model) {
+		logger.info("표 수량 수정하기 파라미터 ticketSeq={}",ticketseq);
+		
+		TicketSettingVO vo=ticketSettingService.setiingBySeq(ticketseq);
+		
+		model.addAttribute("vo", vo);
+	}
+	
+	@RequestMapping("/editSetting.do")
+	@ResponseBody
+	public int editSetting(@RequestParam int ticketSeq,
+			@RequestParam int selledit) {
+		logger.info("수량 설정 변경 파라미터 ticketSeq={},selledit={}",
+				ticketSeq,selledit);
+		TicketSettingVO vo=new TicketSettingVO();
+		vo.setTicketSeq(ticketSeq);
+		vo.setSellticket(selledit);
+		
+		int res=ticketSettingService.settingEdit(vo);
+		
+		return res;
+	}
+	
+	@RequestMapping("/settingDel.do")
+	@ResponseBody
+	public int settingDel(@RequestParam int ticketSeq) {
+		logger.info("설정 삭제 파라미터 ticketSeq={}",ticketSeq);
+		
+		int res=ticketSettingService.settingDel(ticketSeq);
+		
+		return res;
+	}
 }

@@ -133,7 +133,7 @@
               </a>
               <div class="collapse" id="user">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="#"> 
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/gradeManagement.do'/>" > 
 				  등급별 혜택 관리 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="#"> 
 				  회원목록 </a></li>
@@ -159,11 +159,11 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="#"> 
 				  환불/결제내역 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/salesSetting.do'/>"> 
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/salesSetting.do'/>" > 
 				  판매수량 설정</a></li>
-				  <li class="nav-item"> <a class="nav-link" href="#"> 
+				  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/settingList.do'/>" > 
 				  판매수량 설정 목록 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/salesDiscount.do'/>"> 
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/salesDiscount.do'/>" > 
 				  특별공연 할인</a></li>
                   <li class="nav-item"> <a class="nav-link" href="#"> 
 				  매출현황 </a></li>

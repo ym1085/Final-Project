@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.usermanagement">
+	
+	<select id="gradeList" resultType="gradeVo">
+		select * from tbl_grade 
+		where grade_name!='admin' order by grade_seq
+	</select>
+	
+	<select id="gradeBySeqSel" resultType="gradeVo" parameterType="int">
+		select * from tbl_grade where grade_seq=#{gradeSeq}
+	</select>
+	
+	<update id="gradeEdit" parameterType="gradeVo">
+		update tbl_grade 
+		set grade_standard=#{gradeStandard},grade_benefit=#{gradeBenefit} 
+		where grade_seq=#{gradeSeq}
+	</update>
+	
+	<sql id="searchWhere">
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			and ${searchCondition} like '%' || #{searchKeyword} || '%'
+		</if>
+	</sql>
+	
+	<select id="noneWithdrawal" parameterType="memberVo" resultType="memberVo">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from 
+		    (	
+		    	select * from tbl_user where grade_seq!=6 and out_date is null
+			    <include refid="searchWhere"></include>
+		    ) A
+		) where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+	</select>
+	
+	
+	<select id="noneWithdrawalTotal" parameterType="memberVo" resultType="int">
+		select count(*) from tbl_user where grade_seq!=6 and out_date is null
+	</select>
+	
+	<sql id="searchWhere2">
+		<if test="searchKeyword2!=null and searchKeyword2!=''">
+			and ${searchCondition2} like '%' || #{searchKeyword2} || '%'
+		</if>
+	</sql>
+	
+	<select id="withdrawal" parameterType="memberVo" resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from 
+		    (	
+		    	select u.USERID,u.BIRTH,u.GENDER,u.OUT_DATE,r.OUT_REASON
+				from tbl_user u join OUT_REASON r
+				on u.OUT_REASON_NO=r.OUT_REASON_SEQ
+				where grade_seq!=6 and out_date is not null
+			    <include refid="searchWhere2"></include>
+		    ) A
+		) where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="withdrawalTotal" parameterType="memberVo" resultType="int">
+		select count(*)
+		from tbl_user u join OUT_REASON r
+		on u.OUT_REASON_NO=r.OUT_REASON_SEQ
+		where grade_seq!=6 and out_date is not null
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
