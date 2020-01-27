@@ -24,5 +24,10 @@ public class TicketDAOMybatis implements TicketDAO{
 		return sqlSession.selectOne(namespace+"selectCategory",ticketSeq);
 	}
 
+	@Override
+	public int updateTicketForPayment(TicketVO ticketVo) {
+		return sqlSession.update(namespace+"updateticketForPayment", ticketVo);
+	}
 
+	
 }

@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+   
 <%@ include file="../inc/main2Top.jsp" %>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e1e75cc358623a9f08ba62d55286068"></script>
-
+<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e1e75cc358623a9f08ba62d55286068"></script> -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/idx_resource/css/style.css">
 <style type="text/css">
    .top1 {height: 450px;padding: 30px;width: 75%;margin: 30px;}
    .top2 {height: 100%;width: 400px;float: left;margin-left: 15px;}
    .top1>img {height: 100%;width: 250px;float: left;}
    .top2>div{border: 1px solid #dfd5d5;width:10px;height:50px;margin-right: 5px;}
    .top2>label {padding-left: 15px;line-height: 1.7em;padding-right: 30px;font-family: 맑은고딕;color:#000;}
-   #performtitle{text-align: center;font-family: 맑은고딕; font-weight: bold; margin-top: 25px;}
+   /* 수정된부분/예진/ */ 
+   #perfomrtitleFromMain {text-align: center;font-family: 맑은고딕;font-weight: bold;margin-top: 25px;width: 94%;
+   							/* border-bottom: 1px solid lightgray; */padding-bottom: 24px; margin-top: 50px;}
    .type{margin-left:27px;}
    span{color:#000;}
    #home{width: 64px; height:63px;z-index:1;float:left;margin-top:115px;}
@@ -52,6 +56,7 @@
    }
 }
 </style>
+
 <script type="text/javascript" src="<c:url value ='/resources/js/jquery-3.4.1.min.js'/>"></script>
  
    <!-- 페이지 만들떄마다 복붙 -->
@@ -67,22 +72,69 @@
          
          <nav class="left-nav" style="margin-top: 100%;">
             <ul id="nav">
-               <li class="active"><a href="#">연극</a></li>
-               <li><a href="#subscription-form">뮤지컬</a></li>
-               <li><a href="#video">지역별</a></li>
-               <li><a href="#credit">기간별</a></li>
+               <li class="active"><a href="#">랭킹</a></li>
+               <li><a href="<c:url value='/performSearchResult/theaterSearch.do?type=AAAA'/>">연극</a></li>
+               <li><a href="<c:url value='/performSearchResult/musicalSearch.do?type=AAAB'/>">뮤지컬</a></li>
+               <li><a href="<c:url value='/performSearchResult/areaSearch.do'/>">지역별</a></li>
+               <li><a href="<c:url value='/performSearchResult/periodSearch.do'/>">기간별</a></li>
                <li>
                <div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
             </ul>
          </nav>
       </aside>
+      
       <!-- left side -->
       <!-- 풀테스트 -->
    </div>
-      
+   
+     
+   <!--메인에서 검색하면 검색결과페이지로 이동,  -예진- -->
+   <div style="width: 87%;float: right;" class="pfdetail">
+   		<div id="perfomrtitleFromMain">
+   			<form action="<c:url value="/mainSearchResult/totalPerformSearch.do"/>" method="post">
+   			
+   			<span>장르</span>
+			<select id="type" name="type" style="width:100px;height:40px;font-size:15px;" required="required">
+				<option value="">
+					<c:choose> 
+						<c:when test="${param.type=='AAAA' }"> 
+							연극
+						</c:when> 
+						<c:when test="${param.type=='AAAB' }"> 
+							뮤지컬 
+						</c:when> 
+					</c:choose>
+				</option>
+				<option value="AAAA">연극</option>
+				<option value="AAAB">뮤지컬</option>
+			</select>&nbsp;&nbsp;
+			
+			<c:import url="/inc/inc_area.do"></c:import>&nbsp;&nbsp;&nbsp; 
+			
+			<span>시작일</span>
+			<input type="text" id="stdate" name="stdate" value="${param.stdate }"
+				style="width:100px;height:40px;font-size:15px;" required="required">
+			&nbsp;&nbsp;
+			 
+			<span>종료일</span>
+			<input type="text" id="eddate" name="eddate" value="${param.eddate }"
+				style="width:100px;height:40px;font-size:15px;" required="required">
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			
+			<span>공연명</span>
+			<input type="text" id="perfomName" name="perfomName" value="${param.perfomName }"
+				style="width:150px;height:40px;font-size:15px;">
+			&nbsp;&nbsp;
+				
+			<input id="pSearch" name="pSearch" type="submit" class="btn_1" value="검색"><br>
+			
+			</form>	
+   		</div>  		
+   </div>
+     
       <div style="width: 87%;float: right;" class="pfdetail">
-	      <!-- 메인1에서 지역(시도, 구군) 검색하면 API 뿌려주기 -예진- -->
-		   <div class="API">
+	      <!-- 메인1에서 공연명 검색하면 검색결과페이지에 API 뿌려주기 -예진- -->
+		   <div class="API">		   
 		   	<c:forEach var = "vo" items="${alist }">    
 				<c:if test="${vo.genrenm == '연극' || vo.genrenm == '뮤지컬'}">      	
 					<div class = "testImg">
@@ -100,6 +152,29 @@
 	   </div>
 	   <!-- 페이지 만들떄마다 복붙 -->
 	   <!-- div안에서작업 그외엔 건들지말것 -->
-      </div>
-   
-   <%@ include file="../inc/main2Bottom.jsp" %>
+	   
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>" ></script>
+<link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.min.css'/>">
+
+<script type="text/javascript">
+
+	$("#stdate").datepicker({changeYear: true,dateFormat: "yymmdd",
+		maxDate: /* "+1m +15d", */	"+6m",
+		minDate: "-6m",
+		showOtherMonths: true,
+		dayNamesMin: ["일","월","화","수","목","금","토"],
+		monthNames: ["1월","2월","3월","4월","5월","6월",
+			"7월","8월","9월","10월","11월","12월"]});
+	
+	$("#eddate").datepicker({changeYear: true,dateFormat: "yymmdd",
+		maxDate: "6m",
+		minDate: "-6m",
+		showOtherMonths: true,
+		dayNamesMin: ["일","월","화","수","목","금","토"],
+		monthNames: ["1월","2월","3월","4월","5월","6월",
+			"7월","8월","9월","10월","11월","12월"]}); 
+	
+</script>	
+
+ 
+<%@ include file="../inc/main2Bottom.jsp" %>

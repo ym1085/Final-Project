@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.fp.delight.api.ApiTest_Index;
 import com.fp.delight.member.model.MemberService;
-import com.fp.delight.member.model.MemberVO;
 import com.fp.delight.performent.model.PerformentListVO;
 
 

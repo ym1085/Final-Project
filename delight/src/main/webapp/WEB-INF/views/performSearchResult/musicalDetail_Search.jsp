@@ -87,13 +87,13 @@
       <!-- 풀테스트 -->
    </div>
    
-       
-   <!--메인에서 검색하면 검색결과페이지로 이동,  -예진- -->
+     
+   <!--검색결과 페이지에서 뮤지컬 카테고리 클릭하면 나오는 화면,  -예진- -->
    <div style="width: 87%;float: right;" class="pfdetail">
    		<div id="perfomrtitleFromMain">
-   			<form action="<c:url value="/performSearchResult/musicalSearch.do"/>" method="post">
+   			<form action="<c:url value="/performSearchResult/musicalDetail_Search.do"/>" method="post">
    			
-			<%-- <c:import url="../inc/inc_area.do"></c:import>&nbsp;&nbsp;&nbsp; --%>
+			<c:import url="/inc/inc_area.do"></c:import>&nbsp;&nbsp;&nbsp;
 			
 			<span>시작일</span>
 			<input type="text" id="stdate" name="stdate" value="${param.stdate }"
@@ -115,7 +115,7 @@
    </div>
      
       <div style="width: 87%;float: right;" class="pfdetail">
-	      <!-- 메인1에서 공연명 검색하면 API 뿌려주기 -예진- -->
+	       <!-- 뮤지컬 카테고리만 뿌려준다,  -예진- -->
 		   <div class="API">		   
 		   	<c:forEach var = "vo" items="${alist }">    
 				<%-- <c:if test="${vo.genrenm == '연극' || vo.genrenm == '뮤지컬'}">  --%>     	
@@ -139,26 +139,22 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.min.css'/>">
 <script type="text/javascript">
 
-	
 	$("#stdate").datepicker({changeYear: true,dateFormat: "yymmdd",
-		maxDate: "+1m +15d",
-		minDate: "-1m",
+		maxDate: /* "+1m +15d", */	"+6m",
+		minDate: "-6m",
 		showOtherMonths: true,
 		dayNamesMin: ["일","월","화","수","목","금","토"],
 		monthNames: ["1월","2월","3월","4월","5월","6월",
 			"7월","8월","9월","10월","11월","12월"]});
 	
 	$("#eddate").datepicker({changeYear: true,dateFormat: "yymmdd",
-		maxDate: "+1m +15d",
-		minDate: "-1m",
+		maxDate: "6m",
+		minDate: "-6m",
 		showOtherMonths: true,
 		dayNamesMin: ["일","월","화","수","목","금","토"],
 		monthNames: ["1월","2월","3월","4월","5월","6월",
-			"7월","8월","9월","10월","11월","12월"]});
+			"7월","8월","9월","10월","11월","12월"]}); 
 	
-
 </script>	
-	   
-     
-   
+  
    <%@ include file="../inc/main2Bottom.jsp" %>

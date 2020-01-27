@@ -18,7 +18,7 @@
 
 	<!-- 여기서부터 기존코드 -->
     <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta charset="utf-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Delight</title>
     <link rel="icon" href="${pageContext.request.contextPath}/resources/idx_resource/img/favicon.png">
@@ -97,7 +97,7 @@
                         <div class="banner_text_iner">
                             <h1>Delight</h1>
                             <p>Let’s start your cultural life with us, your delight will come true</p>
-                            <a href="#" class="btn_1" style="background-color: rgb(255, 0, 102); font-size: 1.6em;">예매하기</a>
+                            <a href="<c:url value="/reservation/doReservation.do"/>" class="btn_1" style="background-color: rgb(255, 0, 102); font-size: 1.6em;">예매하기</a>
                         </div>
                     </div>
                 </div>

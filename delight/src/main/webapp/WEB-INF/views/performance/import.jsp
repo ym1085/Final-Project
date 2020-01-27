@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
-	
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>	
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,23 +14,54 @@
 </head>
 <body>
 	<script>
-
+	
 	$(function(){
         var IMP = window.IMP; // 생략가능
         IMP.init('imp92846846'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
         var msg;
-        
+		
+        //비회원  
+        //-> 배포할때 지울겁니다 지우지마세요.
+        var userid = "${userid}";
+        alert(userid);
+   
+ 	    var ticketPriceSubmit = "${ticketPriceSubmit}";	//유저가 선택한 티켓가격의 총 합
+       	var perfomid = 			"${perfomid}";			//pfDetail부터 넘겨 받은 공연ID
+       	var perfomfacilityid = 	"${perfomfacilityid}";	//pfDetail부터 넘겨 받은 공연시설ID
+       	var perfomdate = 		"${perfomdate}";		//tkVo.perfomdate부터 얻어온 공연 날짜 -> SEQ로 SQL문 작성 후 얻어온 값 -> 내가 선택한 날짜와 같음
+       	var perfomtime = 		"${perfomtime}";		//tkVo.perfomtime부터 얻어온 공연 시간 -> SEQ로 SQL문 작성 후 얻어온 값 -> 내가 선택한 시간과 같음
+       	var perfomplace = 		"${perfomplace}";		//tkVo.perfomplace부터 얻어온 공연 장소 -> SEQ로 SQL문 작성 후 얻어온 값 
+       	var perfomtitle = 		"${perfomtitle}";		//tkVo.perfomtitle부터 얻어온 공연명 -> SEQ로 SQL문 작성 후 얻어온 값
+       	var perfomtype = 		"${perfomtype}";		//공연타입
+       	var unusername = 		"${unusername}";		//유저가 선택한 티켓의 총 장수를 구한 합
+       	var unuseremail = 		"${unuseremail}";		//예매자명	 
+       	var unusername2 = 		"${unusername2}";		//예매자 이메일
+       	var unuseremail2 = 		"${unuseremail2}";		//관람자명
+       	var ticketSeat = 		"${ticketSeat}";		//관람자 이메일
+       	var ticketSeq = 		"${ticketSeq}";			//선택된 티켓의 좌석 등급 -> TICKET_SEQ활용 데이터 뽑아왔을거임
+ 	    var ticketCount = 		"${ticketCount}";		//티켓 SEQ
+       	
+ 	    var pay_price = parseInt(ticketPriceSubmit);
+ 	    
+ 	    //디버깅 -> 배포할때 지울겁니다 지우지마세요.
+       	alert("티켓 총액 값 : "+ticketPriceSubmit+"\n공연 id : "+perfomid+"\n공연 시설 id : "+perfomfacilityid+"\nticketVo_공연일자 : "+perfomdate
+       			+"\nticketVo=공연시간 : "+perfomtime+"\n공연 장소 : "+perfomplace+"\n공연제목 : "+perfomtitle+"\n공연 타입 : "+perfomtype+"\n예매자명 : "+unusername
+       			+"\n예매자 이메일 : "+unuseremail+"\n관람자명 : "+unusername2+"\n관람자 이메일 : "+unuseremail2+"\n티켓 수량 SEQ : "+ticketSeq+"\n판매하는 표 좌석등급 : "+ticketSeat+
+       			"\n선택된 티켓 수량 : "+ticketCount);
+       
         IMP.request_pay({
-            pg : 'kakaopay',
+        	
+        	//[간편결제]페이코로 설정하세요
+            pg : 'payco',			
             pay_method : 'card',
-            merchant_uid : 'merchant_' + new Date().getTime(),
-            name : 'Delight 티켓 예매 결제',
-            amount : 100,
-            buyer_email : '${memberVo.email1}',		
-            buyer_name : '${memberVo.username}',
-            buyer_tel : '010-2907-1885',
-            buyer_addr : '경기도',
-            buyer_postcode : '${memberVo.zipcode}',
+            merchant_uid : 'merchant_' + new Date().getTime(),	
+            name : 'DELIGHT 티켓 예매 결제',
+            amount : 			'151',								//${ticketPriceSubmit}											 	
+            buyer_email : 		'${unuseremail}',					//비회원 이메일		
+            buyer_name : 		'${unusername}',					//비회원 이름
+            buyer_tel : 		'010-100-2000',						//비회원 전화번호 	 -> x
+            buyer_addr : 		'비회원은 주소가 존재하지 않습니다.',			//비회원 주소		 -> x
+            buyer_postcode : 	'비회원은 우편번호가 존재하지 않습니다.',		//비회원 우편번호 주소 -> x
             //m_redirect_url : 'http://www.naver.com'
         }, function(rsp) {
             if ( rsp.success ) {
@@ -58,14 +91,23 @@
                         alert(msg);
                     }
                 });
+                
                 //성공시 이동할 페이지
-                location.href="<c:url value='/index.do?msg=+msg'/>";
+                //페이코 우리은행으로 무통장입금 계좌 발급 받을 시 오류 날 수 있습니다.
+                alert("결제가 완료되었습니다!");
+                
+                //일단 길어도 좀 찾아주시고 불편하신분은 내려서 하시면 됩니다.
+                location.href="<c:url value='/payment/showPaymentend.do?mt20id=${perfomid}&mt10id=${perfomfacilityid}&prfnm=${perfomtitle}&perfomtype=${perfomtype}&select_date=${perfomdate}&select_time=${perfomtime}&booking=${ticketCount}&seat_class=${ticketSeat}&userid=${unuseremail}&ticket_seq=${ticketSeq}&pay_price=${ticketPriceSubmit}&unusername=${unusername}&unusername2=${unusername2}&unuseremail2=${unuseremail2}&perfomplace=${perfomplace}'/>";
+
             } else {
                 msg = '결제에 실패하였습니다.';
                 msg += '에러내용 : ' + rsp.error_msg;
+                
                 //실패시 이동할 페이지
-                location.href="<c:url value='/performance/pfReservation.do'/>";
+                //이 부분은 만지지 마세요
+                location.href="<c:url value='/performance/pfNoReservation.do?ticketSeq=${ticketSeq}&mt20id=${perfomid}&mt10id=${perfomfacilityid}&prfnm=${perfomtitle}&perfomtitle=${perfomtype}&fcltynm=${perfomplace}&genrenm=${perfomtype}'/>";
                 alert(msg);
+           
             	<%-- <%=request.getContextPath()%> --%>
             }
         });

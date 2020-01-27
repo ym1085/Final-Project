@@ -19,7 +19,7 @@ import org.json.XML;
 import com.fp.delight.performent.model.PerformentListVO;
 
 
-//검색결과페이지 왼쪽 메뉴바에서 뮤지컬 페이지로 이동하면 뮤지컬 API 뿌려주는 페이지 -예진-
+//검색결과페이지 왼쪽 메뉴바에서 뮤지컬 카테고리 클릭하면 뮤지컬 API 뿌려주는 페이지 -예진-
 public class ApiTest_musical {
    public int INDENT_FACTOR = 4;
    

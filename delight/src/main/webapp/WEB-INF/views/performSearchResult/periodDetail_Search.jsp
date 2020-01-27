@@ -87,38 +87,56 @@
       <!-- 풀테스트 -->
    </div>
    
-       
-   <!--메인에서 검색하면 검색결과페이지로 이동,  -예진- -->
+  
+   <!--검색결과 페이지에서 기간별 카테고리 클릭하면 나오는 화면,  -예진- -->
    <div style="width: 87%;float: right;" class="pfdetail">
    		<div id="perfomrtitleFromMain">
-   			<form action="<c:url value="/performSearchResult/periodSearch.do"/>" method="post">
+   			<form action="<c:url value="/performSearchResult/periodDetail_Search.do"/>" method="post">
    			
+   			<span>장르</span>
+			<select id="type" name="type" style="width:100px;height:40px;font-size:15px;" required="required">
+				<option value="">
+					<c:choose> 
+						<c:when test="${param.type=='AAAA' }"> 
+							연극
+						</c:when> 
+						<c:when test="${param.type=='AAAB' }"> 
+							뮤지컬 
+						</c:when> 
+					</c:choose>
+				</option>
+				<option value="AAAA">연극</option>
+				<option value="AAAB">뮤지컬</option>
+			</select>&nbsp;&nbsp;&nbsp;&nbsp;
+   			 			
 			<%-- <c:import url="../inc/inc_area.do"></c:import>&nbsp;&nbsp;&nbsp; --%>
 			
 			<span>시작일</span>
 			<input type="text" id="stdate" name="stdate" value="${param.stdate }"
 				style="width:100px;height:40px;font-size:15px;" required="required">
+			&nbsp;&nbsp;
 			 
 			<span>종료일</span>
 			<input type="text" id="eddate" name="eddate" value="${param.eddate }"
 				style="width:100px;height:40px;font-size:15px;" required="required">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;
 			
 			<span>공연명</span>
 			<input type="text" id="perfomName" name="perfomName" value="${param.perfomName }"
 				style="width:150px;height:40px;font-size:15px;">
+			&nbsp;&nbsp;
 				
 			<input id="pSearch" name="pSearch" type="submit" class="btn_1" value="검색"><br>
-			
+						
 			</form>	
    		</div>  		
    </div>
      
       <div style="width: 87%;float: right;" class="pfdetail">
-	      <!-- 메인1에서 공연명 검색하면 API 뿌려주기 -예진- -->
+	      <!-- 기간별로 뿌려준다,  -예진- -->
 		   <div class="API">		   
 		   	<c:forEach var = "vo" items="${alist }">    
-				<c:if test="${vo.genrenm == '연극' || vo.genrenm == '뮤지컬'}">    	
+				<c:if test="${vo.genrenm == '연극' || vo.genrenm == '뮤지컬'}">  	
 					<div class = "testImg">
 				    	<img src="${vo.poster }" class="img-responsive" width="240px" height="240px">
 				        	<br>
@@ -137,28 +155,25 @@
 	   
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>" ></script>
 <link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.min.css'/>">
+
 <script type="text/javascript">
 
-	
 	$("#stdate").datepicker({changeYear: true,dateFormat: "yymmdd",
-		maxDate: "+1m +15d",
-		minDate: "-1m",
+		maxDate: /* "+1m +15d", */	"+6m",
+		minDate: "-6m",
 		showOtherMonths: true,
 		dayNamesMin: ["일","월","화","수","목","금","토"],
 		monthNames: ["1월","2월","3월","4월","5월","6월",
 			"7월","8월","9월","10월","11월","12월"]});
 	
 	$("#eddate").datepicker({changeYear: true,dateFormat: "yymmdd",
-		maxDate: "+1m +15d",
-		minDate: "-1m",
+		maxDate: "6m",
+		minDate: "-6m",
 		showOtherMonths: true,
 		dayNamesMin: ["일","월","화","수","목","금","토"],
 		monthNames: ["1월","2월","3월","4월","5월","6월",
-			"7월","8월","9월","10월","11월","12월"]});
+			"7월","8월","9월","10월","11월","12월"]}); 
 	
-
-</script>	
+</script>
 	   
-     
-   
-   <%@ include file="../inc/main2Bottom.jsp" %>
+<%@ include file="../inc/main2Bottom.jsp" %>
