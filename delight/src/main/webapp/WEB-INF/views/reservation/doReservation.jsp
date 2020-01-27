@@ -150,6 +150,18 @@
 			</c:forEach>	 
 		   </div>
 	   </div>
+	   
+	   <!-- 더보기 새로 추가함 -->
+	   <div id="more_btn_div" align="center" style="width: 87%;float: right;" class="pfdetail">
+	   <input type="hidden" name="viewCount" id="viewCount" value="0">
+	   <input type="hidden" name="startCount" id="startCount" value="0">
+	   
+	   <hr>
+	   		<a id="more_btn_a" href="javascript:moreContent('more_list', 5);">
+	   			더보기(More)
+	   		</a>
+	   <hr>
+	   </div>
 	   <!-- 페이지 만들떄마다 복붙 -->
 	   <!-- div안에서작업 그외엔 건들지말것 -->
 	   
@@ -172,7 +184,11 @@
 		showOtherMonths: true,
 		dayNamesMin: ["일","월","화","수","목","금","토"],
 		monthNames: ["1월","2월","3월","4월","5월","6월",
-			"7월","8월","9월","10월","11월","12월"]}); 
+			"7월","8월","9월","10월","11월","12월"]});
+	
+	
+
+	
 	
 </script>	
 

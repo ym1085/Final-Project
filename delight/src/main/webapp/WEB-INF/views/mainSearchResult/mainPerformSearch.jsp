@@ -119,11 +119,12 @@
 			<span>종료일</span>
 			<input type="text" id="eddate" name="eddate" value="${param.eddate }"
 				style="width:100px;height:40px;font-size:15px;" required="required">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;
 			
 			<span>공연명</span>
 			<input type="text" id="perfomName" name="perfomName" value="${param.perfomName }"
 				style="width:150px;height:40px;font-size:15px;">
+			&nbsp;&nbsp;
 				
 			<input id="pSearch" name="pSearch" type="submit" class="btn_1" value="검색"><br>
 			
@@ -154,8 +155,7 @@
 	   
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>" ></script>
 <link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.min.css'/>">
-<c:set var="symd" value="${map['sdateymd'] }"/>
-<c:set var="eymd" value="${map['eddateymd'] }"/>
+
 <script type="text/javascript">
 
 	$("#stdate").datepicker({changeYear: true,dateFormat: "yymmdd",
@@ -167,27 +167,14 @@
 			"7월","8월","9월","10월","11월","12월"]});
 	
 	$("#eddate").datepicker({changeYear: true,dateFormat: "yymmdd",
-		maxDate: "+1m +15d",
-		minDate: "-1m",
+		maxDate: "6m",
+		minDate: "-6m",
 		showOtherMonths: true,
 		dayNamesMin: ["일","월","화","수","목","금","토"],
 		monthNames: ["1월","2월","3월","4월","5월","6월",
 			"7월","8월","9월","10월","11월","12월"]}); 
-			
-			/* $("#stdate").datepicker({changeYear: true,dateFormat: "yy-mm-dd",
-				maxDate: new Date(Number(${eymd[0]}), Number(${eymd[1]}) -1 ,Number(${eymd[2]})),
-				minDate: new Date(Number(${symd[0]}), Number(${symd[1]}) -1 ,Number(${symd[2]})),
-				showOtherMonths: true,
-				dayNamesMin: ["일","월","화","수","목","금","토"],
-				monthNames: ["1월","2월","3월","4월","5월","6월",
-					"7월","8월","9월","10월","11월","12월"],
-				onSelect:function(dateText,inst){
-					//alert(dateText);
-					settingdate(dateText);
-				}	
-			});	 */
 	
 </script>	
-	   
-     
-   <%@ include file="../inc/main2Bottom.jsp" %>
+
+ 
+<%@ include file="../inc/main2Bottom.jsp" %>

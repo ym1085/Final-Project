@@ -31,7 +31,7 @@
 </script>
    &nbsp;&nbsp;&nbsp;&nbsp;<span>시,도</span>&nbsp;
    <select name="sido" id="sido" style="width:150px;height:40px;font-size:15px;">
-   	<option value="">선택</option><!-- 선택 -->
+   	<option value=""></option><!-- 선택 -->
    	<c:forEach var="sido" items="${sido }">
    	<option value="${sido.signgucode }">${sido.sido }</option>
    </c:forEach>
@@ -39,6 +39,6 @@
    
    &nbsp;&nbsp;&nbsp;&nbsp;<span>구,군</span>&nbsp;
    <select name="gugun" id="gugun" style="width:150px;height:40px;font-size:15px;">
-   	<option value="">선택</option><!-- ${param.gugun } -->
+   	<option value=""></option>
    </select>
    

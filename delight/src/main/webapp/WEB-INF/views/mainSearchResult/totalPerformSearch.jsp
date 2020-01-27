@@ -1,24 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
- 
+   
 <%@ include file="../inc/main2Top.jsp" %>
-
-<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.4.1.min'/>"></script>
-<script type="text/javascript">
-	
-	$(document).ready(function(){ 
-		
-		$("#sido option").each(function(){
-			 if($(this)==${sido }){
-			      $(this).prop("selected","selected");  /* 또는 $(this).attr("selected","selected"); */
-			   }
-
-			});
-		
-	});
-		
-</script>
 
 <!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e1e75cc358623a9f08ba62d55286068"></script> -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/idx_resource/css/style.css">
@@ -107,7 +91,7 @@
    <!--메인에서 검색하면 검색결과페이지로 이동,  -예진- -->
    <div style="width: 87%;float: right;" class="pfdetail">
    		<div id="perfomrtitleFromMain">
-   			<form name = "frm" action="<c:url value="/mainSearchResult/totalPerformSearch.do"/>" method="post">
+   			<form action="<c:url value="/mainSearchResult/totalPerformSearch.do"/>" method="post">
    			
    			<span>장르</span>
 			<select id="type" name="type" style="width:100px;height:40px;font-size:15px;" required="required">
@@ -135,11 +119,12 @@
 			<span>종료일</span>
 			<input type="text" id="eddate" name="eddate" value="${param.eddate }"
 				style="width:100px;height:40px;font-size:15px;" required="required">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;
 			
 			<span>공연명</span>
 			<input type="text" id="perfomName" name="perfomName" value="${param.perfomName }"
 				style="width:150px;height:40px;font-size:15px;">
+			&nbsp;&nbsp;
 				
 			<input id="pSearch" name="pSearch" type="submit" class="btn_1" value="검색"><br>
 			
@@ -170,27 +155,26 @@
 	   
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>" ></script>
 <link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.min.css'/>">
+
 <script type="text/javascript">
 
-	
 	$("#stdate").datepicker({changeYear: true,dateFormat: "yymmdd",
-		maxDate: "+1m +15d",
-		minDate: "-1m",
+		maxDate: /* "+1m +15d", */	"+6m",
+		minDate: "-6m",
 		showOtherMonths: true,
 		dayNamesMin: ["일","월","화","수","목","금","토"],
 		monthNames: ["1월","2월","3월","4월","5월","6월",
 			"7월","8월","9월","10월","11월","12월"]});
 	
 	$("#eddate").datepicker({changeYear: true,dateFormat: "yymmdd",
-		maxDate: "+1m +15d",
-		minDate: "-1m",
+		maxDate: "6m",
+		minDate: "-6m",
 		showOtherMonths: true,
 		dayNamesMin: ["일","월","화","수","목","금","토"],
 		monthNames: ["1월","2월","3월","4월","5월","6월",
-			"7월","8월","9월","10월","11월","12월"]});
+			"7월","8월","9월","10월","11월","12월"]}); 
 	
-
 </script>	
-	   
-       
-   <%@ include file="../inc/main2Bottom.jsp" %>
+
+ 
+<%@ include file="../inc/main2Bottom.jsp" %>

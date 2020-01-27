@@ -21,14 +21,16 @@ public class Theater_detailController {
 		= LoggerFactory.getLogger(Theater_detailController.class);
 
 	@RequestMapping("/theaterDetail_Search.do")
-	public String performentList(@RequestParam(required=true) String stdate, 
+	public String performentList(@RequestParam(required=false) String sido,
+			@RequestParam(required=false) String gugun,
+			@RequestParam(required=true) String stdate, 
 			@RequestParam(required=true) String eddate, 
 			@RequestParam(required=false) String perfomName, Model model) {
 		logger.info("공연 API, 공연목록 데이터 출력!");
 		
 		try {
 			ApiTest_theaterDetail apiTest = new ApiTest_theaterDetail();
-    		List<PerformentListVO> alist = apiTest.receiveAPI(stdate, eddate, perfomName); 
+    		List<PerformentListVO> alist = apiTest.receiveAPI(sido, gugun, stdate, eddate, perfomName); 
 			
 			model.addAttribute("alist", alist);
     	} catch (MalformedURLException e) {

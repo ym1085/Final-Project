@@ -14,7 +14,7 @@ import com.fp.delight.perform.api.ApiTest_areaDetail;
 import com.fp.delight.performent.model.PerformentListVO;
 
 @Controller
-@RequestMapping("/detailSearchResult")
+@RequestMapping("/performSearchResult")
 public class Area2_detailController {
 	private static final Logger logger
 	=LoggerFactory.getLogger(Area2_detailController.class);

@@ -24,17 +24,15 @@ public class ApiTest_musicalDetail {
    public int INDENT_FACTOR = 4;
    
    //파라미터값 type으로 뮤지컬 타입 AAAB를 받아와서 로딩한다
-   public List<PerformentListVO> receiveAPI(String stdate, String eddate,
-		   String perfomName) throws MalformedURLException, IOException{
+   public List<PerformentListVO> receiveAPI(String sido, String gugun, String stdate, 
+		   String eddate, String perfomName) throws MalformedURLException, IOException{
 	   
 	   //공연명 검색할 때, 띄어쓰기 없애기
 	   String name = perfomName;
 	   String PerformName = name.replaceAll(" ", "");
 	   
-	   //1~10페이지까지 랜덤으로 값을 선택해서 상세페이지를 로딩 할 때마다, 다른 값을 뿌려준다
 	   //난수 생성
 	   int randomValue;
-	   randomValue = (int)(Math.random()*10 + 1);
 	   
 	   //타입은 뮤지컬로 고정
 	   String th="AAAB"; 
@@ -49,7 +47,9 @@ public class ApiTest_musicalDetail {
 	            + "service=4c8aebff91d74e2396fccc287989884a"
 	            + "&stdate="+stdate
 	            + "&eddate="+eddate
-	            + "&cpage="+randomValue
+	            + "&cpage=1"
+	            + "&signgucode="+sido
+	            + "&signgucodesub="+gugun
 	            + "&rows=20"
 	            + "&shcate="+th
 	            + "&shprfnm="+PerformName;
