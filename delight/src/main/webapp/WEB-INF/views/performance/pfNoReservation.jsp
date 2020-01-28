@@ -227,7 +227,8 @@
 		.UndefinedUemail2{width: 230px;padding-left: 3px;border-radius: 3px;}
 		#perfomplace{width: 250px;}
 		input.infoBox {border-color: lightgray;}
-		#ticketPriceSum{border: 0.1px solid lightgray;height: 25px;}
+		#ticketPriceSum {border: none;height: 25px;text-align: left;margin-top: -7px;margin-left: 6px;}
+		#wonha{float:left;}
 	</style>
 	
 	<!-- 페이지 만들떄마다 복붙 -->
@@ -408,7 +409,7 @@
 							</div>
 							
 							<!-- performentController로 데이터 전송하기 위해 숨겨두었습니다. ajax를 사용하면 될 것 같기는한데 우선은..-->
-							<input type="hidden" name="ticketPriceSubmit" id="ticketPriceSubmit" value="">		
+							<input type="hidden" name="ticketPriceSubmit" id="ticketPriceSubmit" value="">	
 							<input type="hidden" name="mt20id" value="${param.mt20id }">												<!-- 공연id -->
 							<input type="hidden" name="mt10id" value="${param.mt10id }">												<!-- 공연시설id -->
 							<input type="hidden" name="prfdate" value="${tkVo.prfdate }">												<!-- 공연날짜 -->
@@ -468,7 +469,7 @@
 	<div class="payInfo3">
 		<p>티켓금액</p><br>
 			<!--<span id="ticketPriceSum" name="ticketPriceSum" value=""></span>-->										<!-- 유저가 정한 티켓 총 가격 -->
-			<input type="text" name="ticketPriceSum" id="ticketPriceSum" value="">										<!-- 티켓가격 -->
+			<p id="wonha">￦</p><input type="text" name="ticketPriceSum" id="ticketPriceSum" value="0원">							<!-- 티켓가격 -->
 	</div>
 	<div class="payInfo4">
 		<p>취소수수료</p><br>

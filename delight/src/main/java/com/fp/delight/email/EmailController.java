@@ -198,6 +198,47 @@ public class EmailController {
 		return "common/message";
 	}
 	
+	@RequestMapping("/sendTicketNum.do")
+	@ResponseBody
+	public void sendTicketNum(@RequestParam String unuseremail2,
+			@RequestParam String ticketingNumber) {
+		
+		logger.info("비회원 -> 관람자 이메일 || 예매번호 , 파라미터 unuseremail2={} ticketingNumber={} ", unuseremail2, ticketingNumber);
+	
+		String subject="안녕하세요 Delight입니다. 구매하신 티켓의 예매번호입니다.";
+		String content="예매번호 : "+ticketingNumber+"<br>예진아씨 : 펭수"+"<br>예진아씨 : 펭귄";
+		String receiver=unuseremail2;
+		String sender="admin@herbmall.com";
+		
+		try {
+			emailSender.sendMail(subject, content, receiver, sender);
+			logger.info("이메일 발송 성공");
+		} catch (MessagingException e) {
+			logger.info("이메일 발송 실패!!");
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/sendTicketNumUser.do")
+	@ResponseBody
+	public void sendTicketNumUser(@RequestParam String useremail2,
+			@RequestParam String ticketingNumber) {
+		
+		logger.info("비회원 -> 관람자 이메일 || 예매번호 , 파라미터 unuseremail2={} ticketingNumber={} ", useremail2, ticketingNumber);
+	
+		String subject="안녕하세요 Delight입니다. 구매하신 티켓의 정보 입니다.";
+		String content="예매번호 : "+ticketingNumber+"\n";
+		String receiver=useremail2;
+		String sender="admin@herbmall.com";
+		
+		try {
+			emailSender.sendMail(subject, content, receiver, sender);
+			logger.info("이메일 발송 성공");
+		} catch (MessagingException e) {
+			logger.info("이메일 발송 실패!!");
+			e.printStackTrace();
+		}
+	}
 }
 
 

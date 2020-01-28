@@ -280,6 +280,9 @@
 		.useremail2{width: 230px;padding-left: 2px;border-radius: 3px;}
 		#perfomplace{width: 250px;}
 		input.infoBox {border-color: lightgray;}
+		#ticketPriceSumUser{border: none;height: 25px;text-align: left;margin-top: -7px;margin-left: 6px;}
+		#wonha2{float:left;}
+		input:focus { outline: none;}
 	</style>
 	
 	<!-- 페이지 만들떄마다 복붙 -->
@@ -563,7 +566,7 @@
 	<div class="payInfo3">
 		<p>티켓금액</p><br>
 		<!-- <span id="ticketPriceSumUser"></span> -->
-		<input type="text" name="ticketPriceSumUser" id="ticketPriceSumUser" value="">	
+		<p id="wonha2">￦</p><input type="text" name="ticketPriceSumUser" id="ticketPriceSumUser" value="">	
 	</div>
 	<div class="payInfo4">
 		<p>취소수수료</p><br>

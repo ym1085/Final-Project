@@ -18,8 +18,66 @@
 	#home{width:70px; height:45px; border: 0px;background-color: red; box-shadow: 1px 1px 2px red; color: white; font-weight: 500;margin-right: 7px;}
 	#chkReservation{width:80px; height:45px;border: 0px;background-color: blue; box-shadow: 1px 1px 2px blue; color: white; font-weight: 500;}
 	.forButton {text-align: center;margin-top: 65px;}
+	#spectators{border: 0;color: #9a9898;width: 250px;}
+	#spectatorsUser{border: 0;color: #9a9898;width: 20px;}
+	#ticketerEmail{border: 0;color: #9a9898;width: 250px;}
+	#ticketerEmailUser{border: 0;color: #9a9898;width: 250px;}
+	
+	#spectators{outline-style: none;}
+	#spectatorsUser{outline-style: none;}
+	#ticketerEmailUser{outline-style: none;}
+	#ticketerEmail{outline-style: none;}
+	
 }
 </style>
+
+<script type="text/javascript">
+	$(function(){
+		$("#reservaitonNumber").click(function(){
+			var test = $("#ticketingNumber").html();
+			var result = confirm('해당 이메일로 예매번호를 발송하시겠습니까?'); 
+			alert(test);
+		
+			if(result) {//확인 클릭 
+				if($("#certifiedUserid").val()==''){//비회원
+					$.ajax({
+						type:"post",
+						url:"<c:url value='/sendTicketNum.do'/>",
+						data:{"unuseremail2": $("#spectators").val(),
+							  "ticketingNumber":$("#ticketingNumber").html()},
+						
+						success:function(res){
+							key=res;
+							alert("예매번호 발송!");
+						},
+						error:function(xhr, status, error){
+							alert("Error : "+status+", "+ error);
+						}
+					});
+				}else {//회원
+					$.ajax({
+						type:"post",
+						url:"<c:url value='/sendTicketNumUser.do'/>",
+						data:{"useremail2": $("#spectatorsUser").val(),
+							  "ticketingNumber":$("#ticketingNumber").html()},
+						
+						success:function(res){
+							key=res;
+							alert("예매번호 발송!");
+						},
+						error:function(xhr, status, error){
+							alert("Error : "+status+", "+ error);
+						}
+					});
+				}
+			}else { //취소 클릭 
+
+			}
+
+
+		});
+	});
+</script>
 
 	<!-- 페이지 만들떄마다 복붙 -->
 	<div style="width: 13%; float: left; height: 100%;">
@@ -64,7 +122,7 @@
 						<th scope="col">예매번호</th>
 						<td scope="col">
 							<!-- 예매번호 -->
-							${pay_ticket_number}
+							<span id="ticketingNumber">${pay_ticket_number}</span> 
 							<input type="button" name="reservaitonNumber" id="reservaitonNumber" value="예매정보 발송"><br>
 							<span id="reservationNumExplain">※ 인증번호 발송 시 관람자 분 이메일로 예매번호가 전송됩니다.</span>	
 						</td>
@@ -86,7 +144,12 @@
 						<c:if test="${empty sessionScope.userid }">
 							<td scope="col">
 								예매자명 : ${unusername}<br>
-								예매자 이메일 : ${unuseremail}<br> 
+								
+								<span>예매자 이메일 : </span>
+								<input type="text" name="ticketerEmail" 
+									id="ticketerEmail" value="${unuseremail}" readonly="readonly">
+								
+								<br> 
 								<span id="reservationExplain">
 									※ 예매번호를 포함한 모든 정보는 관람자의 이메일로 발송됩니다. 
 								</span>
@@ -96,7 +159,11 @@
 						<c:if test="${!empty sessionScope.userid }">
 							<td scope="col">
 								예매자명 : ${username}<br>
-								예매자 이메일 : ${useremail}<br>
+								
+								<span>예매자 이메일 : </span><input type="text" name="ticketerEmailUser" 
+									id="ticketerEmailUser" value="${useremail}" readonly="readonly">
+								
+								
 								예매자 폰번호 : ${hp}<br> 
 								<span id="reservationExplain">
 									※ 예매번호를 포함한 모든 정보는 관람자의 이메일로 발송됩니다. 
@@ -110,14 +177,20 @@
 						<c:if test="${empty sessionScope.userid }">
 							<td scope="col">
 								관람자명 : ${unusername2}<br> 	
-								관람자 이메일 : ${unuseremail2}
+								
+								<span>관람자 이메일 : </span>
+								<input type="text" name="spectators" 
+									id="spectators" value="${unuseremail2}" readonly="readonly"> 
 							</td>
 						</c:if>
 						
 						<c:if test="${!empty sessionScope.userid }">
 							<td scope="col">
 								관람자명 : ${username2}<br> 	
-								관람자 이메일 : ${useremail2}
+								
+								<span>관람자 이메일 : </span>
+								<input type="text" name="spectatorsUser" 
+									id="spectatorsUser" value="${useremail2}" readonly="readonly"> 
 							</td>
 						</c:if>
 					</tr>
@@ -134,7 +207,10 @@
 					<input type="button" name="chkReservation" id="chkReservation" value="예약 확인">
 				</a>
 			</div>
-	
+			
+			<!-- 유저 아이디가 체크용 -->
+			<!-- 유저 아이디 Null || ym1085 -->
+			<input type="hidden" name="certifiedUserid" id="certifiedUserid" value="${chkuserid}">
 		</div>
 	</div>
 

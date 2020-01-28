@@ -42,6 +42,11 @@ public class PaymentController {
 			@RequestParam int ticket_seq, @RequestParam int booking,
 			@RequestParam int pay_price) {
 		
+		//[1] 체크용
+		//[2] 넘겨줘서 ajax 쓸대 사용할거임
+		String chkuserid = (String)session.getAttribute("userid");
+		logger.info("현재로그인 한 유저ID, 파라미터 chkuserid={} ", chkuserid);
+		
 		//[1] 디버깅
 		//[2] import.jsp로부터 넘어오는 파라미터입니다.
 		logger.info("------------결제완료 창 보여주기------------");
@@ -129,6 +134,7 @@ public class PaymentController {
 		model.addAttribute("unuseremail",unuseremail);					//예매자 이메일
 		model.addAttribute("unusername2", unusername2);					//관람자명
 		model.addAttribute("unuseremail2", unuseremail2);				//관람자 이메일
+		model.addAttribute("chkuserid", chkuserid);						//현재 로그인 한 유저 id
 		
 		return "performance/showPaymentend";
 	}
@@ -144,6 +150,9 @@ public class PaymentController {
 			@RequestParam int ticket_seq, @RequestParam int booking,
 			@RequestParam int pay_price, @RequestParam String seat_class,
 			@RequestParam String hp) {
+
+		String chkuserid = (String)session.getAttribute("userid");
+		logger.info("현재로그인 한 유저ID, 파라미터 chkuserid={} ", chkuserid);
 		
 		//[1] 디버깅
 		//[2] importUser.jsp로부터 넘어오는 파라미터입니다.
@@ -220,6 +229,7 @@ public class PaymentController {
 		model.addAttribute("username2", username2);						//관람자명
 		model.addAttribute("useremail2", useremail2);					//관람자 이메일
 		model.addAttribute("hp", hp);									//예매자 핸드폰 번호
+		model.addAttribute("chkuserid", chkuserid);						//현재 로그인한 유저 id - 체크용
 		
 		return "performance/showPaymentend";
 	}

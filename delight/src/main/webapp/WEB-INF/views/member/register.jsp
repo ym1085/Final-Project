@@ -76,7 +76,7 @@
     	                	$("#output").hide();
     	                	 $output.text("01:00초");
     	                	 $("#email3Chk").val("인증번호발송");
-							 ket="%#@#$^@";
+							 key="%#@#$^@";
     	                	 bool=false;
     	                }
     	                
