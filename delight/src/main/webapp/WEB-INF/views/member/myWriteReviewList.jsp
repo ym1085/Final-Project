@@ -82,9 +82,13 @@
 						<td style="text-align: center">내용3</td>
 						<td style="text-align: center">내용4</td>
 						<td style="text-align: center"><input style="width: 129px" class="mybodyBt"
-							type="button" value="작성하기" />	</td>
+							type="button" value="작성하기"
+							onclick="location.href='<c:url value="/member/PhotoReview.do" />'"
+							/>	</td>
 						<td style="text-align: center"><input class="mybodyBt"
-							type="button" value="작성하기" /></td>
+							type="button" value="작성하기"
+							onclick="location.href='<c:url value="/member/NmReview.do" />'"
+							/></td>
 					</tr>
 
 					<tr>

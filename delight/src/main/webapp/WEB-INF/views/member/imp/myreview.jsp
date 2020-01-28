@@ -6,7 +6,7 @@
 		<div class="mysecDiv">
 			<h2 class="mytit">후기</h2>
 			
-			<a class="mytitSubre" href="">전체</a>
+			<a class="mytitSubre" href="<c:url value='/member/myreviewList.do' />">전체</a>
 			
 			<table class="mytable">
 				<colgroup>

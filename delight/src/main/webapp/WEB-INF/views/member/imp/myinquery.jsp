@@ -21,7 +21,7 @@
 		<div class="mysecDiv">
 			<h2 class="mytit">나의 문의내역</h2>
 			
-			<a class="mytitSubinq" href="">전체</a>
+			<a class="mytitSubinq" href="<c:url value='/member/myinqueryList.do' />">전체</a>
 			
 			<table class="mytable">
 				<colgroup>

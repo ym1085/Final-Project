@@ -75,8 +75,7 @@
 						<td style="text-align: center">내용3</td>
 						<td style="text-align: center">내용4</td>
 						<td style="text-align: center">내용5</td>
-						<td style="text-align: center"><input class="mybodyBt"
-							type="button" value="후기작성" /></td>
+						<td style="text-align: center">내용6</td>
 					</tr>
 				</tbody>
 				<!-- 반복 끝-->

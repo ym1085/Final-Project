@@ -36,7 +36,7 @@
 <!-- div안에서작업 그외엔 건들지말것 -->
 
 <div style="width: 87%; float: right;">
-	<section class="mysec" style="margin-top: 3%;">
+	<section class="mysec" style="margin-top: 5%;">
 		<div class="mysecDiv">
 			<h2 class="mytit">예매취소 내역</h2>
 
