@@ -27,7 +27,7 @@
 <!-- left css-->
 <link rel="stylesheet"
 	href="<c:url value='/resources/idxresources/css/main.css' />">
-		<script type="text/javascript" 
+<script type="text/javascript" 
 	src="<c:url value='/resources/js/jquery-3.4.1.min.js'/>"></script>
 <style type="text/css">
 .left-sidebar {

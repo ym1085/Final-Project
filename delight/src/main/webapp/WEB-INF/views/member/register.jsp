@@ -53,7 +53,6 @@
         				data:{ "email1": $("#email1").val(),
         					 "email2": $("#email2").val(),
         					 "email3": $("#email3").val()},
-        				dataType:"json",
         				success:function(res){
         					key=res;
         					alert("인증번호발급!");
