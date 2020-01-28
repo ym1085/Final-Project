@@ -20,7 +20,11 @@
 						var results=data.list;
 						$("#gugun").find("option").remove().end().append(select);
 						$.each(results,function(i,value){
-							$("#gugun").append("<option value='"+value.signgucodesub+"'>"+value.gugun+"</option>");
+							if('${param.gugun}'==value.signgucodesub){
+				                  $("#gugun").append("<option value='"+value.signgucodesub+"' selected>"+value.gugun+"</option>");
+				               }else{
+				                  $("#gugun").append("<option value='"+value.signgucodesub+"'>"+value.gugun+"</option>");
+				               }
 						});
 					}
 				});
@@ -31,7 +35,7 @@
 </script>
    &nbsp;&nbsp;&nbsp;&nbsp;<span>시,도</span>&nbsp;
    <select name="sido" id="sido" style="width:150px;height:40px;font-size:15px;">
-   	<option value=""></option><!-- 선택 -->
+   	<option value="">선택</option><!-- 선택 -->
    	<c:forEach var="sido" items="${sido }">
    	<option value="${sido.signgucode }">${sido.sido }</option>
    </c:forEach>
@@ -39,6 +43,6 @@
    
    &nbsp;&nbsp;&nbsp;&nbsp;<span>구,군</span>&nbsp;
    <select name="gugun" id="gugun" style="width:150px;height:40px;font-size:15px;">
-   	<option value=""></option>
+   	<option value="">선택</option>
    </select>
    

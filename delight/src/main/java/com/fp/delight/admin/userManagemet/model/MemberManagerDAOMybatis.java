@@ -36,4 +36,19 @@ public class MemberManagerDAOMybatis implements MemberManagerDAO {
 		return sqlSession.selectOne(namespace+"withdrawalTotal", memberVo);
 	}
 
+	@Override
+	public int forcedExit(String userid) {
+		return sqlSession.update(namespace+"forcedExit", userid);
+	}
+
+	@Override
+	public int cancle(String userid) {
+		return sqlSession.update(namespace+"cancle", userid);
+	}
+
+	@Override
+	public List<MemberVO> userAll() {
+		return sqlSession.selectList(namespace+"userAll");
+	}
+
 }

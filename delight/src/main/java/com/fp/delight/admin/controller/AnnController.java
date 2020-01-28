@@ -81,12 +81,13 @@ public class AnnController {
 		
 		//이벤트 공지
 		PaginationInfo pagingInfo2=new PaginationInfo();
+		
 		pagingInfo2.setBlockSize(Utility.ANNBLOCK_SIZE);
 		pagingInfo2.setRecordCountPerPage(Utility.RECORD_COUNT);
 		pagingInfo2.setCurrentPage(annVo.getCurrentPage2());
 		
 		annVo.setRecordCountPerPage(Utility.RECORD_COUNT);
-		annVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		annVo.setFirstRecordIndex2(pagingInfo2.getFirstRecordIndex());
 		
 		int eventTotal=annService.eventTotal(annVo);
 		
@@ -95,7 +96,7 @@ public class AnnController {
 		logger.info("이벤트 공지 세팅 annVo={}",annVo);
 		
 		List<AnnVO> list2=annService.eventSearch(annVo);
-		
+		logger.info("list.size()={},list2.size()={}",list.size(),list2.size());
 		model.addAttribute("list2", list2);
 		model.addAttribute("pagingInfo2", pagingInfo2);
 		

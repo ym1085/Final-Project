@@ -8,12 +8,10 @@
 <script type="text/javascript">
 function pageFunc(curPage){
 	document.frmPage.currentPage.value=curPage;
-	document.frmPage2.currentPage2.value=curPage;
 	document.frmPage.submit();
 }
 function pageFunc2(curPage){
-	document.frmPage2.currentPage2.value=curPage;
-	document.frmPage.currentPage.value=curPage;
+	document.frmPage.currentPage2.value=curPage;
 	document.frmPage.submit();
 }
 
