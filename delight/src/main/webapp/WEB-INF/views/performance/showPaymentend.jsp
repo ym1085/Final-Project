@@ -97,7 +97,7 @@
 							<td scope="col">
 								예매자명 : ${username}<br>
 								예매자 이메일 : ${useremail}<br>
-								<%-- 예매자 폰번호 : ${hp}  --%>
+								예매자 폰번호 : ${hp}<br> 
 								<span id="reservationExplain">
 									※ 예매번호를 포함한 모든 정보는 관람자의 이메일로 발송됩니다. 
 								</span>
