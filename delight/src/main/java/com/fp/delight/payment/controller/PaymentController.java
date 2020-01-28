@@ -142,7 +142,8 @@ public class PaymentController {
 			@RequestParam String username, @RequestParam String username2,
 			@RequestParam String useremail2, @RequestParam String useremail, 
 			@RequestParam int ticket_seq, @RequestParam int booking,
-			@RequestParam int pay_price, @RequestParam String seat_class) {
+			@RequestParam int pay_price, @RequestParam String seat_class,
+			@RequestParam String hp) {
 		
 		//[1] 디버깅
 		//[2] importUser.jsp로부터 넘어오는 파라미터입니다.
@@ -155,6 +156,7 @@ public class PaymentController {
 		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 useremail2={} seat_class={} ", useremail2, seat_class);
 		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 ticket_seq={} booking={} ", ticket_seq, booking);
 		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 ticketPriceSubmit={} useremail={} ", pay_price, useremail);
+		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 hp={} ", hp);
 		
 		ReservationVO reservationVo = new ReservationVO();
 		reservationVo.setMt10id(mt20id);
@@ -217,6 +219,7 @@ public class PaymentController {
 		model.addAttribute("useremail",useremail);						//예매자 이메일
 		model.addAttribute("username2", username2);						//관람자명
 		model.addAttribute("useremail2", useremail2);					//관람자 이메일
+		model.addAttribute("hp", hp);									//예매자 핸드폰 번호
 		
 		return "performance/showPaymentend";
 	}

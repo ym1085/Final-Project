@@ -94,7 +94,7 @@
                 //성공시 이동할 페이지
                 //페이코 우리은행으로 무통장입금 계좌 발급 받을 시 오류 날 수 있습니다.
                 alert("결제가 완료되었습니다!");
-                location.href="<c:url value='/payment/showPaymentendUser.do?mt20id=${perfomid}&mt10id=${perfomfacilityid}&prfnm=${perfomtitle}&perfomtype=${perfomtype}&select_date=${perfomdate}&select_time=${perfomtime}&booking=${ticketCount}&seat_class=${ticketSeat}&userid=${userid}&useremail=${useremail}&ticket_seq=${ticketSeq}&pay_price=${ticketPriceSubmitUser}&username=${username}&username2=${username2}&useremail2=${useremail2}&perfomplace=${perfomplace}'/>";
+                location.href="<c:url value='/payment/showPaymentendUser.do?mt20id=${perfomid}&mt10id=${perfomfacilityid}&prfnm=${perfomtitle}&perfomtype=${perfomtype}&select_date=${perfomdate}&select_time=${perfomtime}&booking=${ticketCount}&seat_class=${ticketSeat}&userid=${userid}&useremail=${useremail}&ticket_seq=${ticketSeq}&pay_price=${ticketPriceSubmitUser}&username=${username}&username2=${username2}&useremail2=${useremail2}&perfomplace=${perfomplace}&hp=${hp}'/>";
             } else {
                 msg = '결제에 실패하였습니다.';
                 msg += '에러내용 : ' + rsp.error_msg;
