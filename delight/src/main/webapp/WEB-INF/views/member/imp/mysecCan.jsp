@@ -5,7 +5,7 @@
 		<div class="mysecDiv">
 			<h2 class="mytit">예매취소 내역</h2>
 			
-			<a class="mytitSub" href="#">전체</a>
+			<a class="mytitSub" href="<c:url value='/member/mysecCanList.do' />">전체</a>
 			
 			<table class="mytable">
 				<colgroup>

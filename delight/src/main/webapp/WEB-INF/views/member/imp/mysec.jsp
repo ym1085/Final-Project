@@ -5,7 +5,7 @@
 		<div class="mysecDiv">
 			<h2 class="mytit">예매내역 조회</h2>
 			
-			<a class="mytitSub" href="#">전체</a>
+			<a class="mytitSub" href="<c:url value='/member/mysecList.do' />">전체</a>
 			
 			<table class="mytable">
 				<colgroup>
@@ -24,7 +24,7 @@
 						<th id="heading" scope="col">예매번호</th>
 						<th id="heading" scope="col">매수/가격</th>
 						<th id="heading" scope="col">관람일시</th>
-						<th id="heading" scope="col">후기</th>
+						<th id="heading" scope="col">상태</th>
 					</tr>
 				</thead>
 				
@@ -42,7 +42,14 @@
 						<td style="text-align: center">내용4</td>
 						<td style="text-align: center">내용5</td>
 						<td style="text-align: center">
-						<input class="mybodyBt" type="button" value="후기작성"/>
+						<!-- 예매 하면 바로 주문취소 넣어주고 만약 공연을봤다 면 후기작성으로-->
+						<a class="mysecCansle" href="<c:url value='/member/myreserCansle.do' />">주문취소</a>
+						
+						<!-- 
+						<input class="mybodyBt" type="button" value="후기작성"
+						onclick="location.href='<c:url value="/member/myWriteReviewList.do" />'"
+						/> -->
+						
 						</td>
 					</tr>
 					

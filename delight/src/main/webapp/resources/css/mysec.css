@@ -77,7 +77,7 @@ th#heading {
 }
 
 .mybodylikeP {
-	margin-left: 7.4%;
+	margin-left: 9.4%;
 }
 
 .mybodylikeP:first-of-type {
@@ -222,4 +222,15 @@ input.cansleSub {
 .cansletjfaud{
 	margin: 15px 5px;
 	font-weight: bold;
+}
+.mysecCansle{
+	text-decoration: underline;
+}
+input.newPerReser {
+    width: 89px;
+    height: 34px;
+    outline: none;
+    border: none;
+    background: black;
+    color: white;
 }

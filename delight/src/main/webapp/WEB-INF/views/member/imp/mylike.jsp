@@ -5,7 +5,7 @@
 		<div class="mysecDiv">
 			<h2 class="mytit">좋아요</h2>
 			
-			<a class="mytitSublike" href="#">전체</a>
+			<a class="mytitSublike" href="<c:url value='/member/mylikeList.do' />">전체</a>
 			
 			<table class="mytable">
 				<colgroup>

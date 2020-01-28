@@ -52,7 +52,7 @@
 <!-- div안에서작업 그외엔 건들지말것 -->
 
 <div style="width: 87%; float: right;">
-	<section class="mysec">
+	<section class="mysec" style="margin-top: 5%;">
 		<div class="mysecDiv">
 			<h2 class="mytit">나의 문의내역</h2>
 
@@ -116,19 +116,19 @@
 			</p>
 			<div class="inq1" style="border-bottom: 1px solid gray;">
 				<p style="text-align: center; line-height: 1.5;">
-					<span style="font-size: 14pt;">사이트 서버 점검으로</span>
+					<span style="font-size: 14pt;">문의내용</span>
 				</p>
-				<p style="text-align: center; line-height: 1.5;">
+<!-- 				<p style="text-align: center; line-height: 1.5;">
 					<span style="font-size: 14pt;">사이트 사용이 중지 됩니다.</span>
-				</p>
+				</p> -->
 			</div>
 			<div class="inq1">
 				<p style="text-align: center; line-height: 1.5;">
-					<span style="font-size: 14pt;">이용에 불편을 드린 점 양해를 </span>
+					<span style="font-size: 14pt;">답변내용</span>
 				</p>
-				<p style="text-align: center; line-height: 1.5;">
+<!-- 				<p style="text-align: center; line-height: 1.5;">
 					<span style="font-size: 14pt;">부탁드립니다.</span>
-				</p>
+				</p> -->
 			</div>
 			<p style="text-align: center; line-height: 1.5;">
 				<br />
