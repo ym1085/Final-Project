@@ -48,6 +48,8 @@
     				data:$("form[name=frm123]").serializeArray(),
     				success:function(res){
     					if(res=='Y'){
+    						$("#title").val("");
+    						$("#content").val("");
     						if(!confirm("문의가등록되었습니다.문의내역으로 이동하시겠습니까?")){
     							event.preventDefault();
     						}else{
@@ -55,6 +57,11 @@
     						}
     					}else if(res=='N'){
     						alert("문의가발송되었습니다.");
+    						$("#name").val("");
+    						$("#email").val("");
+    						$("#hp").val("");
+    						$("#title").val("");
+    						$("#cotent").val("");
     					}
     				},
     				error:function(xhr, status, error){

@@ -101,46 +101,29 @@
 		</div>
 	</section>
 
-	<!-- <input type="button" id="sss" style="margin: 50%;"> -->
 	<!-- The Modal -->
-	<div id="myModal" class="modal">
-
-		<!-- Modal content -->
-		<div class="modal-content">
-			<p style="text-align: center;">
-				<span style="font-size: 14pt;"><b><span
-						style="font-size: 24pt;">제목넣어줘</span></b></span>
-			</p>
-			<p style="text-align: center; line-height: 1.5;">
-				<br />
-			</p>
-			<div class="inq1" style="border-bottom: 1px solid gray;">
-				<p style="text-align: center; line-height: 1.5;">
-					<span style="font-size: 14pt;">문의내용</span>
-				</p>
-<!-- 				<p style="text-align: center; line-height: 1.5;">
-					<span style="font-size: 14pt;">사이트 사용이 중지 됩니다.</span>
-				</p> -->
-			</div>
-			<div class="inq1">
-				<p style="text-align: center; line-height: 1.5;">
-					<span style="font-size: 14pt;">답변내용</span>
-				</p>
-<!-- 				<p style="text-align: center; line-height: 1.5;">
-					<span style="font-size: 14pt;">부탁드립니다.</span>
-				</p> -->
-			</div>
-			<p style="text-align: center; line-height: 1.5;">
-				<br />
-			</p>
-			<div id="ssss"
-				style="cursor: pointer; background-color: #DDDDDD; text-align: center; padding-bottom: 10px; padding-top: 10px;">
-				<span class="pop_bt" style="font-size: 13pt;"> 닫기 </span>
-			</div>
-		</div>
-
-	</div>
-	<!--End Modal-->
+    <div id="myModal" class="modal">
+ 
+      <!-- Modal content -->
+      <div class="modal-content">
+                <p style="text-align: center;"><span style="font-size: 14pt;"><b><span style="font-size: 24pt;">제목넣어줘</span></b></span></p>
+                <p style="text-align: center; line-height: 1.5;"><br /></p>
+                <div class="inq1" style="border-bottom: 1px solid gray;">
+                <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">문의내용</span></p>
+                </div>
+                <div class="inq1">
+                <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">답변내용</span></p>
+                </div>
+                <p style="text-align: center; line-height: 1.5;"><br /></p>
+            <div id="ssss" style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;">
+                <span class="pop_bt" style="font-size: 13pt;" >
+                     닫기
+                </span>
+            </div>
+      </div>
+ 
+    </div>
+    <!--End Modal-->
 </div>
 <!-- div안에서작업 그외엔 건들지말것 -->
 

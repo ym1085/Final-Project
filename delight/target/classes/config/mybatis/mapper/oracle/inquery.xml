@@ -12,6 +12,25 @@
 			values(#{inquerySeq},#{inqueryContent},#{inqueryTitle},#{userid},#{username},#{email},#{hp})
 	</insert>
 	
+	<select id="selectNew3" parameterType="string" resultType="inqueryVo">
+		select *
+		from
+		(
+		    select * from tbl_inquery
+		    where userid='test'
+		    order by inquery_seq desc
+		)
+		<![CDATA[
+		where rownum<=3
+		]]>
+	</select>
+	
+	<select id="selectInqDetail" parameterType="inqueryVo" resultType="map">
+		select q.*,(select inqanw_content from tbl_inqAnw a 
+		where a.INQUERY_SEQ=q.inquery_seq) A
+		from tbl_inquery q 
+		where userid='test' and inquery_seq=#{inquerySeq}
+	</select>
 	
 </mapper>
 
