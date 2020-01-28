@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fp.delight.member.model.MemberVO;
 
@@ -32,5 +33,61 @@ public class MemberManagerServiceImpl implements MemberManagerService{
 	@Override
 	public int withdrawalTotal(MemberVO memberVo) {
 		return memberManagerDao.withdrawalTotal(memberVo);
+	}
+
+	@Override
+	public int forcedExit(String userid) {
+		return memberManagerDao.forcedExit(userid);
+	}
+
+	@Override
+	public int cancle(String userid) {
+		return memberManagerDao.cancle(userid);
+	}
+
+	@Override
+	@Transactional
+	public int multiforcedExit(List<MemberVO> list) {
+		int cnt=0;
+		try {
+			for(MemberVO vo: list) {
+				String userid=vo.getUserid();
+				if(userid!=null && !userid.isEmpty()) {
+					cnt=memberManagerDao.forcedExit(userid);
+				}
+			}	
+		}catch(RuntimeException e) {
+			e.printStackTrace();
+			cnt=-1;
+		}
+		
+		
+		return cnt;
+	}
+
+	@Override
+	@Transactional
+	public int multiCancle(List<MemberVO> list) {
+		int cnt=0;
+		try {
+			for(MemberVO vo:list) {
+				String userid=vo.getUserid();
+				if(userid!=null && !userid.isEmpty()) {
+					cnt=memberManagerDao.cancle(userid);
+				}
+			}
+			
+		}catch(RuntimeException e) {
+			e.printStackTrace();
+			cnt=-1;
+		}
+		
+		
+		return cnt;
+	}
+
+	@Override
+	public List<MemberVO> userAll() {
+		return memberManagerDao.userAll();
 	}
 }

@@ -10,4 +10,9 @@ public interface MemberManagerService {
 	int noneWithdrawalTotal(MemberVO memberVo);
 	List<Map<String, Object>> withdrawal(MemberVO memberVo);
 	int withdrawalTotal(MemberVO memberVo);
+	int forcedExit(String userid);
+	int cancle(String userid);
+	int multiforcedExit(List<MemberVO> list);
+	int multiCancle(List<MemberVO> list);
+	List<MemberVO> userAll();
 }

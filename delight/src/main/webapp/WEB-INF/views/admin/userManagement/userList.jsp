@@ -5,12 +5,10 @@
 <script type="text/javascript">
 function pageFunc(curPage){
 	document.frmPage.currentPage.value=curPage;
-	document.frmPage2.currentPage2.value=curPage;
 	document.frmPage.submit();
 }
 function pageFunc2(curPage){
 	document.frmPage2.currentPage2.value=curPage;
-	document.frmPage.currentPage.value=curPage;
 	document.frmPage.submit();
 }
 
@@ -31,17 +29,6 @@ $(function() {
 		$("#aa2").val($("#searchKeyword").val());
 		$("form[name=frmPage]").submit();
 	});
-	
-	$("#normalExposure").click(function() {
-		if($("#normal tbody input[type=checkbox]:checked").length>0){
-			$('form[name=frmSearch]').prop("action",
-			"<c:url value='/admin/announcement/normultiex.do'/>");	
-			$('form[name=frmSearch]').submit();
-		}else{
-			alert("노출할 공지글을 선택해주세요.");
-		}
-	});
-	
 
 	
 	$("#eventExposure").click(function() {
@@ -65,23 +52,23 @@ $(function() {
 			.prop("checked", this.checked);
 	});
 	
-	$("#normalDel").click(function() {
+	$("#multiforcedExit").click(function() {
 		if($("#normal tbody input[type=checkbox]:checked").length>0){
 			$('form[name=frmSearch]').prop("action",
-			"<c:url value='/admin/announcement/multiDel.do?type=1'/>");	
+			"<c:url value='/admin/userManagement/multiforcedExit.do'/>");	
 			$('form[name=frmSearch]').submit();
 		}else{
-			alert("삭제할 공지글을 선택해주세요.");
+			alert("강퇴할 회원을 선택해주세요.");
 		}
 	});
 	
-	$("#eventDel").click(function() {
+	$("#multiCancle").click(function() {
 		if($("#event tbody input[type=checkbox]:checked").length>0){
 			$('form[name=frmSearch2]').prop("action",
-			"<c:url value='/admin/announcement/multiDel.do?type=2'/>");	
+			"<c:url value='/admin/userManagement/multiCancle.do'/>");	
 			$('form[name=frmSearch2]').submit();
 		}else{
-			alert("삭제할 이벤트 글을 선택해주세요.");
+			alert("탈퇴 취소할 회원을 선택해주세요.");
 		}
 	});
 	
@@ -94,21 +81,21 @@ $(function() {
 		});
 	});
 	
-	$("#normal tbody button,#event tbody button").click(function() {
-		var se=$(this).parent().parent().find("input[type=checkbox]").val();
-		if(confirm("해당 공지글을 삭제 하시겠습니까?")){
+	$("#normal tbody button").click(function() {
+		var userid=$(this).parent().parent().find("input[type=checkbox]").val();
+		if(confirm("해당 회원을 강퇴 하시겠습니까?")){
 			$.ajax({
-				url: "<c:url value='/admin/announcement/annDel.do'/>",
+				url: "<c:url value='/admin/userManagement/forcedExit.do'/>",
 				type:"post",
 				data: {
-					annSeq : se
+					userid : userid
 				},
 				success:function(res){
 					if(res==1){
-						alert("해당글을 삭제하였습니다.");
+						alert("해당 회원을 강퇴하였습니다.");
 						$("form[name=frmPage]").submit();
 					}else{
-						alert("삭제중 오류 발생!!");
+						alert("강퇴 중 오류 발생!!");
 					}
 				},
 				error:function(xhr,status,error){
@@ -118,11 +105,42 @@ $(function() {
 		}
 	});
 	
+	$("#event tbody button").click(function() {
+		var userid=$(this).parent().parent().find("input[type=checkbox]").val();
+		if(confirm("해당 회원을 탈퇴를 취소 하시겠습니까?")){
+			$.ajax({
+				url: "<c:url value='/admin/userManagement/cancle.do'/>",
+				type:"post",
+				data: {
+					userid : userid
+				},
+				success:function(res){
+					if(res==1){
+						alert("해당 회원을 탈퇴 취소 하였습니다.");
+						$("form[name=frmPage]").submit();
+					}else{
+						alert("탈퇴 취소 중 오류 발생!!");
+					}
+				},
+				error:function(xhr,status,error){
+					alert("Error : "+status+", "+error);
+				}
+			});
+		}
+	});
+	
+	$("#exceldown").click(function() {
+		if(confirm("회원 목록을 다운로드 하시겠습니까?")){
+			location.href='/delight/userListExcelDown.do';		
+		}
+	});
+	
+	
 });
 
 </script>
 
-<form action="<c:url value='/admin/announcement/annInc.do'/>" 
+<form action="<c:url value='/admin/userManagement/userList.do'/>" 
 	name="frmPage" method="post">
 	<input type="hidden" name="searchCondition" 
 		value="${param.searchCondition}" id="aa1">
@@ -143,7 +161,11 @@ $(function() {
 	<div>
 		<form name="frmSearch" method="post" 
    		action='<c:url value="/admin/announcement/annInc.do"/>'>
-		<div class="display-4">비탈퇴 회원 설정</div>
+		<div class="display-4 ti">비탈퇴 회원 설정
+		<button type="button" class="btn btn-gradient-info btn-icon-text btn-sm" id="exceldown">회원목록 다운
+		<i class="mdi mdi-cloud-download"></i>
+		</button>
+		</div>
 		
 		<div>
 		<table class="table table-bordered table-dark text-center">
@@ -179,15 +201,17 @@ $(function() {
 			<c:forEach var="vo" items="${list }">
 				<tr>
 				<td><input type="checkbox" id="chk_${idx }" 
-						name="annList[${idx }].annSeq" 
-						value="${vo.annSeq }"></td>
-				<td><a href="#">${vo.annTitle }</a>
+						name="memberList[${idx }].userid" 
+						value="${vo.userid }"></td>
+				<td>${vo.userid }
 				</td>
-				<td>${vo.userid }</td>
-				<td><fmt:formatDate value="${vo.annRegdate }" pattern="yyyy-MM-dd"/>
+				<td>${vo.birth }</td>
+				<td>${vo.gender }</td>
+				<td><fmt:formatDate value="${vo.logoutDate }" pattern="yyyy-MM-dd"/>
 				</td>
+				<td>${vo.gradeName }</td>
 				<td>
-				<button type="button" class="btn btn-gradient-danger btn-sm">탈퇴</button>
+				<button type="button" class="btn btn-gradient-danger btn-sm">강퇴</button>
 				</td>
 				</tr>
 			<c:set var="idx" value="${idx+1}" />
@@ -198,7 +222,7 @@ $(function() {
 	</table>
 	</div>
 	<div id="btdiv" class="text-right">
-		<button type="button" class="btn btn-gradient-danger btn-sm" id="normalDel">선택 강퇴</button>
+		<button type="button" class="btn btn-gradient-danger btn-sm" id="multiforcedExit">선택 강퇴</button>
 	</div>
 <div class="divPage text-center">
 	 <!-- 이전블럭으로 이동 -->
@@ -237,6 +261,11 @@ $(function() {
             		selected="selected"
             	</c:if> 
             >생년월일</option>
+            <option value="grade_name" 
+            	 <c:if test="${param.searchCondition=='grade_name' }">
+            		selected="selected"
+            	</c:if> 
+            >등급</option>
         </select>   
         <input type="text" name="searchKeyword" title="검색어 입력" id="searchKeyword" class="form-control-sm"
         	value="${param.searchKeyword}">   
@@ -250,12 +279,12 @@ $(function() {
 	
 <!-- ------------------------------------------------------------------------ -->
 
-	<!-- 이벤트 공지글 설정 -->
+	<!-- 탈퇴회원 설정 -->
 	<div id="event">
 	<div>
 	<form name="frmSearch2" method="post" 
    		action='<c:url value="/admin/announcement/annInc.do"/>'>
-		<div class="display-4">이벤트 공지글 설정</div>
+		<div class="display-4 ti">탈퇴회원 설정</div>
 		<div>
 	<table class="table table-bordered text-center">
 	<colgroup>
@@ -287,16 +316,18 @@ $(function() {
 		</c:if>
 		<c:if test="${!empty list2 }">
 			<c:set var="idx2" value="0" />
-			<c:forEach var="vo2" items="${list2 }">
+			<c:forEach var="map" items="${list2 }">
 				<tr>
 				<td><input type="checkbox" id="chk2_${idx2 }" 
-						name="annList[${idx2 }].annSeq" 
-						value="${vo2.annSeq }"></td>
-				<td><a href="#">${vo2.annTitle }</a>
+						name="memberList[${idx2 }].userid" 
+						value="${map['USERID'] }"></td>
+				<td>${map['USERID'] }
 				</td>
-				<td>${vo2.userid }</td>
-				<td><fmt:formatDate value="${vo2.annRegdate }" pattern="yyyy-MM-dd"/>
+				<td>${map['BIRTH'] }</td>
+				<td>${map['GENDER'] }</td>
+				<td><fmt:formatDate value="${map['OUT_DATE'] }" pattern="yyyy-MM-dd"/>
 				</td>
+				<td>${map['OUT_REASON'] }</td>
 				<td>
 				<button type="button" class="btn btn-gradient-danger btn-sm">탈퇴 취소</button>
 				</td>
@@ -309,7 +340,7 @@ $(function() {
 	</table>
 	</div>
 	<div id="btdiv2" class="text-right">
-		<button type="button" class="btn btn-gradient-danger btn-sm" id="eventDel">선택 탈퇴 취소</button>
+		<button type="button" class="btn btn-gradient-danger btn-sm" id="multiCancle">선택 탈퇴 취소</button>
 	</div>
 <div class="divPage text-center">
 	 <!-- 이전블럭으로 이동 -->
@@ -342,12 +373,17 @@ $(function() {
             	 <c:if test="${param.searchCondition2=='userid' }">
             		selected="selected"
             	</c:if> 
-            >공지제목</option>
+            >아이디</option>
             <option value="birth" 
             	 <c:if test="${param.searchCondition2=='birth' }">
             		selected="selected"
             	</c:if> 
             >생년월일</option>
+            <option value="out_date" 
+            	 <c:if test="${param.searchCondition2=='out_date' }">
+            		selected="selected"
+            	</c:if> 
+            >탈퇴일</option>
         </select>   
         <input type="text" name="searchKeyword2" title="검색어 입력"
         	value="${param.searchKeyword2}" id="searchKeyword2" class="form-control-sm">   
@@ -393,6 +429,9 @@ table a:hover{
 }
 #event table a{
 	color: black;
+}
+.ti{
+	margin-bottom: 10px;
 }
 </style>
 <script type="text/javascript">

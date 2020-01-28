@@ -135,9 +135,9 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/gradeManagement.do'/>" > 
 				  등급별 혜택 관리 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="#"> 
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/userList.do'/>"> 
 				  회원목록 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="#"> 
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/inqueryList.do'/>"> 
 				  문의목록 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="#"> 
 				  홍보게시판 </a></li>

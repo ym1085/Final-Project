@@ -36,6 +36,12 @@ public class SearchVO {
     /** 끝 인덱스 */
     private int lastRecordIndex = 1;
     
+    /** 시작 인덱스 */
+    private int firstRecordIndex2 = 1;
+    
+    /** 끝 인덱스 */
+    private int lastRecordIndex2 = 1;
+    
     /**페이지 별 레코드 갯수 (pageSize) */
     private int recordCountPerPage; 
     
@@ -53,6 +59,8 @@ public class SearchVO {
     	this.blockSize = bean.blockSize;
     	this.firstRecordIndex = bean.firstRecordIndex;
     	this.lastRecordIndex = bean.lastRecordIndex;
+    	this.firstRecordIndex2 = bean.firstRecordIndex2;
+    	this.lastRecordIndex2 = bean.lastRecordIndex2;
     	this.recordCountPerPage = bean.recordCountPerPage;
     	
     }
@@ -112,6 +120,22 @@ public class SearchVO {
     public void setLastRecordIndex(int lastRecordIndex) {
     	this.lastRecordIndex = lastRecordIndex;
     }
+    
+    public int getFirstRecordIndex2() {
+    	return firstRecordIndex2;
+    }
+    
+    public void setFirstRecordIndex2(int firstRecordIndex2) {
+    	this.firstRecordIndex2 = firstRecordIndex2;
+    }
+    
+    public int getLastRecordIndex2() {
+    	return lastRecordIndex2;
+    }
+    
+    public void setLastRecordIndex2(int lastRecordIndex2) {
+    	this.lastRecordIndex2 = lastRecordIndex2;
+    }
 
     
 	public int getRecordCountPerPage() {
@@ -156,8 +180,11 @@ public class SearchVO {
 				+ ", searchCondition2=" + searchCondition2 + ", searchKeyword2=" + searchKeyword2 + ", searchUseYn="
 				+ searchUseYn + ", currentPage=" + currentPage + ", currentPage2=" + currentPage2 + ", blockSize="
 				+ blockSize + ", firstRecordIndex=" + firstRecordIndex + ", lastRecordIndex=" + lastRecordIndex
+				+ ", firstRecordIndex2=" + firstRecordIndex2 + ", lastRecordIndex2=" + lastRecordIndex2
 				+ ", recordCountPerPage=" + recordCountPerPage + "]";
 	}
+
+	
 
 
 

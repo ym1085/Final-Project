@@ -10,6 +10,7 @@ public interface MemberManagerDAO {
 	int noneWithdrawalTotal(MemberVO memberVo);
 	List<Map<String, Object>> withdrawal(MemberVO memberVo);
 	int withdrawalTotal(MemberVO memberVo);
-	
-	
+	int forcedExit(String userid);
+	int cancle(String userid);
+	List<MemberVO> userAll();
 }
