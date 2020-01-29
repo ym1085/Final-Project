@@ -122,12 +122,12 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			
 			<span>공연명</span>
-			<input type="text" id="perfomName" name="perfomName" value="${param.perfomName }"
+			<input type="text" id="perfomName" name="performName" value="${param.perfomName }"
 				style="width:150px;height:40px;font-size:15px;">
 			&nbsp;&nbsp;
 				
 			<input id="pSearch" name="pSearch" type="submit" class="btn_1" value="검색"><br>
-			
+					
 			</form>	
    		</div>  		
    </div>
@@ -138,7 +138,9 @@
 		   	<c:forEach var = "vo" items="${alist }">    
 				<c:if test="${vo.genrenm == '연극' || vo.genrenm == '뮤지컬'}">      	
 					<div class = "testImg">
-				    	<img src="${vo.poster }" class="img-responsive" width="240px" height="240px">
+						<a href="<c:url value='/performance/pfDetail.do?perfomid=${vo.mt20id}'/>">
+				    		<img src="${vo.poster }" class="img-responsive" width="240px" height="240px">
+				    	</a>
 				        	<br>
 				            <h5><b>${vo.prfnm }</b></h5> 
 							<p>${vo.prfpdfrom }</p> 
@@ -150,14 +152,80 @@
 			</c:forEach>	 
 		   </div>
 	   </div>
-	   <!-- 페이지 만들떄마다 복붙 -->
-	   <!-- div안에서작업 그외엔 건들지말것 -->
 	   
+	   <!-- 더보기 새로 추가함 -->
+	   <div id="more_btn_div" align="center" style="width: 87%;float: right;" class="pfdetail">
+	   		<!-- <input id="page" name="page" type="text" value=0> -->
+	   		<input id="moreRead" name="moreRead" type="submit" class="btn_1" value="더보기(More)">
+	   </div>
+	    
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>" ></script>
 <link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.min.css'/>">
 
 <script type="text/javascript">
 
+/* 더보기 ajax */
+
+function moreRead(){
+	$('#moreRead').click(function() { 
+		$("#page").val($("#page").val()+1);
+		$.ajax({
+			url:"<c:url value='/mainSearchResult/totalMoreRead.do'/>",
+			type: 'post',
+			data : 
+				{
+					"type" : $("#type").val(),
+					"sido" : $("#sido").val(),
+					"gugun" : $("#gugun").val(),
+					"stdate" : $("#stdate").val(),
+					"eddate" : $("#eddate").val(),
+					page : $("#page").val(),
+					/* "performName" : $("#performName").val(), */					
+				},
+			success: function(res){
+				var str="";
+				
+				$.each(res,function(idx,value){
+					if(value.genrenm=='연극' || value.genrenm== '뮤지컬'){
+						str+="<div class = 'testImg'>"
+						+"<img src='"+value.poster+ "' class='img-responsive' width=240px height=240px>"
+						+"<br>"
+						+"<h5><b>"+value.prfnm+"</b></h5>"
+						+"<p>"+value.prfpdfrom+"</p>"
+						+"<p>"+value.prfpdto+"</p>"
+						+"<p>"+value.fcltynm+"<p>"
+						+"<p>"+value.genrenm+"<p>"
+						+"</div>"					
+					}
+					
+				});
+				//클래스 API 뒤에 이어서 붙임 (더보기 버튼)
+				$(".API").append(str);
+				
+			},
+			
+			error: function(xhr, status, error){
+				alert(error);
+			}			
+		});/* ajax */
+		
+		//기본 이벤트 제거
+		event.preventDefault();
+		
+	});/* moreRead */
+}
+
+$(function(){
+	/* 시도 구군 파라미터값 가져오는 코드 */
+	$("#sido option").each(function(){
+		if($(this).val()=='${param.sido}'){
+			$(this).prop("selected","selected");
+		}
+	});
+	
+	$("#sido").trigger("change");
+	
+	
 	$("#stdate").datepicker({changeYear: true,dateFormat: "yymmdd",
 		maxDate: /* "+1m +15d", */	"+6m",
 		minDate: "-6m",
@@ -173,6 +241,9 @@
 		dayNamesMin: ["일","월","화","수","목","금","토"],
 		monthNames: ["1월","2월","3월","4월","5월","6월",
 			"7월","8월","9월","10월","11월","12월"]}); 
+	
+	moreRead();
+});
 	
 </script>	
 
