@@ -61,6 +61,7 @@
 		<div class="mysecDiv">
 		<div class="writeReview">
 			<h2 class="mytit">일반후기 작성</h2>
+			<input type="hidden" value="1" name="reviewType">
 		</div>
 		<div class="writeReview2">
 			<p>- 작성된 후기는 Delight 콘텐츠로 사용될 수 있습니다.<br>

@@ -23,8 +23,8 @@
 		<selectKey	keyProperty="likeCountSeq" resultType="int" order="BEFORE">
 			select likeCount_seq.nextval from dual
 		</selectKey>
-		insert into tbl_like(likeCount_seq,mt20id,userid)
-		values(#{likeCountSeq},#{mt20id},#{userid})
+		insert into tbl_like(likeCount_seq,mt20id,prfnm,userid)
+		values(#{likeCountSeq},#{mt20id},#{prfnm},#{userid})
 	</insert>
 	
 </mapper>
