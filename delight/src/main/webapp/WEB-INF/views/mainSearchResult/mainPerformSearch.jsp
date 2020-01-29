@@ -156,7 +156,7 @@
 	   <!-- 더보기 새로 추가함 -->
 	   <div id="more_btn_div" align="center" style="width: 87%;float: right;" class="pfdetail">
 	   		<!-- <input id="page" name="page" type="text" value=0> -->
-	   		<input id="moreRead" name="moreRead" type="submit" class="btn_1" value="더보기(More)">
+	   		<input id="moreRead" name="moreRead" type="submit" class="btn_1_more" value="더보기(More)">
 	   </div>
 	    
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>" ></script>
@@ -184,23 +184,28 @@ function moreRead(){
 			success: function(res){
 				if(res.length==0){
 					//더 불러올 API 없는 경우
-				}
-				var str="";
-				
-				$.each(res,function(idx,value){
-					if(value.genrenm=='연극' || value.genrenm== '뮤지컬'){
-						str+="<div class = 'testImg'>"
-						+"<img src='"+value.poster+ "' class='img-responsive' width=240px height=240px>"
-						+"<br>"
-						+"<h5><b>"+value.prfnm+"</b></h5>"
-						+"<p>"+value.prfpdfrom+"</p>"
-						+"<p>"+value.prfpdto+"</p>"
-						+"<p>"+value.fcltynm+"<p>"
-						+"<p>"+value.genrenm+"<p>"
-						+"</div>"					
-					}
+					$('#moreRead').attr("class", "btn_1_more disabled");
+					$('#moreRead').text("더 불러올 공연 목록이 없습니다");
+				}else{
+					var str="";
 					
-				});
+					$.each(res,function(idx,value){
+						if(value.genrenm=='연극' || value.genrenm== '뮤지컬'){
+							str+="<div class = 'testImg'>"
+							+"<img src='"+value.poster+ "' class='img-responsive' width=240px height=240px>"
+							+"<br>"
+							+"<h5><b>"+value.prfnm+"</b></h5>"
+							+"<p>"+value.prfpdfrom+"</p>"
+							+"<p>"+value.prfpdto+"</p>"
+							+"<p>"+value.fcltynm+"<p>"
+							+"<p>"+value.genrenm+"<p>"
+							+"</div>"					
+						}
+						
+					});
+					
+				}
+				
 				//클래스 API 뒤에 이어서 붙임 (더보기 버튼)
 				$(".API").append(str);
 				
