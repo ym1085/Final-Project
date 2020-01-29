@@ -2,6 +2,8 @@ package com.fp.delight.email;
 
 import java.util.Calendar;
 
+import com.fp.delight.payment.model.ReservationVO;
+
 public class DM {
    // 기본틀 잡혀있으니 상황별로 내용만 바꿔서 이메일보낼것
    
@@ -227,7 +229,7 @@ public class DM {
    
    //예매내역 매개변수로 ReserVationVO reservationVo 설정
    //vo만든후 주석처리 지우기 메서드안에있는거
-   public static String dmUserReserVation() {
+   public static String dmUserReserVation(ReservationVO reservationVo) {
       
       Calendar now = Calendar.getInstance();
       
@@ -255,12 +257,12 @@ public class DM {
       sb+="예매내역 을 다음과 같이 알려드립니다.";
       sb+="</p>";
       sb+="<p class=\"con\" style=\"font-size:1rem;font-weight:500;letter-spacing:-0.05em;line-height:1.2rem;color:#474747;margin:3vh 0;\">";
-      //sb+="예매날짜 : <strong>"+reservationVo.getresDate+"</strong><br>";
-      //sb+="예매시간 : <strong>"+reservationVo.getselectTime+"</strong><br>";
-      //sb+="구매장수 : <strong>"+reservationVo.getbooking+"</strong><br>";
-      //sb+="좌석등급 : <strong>"+reservationVo.getclass+"</strong><br>";
-      //sb+="예매번호 : <strong>"+reservationVo.getpayTicketNumber+"</strong><br>";
-      //sb+="보시는날짜 : <strong>"+reservationVo.getselectDate+"</strong><br>";
+      sb+="예매날짜 : <strong>"+reservationVo.getSelect_date()+"</strong><br>";
+      sb+="예매시간 : <strong>"+reservationVo.getSelect_time()+"</strong><br>";
+      sb+="구매장수 : <strong>"+reservationVo.getBooking()+"</strong><br>";
+      sb+="좌석등급 : <strong>"+reservationVo.getSeat_class()+"</strong><br>";
+      sb+="예매번호 : <strong>"+reservationVo.getPay_ticket_number()+"</strong><br>";
+      sb+="보시는날짜 : <strong>"+reservationVo.getSelect_date()+"</strong><br>";
       sb+="</p>";
       sb+="<p style=\"font-size:1rem;font-weight:500;letter-spacing:-0.05em;line-height:1.2rem;color:#474747;\">감사합니다.</p>";
       sb+="</div>";
