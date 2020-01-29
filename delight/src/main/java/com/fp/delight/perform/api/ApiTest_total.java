@@ -27,7 +27,7 @@ public class ApiTest_total {
 	   
 	  //공연명 검색할 때, 띄어쓰기 없애기
 	  String name = perfomName;
-	  String PerformName = name.replaceAll(" ", "");
+	  String PerformName = "";/*name.replaceAll(" ", "");*/
 	  
 	  //난수 생성
 	  int randomValue;  

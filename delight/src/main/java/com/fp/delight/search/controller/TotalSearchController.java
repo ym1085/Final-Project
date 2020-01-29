@@ -22,9 +22,9 @@ public class TotalSearchController {
 	@RequestMapping("/totalPerformSearch.do")
 	public String performentList(@RequestParam String type, @RequestParam String sido,
 			@RequestParam String gugun, @RequestParam String stdate, @RequestParam String eddate, 
-			@RequestParam String perfomName, Model model) {
+			@RequestParam(required = false) String perfomName, Model model) {
 		logger.info("공연 API, 공연목록 데이터 출력!");
-		
+		logger.info("sido={},gugun={}",sido,gugun);
 		try {
 			ApiTest_total apiTest = new ApiTest_total();
     		List<PerformentListVO> alist = apiTest.receiveAPI(type, sido, gugun, stdate, eddate, perfomName); 
