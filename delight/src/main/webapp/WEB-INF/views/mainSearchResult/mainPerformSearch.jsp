@@ -165,10 +165,9 @@
 <script type="text/javascript">
 
 /* 더보기 ajax */
-
 function moreRead(){
 	$('#moreRead').click(function() { 
-		$("#page").val($("#page").val()+1);
+		/* $("#page").val($("#page").val()+1); */
 		$.ajax({
 			url:"<c:url value='/mainSearchResult/totalMoreRead.do'/>",
 			type: 'post',
@@ -179,10 +178,13 @@ function moreRead(){
 					"gugun" : $("#gugun").val(),
 					"stdate" : $("#stdate").val(),
 					"eddate" : $("#eddate").val(),
-					page : $("#page").val(),
+					"page" : $("#page").val(),
 					/* "performName" : $("#performName").val(), */					
 				},
 			success: function(res){
+				if(res.length==0){
+					//더 불러올 API 없는 경우
+				}
 				var str="";
 				
 				$.each(res,function(idx,value){
