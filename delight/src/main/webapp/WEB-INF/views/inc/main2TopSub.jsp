@@ -123,6 +123,22 @@ button#sss {
 	float: left;
     padding-left: 72px;
 }
+
+.w3-white, .w3-hover-green:hover {
+    color: white!important;
+    background-color: white!important;
+    margin-left: 25%;
+    border: 0.3px solid lightgray;
+}
+
+.w3-section, .w3-code {
+    margin-top: 26px!important;
+    margin-bottom: 16px!important;
+}
+
+.w3-container.w3-padding-16 {
+    text-align: right;
+}
 </style>
     <!-- 로그인 안된경우 (시작)-->
 			<c:if test="${empty sessionScope.userid }">
@@ -170,7 +186,7 @@ button#sss {
 					<c:if test="${empty memberShipMap['NAME'] }">
 						<div id="buymembershipParent">
 							<p id="buymembership1" >*회원권  : </p>
-							<button style="font-size: 8px;" id="sss">회원권 구매</button>
+							<button style="font-size: 8px;" id="sss" onclick="document.getElementById('id01').style.display='block'">회원권 구매</button>
 						</div>
 					</c:if>
 					
@@ -180,6 +196,45 @@ button#sss {
 						</div>
 					</c:if>
 				</div>
+			
+				<!-- 추가 부분 by 김영민 -->
+					 <!-- <button  class="w3-button w3-green w3-large">Login</button>--> 
+					  <div id="id01" class="w3-modal">
+					    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:500px;height: 400px;">
+					
+					      <form class="w3-container" action="/action_page.php">
+					        <div class="w3-section">
+					          <button style="width: 250px;height: 250px;" class="w3-button w3-white w3-section" type="submit">
+					          		<span id="">DELIGHT_MEMBERSHIP</span>
+					          		<br><br>
+					         		
+					         		<span id="">[1] 회원권 이름<br></span><br>
+									<span id="">DELIGHTMEMBERSHIP</span>
+					          		<br>
+					         		
+					         		<span id="">[2] 혜택</span><br>
+					         		<span id="">시즌동안 추가 10% 할인</span>
+					          		<br>
+					         		
+					         		<span id="">시작일</span><br>
+					         		<span>시작일 들어옴</span>
+					          		<span id="">마감일</span><br>
+					          		<span>마감일 들어옴</span>
+					          		<br>
+					         		
+					         		<span id="">
+					          			
+					          		</span>
+					          </button>
+					        </div>
+					      </form>
+					
+					      <div style="background-color:white; border-top: 0;" class="w3-container w3-padding-16">
+					        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">취소</button>
+					      </div>
+					    </div>
+					  </div>
+				<!--  -->			
 			
 				<div id="q1">
 					<button type="button" class="btn btn-success btn-lg"
