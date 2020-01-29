@@ -198,7 +198,6 @@
 				<span class="pop_bt" style="font-size: 13pt;"> 닫기 </span>
 			</div>
 		</div>
-
 	</div>
 	<!--End Modal-->
 </div>

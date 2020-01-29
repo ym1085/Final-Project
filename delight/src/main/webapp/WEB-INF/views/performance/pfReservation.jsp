@@ -522,9 +522,10 @@
 							<c:if test="${empty map_membership['NAME']}">
 								<p class="fp2">
 									회원권 : <mark id="memberShip" style="color:silver;color: black;">
-											<a href="<c:url value='#'/>">회원권을 구매하시려면 클릭해주세요</a>
+												<a href="<c:url value='#'/>">회원권 구매</a>
 										   </mark>
 								</p>
+								<span class="one4">0%</span>
 							</c:if>
 							
 							<c:if test="${!empty map_membership['NAME']}">
@@ -533,8 +534,9 @@
 										${map_membership['NAME']}
 									</mark>
 								</p>
+							
+								<span class="one4">10%</span>
 							</c:if>
-						<span class="one4">5%</span>
 						<span>적용</span>
 					</div>
 					<div class="i11">
