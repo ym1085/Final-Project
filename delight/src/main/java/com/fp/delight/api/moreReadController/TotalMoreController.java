@@ -1,4 +1,4 @@
-/*package com.fp.delight.api.moreReadController;
+package com.fp.delight.api.moreReadController;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -29,8 +29,8 @@ public class TotalMoreController {
 		String gugun=request.getParameter("gugun");
 		String stdate=request.getParameter("stdate");
 		String eddate=request.getParameter("eddate");
-		String perfomName="";request.getParameter("perfomName");
-		int page=request.getParameter(page);
+		String perfomName="";
+		int page=0;
 		
 		if(perfomName!=null && !perfomName.isEmpty()) {
 			perfomName=perfomName.replace(" ", "");
@@ -56,4 +56,3 @@ public class TotalMoreController {
 		return list;
 	}
 }
-*/
