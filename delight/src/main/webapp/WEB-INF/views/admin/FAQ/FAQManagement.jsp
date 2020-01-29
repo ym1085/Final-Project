@@ -222,7 +222,7 @@ $(function() {
 				$('#frm').submit();
 			}
 		}else{
-			alert("노출 취소 할 이벤트글을 선택해주세요.");
+			alert("삭제 할 FAQ를 선택해주세요.");
 		}
 	});
 	
