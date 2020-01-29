@@ -234,3 +234,68 @@ input.newPerReser {
     background: black;
     color: white;
 }
+div#page{
+	margin: 10px 0;
+	text-align: center;
+	margin-top: 1%;
+	margin-right: 19%;
+}
+#page {
+	text-align: center;
+	margin-top: 50px;
+}
+
+#page a {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	border: 1px solid #ddd;
+	vertical-align: middle;
+	font-size: 13px;
+	color: gray;
+}
+
+#page span {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	border: 1px solid #ddd;
+	vertical-align: middle;
+	font-size: 13px;
+	color: white;
+	background: black;
+	font-weight: bold;
+}
+
+#page a.on, #page a.on:hover, #page a.on:focus {
+	background: #0383ce;
+	font-weight: 600;
+	border-color: #0383ce;
+	color: #fff;
+}
+
+#page a:hover, #page a:focus {
+	border-color: black;
+	background: black;
+	color: white;
+	font-weight: bold;
+}
+
+#page span:hover, #page span:focus {
+	border-color: black;
+}
+
+div#page img {
+	width: 17px;
+	height: 21px;
+	background: none;
+}
+
+#page a.imgblock {
+	border: none;
+	width: 17px;
+	height: 24px;
+	background: none;
+}

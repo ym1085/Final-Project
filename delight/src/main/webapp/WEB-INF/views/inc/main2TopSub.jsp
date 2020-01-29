@@ -48,13 +48,20 @@
     				data:$("form[name=frm123]").serializeArray(),
     				success:function(res){
     					if(res=='Y'){
+      						$("#title").val("");
+    						$("#content").val("");
     						if(!confirm("문의가등록되었습니다.문의내역으로 이동하시겠습니까?")){
     							event.preventDefault();
     						}else{
     							location="<c:url value='/member/myinqueryList.do' />";
-    						}
+    						}  
     					}else if(res=='N'){
     						alert("문의가발송되었습니다.");
+     						$("#name").val("");
+    						$("#email").val("");
+    						$("#hp").val("");
+    						$("#title").val("");
+    						$("#cotent").val(""); 
     					}
     				},
     				error:function(xhr, status, error){
@@ -70,6 +77,8 @@ div.inqinfo1 {
     font-size: 0.9em;
     margin-left: 22px;
     margin-bottom: 11px;
+}
+div.inqinfo1>.inqinfospan {
     color: red;
     font-weight: bold;
 }
@@ -119,7 +128,7 @@ div.inqinfo1 {
 				</div>
 				<div id="q1">
 					<button type="button" class="btn btn-success btn-lg"
-					onClick="location.href='<c:url value="#" />'">마이페이지</button>
+					onClick="location.href='<c:url value="/member/myPage.do" />'">마이페이지</button>
 					<button type="button" class="btn btn-secondary btn-lg"
 					onClick="location.href='<c:url value="/login/logout.do" />'">로그아웃</button>
 				</div>
@@ -130,7 +139,7 @@ div.inqinfo1 {
 			<div style="border: 1px dotted white; width: 100%; margin-top: 11%;"></div>
 			</div>
 			<div class="inqinfo1">
-			<span>*문의답변은 이메일로 발송해드립니다<br>(회원일경우 문의내역에서도 확인가능)</span>
+			<span class="inqinfospan">*문의답변은 이메일로 발송해드립니다<br>(회원일경우 문의내역에서도 확인가능)</span>
 			</div>
 			<form name="frm123">
 				<div class="right_list">

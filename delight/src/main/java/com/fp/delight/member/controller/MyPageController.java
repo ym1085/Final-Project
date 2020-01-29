@@ -24,10 +24,6 @@ public class MyPageController {
 	public void mylike() {
 		
 	}
-	@RequestMapping("/imp/myinquery.do")
-	public void myinquery() {
-		
-	}
 	@RequestMapping("/imp/myreview.do")
 	public void myreview() {
 		
@@ -43,10 +39,6 @@ public class MyPageController {
 	}
 	@RequestMapping("/mylikeList.do")
 	public void mylikeList() {
-		
-	}
-	@RequestMapping("/myinqueryList.do")
-	public void myinqueryList() {
 		
 	}
 	@RequestMapping("/myreviewList.do")

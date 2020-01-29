@@ -12,6 +12,49 @@
 			values(#{inquerySeq},#{inqueryContent},#{inqueryTitle},#{userid},#{username},#{email},#{hp})
 	</insert>
 	
+	<select id="selectNew3" parameterType="string" resultType="inqueryVo">
+		select *
+		from
+		(
+		    select * from tbl_inquery
+		    where userid=#{userid}
+		    order by inquery_seq desc
+		)
+		<![CDATA[
+		where rownum<=3
+		]]>
+	</select>
+	
+	<select id="selectInqDetail" parameterType="inqueryVo" resultType="map">
+		select q.*,(select inqanw_content from tbl_inqAnw a 
+		where a.INQUERY_SEQ=q.inquery_seq) inqAnw
+		from tbl_inquery q 
+		where userid=#{userid} and inquery_seq=#{inquerySeq}
+	</select>
+	
+	<select id="selectInqueryList" parameterType="inqueryVo"
+		resultType="inqueryVo">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		        select * from tbl_inquery
+		   		where userid=#{userid}
+		   		order by inquery_seq desc
+		    )A
+		)
+		where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>	
+	</select>
+	
+	<select id="selectTotalRecord" parameterType="string" resultType="int">
+		select count(*) from tbl_inquery
+		where userid=#{userid}
+	</select>
 	
 </mapper>
 

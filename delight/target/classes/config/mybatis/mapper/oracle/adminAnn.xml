@@ -57,9 +57,9 @@
 			    <include refid="searchWhere2"></include>
 				order by ann_seq desc
 		    ) A
-		) where RNUM>#{firstRecordIndex} 
+		) where RNUM>#{firstRecordIndex2} 
 		<![CDATA[
-		and RNUM<=#{firstRecordIndex}+#{recordCountPerPage}
+		and RNUM<=#{firstRecordIndex2}+#{recordCountPerPage}
 		]]>
 	</select>
 	

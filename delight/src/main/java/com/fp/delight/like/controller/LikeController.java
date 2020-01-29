@@ -27,11 +27,12 @@ public class LikeController {
 	
 	@RequestMapping("/like.do")
 	@ResponseBody
-	public Map<String, Object> like(@RequestParam String perfomid,HttpSession session) {
+	public Map<String, Object> like(@RequestParam String perfomid,
+			@RequestParam String performtitle,HttpSession session) {
 		
 		String userid=(String)session.getAttribute("userid");
 		
-		
+		logger.info("performtitle={}",performtitle);
 		LikeVO likeVo=new LikeVO();
 		Map<String, Object> map=new HashMap<String, Object>();
 		int result=0;
@@ -40,6 +41,7 @@ public class LikeController {
 		if(userid!=null && !userid.isEmpty()) {
 			likeVo.setUserid(userid);
 			likeVo.setMt20id(perfomid);
+			likeVo.setPrfnm(performtitle);
 			result=likeService.selectLike(likeVo);
 			
 			if(result>0) {

@@ -1,10 +1,14 @@
 package com.fp.delight.excel.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.fp.delight.admin.userManagemet.model.MemberManagerService;
 import com.fp.delight.excel.model.AreaGugunVO;
 import com.fp.delight.excel.model.AreaSidoVO;
 import com.fp.delight.excel.model.ExcelService;
+import com.fp.delight.member.model.MemberVO;
 
 @Controller
 public class ExcelController {
@@ -26,6 +33,9 @@ public class ExcelController {
 	
 	@Autowired
 	private ExcelService excelService;
+	
+	@Autowired
+	private MemberManagerService memberManagerService;
 	
 	@RequestMapping("/exceluploadImport.do")
 	public String excelImport() {
@@ -65,6 +75,26 @@ public class ExcelController {
 		model.addAttribute("url", url);
 		
 		return "common/message";
+	}
+	
+	@RequestMapping("/userListExcelDown.do")
+	public ModelAndView downloadExcelFile() {
+		logger.info("엑셀 다운 시작");
+		
+		List<MemberVO> list=memberManagerService.userAll();
+		
+		SXSSFWorkbook workbook=excelService.makeExcelDown(list);
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		
+		map.put("locale", Locale.KOREA);
+		map.put("workbook", workbook);
+		map.put("workbookName", "회원목록");
+		
+		ModelAndView mav=new ModelAndView("excelDownloadView", map);
+        
+        return mav;
+		
 	}
 	
 }

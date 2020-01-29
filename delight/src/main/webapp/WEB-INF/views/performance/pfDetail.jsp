@@ -110,9 +110,10 @@
 		
 		$("#likeBt").click(function(){
 			$.ajax({
-				type:"get",
+				type:"post",
 				url:"<c:url value='/like.do'/>",
-				data:{"perfomid":$("#perfomid").val()},
+				data:{"perfomid":$("#perfomid").val(),
+					"performtitle":$("#performtitle").html()},
 				dataType:"json",
 				success:function(res){
 					$(".llqqllqq").text(res.count);
