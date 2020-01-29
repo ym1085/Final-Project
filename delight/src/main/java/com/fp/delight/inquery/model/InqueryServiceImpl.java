@@ -25,4 +25,14 @@ public class InqueryServiceImpl implements InqueryService{
 	public Map<String, Object> selectInqDetail(InqueryVO inqueryVo) {
 		return inqueryDao.selectInqDetail(inqueryVo);
 	}
+
+	@Override
+	public List<InqueryVO> selectInqueryList(InqueryVO inqueryVo) {
+		return inqueryDao.selectInqueryList(inqueryVo);
+	}
+
+	@Override
+	public int selectTotalRecord(String userid) {
+		return inqueryDao.selectTotalRecord(userid);
+	}
 }

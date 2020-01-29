@@ -1,5 +1,6 @@
 package com.fp.delight.inquery.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fp.delight.common.PaginationInfo;
+import com.fp.delight.common.Utility;
 import com.fp.delight.inquery.model.InqueryService;
 import com.fp.delight.inquery.model.InqueryVO;
 
@@ -58,14 +61,37 @@ public class InqueryController {
 	@RequestMapping("/inqueryDetail.do")
 	@ResponseBody
 	public Object inqdetail(@RequestParam(defaultValue = "0")int inquerySeq,HttpSession session) {
-		//String userid=(String)session.getAttribute("userid");
+		String userid=(String)session.getAttribute("userid");
 		InqueryVO vo=new InqueryVO();
 		vo.setInquerySeq(inquerySeq);
-		//vo.setUserid(userid);
-		
+		vo.setUserid(userid);
+		logger.info("vo.getInquerySeq()={}",vo.getInquerySeq());
 
 		Map<String, Object> map=inqueryService.selectInqDetail(vo);
-		
+		logger.info("map={}",map);
 		return map;
+	}
+	
+	@RequestMapping("/member/myinqueryList.do")
+	public void myinqueryList(@ModelAttribute InqueryVO inqueryVo,HttpSession session,Model model) {
+		String userid=(String)session.getAttribute("userid");
+		inqueryVo.setUserid(userid);
+		
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		pagingInfo.setCurrentPage(inqueryVo.getCurrentPage());
+		
+		inqueryVo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		inqueryVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		List<InqueryVO> list=inqueryService.selectInqueryList(inqueryVo);
+		
+		int totalRecord=inqueryService.selectTotalRecord(userid);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		model.addAttribute("list",list);
+		model.addAttribute("pagingInfo",pagingInfo);
+		
 	}
 }

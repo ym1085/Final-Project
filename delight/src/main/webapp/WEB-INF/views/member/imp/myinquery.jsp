@@ -8,24 +8,24 @@
         jQuery(document).ready(function() {
         	 $("td#sss").each(function(){
         		 $(this).click(function(){
-        			 alert($(this).find("#inqueSeq").val());
-/* 	       			$.ajax({
+ 	       			$.ajax({
 	    				type:"get",
 	    				url:"<c:url value='/inqueryDetail.do'/>",
 	    				data:{"inquerySeq":$(this).find("#inqueSeq").val()},
 	    				success:function(res){
- 	    					if(res.inqueryCondition=='Y'){
+ 	    					if(res.INQUERY_CONDITION=='Y'){
 	    						alert("답변예정입니다!");
-	    					}else if(res.inqueryCondition=='N'){
-		    					$("#inqcontent").html(res.inqueryContent);
-		    					$("#inqtitle").html(res.inqueryTitle);
+	    					}else if(res.INQUERY_CONDITION=='N'){
+		    					$("#inqtitle").html(res.INQUERY_TITLE);
+		    					$("#inqcontent").html(res.INQUERY_CONTENT);
+		    					$("#inqAnw").html(res.INQANW);
 		    					$('#myModal').show();
 	    					}
 	    				},
 	    				error:function(xhr, status, error){
 	    					alert("Error : "+status+", "+ error);
 	    				}
-	    			});	 */
+	    			});	 
 	               	
         		 });
         	 });
@@ -101,13 +101,13 @@
  
       <!-- Modal content -->
       <div class="modal-content">
-                <p style="text-align: center;"><span style="font-size: 14pt;"><b><span style="font-size: 24pt;">제목넣어줘</span></b></span></p>
+                <p style="text-align: center;"><span style="font-size: 14pt;">제목:<b><span id="inqtitle" style="font-size: 18pt;color: black;"></span></b></span></p>
                 <p style="text-align: center; line-height: 1.5;"><br /></p>
                 <div class="inq1" style="border-bottom: 1px solid gray;">
-                <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">문의내용</span></p>
+                <p style="text-align: center; line-height: 1.5;"><span id="inqcontent" style="font-size: 14pt;"></span></p>
                 </div>
                 <div class="inq1">
-                <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">답변내용</span></p>
+                <p style="text-align: center; line-height: 1.5;"><span id="inqAnw" style="font-size: 14pt;"></span></p>
                 </div>
                 <p style="text-align: center; line-height: 1.5;"><br /></p>
             <div id="ssss" style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;">

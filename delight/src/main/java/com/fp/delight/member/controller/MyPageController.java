@@ -41,10 +41,6 @@ public class MyPageController {
 	public void mylikeList() {
 		
 	}
-	@RequestMapping("/myinqueryList.do")
-	public void myinqueryList() {
-		
-	}
 	@RequestMapping("/myreviewList.do")
 	public void myreviewList() {
 		

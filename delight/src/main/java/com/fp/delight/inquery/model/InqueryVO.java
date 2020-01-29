@@ -2,7 +2,9 @@ package com.fp.delight.inquery.model;
 
 import java.sql.Timestamp;
 
-public class InqueryVO {
+import com.fp.delight.common.SearchVO;
+
+public class InqueryVO extends SearchVO{
 	private int inquerySeq;
 	private String inqueryContent;
 	private Timestamp regDate;

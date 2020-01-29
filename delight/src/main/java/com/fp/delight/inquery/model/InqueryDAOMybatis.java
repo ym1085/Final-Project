@@ -29,5 +29,15 @@ public class InqueryDAOMybatis implements InqueryDAO{
 	public Map<String, Object> selectInqDetail(InqueryVO inqueryVo) {
 		return sqlSession.selectOne(namespace+"selectInqDetail",inqueryVo);
 	}
+
+	@Override
+	public List<InqueryVO> selectInqueryList(InqueryVO inqueryVo) {
+		return sqlSession.selectList(namespace+"selectInqueryList",inqueryVo);
+	}
+
+	@Override
+	public int selectTotalRecord(String userid) {
+		return sqlSession.selectOne(namespace+"selectTotalRecord",userid);
+	}
 	
 }
