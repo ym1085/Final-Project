@@ -30,17 +30,7 @@ $(function() {
 		$("form[name=frmPage]").submit();
 	});
 
-	
-	$("#eventExposure").click(function() {
-		if($("#event tbody input[type=checkbox]:checked").length>0){
-			$('form[name=frmSearch2]').prop("action",
-			"<c:url value='/admin/announcement/entmultiex.do'/>");	
-			$('form[name=frmSearch2]').submit();
-		}else{
-			alert("노출할 이벤트글을 선택해주세요.");
-		}
-	});
-	
+
 	
 	$("#normal thead input[type=checkbox]").click(function(){
 		$("#normal tbody input[type=checkbox]")
@@ -74,8 +64,8 @@ $(function() {
 	
 	$("table a").each(function() {
 		$(this).click(function() {
-			var seq=$(this).parent().parent().find("input[type=checkbox]").val();
-			window.open("/delight/admin/announcement/annDetail.do?annSeq="+seq,"detail",
+			var id=$(this).parent().parent().find("input[type=checkbox]").val();
+			window.open("/delight/admin/userManagement/paymentList.do?userid="+id,"detail",
 			"width=800,height=890,left=0,top=0,location=yes,resizable=no");
 			
 		});
@@ -203,7 +193,7 @@ $(function() {
 				<td><input type="checkbox" id="chk_${idx }" 
 						name="memberList[${idx }].userid" 
 						value="${vo.userid }"></td>
-				<td>${vo.userid }
+				<td><a href="#" title="결제목록보기">${vo.userid }</a>
 				</td>
 				<td>${vo.birth }</td>
 				<td>${vo.gender }</td>
@@ -321,7 +311,7 @@ $(function() {
 				<td><input type="checkbox" id="chk2_${idx2 }" 
 						name="memberList[${idx2 }].userid" 
 						value="${map['USERID'] }"></td>
-				<td>${map['USERID'] }
+				<td><a href="#" title="결제목록 보기">${map['USERID'] }</a>
 				</td>
 				<td>${map['BIRTH'] }</td>
 				<td>${map['GENDER'] }</td>

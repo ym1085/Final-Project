@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.admin.model.AdminLoginService;
 import com.fp.delight.member.model.MemberService;
@@ -79,4 +80,56 @@ public class AdminController {
 		return "common/message";
 	}
 	
+	@RequestMapping("/adminLogout.do")
+	public String adminLogout(HttpSession session) {
+		String userid=(String) session.getAttribute("adminUserid");
+		
+		logger.info("관리자 로그아웃 파라미터 userid={}",userid);
+		
+		int cnt=adminLoginService.adminLogout(userid);
+		
+		if(cnt>0) {
+			session.removeAttribute("adminUserid");
+			session.removeAttribute("adminUserName");
+		}
+		
+		return "redirect:/index.do";
+	}
+	
+	@RequestMapping("/adminLogout2.do")
+	public String adminLogout2(HttpSession session) {
+		String userid=(String) session.getAttribute("adminUserid");
+		
+		logger.info("관리자 로그아웃 파라미터 userid={}",userid);
+		
+		int cnt=adminLoginService.adminLogout(userid);
+		
+		if(cnt>0) {
+			session.removeAttribute("adminUserid");
+			session.removeAttribute("adminUserName");
+		}
+		
+		return "redirect:/admin/adminLogin.do";
+	}
+	
+	@RequestMapping(value="/adminPwdCg.do", method = RequestMethod.GET)
+	public void adminPwdCg() {
+		logger.info("관리자 비밀번호 변경 화면 보이기");
+	}
+	
+	@RequestMapping(value="/adminPwdCg.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int adminPwdCg_post(@RequestParam String currPwd,
+			@RequestParam String cgPwd, HttpSession session) {
+		String userid=(String) session.getAttribute("adminUserid");
+		logger.info("관리자 비밀번호 변경 id={}",userid);
+		logger.info("파라미터 cgPwd={}",cgPwd);
+		MemberVO vo=new MemberVO();
+		vo.setUserid(userid);
+		vo.setPassword(cgPwd);
+		
+		int res=adminLoginService.adminPwdCg(vo);
+		
+		return res;
+	}
 }
