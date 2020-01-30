@@ -20,10 +20,7 @@ public class MyPageController {
 	public void mysecCan() {
 		
 	}
-	@RequestMapping("/imp/mylike.do")
-	public void mylike() {
-		
-	}
+
 	@RequestMapping("/imp/myreview.do")
 	public void myreview() {
 		
@@ -37,20 +34,17 @@ public class MyPageController {
 	public void mysecCanList() {
 		
 	}
-	@RequestMapping("/mylikeList.do")
-	public void mylikeList() {
-		
-	}
-	@RequestMapping("/myinqueryList.do")
-	public void myinqueryList() {
-		
-	}
+
 	@RequestMapping("/myreviewList.do")
 	public void myreviewList() {
 		
 	}
-	@RequestMapping("/mysnewPer.do")
+	@RequestMapping("/imp/mynewPer.do")
 	public void mysnewPer() {
+		
+	}
+	@RequestMapping("/mysnewPerList.do")
+	public void mysnewPerList() {
 		
 	}
 	@RequestMapping("/myWriteReview.do")

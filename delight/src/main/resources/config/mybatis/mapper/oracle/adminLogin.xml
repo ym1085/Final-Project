@@ -12,6 +12,17 @@
 		select * from tbl_user where grade_name='admin' and userid=#{userid}
 	</select>
 	
+	<update id="adminLogout" parameterType="string">
+		update tbl_user
+		set logout_date=sysdate
+		where grade_name='admin' and userid=#{userid} 
+	</update>
+	
+	<update id="adminPwdCg" parameterType="memberVo">
+		update tbl_user
+		set password=#{password}
+		where grade_name='admin' and userid=#{userid}
+	</update>
 </mapper>
 
 

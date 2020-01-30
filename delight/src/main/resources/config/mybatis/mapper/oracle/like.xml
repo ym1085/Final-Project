@@ -23,9 +23,52 @@
 		<selectKey	keyProperty="likeCountSeq" resultType="int" order="BEFORE">
 			select likeCount_seq.nextval from dual
 		</selectKey>
-		insert into tbl_like(likeCount_seq,mt20id,userid)
-		values(#{likeCountSeq},#{mt20id},#{userid})
+		insert into tbl_like(likeCount_seq,mt20id,prfnm,userid,genre)
+		values(#{likeCountSeq},#{mt20id},#{prfnm},#{userid},#{genre})
 	</insert>
+	
+	<select id="selectLikeNew5List" parameterType="string" resultType="map">
+		select A.*
+		from
+		(
+		select likecount_seq,prfnm,genre,mt20id,(select count(*)
+		from tbl_like b
+		where b.mt20id=a.mt20id) LA
+		from tbl_like a
+		where userid=#{userid}
+		order by likecount_seq desc
+		) A
+		<![CDATA[
+		where rownum<=7
+		]]>	
+	</select>
+	
+	<select id="selectLikeList2" parameterType="likeVo"
+		resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		        select likecount_seq,prfnm,genre,mt20id,(select count(*)
+				from tbl_like b
+				where b.mt20id=a.mt20id) LA
+				from tbl_like a
+				where userid=#{userid}
+				order by likecount_seq desc
+		    )A
+		)
+		where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>	
+	</select>
+	
+	<select id="selectTotalRecord" parameterType="string" resultType="int">
+		select count(*) from tbl_like
+		where userid=#{userid}
+	</select>
 	
 </mapper>
 

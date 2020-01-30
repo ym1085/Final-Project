@@ -84,4 +84,9 @@ public class MemberDAOMybatis implements MemberDAO{
 		return sqlSession.selectOne(namespace+"selectMemberShip", userid);
 	}
 
+	@Override
+	public int buymemberShip(PremiumVO premiumVo) {
+		return sqlSession.insert(namespace+"buymemberShip", premiumVo);
+	}
+
 }

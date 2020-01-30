@@ -57,7 +57,7 @@
 
 				<tbody id="mybody">
 					<!-- 반복 시작-->
-					<tr>
+					<tr class="likeTr">
 						<td style="text-align: left">
 							<div>
 								<img alt="" src="<c:url value='/resources/images/del3.jpg' />">

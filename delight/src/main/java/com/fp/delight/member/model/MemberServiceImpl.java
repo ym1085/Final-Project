@@ -128,4 +128,9 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.selectMemberShip(userid);
 	}
 
+	@Override
+	public int buymemberShip(PremiumVO premiumVo) {
+		return memberDao.buymemberShip(premiumVo);
+	}
+
 }

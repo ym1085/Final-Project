@@ -46,13 +46,27 @@
    .tabmenu input:checked ~ .tabCon{display:block;border-top: 0.2px solid #efe7e7;}
    
    /* 포스터 이미지 */
-   .testImg{
+   .testImg {
    	text-align: center;
    	float: left;
    	margin-left: 20px;
    	margin-right: 20px;
    	margin-top: 20px;
    	margin-bottom: 20px;
+   }
+   
+   /* 더보기버튼 */
+   .btn_moreRead {
+   		display: inline-block;
+		padding: 13px 30px;
+		border-radius: 0;
+		font-size: 16px;
+		color: #fff;
+		text-transform: capitalize;
+		-webkit-transition: 0.5s;
+		transition: 0.5s;
+		background-color: rgb(255, 0, 102);
+		font-weight: 500;
    }
 }
 </style>
@@ -94,17 +108,8 @@
    			<form action="<c:url value="/mainSearchResult/totalPerformSearch.do"/>" method="post">
    			
    			<span>장르</span>
-			<select id="type" name="type" style="width:100px;height:40px;font-size:15px;" required="required">
-				<option value="">
-					<c:choose> 
-						<c:when test="${param.type=='AAAA' }"> 
-							연극
-						</c:when> 
-						<c:when test="${param.type=='AAAB' }"> 
-							뮤지컬 
-						</c:when> 
-					</c:choose>
-				</option>
+			<select id="type" name="type" style="width:100px;height:40px;font-size:15px;">
+				<option value="">선택</option>
 				<option value="AAAA">연극</option>
 				<option value="AAAB">뮤지컬</option>
 			</select>&nbsp;&nbsp;
@@ -122,12 +127,12 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			
 			<span>공연명</span>
-			<input type="text" id="perfomName" name="perfomName" value="${param.perfomName }"
+			<input type="text" id="perfomName" name="performName" value="${param.performName }"
 				style="width:150px;height:40px;font-size:15px;">
 			&nbsp;&nbsp;
 				
 			<input id="pSearch" name="pSearch" type="submit" class="btn_1" value="검색"><br>
-			
+					
 			</form>	
    		</div>  		
    </div>
@@ -138,7 +143,9 @@
 		   	<c:forEach var = "vo" items="${alist }">    
 				<c:if test="${vo.genrenm == '연극' || vo.genrenm == '뮤지컬'}">      	
 					<div class = "testImg">
-				    	<img src="${vo.poster }" class="img-responsive" width="240px" height="240px">
+						<a href="<c:url value='/performance/pfDetail.do?perfomid=${vo.mt20id}'/>">
+				    		<img src="${vo.poster }" class="img-responsive" width="240px" height="240px">
+				    	</a>
 				        	<br>
 				            <h5><b>${vo.prfnm }</b></h5> 
 							<p>${vo.prfpdfrom }</p> 
@@ -150,29 +157,136 @@
 			</c:forEach>	 
 		   </div>
 	   </div>
-	   <!-- 페이지 만들떄마다 복붙 -->
-	   <!-- div안에서작업 그외엔 건들지말것 -->
 	   
+	   <!-- 더보기 새로 추가함 -->
+	   <div id="more_btn_div" align="center" style="width: 87%;float: right;" class="pfdetail">
+	   		<!-- value값에 정수로 저장되어있어도 넘길때 String으로 넘긴다 -->
+	   		<input id="page" name="page" type="text" value="1" > <!-- hidden="hidden" -->
+	   		<input id="moreRead" name="moreRead" type="submit" class="btn_moreRead" value="더보기(More)">
+	   </div>
+	    
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>" ></script>
 <link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.min.css'/>">
 
 <script type="text/javascript">
 
+/* 더보기 ajax */
+function moreRead(){
+	$('#moreRead').click(function() { 
+		var page = parseInt($('input[name=page]').val());
+		var pageIndex = page+1;
+		$("#page").val(pageIndex);
+		
+		$.ajax({
+			url:"<c:url value='/mainSearchResult/totalMoreRead.do'/>",
+			type: 'post',
+			data : 
+				{
+					"type" : $("#type").val(),
+					"sido" : $("#sido").val(),
+					"gugun" : $("#gugun").val(),
+					"stdate" : $("#stdate").val(),
+					"eddate" : $("#eddate").val(),
+					"pageIndex" : $("#page").val()
+					/* "performName" : $("#performName").val(), */					
+				},
+			success: function(res){
+				 if(res.length==0){ 
+					//더 불러올 API 없는 경우
+					$('#moreRead').attr("class", "btn_moreRead disabled");
+					$('#moreRead').text("더 불러올 공연 목록이 없습니다");
+					
+				 }else{ 
+					//불러올 API 있는 경우
+					var str="";
+					
+					$.each(res,function(idx,value){
+						if(value.genrenm=='연극' || value.genrenm== '뮤지컬'){
+							str+="<div class = 'testImg'>"
+							+"<img src='"+value.poster+ "' class='img-responsive' width=240px height=240px>"
+							+"<br>"
+							+"<h5><b>"+value.prfnm+"</b></h5>"
+							+"<p>"+value.prfpdfrom+"</p>"
+							+"<p>"+value.prfpdto+"</p>"
+							+"<p>"+value.fcltynm+"<p>"
+							+"<p>"+value.genrenm+"<p>"
+							+"</div>"					
+						}
+						
+					});
+					
+				  }  
+				
+				//클래스 API 뒤에 이어서 붙임 (더보기 버튼)
+				$(".API").append(str);
+				
+			},
+			
+			error: function(xhr, status, error){
+				alert(error);
+			}			
+		});/* ajax */
+		
+		//기본 이벤트 제거
+		event.preventDefault();
+		
+	});/* moreRead.click*/
+}/* function moreRead()*/
+
+
+/* 장르 - 사용자가 선택한 값 고정시키기 */
+$(function(){
+	$("#type option").each(function(){
+		if($(this).val()=='${param.type}'){
+			$(this).prop("selected","selected");
+		}
+	}); 
+});
+	
+
+/* 시도 구군 - 사용자가 선택한 값 고정시키기 */
+$(function(){
+	
+	$("#sido option").each(function(){
+		if($(this).val()=='${param.sido}'){
+			$(this).prop("selected","selected");
+		}
+	});
+	
+	$("#sido").trigger("change");
+	
+	moreRead();
+});
+	
+	
+/* 날짜 */
+$(function(){
+	
 	$("#stdate").datepicker({changeYear: true,dateFormat: "yymmdd",
 		maxDate: /* "+1m +15d", */	"+6m",
 		minDate: "-6m",
 		showOtherMonths: true,
 		dayNamesMin: ["일","월","화","수","목","금","토"],
 		monthNames: ["1월","2월","3월","4월","5월","6월",
-			"7월","8월","9월","10월","11월","12월"]});
-	
+				"7월","8월","9월","10월","11월","12월"]});
+		
 	$("#eddate").datepicker({changeYear: true,dateFormat: "yymmdd",
 		maxDate: "6m",
 		minDate: "-6m",
 		showOtherMonths: true,
 		dayNamesMin: ["일","월","화","수","목","금","토"],
 		monthNames: ["1월","2월","3월","4월","5월","6월",
-			"7월","8월","9월","10월","11월","12월"]}); 
+				"7월","8월","9월","10월","11월","12월"]}); 
+	
+	$("#stdate").each(function(){
+		if($(this).val()=='${param.stdate}'){
+			$(this).prop("selected","selected");
+		} 
+		/* var date = $('#date').val();
+		alert(date); */
+	}); 
+	
+});
 	
 </script>	
 

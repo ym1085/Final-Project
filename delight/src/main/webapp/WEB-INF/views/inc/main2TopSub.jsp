@@ -3,8 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-	
+
+
 <script type="text/javascript">
+	var ctx = "/delight";
+	
 	$(function(){
 		$("form[name=frm123]").submit(function(){
 			var email=$("#email").val();
@@ -48,20 +51,20 @@
     				data:$("form[name=frm123]").serializeArray(),
     				success:function(res){
     					if(res=='Y'){
-    						$("#title").val("");
+      						$("#title").val("");
     						$("#content").val("");
     						if(!confirm("문의가등록되었습니다.문의내역으로 이동하시겠습니까?")){
     							event.preventDefault();
     						}else{
     							location="<c:url value='/member/myinqueryList.do' />";
-    						}
+    						}  
     					}else if(res=='N'){
     						alert("문의가발송되었습니다.");
-    						$("#name").val("");
+     						$("#name").val("");
     						$("#email").val("");
     						$("#hp").val("");
     						$("#title").val("");
-    						$("#cotent").val("");
+    						$("#cotent").val(""); 
     					}
     				},
     				error:function(xhr, status, error){
@@ -70,16 +73,16 @@
     			});	
 			}
 		});
+	
+		/* $("#buymembership2").click(function(){
+			window.open(ctx+"/member/mymemberShip.do","맴버십 구입",
+			"width=550,height=450,left=600,top=350,location=yes,resizable=yes");
+		}); */
+		
 	});
 </script>
 <style type="text/css">
-div.inqinfo1 {
-    font-size: 0.9em;
-    margin-left: 22px;
-    margin-bottom: 11px;
-    color: red;
-    font-weight: bold;
-}
+
 </style>
     <!-- 로그인 안된경우 (시작)-->
 			<c:if test="${empty sessionScope.userid }">
@@ -123,13 +126,28 @@ div.inqinfo1 {
 					<p>*마일리지 : <fmt:formatNumber value="${memberVo.mileagePoint }" pattern="#,###" /> 원</p>
 					<p>*멤버십 등급 : ${memberVo.gradeName }</p>
 					<p>*가입일 : <fmt:formatDate value="${memberVo.joinDate }" pattern="yyyy-MM-dd"/></p>
+					
+					<c:if test="${empty memberShipMap['NAME'] }">
+						<div id="buymembershipParent" style="overflow: hidden; text-align: center; padding-left: 25%;">
+							<p id="buymembership1" style="float: left;">*회원권  : </p>
+							<button style="font-size: 8px; float: left;">회원권 구매</button>
+						</div>
+					</c:if>
+					
+					<c:if test="${!empty memberShipMap['NAME'] }">
+						<div id="buymembershipParent2">
+							<p id="buymembership3">*회원권  : ${memberShipMap['NAME']}</p>
+						</div>
+					</c:if>
 				</div>
+			
 				<div id="q1">
 					<button type="button" class="btn btn-success btn-lg"
-					onClick="location.href='<c:url value="#" />'">마이페이지</button>
+					onClick="location.href='<c:url value="/member/myPage.do" />'">마이페이지</button>
 					<button type="button" class="btn btn-secondary btn-lg"
 					onClick="location.href='<c:url value="/login/logout.do" />'">로그아웃</button>
 				</div>
+				
 			<div id="q3">
 			<ul>
 				<li style="color:white;">문의하기</li>
@@ -137,7 +155,7 @@ div.inqinfo1 {
 			<div style="border: 1px dotted white; width: 100%; margin-top: 11%;"></div>
 			</div>
 			<div class="inqinfo1">
-			<span>*문의답변은 이메일로 발송해드립니다<br>(회원일경우 문의내역에서도 확인가능)</span>
+			<span class="inqinfospan">*문의답변은 이메일로 발송해드립니다<br>(회원일경우 문의내역에서도 확인가능)</span>
 			</div>
 			<form name="frm123">
 				<div class="right_list">

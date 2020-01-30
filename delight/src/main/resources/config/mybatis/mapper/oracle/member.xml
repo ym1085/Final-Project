@@ -3,7 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="config.mybatis.mapper.oracle.member">
-
 	
 	<select id="selectPwd" parameterType="string" resultType="string">
 		select password from tbl_user
@@ -88,6 +87,15 @@
 	<select id="getSaltById" resultType="string" parameterType="string">
 		select salt from tbl_user where userid=#{userid}
 	</select>
+	
+	<insert id="buymemberShip" parameterType="premiumVo">
+		<selectKey resultType="int" keyProperty="premium_seq" order="BEFORE">
+			select premium_seq.nextval from dual
+		</selectKey>
+		
+		insert into tbl_premium(premium_seq, name, detail, start_date, end_date, userid)
+		values(#{premium_seq}, #{name}, ${detail}, sysdate, add_months(to_char(sysdate,'YYYY-MM-DD'),6), #{userid})
+	</insert>
 	
 </mapper>
 

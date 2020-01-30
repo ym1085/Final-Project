@@ -33,5 +33,15 @@ public class AdminLoginServiceImpl implements AdminLoginService{
 		return adminLoginDao.selectAdmin(userid);
 	}
 
+	@Override
+	public int adminLogout(String userid) {
+		return adminLoginDao.adminLogout(userid);
+	}
+
+	@Override
+	public int adminPwdCg(MemberVO memberVo) {
+		return adminLoginDao.adminPwdCg(memberVo);
+	}
+
 	
 }
