@@ -45,6 +45,8 @@
 			<mapping path="/member/memberOut.do"/> 
 			<mapping path="/member/myPage.do"/>
 			<mapping path="/member/myinqueryList.do"/>
+			<mapping path="/member/mylike.do"/>
+			<mapping path="/member/mylikeList.do"/>
 			<beans:ref bean="loginInterceptor"/>  <!-- 로그인 인터셉터 파일명 맨앞소문자  -->
 		</interceptor>
 		

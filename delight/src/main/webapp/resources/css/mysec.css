@@ -38,7 +38,7 @@ th#heading {
 .mytitSubre {
 	float: left;
 	line-height: 2.5;
-	margin-left: 79.5%;
+	margin-left: 80.5%;
 	text-decoration: underline;
 }
 
@@ -52,7 +52,14 @@ th#heading {
 .mytitSublike {
 	float: left;
 	line-height: 2.5;
-	margin-left: 77.5%;
+	margin-left: 76.5%;
+	text-decoration: underline;
+}
+
+.mytitSubnewper {
+	float: left;
+	line-height: 2.5;
+	margin-left: 71.5%;
 	text-decoration: underline;
 }
 
@@ -65,19 +72,25 @@ th#heading {
 	height: 120px;
 }
 
+#mybody .likeTr {
+	height: 59px;
+}
+
 #mybody div, img {
-	width: 91px;
-	height: 103px;
+	width: 101px;
+	height: 149px;
 	float: left;
 }
 
 .mybodyP {
-	margin-top: 10%;
-	margin-left: 30%;
+	margin-top: 18%;
+	margin-left: 32%;
 }
 
 .mybodylikeP {
-	margin-left: 9.4%;
+	font-weight: bold;
+	color: black;
+	padding-left: 10px;
 }
 
 .mybodylikeP:first-of-type {
@@ -192,54 +205,60 @@ input#btDay7 {
 	margin-left: 60px;
 }
 
-.cansleList .cansleTitle{
+.cansleList .cansleTitle {
 	height: 100%;
 	float: left;
 	color: black;
 	font-weight: bold;
 	margin-left: 1%;
-	
-	
 }
+
 input.cansleSub {
-    outline: none;
-    margin-left: 37%;
-    margin-top: 1.5%;
-    width: 98px;
-    height: 37px;
-    border: 0;
-    background: black;
-    color: white;
-    font-weight: bold;
+	outline: none;
+	margin-left: 37%;
+	margin-top: 1.5%;
+	width: 98px;
+	height: 37px;
+	border: 0;
+	background: black;
+	color: white;
+	font-weight: bold;
 }
-.cansleList p{
+
+.cansleList p {
 	margin-left: 16%;
 }
-.cansleList .gkfdls{
+
+.cansleList .gkfdls {
 	color: red;
 	font-weight: bold;
 }
-.cansletjfaud{
+
+.cansletjfaud {
 	margin: 15px 5px;
 	font-weight: bold;
 }
-.mysecCansle{
+
+.mysecCansle {
 	text-decoration: underline;
 }
+
 input.newPerReser {
-    width: 89px;
-    height: 34px;
-    outline: none;
-    border: none;
-    background: black;
-    color: white;
+	width: 89px;
+	height: 34px;
+	outline: none;
+	border: none;
+	background: black;
+	color: white;
 }
-div#page{
+
+div#page {
 	margin: 10px 0;
 	text-align: center;
 	margin-top: 1%;
 	margin-right: 19%;
 }
+
 #page {
 	text-align: center;
 	margin-top: 50px;
@@ -298,4 +317,50 @@ div#page img {
 	width: 17px;
 	height: 24px;
 	background: none;
+}
+
+img.likeListimg {
+	width: 25px;
+	height: 25px;
+}
+
+td.likeTd {
+	width: 146px;
+}
+
+td.likeTd>.mybodylikeP {
+	width: 400px;
+	float: left;
+	padding-left: 10px;
+}
+
+td.likeTd>.mybodylikeimg {
+	width: 60px;
+	float: left;
+	margin-top: 10px;
+	margin-left: 24%;
+}
+
+td.likeTd>.mybodylikeimgList {
+	width: 60px;
+	float: left;
+	margin-top: 10px;
+	margin-left: 55%;
+}
+
+td.likeTd>.mybodylikeimg>span {
+	width: 17px;
+	height: 21px;
+	margin-left: 15%;
+}
+
+input#mybodylikeCan {
+	margin-top: 10px;
+	margin-left: 34px;
+	width: 104px;
+	height: 100%;
+	border: none;
+	background: black;
+	color: white;
+	font-weight: bold;
 }

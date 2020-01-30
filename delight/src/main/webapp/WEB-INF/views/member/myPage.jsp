@@ -37,9 +37,10 @@
 	<hr class="mysecLine">
 	<c:import url="/member/imp/mysec.do"></c:import>
 	<c:import url="/member/imp/mysecCan.do"></c:import>
-	<c:import url="/member/imp/mylike.do"></c:import>
 	<c:import url="/member/imp/myinquery.do"></c:import>
 	<c:import url="/member/imp/myreview.do"></c:import>
+	<c:import url="/member/imp/mylike.do"></c:import>
+	<c:import url="/member/imp/mynewPer.do"></c:import>
 	</div>
 	<!-- div안에서작업 그외엔 건들지말것 -->
 	
