@@ -124,20 +124,64 @@ button#sss {
     padding-left: 72px;
 }
 
-.w3-white, .w3-hover-green:hover {
-    color: white!important;
-    background-color: white!important;
-    margin-left: 25%;
-    border: 0.3px solid lightgray;
-}
-
 .w3-section, .w3-code {
     margin-top: 26px!important;
     margin-bottom: 16px!important;
 }
 
 .w3-container.w3-padding-16 {
-    text-align: right;
+    text-align: center;
+}
+
+#membershipName{
+    padding-left: 25px;
+	color: white;
+	font-size: 1.5em;
+	border: 0;
+	background: #ef3b3b;
+	width: 250px;
+}
+
+#membershipDetail{
+	color: white;
+	font-size: 1.2em;
+	margin-left: 40px;
+	border: 0;
+	background: #ef3b3b;
+	width: 200px;
+}
+
+#membershipStartDate{
+	color: white;
+	font-size: 1.2em;
+	margin-left: 25px;
+}
+
+#membershipEndDate{
+	color: white;
+	font-size: 1.4em;
+	margin-left: 93px;
+}
+
+.w3-button.w3-green{
+	border: 0.3px solid lightgray;
+    border-radius: 10px;
+}
+
+.w3-section{
+	background-color: #ef3b3b!important;
+    margin-left: 25%;
+    border: 0.3px solid lightgray;
+    border-radius: 15px;
+    padding: 55px 0px;
+}
+.w3-blue{
+	border: 0.3px solid lightgray;
+    border-radius: 10px;
+}
+
+input:focus { 
+	outline: none;
 }
 </style>
     <!-- 로그인 안된경우 (시작)-->
@@ -202,36 +246,22 @@ button#sss {
 					  <div id="id01" class="w3-modal">
 					    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:500px;height: 400px;">
 					
-					      <form class="w3-container" action="/action_page.php">
-					        <div class="w3-section">
-					          <button style="width: 250px;height: 250px;" class="w3-button w3-white w3-section" type="submit">
-					          		<span id="">DELIGHT_MEMBERSHIP</span>
-					          		<br><br>
-					         		
-					         		<span id="">[1] 회원권 이름<br></span><br>
-									<span id="">DELIGHTMEMBERSHIP</span>
-					          		<br>
-					         		
-					         		<span id="">[2] 혜택</span><br>
-					         		<span id="">시즌동안 추가 10% 할인</span>
-					          		<br>
-					         		
-					         		<span id="">시작일</span><br>
-					         		<span>시작일 들어옴</span>
-					          		<span id="">마감일</span><br>
-					          		<span>마감일 들어옴</span>
-					          		<br>
-					         		
-					         		<span id="">
-					          			
-					          		</span>
-					          </button>
+					      <form class="w3-container" action="<c:url value='/member/buyMembership.do'/>">
+					        <div class="w3-section" style="width: 250px;height: 250px;">
+				          		<input type="text" name="membershipName" id="membershipName" value="DelightPremium" readonly="readonly">
+				          		<br><br>
+				         		<input type="text" name="membershipDetail" id="membershipDetail" value="시즌동안 추가:10" readonly="readonly">
+				          		<br><br>
+				         		<span id="membershipStartDate">구매 한 날 부터-3개월</span>
+				          		<br>
 					        </div>
-					      </form>
+						      
+						      <div style="background-color:white; border-top: 0;" class="w3-container w3-padding-16">
+					            <button class="w3-button w3-blue" type="submit">회원권 구매</button>
+						        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-green">취소</button>
+						      </div>
+						  </form>
 					
-					      <div style="background-color:white; border-top: 0;" class="w3-container w3-padding-16">
-					        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">취소</button>
-					      </div>
 					    </div>
 					  </div>
 				<!--  -->			

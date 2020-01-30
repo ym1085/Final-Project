@@ -221,7 +221,6 @@
          <!-- 유저 아이디가 체크용 -->
          <!-- 유저 아이디 Null || ym1085 -->
          <input type="hidden" name="certifiedUserid" id="certifiedUserid" value="${chkuserid}">
-         
          <input type="hidden" name="select_date" id="select_date" value="${select_date}">
          <input type="hidden" name="select_time" id="select_time" value="${select_time}">
          <input type="hidden" name="seat_class" id="seat_class" value="${seat_class}">

@@ -18,4 +18,5 @@ public interface MemberDAO {
 	String getSaltById(String userid);
 	Map<String, Object> selectMemberGrade(String userid);
 	Map<String, Object> selectMemberShip(String userid);
+	int buymemberShip(PremiumVO premiumVo);
 }
