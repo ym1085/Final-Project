@@ -50,10 +50,10 @@
                 </div>
               </a>
               <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="#" id="pwdcg">
                   <i class="mdi mdi-cached mr-2 text-success"></i> 비밀번호 변경 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="<c:url value='/admin/adminLogout.do'/>">
+                <a class="dropdown-item" href="#" id="logout">
                   <i class="mdi mdi-logout mr-2 text-primary"></i> 로그아웃 </a>
               </div>
             </li>
@@ -65,7 +65,7 @@
 
 
             <li class="nav-item nav-logout d-none d-lg-block">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="#" id="out">
                 <i class="mdi mdi-power"></i>
               </a>
             </li>
@@ -136,7 +136,7 @@
                   <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/gradeManagement.do'/>" > 
 				  등급별 혜택 관리 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/userList.do'/>"> 
-				  회원목록 </a></li>
+				  회원/회원별 결제목록 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/inqueryList.do'/>"> 
 				  문의목록 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="#"> 
@@ -158,17 +158,33 @@
               <div class="collapse" id="sell">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="#"> 
-				  환불/결제내역 </a></li>
+				  환불신청 내역 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/salesSetting.do'/>" > 
 				  판매수량 설정</a></li>
 				  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/settingList.do'/>" > 
 				  판매수량 설정 목록 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/salesDiscount.do'/>" > 
 				  특별공연 할인</a></li>
+                  
+                </ul>
+              </div>
+            </li>
+            
+            <!-- 통계 -->
+			<li class="nav-item" id="chartPart">
+              <a class="nav-link" data-toggle="collapse" href="#chart" aria-expanded="false" aria-controls="chart">
+                <span class="menu-title">통계</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-chart-line menu-icon"></i>
+              </a>
+              <div class="collapse" id="chart">
+                <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="#"> 
-				  매출현황 </a></li>
+				  회원통계 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="#"> 
-				  예매현황 </a></li>
+				  매출통계 </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="#"> 
+				  예매통계 </a></li>
                 </ul>
               </div>
             </li>

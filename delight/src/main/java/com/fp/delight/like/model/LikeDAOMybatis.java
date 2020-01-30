@@ -1,5 +1,8 @@
 package com.fp.delight.like.model;
 
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,5 +34,22 @@ public class LikeDAOMybatis implements LikeDAO{
 	public int insertLike(LikeVO likeVo) {
 		return sqlSession.insert(namespace+"insertLike",likeVo);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectLikeNew5List(String userid) {
+		return sqlSession.selectList(namespace+"selectLikeNew5List",userid);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectLikeList2(LikeVO likeVo) {
+		return sqlSession.selectList(namespace+"selectLikeList2",likeVo);
+	}
+
+	@Override
+	public int selectTotalRecord(String userid) {
+		return sqlSession.selectOne(namespace+"selectTotalRecord",userid);
+	}
+
+
 	
 }
