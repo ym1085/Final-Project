@@ -13,9 +13,9 @@
 	    				url:"<c:url value='/inqueryDetail.do'/>",
 	    				data:{"inquerySeq":$(this).find("#inqueSeq").val()},
 	    				success:function(res){
- 	    					if(res.INQUERY_CONDITION=='Y'){
+ 	    					if(res.INQUERY_CONDITION=='N'){
 	    						alert("답변예정입니다!");
-	    					}else if(res.INQUERY_CONDITION=='N'){
+	    					}else if(res.INQUERY_CONDITION=='Y'){
 		    					$("#inqtitle").html(res.INQUERY_TITLE);
 		    					$("#inqcontent").html(res.INQUERY_CONTENT);
 		    					$("#inqAnw").html(res.INQANW);

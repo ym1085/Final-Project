@@ -113,7 +113,8 @@
 				type:"post",
 				url:"<c:url value='/like.do'/>",
 				data:{"perfomid":$("#perfomid").val(),
-					"performtitle":$("#performtitle").html()},
+					"performtitle":$("#performtitle").html(),
+					"performtype":$(".type").html()},
 				dataType:"json",
 				success:function(res){
 					$(".llqqllqq").text(res.count);
