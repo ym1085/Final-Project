@@ -135,6 +135,7 @@ public class PaymentController {
 		model.addAttribute("unusername2", unusername2);					//관람자명
 		model.addAttribute("unuseremail2", unuseremail2);				//관람자 이메일
 		model.addAttribute("chkuserid", chkuserid);						//현재 로그인 한 유저 id
+		model.addAttribute("selled", selled);
 		
 		return "performance/showPaymentend";
 	}
@@ -230,7 +231,8 @@ public class PaymentController {
 		model.addAttribute("useremail2", useremail2);					//관람자 이메일
 		model.addAttribute("hp", hp);									//예매자 핸드폰 번호
 		model.addAttribute("chkuserid", chkuserid);						//현재 로그인한 유저 id - 체크용
-		
+		model.addAttribute("selled", selled);
+	
 		return "performance/showPaymentend";
 	}
 	

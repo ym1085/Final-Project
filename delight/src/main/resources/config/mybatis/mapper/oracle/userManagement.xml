@@ -91,6 +91,59 @@
 	<select id="userAll" resultType="memberVo">
 		select * from tbl_user where grade_name!='admin'
 	</select>
+	
+	<select id="adminInqSel" parameterType="searchVo" resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from 
+		    (	
+		    	select i.INQUERY_SEQ,INQUERY_TITLE,i.REG_DATE,inquery_condition,case when i.userid is null then '비회원'
+                                                    else '회원'
+                                                    end "usertype"
+				from TBL_INQUERY i left join TBL_INQANW a
+				on i.INQUERY_SEQ = a.INQUERY_SEQ
+				where inquery_condition like '%'|| #{searchKeyword} ||'%'
+			    <include refid="searchWhere2"></include>
+			    order by inquery_seq desc
+		    ) A
+		) where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="adminInqSelTotal" parameterType="searchVo" resultType="int">
+		select count(*)
+		from TBL_INQUERY i left join TBL_INQANW a
+		on i.INQUERY_SEQ = a.INQUERY_SEQ
+		where inquery_condition like '%'|| #{searchKeyword} ||'%'
+	    <include refid="searchWhere2"></include>
+	</select>
+	
+	<select id="inqDetail" parameterType="int" resultType="map">
+		select i.*,a.*
+		from TBL_INQUERY i left join TBL_INQANW a
+		on i.INQUERY_SEQ = a.INQUERY_SEQ 
+		where i.inquery_seq=#{inqSeq}
+	</select>
+	
+	<update id="anwCompl" parameterType="int">
+		update tbl_inquery set inquery_condition='Y' where inquery_seq=#{inqSeq}
+	</update>
+	
+	<insert id="inqanwWrite" parameterType="inqAnwVo">
+	<selectKey keyProperty="inqanwSeq" resultType="int" order="BEFORE">
+		select inqanw_seq.nextval from dual
+	</selectKey>
+		insert into tbl_inqanw 
+		values(#{inqanwSeq},#{inqanwContent},default,#{inquerySeq},#{userid})
+	</insert>
+	
+	<select id="anwCk" parameterType="int" resultType="int">
+		select count(*) from TBL_INQANW where inquery_seq=#{inqSeq}
+	</select>
 </mapper>
 
 

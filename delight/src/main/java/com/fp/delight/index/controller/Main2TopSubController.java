@@ -1,5 +1,7 @@
 package com.fp.delight.index.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -25,14 +27,22 @@ public class Main2TopSubController {
 		logger.info("사이드바 화면 구현");
 		
 		String userid=(String)session.getAttribute("userid");
-		
 		logger.info("userid={}",userid);
 		
 		if(userid!=null && !userid.isEmpty()) {
 			MemberVO memberVo=memberService.selectMember(userid);
 			logger.info("memberVo={}",memberVo);
 			
+			Map<String, Object> memberShipMap =  memberService.selectMemberShip(userid);
+			logger.info("로그인 한 유저의 맴버십 등급 확인, 파라미터 memberShipMap={} ", memberShipMap);
+			
 			model.addAttribute("memberVo",memberVo);
+			model.addAttribute("memberShipMap", memberShipMap);
 		}
+	}
+	
+	@RequestMapping("/member/mymemberShip.do")
+	public void showmembershipForUser() {
+		logger.info("사이드바 회원권 구매 클릭 시 보여주는 화면");
 	}
 }

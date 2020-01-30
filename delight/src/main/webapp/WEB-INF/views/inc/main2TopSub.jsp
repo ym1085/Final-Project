@@ -3,8 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-	
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">	
+
 <script type="text/javascript">
+	var ctx = "/delight";
+	
 	$(function(){
 		$("form[name=frm123]").submit(function(){
 			var email=$("#email").val();
@@ -70,6 +74,12 @@
     			});	
 			}
 		});
+	
+		/* $("#buymembership2").click(function(){
+			window.open(ctx+"/member/mymemberShip.do","맴버십 구입",
+			"width=550,height=450,left=600,top=350,location=yes,resizable=yes");
+		}); */
+		
 	});
 </script>
 <style type="text/css">
@@ -81,6 +91,53 @@ div.inqinfo1 {
 div.inqinfo1>.inqinfospan {
     color: red;
     font-weight: bold;
+}
+
+div#buymembershipParent {
+    width: 285px;
+    height: 28px;
+}
+
+p#buymembership1 {
+    float: left;
+    padding-left: 72px;
+}
+
+button#sss {
+    float: left;
+    width: 84px;
+    background-color: #fd0000;
+    border-color: red;
+    color: white;
+    font-weight: 500;
+    margin-top: 7px;
+    font-family: fantasy;
+}
+
+#buymembershipParent2{
+	width: 285px;
+    height: 28px;
+}
+
+#buymembership3{
+	float: left;
+    padding-left: 72px;
+}
+
+.w3-white, .w3-hover-green:hover {
+    color: white!important;
+    background-color: white!important;
+    margin-left: 25%;
+    border: 0.3px solid lightgray;
+}
+
+.w3-section, .w3-code {
+    margin-top: 26px!important;
+    margin-bottom: 16px!important;
+}
+
+.w3-container.w3-padding-16 {
+    text-align: right;
 }
 </style>
     <!-- 로그인 안된경우 (시작)-->
@@ -125,13 +182,67 @@ div.inqinfo1>.inqinfospan {
 					<p>*마일리지 : <fmt:formatNumber value="${memberVo.mileagePoint }" pattern="#,###" /> 원</p>
 					<p>*멤버십 등급 : ${memberVo.gradeName }</p>
 					<p>*가입일 : <fmt:formatDate value="${memberVo.joinDate }" pattern="yyyy-MM-dd"/></p>
+					
+					<c:if test="${empty memberShipMap['NAME'] }">
+						<div id="buymembershipParent">
+							<p id="buymembership1" >*회원권  : </p>
+							<button style="font-size: 8px;" id="sss" onclick="document.getElementById('id01').style.display='block'">회원권 구매</button>
+						</div>
+					</c:if>
+					
+					<c:if test="${!empty memberShipMap['NAME'] }">
+						<div id="buymembershipParent2">
+							<p id="buymembership3">*회원권  : ${memberShipMap['NAME']}</p>
+						</div>
+					</c:if>
 				</div>
+			
+				<!-- 추가 부분 by 김영민 -->
+					 <!-- <button  class="w3-button w3-green w3-large">Login</button>--> 
+					  <div id="id01" class="w3-modal">
+					    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:500px;height: 400px;">
+					
+					      <form class="w3-container" action="/action_page.php">
+					        <div class="w3-section">
+					          <button style="width: 250px;height: 250px;" class="w3-button w3-white w3-section" type="submit">
+					          		<span id="">DELIGHT_MEMBERSHIP</span>
+					          		<br><br>
+					         		
+					         		<span id="">[1] 회원권 이름<br></span><br>
+									<span id="">DELIGHTMEMBERSHIP</span>
+					          		<br>
+					         		
+					         		<span id="">[2] 혜택</span><br>
+					         		<span id="">시즌동안 추가 10% 할인</span>
+					          		<br>
+					         		
+					         		<span id="">시작일</span><br>
+					         		<span>시작일 들어옴</span>
+					          		<span id="">마감일</span><br>
+					          		<span>마감일 들어옴</span>
+					          		<br>
+					         		
+					         		<span id="">
+					          			
+					          		</span>
+					          </button>
+					        </div>
+					      </form>
+					
+					      <div style="background-color:white; border-top: 0;" class="w3-container w3-padding-16">
+					        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">취소</button>
+					      </div>
+					    </div>
+					  </div>
+				<!--  -->			
+			
 				<div id="q1">
 					<button type="button" class="btn btn-success btn-lg"
 					onClick="location.href='<c:url value="/member/myPage.do" />'">마이페이지</button>
 					<button type="button" class="btn btn-secondary btn-lg"
 					onClick="location.href='<c:url value="/login/logout.do" />'">로그아웃</button>
 				</div>
+				
 			<div id="q3">
 			<ul>
 				<li style="color:white;">문의하기</li>

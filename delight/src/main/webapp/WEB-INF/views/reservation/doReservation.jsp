@@ -153,8 +153,8 @@
 	   
 	   <!-- 더보기 새로 추가함 -->
 	   <div id="more_btn_div" align="center" style="width: 87%;float: right;" class="pfdetail">
-	   <input type="hidden" name="viewCount" id="viewCount" value="0">
-	   <input type="hidden" name="startCount" id="startCount" value="0">
+	   <!-- <input type="hidden" name="viewCount" id="viewCount" value="0">
+	   <input type="hidden" name="startCount" id="startCount" value="0"> -->
 	   
 	   <hr>
 	   		<a id="more_btn_a" href="javascript:moreContent('more_list', 5);">
@@ -187,63 +187,6 @@
 			"7월","8월","9월","10월","11월","12월"]});
 	
 	
-	    /* function moreContent(id, cnt){
-		
-		var list_length = $("#"+id+"p").length;
-		var aname = id+"_btn";
-		var callLength = list_length;
-		
-		$('#startCount').val(callLength);
-		$('#viewCount').val(cnt);
-		
-		$.ajax({
-			type : "post",
-			url : "/getMoreContents_ajax.do",
-			data : $('#searchTxtForm').serialize(),
-			dataType : "json",
-			success : function(result){
-				if(result.resultCnt > 0){
-					var list = result.resultList;
-					if(PerformentListVO.prfnm != ''){
-						$('#'+aname).attr('href', "javascript:moreContent('"+id+"', "+cnt+");");
-						getMoreList(list);
-					}else{
-						$("#"+id+"_div").remove();
-					}
-				}
-			}else{
-				
-			}
-		},
-		
-		error : function(request, status, error){
-			alert("code = " + request.status + "message = " + request.responseText + "error = " + error);
-			}
-		});
-		
-		function getMoreList(list){
-			var content = "";
-			var length = list.length;
-			for(i=0; i<list.length; i++){
-				var PerformentListVO = list[i];
-				if(PerformentListVO.title != ''){
-					<div class = "testImg">
-			    	<img src="${vo.poster }" class="img-responsive" width="240px" height="240px">
-			        	<br>
-			            <h5><b>${vo.prfnm }</b></h5> 
-						<p>${vo.prfpdfrom }</p> 
-						<p>${vo.prfpdto }</p>
-						<p>${vo.fcltynm }</p>  
-						<p>${vo.genrenm }</p> 
-			    	</div>	  					
-				}
-			}
-			
-			$("#more_list tr:last").after(content);
-			
-		}
-		
-	} */ /* moreContent */
 </script>	
 
  
