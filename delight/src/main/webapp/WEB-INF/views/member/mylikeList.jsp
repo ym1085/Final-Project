@@ -4,7 +4,34 @@
 <%@ include file="../inc/main2Top.jsp"%>
 <link type="text/css" rel="stylesheet"
 	href="<c:url value='/resources/css/mysec.css' />" />
-
+	
+<script type="text/javascript">
+    	function pageFunc(curPage){
+    		$("#currentPage").val(curPage);
+    		
+    		$("form[name=frminq1]").submit();
+    	}
+    	
+    	function likeDelete(perfomid){
+			if(!confirm("좋아요 취소하시겠습니까?")){
+				event.preventDefault();
+			}else{
+       			$.ajax({
+    				type:"get",
+    				url:"<c:url value='/deleteLike.do'/>",
+    				data:{"perfomid":perfomid},
+    				success:function(res){
+						if(res>0){
+							location.reload();
+						}
+    				},
+    				error:function(xhr, status, error){
+    					alert("Error : "+status+", "+ error);
+    				}
+    			});	 
+			}  
+    	}
+</script>
 <!-- 페이지 만들떄마다 복붙 -->
 <div style="width: 13%; float: left; height: 100%;">
 	<!-- left side -->
@@ -35,39 +62,87 @@
 <!-- div안에서작업 그외엔 건들지말것 -->
 
 <div style="width: 87%; float: right;">
-	<section class="mysec" style="margin-top: 5%;">
+
+	<form name="frminq1" method="post"
+		action="<c:url value='/member/mylikeList.do'/>">
+		<input type="hidden" name="currentPage" id="currentPage">
+	</form>
+	
+<section class="mysec" style="margin-top: 5%;">
 		<div class="mysecDiv">
 			<h2 class="mytit">좋아요</h2>
-
-
+			
 			<table class="mytable">
 				<colgroup>
-					<col style="width: 1390px">
+					<col style="width:1392px">
 				</colgroup>
-
+			
 				<thead>
 					<tr>
-						<th id="heading" scope="col"></th>
+						<th id="heading" scope="col">내용</th>
 					</tr>
 				</thead>
-
-				<tbody id="mybody">
-					<!-- 반복 시작-->
-					<tr>
-						<td style="text-align: left">
-							<div>
-								<img alt="" src="<c:url value='/resources/images/del3.jpg' />">
-							</div>
-							<p class="mybodylikeP">제목</p>
-							<p class="mybodylikeP">장르</p>
-							<p class="mybodylikeP">하트/하트개수</p>
+				
+				<tbody id="mybody" style="border-bottom: 1px solid gray;">
+					<c:if test="${empty list }">
+					<tr class="likeTd">
+						<td colspan="1" style="text-align: center;">관심있는 공연이 없습니다.</td>
+					</tr>
+					</c:if>
+					
+					<c:if test="${!empty list }">
+				<!-- 반복 시작-->
+					<c:forEach var="like" items="${list }">
+					<tr class="likeTr">
+						<td class="likeTd">
+							<p class="mybodylikeP">(${like.GENRE })${like.PRFNM }
+							<input type="hidden" value="${like.MT20ID }" class="likeperfomId">
+							</p>
+							<p class="mybodylikeimgList" style="color: red;"><img class="likeListimg" alt="좋아요이미지" src="<c:url value='/resources/images/like2.png' />">
+							 <span>${like.LA }</span></p>
+							 <input type="button" value="취소" id="mybodylikeCan" onclick="likeDelete('${like.MT20ID }')">
 						</td>
 					</tr>
-
-				</tbody>
+					</c:forEach>
 				<!-- 반복 끝-->
+					</c:if>
+				</tbody>
 			</table>
-		</div>
+			<div id="page">
+					<!-- 이전블럭으로 이동 -->
+					<c:if test="${pagingInfo.firstPage>1 }">
+						<a class="imgblock" href="#" onclick="pageFunc(1)"> <img
+							src="<c:url value='/resources/images/first.gif'/>" alt="처음으로">
+						</a>
+						<a class="imgblock" href="#" onclick="pageFunc(${pagingInfo.firstPage-1})"> <img
+							src="<c:url value='/resources/images/first2.gif'/>" alt="이전 블럭으로">
+						</a>
+					</c:if>
+
+					<!-- 페이지 번호 추가 -->
+					<!-- [1][2][3][4][5][6][7][8][9][10] -->
+					<c:forEach var="i" begin="${pagingInfo.firstPage }"
+						end="${pagingInfo.lastPage }">
+						<c:if test="${i==pagingInfo.currentPage }">
+							<span> ${i }</span>
+						</c:if>
+						<c:if test="${i!=pagingInfo.currentPage }">
+							<a href="#" onclick="pageFunc(${i})"> ${i }</a>
+						</c:if>
+					</c:forEach>
+					<!--  페이지 번호 끝 -->
+
+					<!-- 다음블럭으로 이동 -->
+					<c:if test="${pagingInfo.lastPage< pagingInfo.totalPage}">
+						<a class="imgblock" href="#" onclick="pageFunc(${pagingInfo.lastPage+1})"> <img
+							src="<c:url value='/resources/images/last2.gif'/>" alt="다음 블럭으로">
+						</a>
+						<a class="imgblock" href="#" onclick="pageFunc(${pagingInfo.totalPage})"> <img
+							src="<c:url value='/resources/images/last.gif'/>" alt="다음 블럭으로">
+						</a>
+					</c:if>
+				</div>		
+		</div>	
 	</section>
 </div>
 <!-- div안에서작업 그외엔 건들지말것 -->

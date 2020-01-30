@@ -1,17 +1,13 @@
 package com.fp.delight.like.model;
 
-public class LikeVO {
+import com.fp.delight.common.SearchVO;
+
+public class LikeVO extends SearchVO{
 	private int likeCountSeq;
 	private String mt20id;
 	private String userid;
+	private String genre;
 	private String prfnm;
-	
-	public String getPrfnm() {
-		return prfnm;
-	}
-	public void setPrfnm(String prfnm) {
-		this.prfnm = prfnm;
-	}
 	public int getLikeCountSeq() {
 		return likeCountSeq;
 	}
@@ -30,11 +26,25 @@ public class LikeVO {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+	public String getGenre() {
+		return genre;
+	}
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+	public String getPrfnm() {
+		return prfnm;
+	}
+	public void setPrfnm(String prfnm) {
+		this.prfnm = prfnm;
+	}
 	@Override
 	public String toString() {
-		return "LikeVO [likeCountSeq=" + likeCountSeq + ", mt20id=" + mt20id + ", userid=" + userid + ", prfnm=" + prfnm
-				+ "]";
+		return "LikeVO [likeCountSeq=" + likeCountSeq + ", mt20id=" + mt20id + ", userid=" + userid + ", genre=" + genre
+				+ ", prfnm=" + prfnm + "]";
 	}
+	
+	
 	
 	
 }
