@@ -91,9 +91,11 @@ public class SalesController {
 		Date sd=new Date(Integer.parseInt(sdateymd[0]), Integer.parseInt(sdateymd[1]), Integer.parseInt(sdateymd[2]));
 		
 		if(sd.compareTo(d)>0) {
-			map.put("sdateymd",nowymd );
-		}else {
+			//map.put("sdateymd",nowymd );
 			map.put("sdateymd", sdateymd);
+		}else {
+			//map.put("sdateymd", sdateymd);
+			map.put("sdateymd",nowymd );
 		}
 		
 		

@@ -22,5 +22,15 @@ public class AdminLoginDAOMybatis implements AdminLoginDAO{
 	public MemberVO selectAdmin(String userid) {
 		return sqlSession.selectOne(namespace+"selectAdmin", userid);
 	}
+
+	@Override
+	public int adminLogout(String userid) {
+		return sqlSession.update(namespace+"adminLogout", userid);
+	}
+
+	@Override
+	public int adminPwdCg(MemberVO memberVo) {
+		return sqlSession.update(namespace+"adminPwdCg", memberVo);
+	}
 	
 }
