@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">	
 
 <script type="text/javascript">
 	var ctx = "/delight";
@@ -83,106 +82,7 @@
 	});
 </script>
 <style type="text/css">
-div.inqinfo1 {
-    font-size: 0.9em;
-    margin-left: 22px;
-    margin-bottom: 11px;
-}
-div.inqinfo1>.inqinfospan {
-    color: red;
-    font-weight: bold;
-}
 
-div#buymembershipParent {
-    width: 285px;
-    height: 28px;
-}
-
-p#buymembership1 {
-    float: left;
-    padding-left: 72px;
-}
-
-button#sss {
-    float: left;
-    width: 84px;
-    background-color: #fd0000;
-    border-color: red;
-    color: white;
-    font-weight: 500;
-    margin-top: 7px;
-    font-family: fantasy;
-}
-
-#buymembershipParent2{
-	width: 285px;
-    height: 28px;
-}
-
-#buymembership3{
-	float: left;
-    padding-left: 72px;
-}
-
-.w3-section, .w3-code {
-    margin-top: 26px!important;
-    margin-bottom: 16px!important;
-}
-
-.w3-container.w3-padding-16 {
-    text-align: center;
-}
-
-#membershipName{
-    padding-left: 25px;
-	color: white;
-	font-size: 1.5em;
-	border: 0;
-	background: #ef3b3b;
-	width: 250px;
-}
-
-#membershipDetail{
-	color: white;
-	font-size: 1.2em;
-	margin-left: 40px;
-	border: 0;
-	background: #ef3b3b;
-	width: 200px;
-}
-
-#membershipStartDate{
-	color: white;
-	font-size: 1.2em;
-	margin-left: 25px;
-}
-
-#membershipEndDate{
-	color: white;
-	font-size: 1.4em;
-	margin-left: 93px;
-}
-
-.w3-button.w3-green{
-	border: 0.3px solid lightgray;
-    border-radius: 10px;
-}
-
-.w3-section{
-	background-color: #ef3b3b!important;
-    margin-left: 25%;
-    border: 0.3px solid lightgray;
-    border-radius: 15px;
-    padding: 55px 0px;
-}
-.w3-blue{
-	border: 0.3px solid lightgray;
-    border-radius: 10px;
-}
-
-input:focus { 
-	outline: none;
-}
 </style>
     <!-- 로그인 안된경우 (시작)-->
 			<c:if test="${empty sessionScope.userid }">
@@ -228,9 +128,9 @@ input:focus {
 					<p>*가입일 : <fmt:formatDate value="${memberVo.joinDate }" pattern="yyyy-MM-dd"/></p>
 					
 					<c:if test="${empty memberShipMap['NAME'] }">
-						<div id="buymembershipParent">
-							<p id="buymembership1" >*회원권  : </p>
-							<button style="font-size: 8px;" id="sss" onclick="document.getElementById('id01').style.display='block'">회원권 구매</button>
+						<div id="buymembershipParent" style="overflow: hidden; text-align: center; padding-left: 25%;">
+							<p id="buymembership1" style="float: left;">*회원권  : </p>
+							<button style="font-size: 8px; float: left;">회원권 구매</button>
 						</div>
 					</c:if>
 					
@@ -240,31 +140,6 @@ input:focus {
 						</div>
 					</c:if>
 				</div>
-			
-				<!-- 추가 부분 by 김영민 -->
-					 <!-- <button  class="w3-button w3-green w3-large">Login</button>--> 
-					  <div id="id01" class="w3-modal">
-					    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:500px;height: 400px;">
-					
-					      <form class="w3-container" action="<c:url value='/member/buyMembership.do'/>">
-					        <div class="w3-section" style="width: 250px;height: 250px;">
-				          		<input type="text" name="membershipName" id="membershipName" value="DelightPremium" readonly="readonly">
-				          		<br><br>
-				         		<input type="text" name="membershipDetail" id="membershipDetail" value="시즌동안 추가:10" readonly="readonly">
-				          		<br><br>
-				         		<span id="membershipStartDate">구매 한 날 부터-3개월</span>
-				          		<br>
-					        </div>
-						      
-						      <div style="background-color:white; border-top: 0;" class="w3-container w3-padding-16">
-					            <button class="w3-button w3-blue" type="submit">회원권 구매</button>
-						        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-green">취소</button>
-						      </div>
-						  </form>
-					
-					    </div>
-					  </div>
-				<!--  -->			
 			
 				<div id="q1">
 					<button type="button" class="btn btn-success btn-lg"
