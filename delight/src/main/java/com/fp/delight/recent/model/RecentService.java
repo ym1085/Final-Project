@@ -7,4 +7,5 @@ public interface RecentService {
 	List<RecentVO> selectRecentNew5List(String userid);
 	List<RecentVO> selectRecentList(RecentVO recentVo);
 	int selectTotalRecord(String iporid);
+	int selectChkRecent(RecentVO recentVo);
 }

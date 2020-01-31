@@ -54,7 +54,14 @@ public class RecentController {
 		recentVo.setMt20id(perfomid);
 		recentVo.setPrfnm((String)map.get("prfnm"));
 		logger.info("prfnm={}",(String)map.get("prfnm"));
-		recentService.insertRecent(recentVo);
+		
+		int count=recentService.selectChkRecent(recentVo);
+		if(count>0) {
+			return "redirect:/performance/pfDetail.do?perfomid="+perfomid;
+		}else {
+			recentService.insertRecent(recentVo);
+		}
+		
 		
 		return "redirect:/performance/pfDetail.do?perfomid="+perfomid;
 	}

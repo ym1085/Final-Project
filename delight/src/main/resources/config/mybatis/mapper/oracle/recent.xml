@@ -48,6 +48,11 @@
 		where iporid=#{iporid}
 	</select>
 	
+	<select id="selectChkRecent" parameterType="recentVo" resultType="int">
+		select count(*) from tbl_recent
+		where iporid=#{iporid} and mt20id=#{mt20id}
+	</select>
+	
 </mapper>
 
 

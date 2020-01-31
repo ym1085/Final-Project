@@ -30,6 +30,11 @@ public class RecentServiceImpl implements RecentService{
 	public int selectTotalRecord(String iporid) {
 		return recentDao.selectTotalRecord(iporid);
 	}
+
+	@Override
+	public int selectChkRecent(RecentVO recentVo) {
+		return recentDao.selectChkRecent(recentVo);
+	}
 	
 	
 	
