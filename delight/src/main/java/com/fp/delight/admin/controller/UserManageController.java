@@ -242,5 +242,40 @@ public class UserManageController {
 		return res;
 		
 	}
+	
+	@RequestMapping("/paymentList.do")
+	public void paymentList(@ModelAttribute MemberVO memberVo,Model model) {
+		logger.info("결제 목록 보기 파라미터 memberVo={}",memberVo);
+		
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.ANNBLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(Utility.LIKE_RECORD_COUNT);
+		pagingInfo.setCurrentPage(memberVo.getCurrentPage());
+		
+		memberVo.setRecordCountPerPage(Utility.LIKE_RECORD_COUNT);
+		memberVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		int total=memberManagerService.paymentTotal(memberVo);
+		logger.info("결제 목록 total={}",total);
+		pagingInfo.setTotalRecord(total);
+		
+		List<Map<String, Object>> list=memberManagerService.paymentList(memberVo);
+		
+		logger.info("결제 목록 검색 결과 list.size()={}",list.size());
+		if(list.size()>0) {
+			Map<String, Object> map=list.get(0);
+			String prfnm=(String) map.get("PRFNM");
+			if(prfnm==null || prfnm.isEmpty()) {
+				list.remove(0);
+			}
+		}
+		int totalpay=memberManagerService.totalpayment(memberVo.getUserid());
+		int totalrefund=memberManagerService.totalrefund(memberVo.getUserid());
+		
+		model.addAttribute("list", list);	
+		model.addAttribute("pagingInfo", pagingInfo);
+		model.addAttribute("totalpay", totalpay);
+		model.addAttribute("totalrefund", totalrefund);
+	}
 }
 

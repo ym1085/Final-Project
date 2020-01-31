@@ -90,4 +90,24 @@ public class MemberManagerServiceImpl implements MemberManagerService{
 	public List<MemberVO> userAll() {
 		return memberManagerDao.userAll();
 	}
+
+	@Override
+	public List<Map<String, Object>> paymentList(MemberVO memberVo) {
+		return memberManagerDao.paymentList(memberVo);
+	}
+
+	@Override
+	public int paymentTotal(MemberVO memberVo) {
+		return memberManagerDao.paymentTotal(memberVo);
+	}
+
+	@Override
+	public int totalpayment(String userid) {
+		return memberManagerDao.totalpayment(userid);
+	}
+
+	@Override
+	public int totalrefund(String userid) {
+		return memberManagerDao.totalrefund(userid);
+	}
 }

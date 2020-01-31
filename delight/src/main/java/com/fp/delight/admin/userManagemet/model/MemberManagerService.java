@@ -15,4 +15,8 @@ public interface MemberManagerService {
 	int multiforcedExit(List<MemberVO> list);
 	int multiCancle(List<MemberVO> list);
 	List<MemberVO> userAll();
+	List<Map<String, Object>> paymentList(MemberVO memberVo);
+	int paymentTotal(MemberVO memberVo);
+	int totalpayment(String userid);
+	int totalrefund(String userid);
 }

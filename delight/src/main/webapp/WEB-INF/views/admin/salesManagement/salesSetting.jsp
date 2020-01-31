@@ -251,7 +251,7 @@ function getList(){
 			
 				$("#stype").val($("#type option:selected").val());
 				$("#ssido").val($("#sido option:selected").val());
-
+				$("#sgugun").val($("#gugun option:selected").val());
 				$("#sstdate").val($("#stdate").val());
 				$("#seddate").val($("#eddate").val());
 				$("#sperfomName").val($("#perfomName").val());
