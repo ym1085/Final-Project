@@ -478,14 +478,6 @@
 		<span>★ (관람 6~ 3일전) 티켓금액의20%</span><br>
 		<span>★ (관람 2~ 1일전) 티켓금액의30%</span><br>
 	</div>
-	<div class="payInfo5">
-		<p>결제수단</p>
-		<select>
-			<option>신용카드</option>
-			<option>계좌이체</option>
-			<option>무통장입금</option>
-		</select>
-	</div>
 	<div class="payInfo6">
 		<input type="checkbox" id="checkAgree2"><label>취소수수료 및 취소기한을 확인 하였으며 동의합니다.</label><br>
 		<input type="checkbox" id="checkAgreeSub2"><label>개인정보 제 3자가 제공에 동의합니다.</label>
@@ -495,7 +487,7 @@
 	</div>
 	<div class="payInfo8">
 	<p>
-	신용카드, 실시간 계좌이체로 결제하신 경우에만 부분취소 가능합니다.<br>
+	신용카드, 실시간 계좌이체로 결제하신 경우에만 부분취소 불가능합니다.<br>
 	결제 진행 중 취소 후 재 진행 시 다른 사용자의 예매로 인해 동일 좌석의 재예매가 불가할 수 있습니다.<br>
 	가상계좌로 결제하신 경우 예매변경 및 부분 취소 불가하므로 전체 취소 후 재예매해야 합니다.<br>
 	예매취소 시 시점에 따라 수수료가 부과되므로 취소 가능기한 및 취소수수료를 꼭 확인해주십시오.

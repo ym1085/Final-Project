@@ -295,18 +295,6 @@ h3#s3{
 .Rightpayment .payInfo4 p{
 	color: black;
 }
-.Rightpayment .payInfo5{
-	border-bottom: 1px solid rgb(200,200,200);
-	padding: 20px 15px 20px 15px;
-	color: black;
-	font-weight: bold;
-}
-.Rightpayment .payInfo5 select{
-	margin-top: 10px;
-	margin-bottom: 10px;
-	width: 90%;
-	padding: 0 0 0 15px;
-}
 .Rightpayment .payInfo6{
 	padding: 20px 15px 20px 15px;
 }
