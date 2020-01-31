@@ -18,24 +18,19 @@ import org.json.XML;
 import com.fp.delight.performent.model.PerformentListVO;
 
 
-//메인1에서 날짜,공연명 검색 했을 때 상세페이지로 넘어가서 API 뿌려주는 소스 -예진-
+//검색결과창에서 더보기 버튼 누르면 다음 페이지 API 뿌려줌-예진-
 public class ApiTest_pfSearchMore {
    public int INDENT_FACTOR = 4;
    
    public List<PerformentListVO> totalPMoreRead(String type, String sido, String gugun, 
-		   String stdate, String eddate, String performName, int page) 
+		   String stdate, String eddate, String performName, String pageIndex) 
 		   throws MalformedURLException, IOException{
 	   
 	  //공연명 검색할 때, 띄어쓰기 없애기
 	  String name = performName;
-	  String PerformName = name.replaceAll(" ", "");
+	  String PerformName = "";/*name.replaceAll(" ", "");*/
 	  
-	  //페이지수 default값 지정
-	  int Page = page;
-	  Page = 0;
 	  
-	  Page  = Page+1;
-	   	   
 	  //1~20페이지까지 랜덤으로 값을 선택해서 상세페이지를 로딩 할 때마다, 다른 값을 뿌려준다
 	  //난수 생성
 	  //int randomValue;
@@ -52,7 +47,9 @@ public class ApiTest_pfSearchMore {
 	            + "service=4c8aebff91d74e2396fccc287989884a"
 	            + "&stdate="+stdate
 	            + "&eddate="+eddate
-	            + "&cpage="+Page
+	            + "&cpage="+pageIndex
+	            + "&signgucode="+sido
+	            + "&signgucodesub="+gugun
 	            + "&rows=30"
 	            + "&shprfnm="+PerformName;
 	  
@@ -107,5 +104,6 @@ public class ApiTest_pfSearchMore {
         //Controller
         return list2;
    }
+   
    
 }//class

@@ -19,8 +19,8 @@
    #chkReservation{width:80px; height:45px;border: 0px;background-color: blue; box-shadow: 1px 1px 2px blue; color: white; font-weight: 500;}
    .forButton {text-align: center;margin-top: 65px;}
    #spectators{border: 0;color: #9a9898;width: 250px;}
-   #spectatorsUser{border: 0;color: #9a9898;width: 20px;}
-   #ticketerEmail{border: 0;color: #9a9898;width: 250px;}
+   #spectatorsUser{border: 0;color: #9a9898;width:260px;}
+   #ticketerEmail{border: 0;color: #9a9898;width:250px;}
    #ticketerEmailUser{border: 0;color: #9a9898;width: 250px;}
    
    #spectators{outline-style: none;}
@@ -153,7 +153,7 @@
                   <th scope="col">예약자 정보</th>
                   <c:if test="${empty sessionScope.userid }">
                      <td scope="col">
-                        예매자명 : ${unusername}<br>
+                      	  예매자명 : ${unusername}<br>
                         
                         <span>예매자 이메일 : </span>
                         <input type="text" name="ticketerEmail" 
@@ -171,7 +171,7 @@
                        	 예매자명 : ${username}<br>
                         
                         <span>예매자 이메일 : </span><input type="text" name="ticketerEmailUser" 
-                           id="ticketerEmailUser" value="${useremail}" readonly="readonly">
+                           id="ticketerEmailUser" value="${useremail}" readonly="readonly"><br>
                         
                         
                       	  예매자 폰번호 : ${hp}<br> 
@@ -221,7 +221,6 @@
          <!-- 유저 아이디가 체크용 -->
          <!-- 유저 아이디 Null || ym1085 -->
          <input type="hidden" name="certifiedUserid" id="certifiedUserid" value="${chkuserid}">
-         
          <input type="hidden" name="select_date" id="select_date" value="${select_date}">
          <input type="hidden" name="select_time" id="select_time" value="${select_time}">
          <input type="hidden" name="seat_class" id="seat_class" value="${seat_class}">

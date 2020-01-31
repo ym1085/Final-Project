@@ -41,6 +41,7 @@
 		
 		$("#seldate").datepicker({changeYear: true,dateFormat: "yy-mm-dd",
 			maxDate: new Date(Number(${eymd[0]}), Number(${eymd[1]}) -1 ,Number(${eymd[2]})),
+			//minDate: new Date(Number(${symd[0]}), Number(${symd[1]}) -1 ,Number(${symd[2]})),
 			minDate: new Date(Number(${symd[0]}), Number(${symd[1]}) -1 ,Number(${symd[2]})),
 			showOtherMonths: true,
 			dayNamesMin: ["일","월","화","수","목","금","토"],

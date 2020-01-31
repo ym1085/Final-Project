@@ -30,7 +30,7 @@ public class TotalMoreController {
 		String stdate=request.getParameter("stdate");
 		String eddate=request.getParameter("eddate");
 		String perfomName="";
-		int page=0;
+		String pageIndex=request.getParameter("pageIndex");
 		
 		if(perfomName!=null && !perfomName.isEmpty()) {
 			perfomName=perfomName.replace(" ", "");
@@ -39,14 +39,14 @@ public class TotalMoreController {
 		logger.info("표 설정 공연 검색 파라미터 type={},sido={}",type,sido);
 		logger.info("표 설정 공연 검색 파라미터 gugun={},stdate={}",gugun,stdate);
 		logger.info("표 설정 공연 검색 파라미터 eddate={},perfomName={}",eddate,perfomName);
-		logger.info("표 설정 공연 검색 파라미터 page={}",page);
+		logger.info("표 설정 공연 검색 파라미터 page={}",pageIndex);
 		
 		if(perfomName==null) perfomName="";
 		ApiTest_pfSearchMore api=new ApiTest_pfSearchMore();
 		
-		List<PerformentListVO> list=new ArrayList<PerformentListVO>();;
+		List<PerformentListVO> list=new ArrayList<PerformentListVO>();
 		try {
-			list = api.totalPMoreRead(type, sido, gugun, stdate, eddate, perfomName, page);
+			list = api.totalPMoreRead(type, sido, gugun, stdate, eddate, perfomName, pageIndex);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -36,7 +36,7 @@
    &nbsp;&nbsp;&nbsp;&nbsp;<span>시,도</span>&nbsp;
    <select name="sido" id="sido" style="width:150px;height:40px;font-size:15px;">
       <option value="">선택</option><!-- 선택 -->
-      <c:forEach var="sido" items="${sido }">
+   <c:forEach var="sido" items="${sido }">
       <option value="${sido.signgucode }">${sido.sido }</option>
    </c:forEach>
    </select>
