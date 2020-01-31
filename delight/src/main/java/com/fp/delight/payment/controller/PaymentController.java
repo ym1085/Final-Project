@@ -221,7 +221,7 @@ public class PaymentController {
 		
 		int ticketResult = ticketService.updateTicketForPayment(ticketVo);
 		logger.info("공연별 판매수량, 사용자가 선택한 티켓 값을 더한 결과 ticketResult={} ", ticketResult);
-		
+	
 		model.addAttribute("pay_ticket_number", pay_ticket_number);		//예매번호
 		model.addAttribute("prfnm", prfnm);								//공연명
 		model.addAttribute("select_date", select_date);					//선택한 공연 날짜
@@ -236,6 +236,9 @@ public class PaymentController {
 		model.addAttribute("chkuserid", chkuserid);						//현재 로그인한 유저 id - 체크용
 		model.addAttribute("selled", selled);
 	
+		//결제완료가 되면 -> 회원등급 분류 -> TBL_USER -> GRADE_NAME -> UPDATE
+		//tbl_user join tbl_payment join tbl_refund
+		
 		return "performance/showPaymentend";
 	}
 	

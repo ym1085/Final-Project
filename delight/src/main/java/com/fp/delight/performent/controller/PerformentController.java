@@ -250,6 +250,11 @@ public class PerformentController {
 		logger.info("import로 넘겨주는 파라미터, ticketSeat={} ticketSeq={} ", ticketSeat, ticketSeq);
 		logger.info("import로 넘겨주는 파라미터, ticketCount={} ", ticketCount);
 		
+		prfnm = prfnm.replace("[", "(").replace("]", ")");
+		logger.info("공연명 [] 없애고 다시 공연명 출력==> prfnm={} ", prfnm);
+		fcltynm = fcltynm.replace("[", "(").replace("]", ")");
+		logger.info("공연 장소 [] 없애고 다시 공연 장소 출력==> perfomplace={} ", fcltynm);
+		
 		/*
 		 [1] 받아야하는 파라미터가 너무 많아서
 		 일일이 세팅해줬습니다. 설명이 필요한 부분은
@@ -304,6 +309,10 @@ public class PerformentController {
 		logger.info("import로 넘겨주는 파라미터, username2={} useremail2={} ", username2, useremail2);
 		logger.info("import로 넘겨주는 파라미터, ticketSeat={} ticketCount={} ", ticketSeat, ticketCount);
 		
+		prfnm = prfnm.replace("[", "(").replace("]", ")");
+		logger.info("공연명 [] 없애고 다시 공연명 출력==> prfnm={} ", prfnm);
+		fcltynm = fcltynm.replace("[", "(").replace("]", ")");
+		logger.info("공연 장소 [] 없애고 다시 공연 장소 출력==> perfomplace={} ", fcltynm);
 		
 		String userid = (String)session.getAttribute("userid");
 		logger.info("로그인 된 유저 아이디 : userid={}", userid);
