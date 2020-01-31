@@ -82,15 +82,17 @@
 	});
 </script>
 <style type="text/css">
-div.inqinfo1 {
-    font-size: 0.9em;
-    margin-left: 22px;
-    margin-bottom: 11px;
-}
-div.inqinfo1>.inqinfospan {
-    color: red;
-    font-weight: bold;
-}
+<<<<<<< HEAD
+	div.inqinfo1 {
+    	font-size: 0.9em;
+    	margin-left: 22px;
+    	margin-bottom: 11px;
+	}
+	div.inqinfo1>.inqinfospan {
+    	color: red;
+    	font-weight: bold;
+	}
+
 	/* 구매권 구매 버튼 */
 	#buymembershipButton{
 		background-color: red;
