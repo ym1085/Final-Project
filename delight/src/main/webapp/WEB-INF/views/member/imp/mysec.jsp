@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <section class="mysec">
 		<div class="mysecDiv">
 			<h2 class="mytit">예매내역 조회</h2>
@@ -29,47 +30,39 @@
 				</thead>
 				
 				<tbody id="mybody">
+				<c:if test="${empty list }">
+					<tr> 
+						<td colspan="6" style="text-align: center;">
+							에매내역이 존재하지않습니다.
+						</td>
+					</tr>
+				</c:if>
+				<c:if test="${!empty list }">
+				<c:forEach var="map" items="${list }">
 				<!-- 반복 시작-->
 					<tr>
-						<td style="text-align: left">
-							<div>
-							<img alt="" src="<c:url value='/resources/images/del3.jpg' />">
-							</div>
-							<p class="mybodyP">내용</p>
-						</td>
-						<td style="text-align: center">내용2</td>
-						<td style="text-align: center">내용3</td>
-						<td style="text-align: center">내용4</td>
-						<td style="text-align: center">내용5</td>
+						<td style="text-align: center;">(${map['PERFOMTYPE'] })${map['PRFNM'] }</td>
+						<td style="text-align: center"><fmt:formatDate value="${map['RES_DATE'] }" pattern="yyyy-MM-dd"/></td>
+						<td style="text-align: center">${map['PAY_TICKET_NUMBER'] }</td>
+						<td style="text-align: center">${map['BOOKING'] }/${map['PAY_PRICE'] }</td>
+						<td style="text-align: center">${map['SELECT_DATE'] }</td>
 						<td style="text-align: center">
+							<jsp:useBean id="now" class="java.util.Date" />
+							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" var="today" />
+						<c:if test="${today>map['SELECT_DATE'] && map['PAY_CONDITION']=='Y'}">
 						<!-- 예매 하면 바로 주문취소 넣어주고 만약 공연을봤다 면 후기작성으로-->
 						<a class="mysecCansle" href="<c:url value='/member/myreserCansle.do' />">주문취소</a>
+						</c:if>
 						
-						<!-- 
+						<c:if test="${today<map['SELECT_DATE'] && map['PAY_CONDITION']=='Y'}">
 						<input class="mybodyBt" type="button" value="후기작성"
-						onclick="location.href='<c:url value="/member/myWriteReviewList.do" />'"
-						/> -->
+						onclick="location.href='<c:url value="/member/myWriteReviewList.do" />'"/>
+						</c:if>
 						
 						</td>
 					</tr>
-					
-					<tr>
-						<td style="text-align: left">내용1</td>
-						<td style="text-align: center">내용2</td>
-						<td style="text-align: center">내용3</td>
-						<td style="text-align: center">내용4</td>
-						<td style="text-align: center">내용5</td>
-						<td style="text-align: center">후기 작성 불가</td>
-					</tr>
-					
-					<tr>
-						<td style="text-align: left">내용1</td>
-						<td style="text-align: center">내용2</td>
-						<td style="text-align: center">내용3</td>
-						<td style="text-align: center">내용4</td>
-						<td style="text-align: center">내용5</td>
-						<td style="text-align: center">후기 작성 완료</td>
-					</tr>
+					</c:forEach>
+					</c:if>
 				</tbody>
 				<!-- 반복 끝-->
 			</table>		

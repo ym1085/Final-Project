@@ -11,10 +11,6 @@ public class MyPageController {
 	private static final Logger logger
 	=LoggerFactory.getLogger(MyPageController.class);
 	
-	@RequestMapping("/imp/mysec.do")
-	public void mysec() {
-		
-	}
 	
 	@RequestMapping("/imp/mysecCan.do")
 	public void mysecCan() {
@@ -23,10 +19,6 @@ public class MyPageController {
 
 	@RequestMapping("/imp/myreview.do")
 	public void myreview() {
-		
-	}
-	@RequestMapping("/mysecList.do")
-	public void mysecList() {
 		
 	}
 	
@@ -39,7 +31,6 @@ public class MyPageController {
 	public void myreviewList() {
 		
 	}
-
 
 	@RequestMapping("/myWriteReview.do")
 	public void myWriteReview() {

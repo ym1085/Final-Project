@@ -1,6 +1,7 @@
 package com.fp.delight.recent.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RecentService {
 	int insertRecent(RecentVO recentVo);

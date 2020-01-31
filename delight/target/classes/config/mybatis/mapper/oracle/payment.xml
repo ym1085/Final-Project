@@ -27,7 +27,7 @@
 		from tbl_reservation
 		where reservation_seq = #{reservationSeq}
     </insert>
-
+	
 </mapper>
 
 

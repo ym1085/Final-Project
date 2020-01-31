@@ -23,8 +23,8 @@
 		   	dayNamesMin:['일','월','화','수','목','금','토'],
 		   	monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
 		});
-	});
-		/*	
+	
+		
 		$("#btDay7").click(function(){
 			$.setDate('d', 7);
 		});
@@ -36,7 +36,7 @@
 		$("#btMonth3").click(function(){
 			$.setDate('m', 3);
 		});
-				
+	});	
 		
 	
 	
@@ -76,12 +76,12 @@
 			return d;
 		}
 	}
-	*/
+	
 </script>
 
 
 	<input type="button" id="btDay7" class="date1" value="1주일" >
 	<input type="button" id="btMonth1" class="date1" value="1개월">
 	<input type="button" id="btMonth3" class="date1" value="3개월">
-	<input type="text" name="startDay" id="startDay" value=""> ~ 
-	<input type="text" name="endDay" id="endDay" value="">
+	<input type="text" name="startDay" id="startDay" value="${dateSearchVO.startDay }"> ~ 
+	<input type="text" name="endDay" id="endDay" value="${dateSearchVO.endDay }">
