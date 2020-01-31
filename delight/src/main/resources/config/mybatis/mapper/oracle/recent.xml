@@ -11,7 +11,42 @@
 		insert into tbl_recent(recent_seq,iporid,mt20id,prfnm)
 		values(#{recentSeq},#{iporid},#{mt20id},#{prfnm})
 	</insert>
-
+	
+	<select id="selectRecentNew5List" parameterType="string" resultType="recentVo">
+		select A.*
+		from
+		(
+			select * from tbl_recent
+			where iporid=#{iporid}
+			order by recent_seq desc
+		) A
+		<![CDATA[
+		where rownum<=7
+		]]>	
+	</select>
+	
+	<select id="selectRecentList" parameterType="recentVo" resultType="recentVo">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		        select * from tbl_recent
+				where iporid=#{iporid}
+				order by recent_seq desc
+		    )A
+		)
+		where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>	
+	</select>
+	
+	<select id="selectTotalRecord" parameterType="string" resultType="int">
+		select count(*) from tbl_recent
+		where iporid=#{iporid}
+	</select>
 	
 </mapper>
 

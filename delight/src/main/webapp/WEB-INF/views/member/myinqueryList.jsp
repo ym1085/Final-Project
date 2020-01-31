@@ -35,7 +35,6 @@
         //팝업 Close 기능
         $("#ssss").click(function(){
              $('#myModal').hide();
-        	
         });
         });
         

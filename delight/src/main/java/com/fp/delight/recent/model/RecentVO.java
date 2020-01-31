@@ -2,7 +2,9 @@ package com.fp.delight.recent.model;
 
 import java.sql.Timestamp;
 
-public class RecentVO {
+import com.fp.delight.common.SearchVO;
+
+public class RecentVO extends SearchVO{
 	private int recentSeq;
 	private String iporid;
 	private String mt20id;

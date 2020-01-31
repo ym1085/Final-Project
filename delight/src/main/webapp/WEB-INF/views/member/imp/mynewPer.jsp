@@ -14,7 +14,7 @@
 			<table class="mytable">
 				<colgroup>
 					<col style="width: 600px">
-					<col style="width: 100px">
+					<col style="width: 114px">
 				</colgroup>
 
 				<thead>
@@ -25,15 +25,28 @@
 				</thead>
 
 				<tbody id="mybody">
+					<c:if test="${empty list }">
+						<tr class="likeTr">
+							<td colspan="2" style="text-align: center;">
+								최근본 공연 내역이 존재하지 않습니다.
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${!empty list }">
 					<!-- 반복 시작-->
+					<c:forEach var="recentVo" items="${list }">
 					<tr class="likeTr">
 						<td style="text-align: left">
-							<p class="mybodylikeP" >제목</p>
+							<p class="mybodylikeP" >${recentVo.prfnm }</p>
+							<input type="hidden" value="${recentVo.mt20id }" id="perfomid">
 						</td>
 						<td>
-							<input type="button" class="newPerReser" value="예매하기">
+							<input type="button" class="newPerReser" value="예매하기"
+							 onclick = "location.href = '<c:url value="/performance/pfDetail.do?perfomid=${recentVo.mt20id }" />' ">
 						</td>
 					</tr>
+					</c:forEach>
+					</c:if>
 				</tbody>
 				<!-- 반복 끝-->
 			</table>

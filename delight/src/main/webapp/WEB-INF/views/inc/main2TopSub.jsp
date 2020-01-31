@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">	
 
 <script type="text/javascript">
 	var ctx = "/delight";
@@ -92,52 +91,6 @@ div.inqinfo1>.inqinfospan {
     color: red;
     font-weight: bold;
 }
-
-div#buymembershipParent {
-    width: 285px;
-    height: 28px;
-}
-
-p#buymembership1 {
-    float: left;
-    padding-left: 72px;
-}
-
-button#sss {
-    float: left;
-    width: 84px;
-    background-color: #fd0000;
-    border-color: red;
-    color: white;
-    font-weight: 500;
-    margin-top: 7px;
-    font-family: fantasy;
-}
-
-#buymembershipParent2{
-	width: 285px;
-    height: 28px;
-}
-
-#buymembership3{
-	float: left;
-    padding-left: 72px;
-}
-
-.w3-white, .w3-hover-green:hover {
-    color: white!important;
-    background-color: white!important;
-    margin-left: 25%;
-    border: 0.3px solid lightgray;
-}
-
-.w3-section, .w3-code {
-    margin-top: 26px!important;
-    margin-bottom: 16px!important;
-}
-
-.w3-container.w3-padding-16 {
-    text-align: right;
 }
 </style>
     <!-- 로그인 안된경우 (시작)-->

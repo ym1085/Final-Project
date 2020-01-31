@@ -39,14 +39,8 @@ public class MyPageController {
 	public void myreviewList() {
 		
 	}
-	@RequestMapping("/imp/mynewPer.do")
-	public void mysnewPer() {
-		
-	}
-	@RequestMapping("/mysnewPerList.do")
-	public void mysnewPerList() {
-		
-	}
+
+
 	@RequestMapping("/myWriteReview.do")
 	public void myWriteReview() {
 		

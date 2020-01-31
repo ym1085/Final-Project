@@ -353,6 +353,11 @@ td.likeTd>.mybodylikeimg>span {
 	height: 21px;
 	margin-left: 15%;
 }
+td.likeTd>.mybodylikeimgList>span {
+	width: 17px;
+	height: 21px;
+	margin-left: 15%;
+}
 
 input#mybodylikeCan {
 	margin-top: 10px;
