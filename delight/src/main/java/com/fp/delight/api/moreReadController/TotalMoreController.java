@@ -29,7 +29,7 @@ public class TotalMoreController {
 		String gugun=request.getParameter("gugun");
 		String stdate=request.getParameter("stdate");
 		String eddate=request.getParameter("eddate");
-		String perfomName="";
+		String perfomName=request.getParameter("performName");
 		String pageIndex=request.getParameter("pageIndex");
 		
 		if(perfomName!=null && !perfomName.isEmpty()) {
