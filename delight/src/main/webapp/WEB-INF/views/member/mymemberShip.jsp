@@ -34,7 +34,7 @@
 	    width: 365px;
 	    height: 135px;
 	    position: absolute;
-	    top: 48%;
+	    top: 55%;
    	 	left: 25%;
 	    border: 1px solid red;
 	    border-radius: 15px;
@@ -48,7 +48,7 @@
 	
 	div#buyerforUserPayment {
     	position: absolute;
-    	top: 82%;
+    	top: 90%;
     	left: 37%;
 	}
 	

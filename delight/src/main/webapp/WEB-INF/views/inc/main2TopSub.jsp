@@ -76,7 +76,7 @@
 	
 		$("#buymembershipButton").click(function(){
 			window.open(ctx+"/member/mymemberShip.do","맴버십 구입",
-			"width=400,height=300,left=400,top=150,location=yes,resizable=yes");
+			"width=600,height=500,left=400,top=150,location=yes,resizable=yes");
 		}); 
 		
 	});
