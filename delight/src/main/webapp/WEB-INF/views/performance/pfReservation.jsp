@@ -577,14 +577,6 @@
 		<span>★ (관람 6~ 3일전) 티켓금액의20%</span><br>
 		<span>★ (관람 2~ 1일전) 티켓금액의30%</span><br>
 	</div>
-	<div class="payInfo5">
-		<p>결제수단</p>
-		<select>
-			<option>신용카드</option>
-			<option>계좌이체</option>
-			<option>무통장입금</option>
-		</select>
-	</div>
 	<div class="payInfo6">
 		<input type="checkbox" id="checkAgree" name="checkAgree"><label>취소수수료 및 취소기한을 확인 하였으며 동의합니다.</label><br>
 		<input type="checkbox" id="checkAgreeSub" name="checkAgreeSub"><label>개인정보 제 3자가 제공에 동의합니다.</label>

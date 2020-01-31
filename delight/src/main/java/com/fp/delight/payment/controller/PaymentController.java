@@ -1,5 +1,8 @@
 package com.fp.delight.payment.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fp.delight.payment.model.PaymentService;
 import com.fp.delight.payment.model.PaymentVO;
-import com.fp.delight.payment.model.ReservationVO;
+import com.fp.delight.reservation.model.ReservationVO;
 import com.fp.delight.ticket.model.TicketService;
 import com.fp.delight.ticket.model.TicketVO;
 

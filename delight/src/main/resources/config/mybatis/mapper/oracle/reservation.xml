@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.reservation">
+	
+	<select id="selectReserNew5" parameterType="string" resultType="map">
+		select *
+		from
+		(
+		    SELECT r.*,p.pay_condition
+			FROM tbl_reservation r join tbl_payment p
+			on r.RESERVATION_SEQ = p.RESERVATION_SEQ
+			where userid=#{userid} and p.PAY_CONDITION='Y'
+			order by r.reservation_seq desc
+		)
+		<![CDATA[
+		where rownum<=5
+		]]>
+	</select>
+	
+	<select id="selectReserList" parameterType="dateSearchVo" resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		        SELECT r.*,p.pay_condition
+				FROM tbl_reservation r join tbl_payment p
+				on r.RESERVATION_SEQ = p.RESERVATION_SEQ 
+				where p.PAY_CONDITION='Y' and res_date>=#{startDay}
+				<![CDATA[ and res_date < to_Date(#{endDay})+1]]>
+				<if test="customerId!=null and customerId!=''">
+					and userid=#{customerId}
+				</if>
+				order by r.reservation_seq desc
+		    )A
+		)
+		where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>	
+	</select>
+	
+	<select id="TotalRecord" parameterType="dateSearchVo"
+		resultType="int">
+			SELECT count(*)
+			FROM tbl_reservation r join tbl_payment p
+			on r.RESERVATION_SEQ = p.RESERVATION_SEQ 
+			where p.PAY_CONDITION='Y' and res_date>=#{startDay}
+			<![CDATA[ and res_date < to_Date(#{endDay})+1]]>
+			<if test="customerId!=null and customerId!=''">
+				and userid=#{customerId}
+			</if>
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+

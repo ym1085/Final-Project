@@ -1,4 +1,4 @@
-package com.fp.delight.payment.model;
+package com.fp.delight.reservation.model;
 
 
 public class ReservationVO {

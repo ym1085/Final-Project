@@ -39,7 +39,7 @@
 <div style="width: 87%; float: right;">
 	<section class="mysec" style="margin-top: 5%;">
 		<div class="mysecDiv">
-			<h2 class="mytit">주문 취소</h2>
+			<h2 class="mytit">예매 취소</h2>
 			<dl class="cansledl"><dt>결제번호</dt><dd>123123<dd><dt>결제일자</dt>124124124</dl>
 			<table class="mytable">
 				<colgroup>
@@ -81,10 +81,10 @@
 				<!-- 반복 끝-->
 			</table>
 			
-			<div class="canslereser">
+			<div class="canslereser2">
 			 취소사유
 			</div>
-			<div class="cansleList">
+			<div class="cansleList2">
  			<label class="cansleTitle">환불사유 선택해주세요.</label> 
 			<input type="radio"> <label>사유1</label>
 			<input type="radio"> <label>사유1</label>
@@ -95,6 +95,8 @@
 			<div class="canslereser">
 			결제금액
 			</div>
+			<div class="cansleList_layout">
+			<div>
 			<div class="cansleList">
  			<label class="cansleTitle">주문합계</label> <p>얼마?</p>
 			</div>
@@ -113,8 +115,13 @@
 			<div class="cansleList">
  			<label class="cansleTitle">최종금액</label> <p>얼마?</p>
 			</div>
+			</div>
+			<div class="MycanInfo">
+				
+			</div>
+			</div>
 			<label class="cansletjfaud"> - 주문취소 후 마일리지는 즉시 반환되며 다시 사용하실 수 있습니다.</label><br>
-			<input type="submit" class="cansleSub">
+			<input type="submit" class="cansleSub" value="취소하기">
 		</div>
 	</section>
 </div>

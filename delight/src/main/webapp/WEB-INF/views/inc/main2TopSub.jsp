@@ -82,15 +82,17 @@
 	});
 </script>
 <style type="text/css">
-div.inqinfo1 {
-    font-size: 0.9em;
-    margin-left: 22px;
-    margin-bottom: 11px;
-}
-div.inqinfo1>.inqinfospan {
-    color: red;
-    font-weight: bold;
-}
+<<<<<<< HEAD
+	div.inqinfo1 {
+    	font-size: 0.9em;
+    	margin-left: 22px;
+    	margin-bottom: 11px;
+	}
+	div.inqinfo1>.inqinfospan {
+    	color: red;
+    	font-weight: bold;
+	}
+
 	/* 구매권 구매 버튼 */
 	#buymembershipButton{
 		background-color: red;
@@ -118,15 +120,15 @@ div.inqinfo1>.inqinfospan {
 			<div style="border: 1px dotted white; width: 100%; margin-top: 11%;"></div>
 			</div>
 			<div class="inqinfo1">
-			<span>*문의답변은 이메일로 발송해드립니다<br>(회원일경우 문의내역에서도 확인가능)</span>
+			<span class="inqinfospan">*문의답변은 이메일로 발송해드립니다<br>(회원일경우 문의내역에서도 확인가능)</span>
 			</div>
 			<form name="frm123">
 				<div class="right_list">
-					<input type="text" id="name" placeholder="이름" name="username"><br>
-					<input type="text" id="email" placeholder="이메일" name="email"><br>
-					<input type="text" id="hp" placeholder="연락처(- 같이입력해주세요)" name="hp"><br>
-					<input type="text" id="title" placeholder="제목" name="inqueryTitle"><br>
-					<textarea rows="20" cols="32" id="content" placeholder="내용" name="inqueryContent"></textarea>
+					<input style="color:white;" type="text" id="name" placeholder="이름" name="username"><br>
+					<input style="color:white;" type="text" id="email" placeholder="이메일" name="email"><br>
+					<input style="color:white;" type="text" id="hp" placeholder="연락처(- 같이입력해주세요)" name="hp"><br>
+					<input style="color:white;" type="text" id="title" placeholder="제목" name="inqueryTitle"><br>
+					<textarea style="color:white;" rows="20" cols="32" id="content" placeholder="내용" name="inqueryContent"></textarea>
 				</div>
 				<input type="submit" class="btn btn-secondary btn-lg" value="보내기" id="SideQnA">
 			</form>

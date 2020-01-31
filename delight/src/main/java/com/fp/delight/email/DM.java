@@ -2,7 +2,7 @@ package com.fp.delight.email;
 
 import java.util.Calendar;
 
-import com.fp.delight.payment.model.ReservationVO;
+import com.fp.delight.reservation.model.ReservationVO;
 
 public class DM {
    // 기본틀 잡혀있으니 상황별로 내용만 바꿔서 이메일보낼것

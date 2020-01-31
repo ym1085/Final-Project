@@ -69,7 +69,7 @@ th#heading {
 }
 
 #mybody>tr {
-	height: 120px;
+	height: 54px;
 }
 
 #mybody .likeTr {
@@ -176,6 +176,13 @@ input#btDay7 {
 }
 
 .canslereser {
+	width: 57%;
+	height: 50px;
+	border-bottom: 2px solid black;
+	padding: 10px 0px;
+	margin-top: 3%;
+}
+.canslereser2 {
 	width: 84%;
 	height: 50px;
 	border-bottom: 2px solid black;
@@ -195,6 +202,29 @@ input#btDay7 {
 }
 
 .cansleList {
+	width: 945%;
+	padding: 31px 2px;
+	height: 80px;
+	border-bottom: 1px solid gray;
+}
+/* .cansleList {
+	width: 57%;
+	padding: 31px 2px;
+	height: 80px;
+	border-bottom: 1px solid gray;
+} */
+.cansleList_layout {
+    display: flex;
+}
+.MycanInfo {
+    width: 26%;
+    height: 488px;
+    border: 1px solid gray;
+    position: relative;
+    left: 52%;
+    margin-top: -5px;
+}
+.cansleList2 {
 	width: 84%;
 	padding: 31px 2px;
 	height: 80px;
@@ -204,8 +234,18 @@ input#btDay7 {
 .cansleList input {
 	margin-left: 60px;
 }
+.cansleList2 input {
+	margin-left: 60px;
+}
 
 .cansleList .cansleTitle {
+	height: 100%;
+	float: left;
+	color: black;
+	font-weight: bold;
+	margin-left: 1%;
+}
+.cansleList2 .cansleTitle {
 	height: 100%;
 	float: left;
 	color: black;
@@ -226,7 +266,7 @@ input.cansleSub {
 }
 
 .cansleList p {
-	margin-left: 16%;
+	margin-left: 23%;
 }
 
 .cansleList .gkfdls {

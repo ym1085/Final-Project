@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.member.model.MemberService;
 import com.fp.delight.member.model.MemberVO;
-import com.fp.delight.payment.model.ReservationVO;
+import com.fp.delight.reservation.model.ReservationVO;
 
 @Controller
 public class EmailController {
