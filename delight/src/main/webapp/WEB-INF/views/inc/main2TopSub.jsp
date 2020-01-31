@@ -74,15 +74,23 @@
 			}
 		});
 	
-		/* $("#buymembership2").click(function(){
+		$("#buymembershipButton").click(function(){
 			window.open(ctx+"/member/mymemberShip.do","맴버십 구입",
-			"width=550,height=450,left=600,top=350,location=yes,resizable=yes");
-		}); */
+			"width=400,height=300,left=400,top=150,location=yes,resizable=yes");
+		}); 
 		
 	});
 </script>
 <style type="text/css">
-
+	/* 구매권 구매 버튼 */
+	#buymembershipButton{
+		background-color: red;
+    	border-color: red;
+    	margin-top: 4px;
+    	width: 85px;
+	}
+	
+	
 </style>
     <!-- 로그인 안된경우 (시작)-->
 			<c:if test="${empty sessionScope.userid }">
@@ -130,7 +138,7 @@
 					<c:if test="${empty memberShipMap['NAME'] }">
 						<div id="buymembershipParent" style="overflow: hidden; text-align: center; padding-left: 25%;">
 							<p id="buymembership1" style="float: left;">*회원권  : </p>
-							<button style="font-size: 8px; float: left;">회원권 구매</button>
+							<button id="buymembershipButton" style="font-size: 12px; color:white; float: left;">회원권 구매</button>
 						</div>
 					</c:if>
 					

@@ -221,8 +221,14 @@ public class MemberController {
 		
 		String [] splitstr = membershipDetail.split(":");
 		
-		detail = splitstr[1];
-		logger.info("문자 분리 후 detail 체크, detail={} ", detail);
+		String detailPer = splitstr[1];
+		logger.info("문자 분리 후 detail 체크, detailPer={} ", detailPer);
+		
+		String [] detailPerFinal = detailPer.split("%");
+		logger.info("문자 분리 후 2번째 detail체크, detailPerFinal={} ", detailPerFinal);
+		
+		detail = detailPerFinal[0];
+		logger.info("최종 필요한 파라미터, 10% ==> '10'셋팅 detail={} ", detail);
 		
 		MemberVO memberVo = null;
 		String email="";
@@ -286,6 +292,6 @@ public class MemberController {
 			logger.info("맴버쉽 결제 결과, result={} ", result);
 		}
 		
-		return "index";
+		return "redirect:/index.do";
 	}
 }
