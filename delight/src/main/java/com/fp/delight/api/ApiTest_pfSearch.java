@@ -102,7 +102,6 @@ public class ApiTest_pfSearch {
                map.put("pageCount", pageCount);
             }
          }
-       
         
         
         //디버깅
@@ -115,79 +114,5 @@ public class ApiTest_pfSearch {
         return list2;
    }
    
-   public int pageCount(String startDay, String endDay, String performName) 
-		   throws MalformedURLException, IOException {
-	      System.out.println("카운트 시작");
-	      
-	      String str = startDay;	
-		  String [] arr = str.split("/");
-		   
-		  String startDate = arr[2] + arr[0] + arr[1];
-		   
-		  //마지막 날짜
-		  String str2 = endDay;	
-		  String [] arr2 = str2.split("/");
-		      
-		  String endDate = arr2[2] + arr2[0] + arr2[1];
-		   	   
-		  //1~3페이지까지 랜덤으로 값을 선택해서 상세페이지를 로딩 할 때마다, 다른 값을 뿌려준다
-		  //난수 생성
-		  int randomValue;
-		  randomValue = (int)(Math.random()*3 + 1);
-		  
-	      int cnt=0;
-	      int cpa=1;
-
-	      int length=1;
-
-	      while(length==1){
-	    	  String apiurl="http://www.kopis.or.kr/openApi/restful/pblprfr?"
-	  	            + "service=4c8aebff91d74e2396fccc287989884a"
-	  	            + "&stdate="+startDate
-	  	            + "&eddate="+endDate
-	  	            + "&cpage="+randomValue
-	  	            + "&rows=20"
-	  	            + "&shprfnm="+performName;
-	         
-	         HttpURLConnection urlcon=(HttpURLConnection) new URL(apiurl).openConnection();
-
-	         urlcon.connect();
-	         BufferedInputStream bis = new BufferedInputStream(urlcon.getInputStream());
-	         BufferedReader reader = new BufferedReader(new InputStreamReader(bis));
-	         StringBuffer st = new StringBuffer();
-	         String line;
-	         while ((line = reader.readLine()) != null) {
-	            st.append(line);
-	         }
-
-	         JSONObject xmlJSONObj = XML.toJSONObject(st.toString());
-	         if(st.toString().length()>44) {
-	            Object xm=xmlJSONObj.getJSONObject("dbs").get("db");
-
-	            if(xm instanceof JSONArray) {
-	               JSONArray jsonarr=xmlJSONObj.getJSONObject("dbs").getJSONArray("db");
-	               System.out.println("jsonarray");
-	               int len=jsonarr.length();
-	               if(len>0) {
-	                  cnt++;
-	                  cpa++;   
-	                  System.out.println(cnt+"페이지 카운트 샜음");
-	               }
-	            }else if(xm instanceof JSONObject) {
-	               System.out.println("jsonobject");
-	               JSONObject json=xmlJSONObj.getJSONObject("dbs");
-	               if(json.length()>0) {
-	                  cnt++;
-	                  cpa++;
-	                  System.out.println(cnt+"페이지 카운트 샜음");
-	               }else {
-	                  length=0;
-	               }
-	            }
-	         }else {
-	            length=0;
-	         }
-	      }//while
-	      return cnt;
-	   }
+   
 }//class
