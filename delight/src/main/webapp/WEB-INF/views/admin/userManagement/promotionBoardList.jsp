@@ -28,55 +28,43 @@
 					<option value="N"
 						<c:if test="${param.searchKeyword=='N' }">
 			            		selected="selected"
-			        </c:if>>환불 진행 중</option>
+			        </c:if>>지급 전</option>
 					<option value="Y"
 						<c:if test="${param.searchKeyword=='Y' }">
 			            		selected="selected"
-			        </c:if>>환불 완료</option>
+			        </c:if>>지급 후</option>
 				</select>
 			</div>
 			<div id="tablediv">
 			<table class="table text-center table-bordered">
 		<colgroup>
-			<col style="width: 5%;">
-			<col style="width: 10%;">
-			<col style="width: 15%;">
+			<col style="width: 40%;">
 			<col style="width: 20%;">
-			<col style="width: 15%;">
-			<col style="width: 5%;">
-			<col style="width: 15%;">
-			<col style="width: 15%;">
+			<col style="width: 20%;">
+			<col style="width: 10%;">
+			<col style="width: 10%;">
+
 		</colgroup>
 		
 		<thead class="table-danger">
 			<tr>
-				<th><input type="checkbox" id="chk"></th>
+				<th>제목</th>
+				<th>등록일</th>
 				<th>아이디</th>
-				<th>환불 금액</th>
-				<th>환불사유</th>
-				<th>환불 신청일</th>
-				<th>완료 상황</th>
-				<th>환불 승인일</th>
-				<th>환불승인</th>
+				<th>지급 유무</th>
+				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:if test="${empty list }">
 				<tr>
-					<td colspan="8">환불신청 내역이 없습니다.</td>
+					<td colspan="5">환불신청 내역이 없습니다.</td>
 				</tr>
 			</c:if>
 			<c:if test="${!empty list }">
 				<c:set var="idx" value="0" />
 				<c:forEach var="map" items="${list }">
 					<tr>
-						<td>
-						<c:if test="${map['COMPFLAG']=='N' }">
-						<input type="checkbox" id="chk_${idx }" 
-						name="seqList[${idx }]" 
-						value="${map['USERID'] }@${map['REFUND_SEQ']}@${map['PAY_SEQ']}@${map['RESERVATION_SEQ']}@${map['TICKET_SEQ']}">
-						</c:if>
-						</td>
 						<td>${map['USERID'] }</td>
 						<td>
 						<fmt:formatNumber value="${map['REFUND_PRICE'] }" pattern="#,###"/>원
@@ -133,13 +121,17 @@
             	<c:if test="${param.searchCondition2=='u.USERID' }">
             		selected="selected"
             	</c:if>
-            >아이디</option>
+            >제목</option>
             <option value="f.REFUND_CANCLE" 
             	<c:if test="${param.searchCondition2=='f.REFUND_CANCLE' }">
             		selected="selected"
             	</c:if>
-            >신청일</option>
-            
+            >등록일</option>
+            <option value="f.REFUND_CANCLE" 
+            	<c:if test="${param.searchCondition2=='f.REFUND_CANCLE' }">
+            		selected="selected"
+            	</c:if>
+            >아이디</option>
         </select>   
         <input type="text" name="searchKeyword2" title="검색어 입력" id="searchKeyword2"
         	value="${param.searchKeyword2}"  class="form-control-sm">   

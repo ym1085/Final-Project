@@ -26,7 +26,6 @@ import com.fp.delight.common.SearchVO;
 import com.fp.delight.common.Utility;
 import com.fp.delight.email.DM;
 import com.fp.delight.email.EmailSender;
-import com.fp.delight.inquery.model.InqueryVO;
 import com.fp.delight.member.model.MemberVO;
 import com.fp.delight.mypage.model.GradeVO;
 
@@ -276,6 +275,9 @@ public class UserManageController {
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("totalpay", totalpay);
 		model.addAttribute("totalrefund", totalrefund);
+		
+		
 	}
+	
 }
 

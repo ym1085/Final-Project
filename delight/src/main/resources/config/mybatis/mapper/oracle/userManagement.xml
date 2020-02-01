@@ -205,11 +205,11 @@
 	</select>
 	
 	<select id="totalrefund" parameterType="string" resultType="int">
-		select sum(p.PAY_PRICE) "totalrefund"
+		select sum(e.REFUND_PRICE) "totalrefund"
 		from TBL_RESERVATION r join TBL_PAYMENT p
 		on r.RESERVATION_SEQ = p.RESERVATION_SEQ
 		join TBL_REFUND e
-		on p.PAY_SEQ=e.PAY_SEQ where r.userid=#{userid}
+		on p.PAY_SEQ=e.PAY_SEQ where r.userid=#{userid} and e.COMPFLAG='Y'
 	</select>
 </mapper>
 
