@@ -18,7 +18,7 @@ import org.json.XML;
 import com.fp.delight.performent.model.PerformentListVO;
 
 
-//메인1에서 날짜,공연명 검색 했을 때 상세페이지로 넘어가서 API 뿌려주는 소스 -예진-
+//메인에서 날짜, 공연명 검색 -> 검색결과페이지
 public class ApiTest_pfSearch {
    public int INDENT_FACTOR = 4;
    

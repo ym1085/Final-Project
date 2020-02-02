@@ -21,9 +21,9 @@
 		where pay_ticket_number = #{pay_ticket_number}
     </select>
     
-    <insert id="insertPayment" parameterType="int">
-    	insert into tbl_payment(pay_seq,pay_price,reservation_seq)
-		select pay_seq.nextval, pay_price, reservation_seq
+    <insert id="insertPayment" parameterType="java.util.HashMap">
+    	insert into tbl_payment(pay_seq,pay_price,usedmileage,reservation_seq)
+		select pay_seq.nextval, pay_price, #{usedmileage} ,reservation_seq
 		from tbl_reservation
 		where reservation_seq = #{reservationSeq}
     </insert>
@@ -58,6 +58,7 @@
 		select count(*) 
 		from tbl_refund
 	</select>
+	
 	
 </mapper>
 

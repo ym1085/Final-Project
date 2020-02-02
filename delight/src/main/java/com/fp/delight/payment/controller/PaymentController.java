@@ -1,5 +1,6 @@
 package com.fp.delight.payment.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -115,8 +116,11 @@ public class PaymentController {
 		int reservationSeq = paymentService.selectReservationForPayment(reservationVo);
 		logger.info("예매번호6자리 난수를 조건으로 준 후 SELECT~한 결과, reservation_seq={} ", reservationSeq);
 		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("reservationSeq", reservationSeq);
+		
 		//[*]결제테이블 
-		int result = paymentService.insertPayment(reservationSeq);
+		int result = paymentService.insertPayment(map);
 		logger.info("결제 완료 내역 테이블 등록 결과, result={} ", result);
 		
 		//[*]ticketVo
@@ -164,7 +168,7 @@ public class PaymentController {
 			@RequestParam String useremail2, @RequestParam String useremail, 
 			@RequestParam int ticket_seq, @RequestParam int booking,
 			@RequestParam int pay_price, @RequestParam String seat_class,
-			@RequestParam String hp) {
+			@RequestParam String hp, @RequestParam int mileagePoint) {
 
 		String chkuserid = (String)session.getAttribute("userid");
 		logger.info("현재로그인 한 유저ID, 파라미터 chkuserid={} ", chkuserid);
@@ -180,7 +184,9 @@ public class PaymentController {
 		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 useremail2={} seat_class={} ", useremail2, seat_class);
 		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 ticket_seq={} booking={} ", ticket_seq, booking);
 		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 ticketPriceSubmit={} useremail={} ", pay_price, useremail);
-		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 hp={} ", hp);
+		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 hp={} mileagePoint={} ", hp, mileagePoint);
+		
+		//마일리지명 변경해줌
 		
 		ReservationVO reservationVo = new ReservationVO();
 		reservationVo.setMt10id(mt20id);
@@ -215,8 +221,24 @@ public class PaymentController {
 		logger.info("예매번호6자리 난수를 조건으로 준 후 SELECT~한 결과, reservation_seq={} ", reservationSeq);
 		
 		//[1]결제테이블 
-		int result = paymentService.insertPayment(reservationSeq);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("reservationSeq", reservationSeq);
+		map.put("usedmileage", mileagePoint);
+		
+		int result = paymentService.insertPayment(map);
 		logger.info("결제 완료 내역 테이블 등록 결과, result={} ", result);
+		
+		//[중반부-파이널-유저테이블 마일리지 UPDATE]
+		if(mileagePoint!=0) {
+			MemberVO memberVo = new MemberVO();
+			memberVo.setUserid(userid);
+			
+			mileagePoint = (int)(mileagePoint*0.005);
+			memberVo.setMileagePoint(mileagePoint);
+			
+			int mileageResult = memberService.updateUserforMileage(memberVo);
+			logger.info("로그인 한 회원의 결제 후 마일리지 적립 결과, mileageResult={} ", mileageResult);
+		}
 		
 		//ticketVo
 		TicketVO ticketVo= new TicketVO();
@@ -252,17 +274,9 @@ public class PaymentController {
 		String userGrade = paymentService.selectReservation(reservationVo);
 		logger.info("회원등급 비교를 위해 사용될 userGrade={}",userGrade);
 		
-		int totalRefund = 0;
-		
 		//인생..... 진심
-		int chkCount = paymentService.selectRefundCount();
-		if(chkCount==0) {
-			logger.info("데이터 없다 니미랄 새끼야");
-		}else {
-			//환불금액 -> 'Y' 인 상태의 금액
-			totalRefund = paymentService.totalRefundforMemberGrade(userGrade);
-			logger.info("로그인 한 회원의 총 환불금액 여부, 파라미터 totalRefund={} ", totalRefund);
-		}
+		int totalRefund = paymentService.totalRefundforMemberGrade(userGrade);
+		logger.info("로그인 한 회원의 총 환불금액 여부, 파라미터 totalRefund={} ", totalRefund);
 		
 		//로그인 한 유저가 결제한 총 결제 금액
 		int totalPrice = paymentService.totalPayforMemberGrade(userGrade);

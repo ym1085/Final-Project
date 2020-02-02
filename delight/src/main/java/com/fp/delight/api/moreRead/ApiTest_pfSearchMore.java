@@ -18,33 +18,18 @@ import org.json.XML;
 import com.fp.delight.performent.model.PerformentListVO;
 
 
-//검색결과창에서 더보기 버튼 누르면 다음 페이지 API 뿌려줌-예진-
+//검색결과창에서 더보기 버튼 & 전체검색 버튼 공유
 public class ApiTest_pfSearchMore {
    public int INDENT_FACTOR = 4;
    
-   public List<PerformentListVO> totalPMoreRead(String type, String sido, String gugun, 
+   public List<PerformentListVO> receiveAPI(String type, String sido, String gugun, 
 		   String stdate, String eddate, String performName, String pageIndex) 
 		   throws MalformedURLException, IOException{
 	   
-	  //공연명 검색할 때, 띄어쓰기 없애기
-	  String name = performName;
-	  
-	  String PerformName = "";/*name.replaceAll(" ", "");*/
-	  
+	  //공연명 검색할 때, 띄어쓰기 없애기  
 	  if(performName!=null && !performName.isEmpty()) {
 		  performName=performName.replaceAll(" ", "");
 	  }
-	  
-	  //1~20페이지까지 랜덤으로 값을 선택해서 상세페이지를 로딩 할 때마다, 다른 값을 뿌려준다
-	  //난수 생성
-	  //int randomValue;
-	  /*randomValue = (int)(Math.random()*20 + 1);*/
-	  
-	  
-	  //특정 공연명을 검색할 때는 페이지 수(난수)를 1로 설정한다
-	  /*if(performName!=null && !performName.isEmpty()) {
-		  randomValue=1;
-	  }*/
 	  
 	  //API 공공데이터 URL 설정
 	  String apiurl="http://www.kopis.or.kr/openApi/restful/pblprfr?"

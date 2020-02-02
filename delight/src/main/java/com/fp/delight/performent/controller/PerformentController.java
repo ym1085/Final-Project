@@ -294,7 +294,7 @@ public class PerformentController {
 			@RequestParam int ticketSeq, @RequestParam int ticketCount,
 			@RequestParam String username, @RequestParam String useremail, 
 			@RequestParam String username2, @RequestParam String useremail2,
-			@RequestParam String ticketSeat) {
+			@RequestParam String ticketSeat, @RequestParam String mileagePoint) {
 		
 		String [] payPrice = ticketPriceSubmitUser.split("원");
 		ticketPriceSubmitUser = payPrice[0];
@@ -308,6 +308,7 @@ public class PerformentController {
 		logger.info("import로 넘겨주는 파라미터, username={} useremail={} ", username, useremail);
 		logger.info("import로 넘겨주는 파라미터, username2={} useremail2={} ", username2, useremail2);
 		logger.info("import로 넘겨주는 파라미터, ticketSeat={} ticketCount={} ", ticketSeat, ticketCount);
+		logger.info("import로 넘겨주는 파라미터, mileagePoint={} ", mileagePoint);
 		
 		prfnm = prfnm.replace("[", "(").replace("]", ")");
 		logger.info("공연명 [] 없애고 다시 공연명 출력==> prfnm={} ", prfnm);
@@ -370,6 +371,7 @@ public class PerformentController {
 		model.addAttribute("ticketSeat",ticketSeat);						//선택한 좌석 등급
 		model.addAttribute("ticketSeq", ticketSeq);							//선택된 해당 공연의 SEQ
 		model.addAttribute("ticketCount", ticketCount);						//선택된 티켓 수량
+		model.addAttribute("mileagePoint", mileagePoint);					//해당 유저의 마일리지 값 -> 선택-> 유저의 마일리지 or 선택안함-> 0 
 		
 		//import결제연동 - 일반회원
 		return "performance/importUser";

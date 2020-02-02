@@ -24,22 +24,12 @@ public class ApiTest_theaterDetail {
    public int INDENT_FACTOR = 4;
    
    //파라미터값 type으로 연극타입 AAAA를 받아와서 로딩한다
-   public List<PerformentListVO> receiveAPI(String sido, String gugun, String stdate, 
-		   String eddate, String perfomName) throws MalformedURLException, IOException{
+   public List<PerformentListVO> receiveAPI(String type, String sido, String gugun, String stdate, 
+		   String eddate, String perfomName, String pageIndex) throws MalformedURLException, IOException{
 	   
-	   //공연명 검색할 때, 띄어쓰기 없애기
-	   String name = perfomName;
-	   String PerformName = name.replaceAll(" ", "");
-		  	   
-	   //난수 생성
-	   int randomValue;
-	   
-	   //타입은 연극으로 고정
-	   String th="AAAA"; 
-	   
-	   //특정 공연명을 검색할 때는 페이지 수(난수)를 1로 설정한다
+	   //공연명 검색할 때, 띄어쓰기 없애기  
 	   if(perfomName!=null && !perfomName.isEmpty()) {
-		   randomValue=1;
+		   perfomName=perfomName.replaceAll(" ", "");
 	   }
 	   
 	   //API 공공데이터 URL 설정
@@ -47,12 +37,12 @@ public class ApiTest_theaterDetail {
 	            + "service=4c8aebff91d74e2396fccc287989884a"
 	            + "&stdate="+stdate
 	            + "&eddate="+eddate
-	            + "&cpage=1"
+	            + "&cpage="+pageIndex
 	            + "&signgucode="+sido
 	            + "&signgucodesub="+gugun
 	            + "&rows=20"
-	            + "&shcate="+th
-	            + "&shprfnm="+PerformName;
+	            + "&shcate="+type
+	            + "&shprfnm="+perfomName;
 	  
 	  Map<String, Object> map=new HashMap<String, Object>();
 	  List<PerformentListVO> list2=new ArrayList<PerformentListVO>();
@@ -71,9 +61,8 @@ public class ApiTest_theaterDetail {
  
         JSONObject xmlJSONObj = XML.toJSONObject(st.toString());
         String jsonPrettyPrintString = xmlJSONObj.toString(INDENT_FACTOR);
-       
+        
         int pageCount=0;
-       /* JSONArray jsonarr=xmlJSONObj.getJSONObject("dbs").getJSONArray("db");*/
         ObjectMapper mapper = new ObjectMapper();
         if(st.toString().length()>44) {
             Object xm=xmlJSONObj.getJSONObject("dbs").get("db");
@@ -83,8 +72,7 @@ public class ApiTest_theaterDetail {
                   //pageCount=pageCount(startDay, endDay, performName);
                }
                list2=mapper.readValue(jsonarr.toString(), new TypeReference<List<PerformentListVO>>() {});
-               map.put("list", list2);
-               map.put("pageCount", pageCount);
+               map.put("list", list2);     
             }else if(xm instanceof JSONObject) {
                JSONObject json=xmlJSONObj.getJSONObject("dbs").getJSONObject("db");
                list2.add((PerformentListVO) mapper.readValue(json.toString(), new TypeReference<PerformentListVO>() {}));
@@ -92,10 +80,11 @@ public class ApiTest_theaterDetail {
                //   pageCount=pageCount(startDay, endDay, performName);
                }
                map.put("list", list2);
-               map.put("pageCount", pageCount);
+              
             }
          }
        
+     
         //디버깅
         for(int i=0;i<list2.size();i++) {
            PerformentListVO vo=list2.get(i);
@@ -105,4 +94,6 @@ public class ApiTest_theaterDetail {
         //Controller
         return list2;
    }
+   
+   
 }//class

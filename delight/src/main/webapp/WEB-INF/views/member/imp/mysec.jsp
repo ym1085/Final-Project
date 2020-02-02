@@ -51,7 +51,7 @@
 							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" var="today" />
 						<c:if test="${today>map['SELECT_DATE'] && map['PAY_CONDITION']=='Y'}">
 						<!-- 예매 하면 바로 주문취소 넣어주고 만약 공연을봤다 면 후기작성으로-->
-						<a class="mysecCansle" href="<c:url value='/member/myreserCansle.do' />">주문취소</a>
+						<a class="mysecCansle" href="<c:url value='/member/myreserCansle.do?reservationSeq=${map["RESERVATION_SEQ"] }' />">주문취소</a>
 						</c:if>
 						
 						<c:if test="${today<map['SELECT_DATE'] && map['PAY_CONDITION']=='Y'}">

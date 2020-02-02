@@ -9,16 +9,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.fp.delight.api.ApiTest_arSearch;
 import com.fp.delight.api.ApiTest_pfSearch;
+import com.fp.delight.api.ApiTest_reservation;
 import com.fp.delight.performent.model.PerformentListVO;
 
-//메인에서 날짜, 공연명 검색하면 검색결과 페이지로 넘어가면서 API 뿌려줌
+
 @Controller
 @RequestMapping("/mainSearchResult")
 public class PerformSearchController {
 	private final Logger logger
 		= LoggerFactory.getLogger(PerformSearchController.class);
 
+	//메인에서 날짜, 공연명 검색 -> 검색결과페이지
 	@RequestMapping("/mainPerformSearch.do")
 	public String performentList(@RequestParam(required=true) String startDay, 
 			@RequestParam(required=true) String endDay, @RequestParam(required=false) String performName, 
@@ -28,6 +32,45 @@ public class PerformSearchController {
 		try {
 			ApiTest_pfSearch apiTest = new ApiTest_pfSearch();
     		List<PerformentListVO> alist = apiTest.receiveAPI(startDay, endDay, performName); 
+			
+			model.addAttribute("alist", alist);
+    	} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+		return "mainSearchResult/mainPerformSearch";
+	}
+	
+	//메인에서 지역 검색 -> 검색결과페이지
+	@RequestMapping(value = "/mainAreaSearch.do")
+	public String areaSearch_get(@RequestParam String sido, @RequestParam String gugun, 
+			Model model) {
+		logger.info("areaSearch 화면 보여주기");
+    	
+    	try {
+    		ApiTest_arSearch apiTest = new ApiTest_arSearch();
+    		List<PerformentListVO> alist = apiTest.receiveAPI(sido, gugun); 
+			logger.info("검색 결과 alist.size()={}",alist.size());
+			model.addAttribute("alist", alist);
+    	} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+		return "mainSearchResult/mainPerformSearch";
+	}
+	
+	//메인에서 예매하기 버튼 -> 검색결과 페이지로 로딩
+	@RequestMapping(value = "/doReservation.do")
+	public String Reservation_get(Model model) {
+		logger.info("예약페이지 화면 보여주기");
+    	
+    	try {
+    		ApiTest_reservation apiTest = new ApiTest_reservation();
+    		List<PerformentListVO> alist = apiTest.receiveAPI(); 
 			
 			model.addAttribute("alist", alist);
     	} catch (MalformedURLException e) {

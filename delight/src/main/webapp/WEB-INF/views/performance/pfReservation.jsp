@@ -16,6 +16,21 @@
 
 	<script language="javascript" type="text/javascript">
 		$(function(){
+			var usermileage=$("#mileage").html();
+			//alert(usermileage);
+			
+			mileagePoint = parseInt(usermileage);
+			
+			$("#checkM").click(function(){
+				tmp = $('[id=checkM]').is(':checked'); 
+				
+				if(tmp==true){
+					$("#mileagePoint").val(mileagePoint);
+				}else if(tmp==false){
+					$("#mileagePoint").val(0);
+				}
+			});
+			
 			//per slider
 			$(".per-q").on("click", function(){
 				var $q = $(this);
@@ -472,6 +487,7 @@
 							<input type="hidden" name="genrenm" value="${param.genrenm }">												<!-- 공연타입 -->
 							<input type="hidden" name="ticketSeq" value="${tkVo.ticketSeq }">											<!-- 티켓SEQ --> 			
 							<input type="hidden" name="ticketSeat" value="${tkVo.sellclass }">											<!-- 선택한 좌석 SEQ-->
+							<input type="text" name="mileagePoint" id="mileagePoint" value="0">											<!-- 해당 유저의 마일리지 포인트 -->
 						</form>
 					</div>
 					

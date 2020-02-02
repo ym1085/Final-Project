@@ -103,6 +103,11 @@
 		where userid = #{userid}
 	</update>
 	
+	<update id="updateUserforMileage" parameterType="memberVo">
+		update tbl_user
+		set mileagepoint = #{mileagepoint}
+		where userid = #{userid};
+	</update>
 </mapper>
 
 

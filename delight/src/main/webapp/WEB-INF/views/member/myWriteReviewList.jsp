@@ -72,12 +72,7 @@
 				<tbody id="mybody">
 					<!-- 반복 시작-->
 					<tr>
-						<td style="text-align: left">
-							<div>
-								<img alt="" src="<c:url value='/resources/images/del3.jpg' />">
-							</div>
-							<p class="mybodyP">내용</p>
-						</td>
+						<td style="text-align: left">내용1</td>
 						<td style="text-align: center">내용2</td>
 						<td style="text-align: center">내용3</td>
 						<td style="text-align: center">내용4</td>
