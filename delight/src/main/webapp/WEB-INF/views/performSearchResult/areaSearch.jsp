@@ -46,13 +46,27 @@
    .tabmenu input:checked ~ .tabCon{display:block;border-top: 0.2px solid #efe7e7;}
    
    /* 포스터 이미지 */
-   .testImg{
-   	text-align: center;
-   	float: left;
-   	margin-left: 20px;
-   	margin-right: 20px;
-   	margin-top: 20px;
-   	margin-bottom: 20px;
+   .testImg {
+	   	text-align: center;
+	   	float: left;
+	   	margin-left: 20px;
+	   	margin-right: 20px;
+	   	margin-top: 20px;
+	   	margin-bottom: 20px;
+   }
+   
+   /* 더보기버튼 */
+   .btn_moreRead {
+   		display: inline-block;
+		padding: 13px 30px;
+		border-radius: 0;
+		font-size: 16px;
+		color: #fff;
+		text-transform: capitalize;
+		-webkit-transition: 0.5s;
+		transition: 0.5s;
+		background-color: rgb(255, 0, 102);
+		font-weight: 500;
    }
 }
 </style>
@@ -86,8 +100,9 @@
       <!-- left side -->
       <!-- 풀테스트 -->
    </div>
-       
-   <!--검색 결과페이지 헤더에서 사용자가 검색한 조건을 고정시키기,  -예진- -->
+   
+    
+   <!--검색결과 페이지에서 지역별 카테고리 클릭하면 나오는 화면,  -예진- -->
    <div style="width: 87%;float: right;" class="pfdetail">
    		<div id="perfomrtitleFromMain">
    			<form action="<c:url value="/performSearchResult/areaDetail_Search.do"/>" method="post">
@@ -122,8 +137,130 @@
 			</c:forEach>	 
 		   </div>
 	   </div>
-	   <!-- 페이지 만들떄마다 복붙 -->
-	   <!-- div안에서작업 그외엔 건들지말것 -->
+	   
+	   <!-- 더보기 버튼! 인풋은 hidden -->
+	   <div id="more_btn_div" align="center" style="width: 87%;float: right;" class="pfdetail">
+	   		<!-- value값에 정수로 저장되어있어도 넘길때 String으로 넘긴다 -->
+	   		<input id="page" name="page" type="text" value="1" hidden="hidden">
+	   		<input id="moreRead" name="moreRead" type="submit" class="btn_moreRead" value="더보기(More)" onclick="condition()">
+	   </div>
+	   
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>" ></script>
+<link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.min.css'/>">
+
+<script type="text/javascript">
+/* 시도 구군 - 사용자가 선택한 값 고정시키기 */
+$(function(){	
+	$("#sido option").each(function(){
+		if($(this).val()=='${param.sido}'){
+			$(this).prop("selected","selected");
+		}
+	});
+	
+	$("#sido").trigger("change");
+	
+ 	/* moreRead(); */ 
+});
+
+/* 검색조건 변경 후 더보기 버튼 누를때 유효성 검사 */
+function condition(){
+	if('${param.sido}'!=$("#sido option:selected").val()){
+		alert("지역(시, 도) 검색조건이 변경되었습니다. 다시 검색해주세요.");
+		$('#sido').focus(); 
+		$('#more_btn_div').hide();
+		return false;
+
+	}else if('${param.gugun}'!=$("#gugun option:selected").val()){
+		alert("지역(구, 군)검색조건이 변경되었습니다. 다시 검색해주세요.");
+		$('#gugun').focus(); 
+		$('#more_btn_div').hide();
+		return false;
+
+	}else if('${param.perfomName}'!=$("#perfomName").val()){
+		alert('${param.perfomName}');
+		alert("공연명 검색조건이 변경되었습니다. 다시 검색해주세요.");
+		$('#perfomName').focus(); 
+		$('#more_btn_div').hide();
+		return false;
+
+	}else{	
+		moreRead();
+	}
+}
+
+
+/* 더보기 ajax */
+function moreRead(){
+	/* 더보기 실행할 때, 검색중 알람 뜨게 하고 버튼은 없애벌인다*/
+	alert("해당 조건 검색 중입니다. 잠시만 기다려 주세요.");	
+	$('#more_btn_div').hide(); 
+	
+		var page = parseInt($('input[name=page]').val());
+		var pageIndex = page+1;
+		$("#page").val(pageIndex);
+		
+		$.ajax({
+			url:"<c:url value='/performSearchResult/areaMoreRead.do'/>",
+			type: 'post',
+			data : 
+				{
+					"type" : $("#type").val(),
+					"sido" : $("#sido").val(),
+					"gugun" : $("#gugun").val(),
+					"stdate" : $("#stdate").val(),
+					"eddate" : $("#eddate").val(),
+					"pageIndex" : $("#page").val(),
+					"perfomName" : $("#perfomName").val()				
+				},
+			success: function(res){
+				 if(res.length==0){ 
+					//더 불러올 API 없는 경우
+					 $('#moreRead').hide();
+					 alert("더 불러올 공연 없으니까 검색 ㄴㄴ");
+					
+				 }else{ 
+					//불러올 API 있는 경우
+					var str="";
+					
+					$.each(res,function(idx,value){
+						if(value.genrenm=='연극' || value.genrenm== '뮤지컬'){
+							str+="<div class = 'testImg'>"
+							+"<img src='"+value.poster+ "' class='img-responsive' width=240px height=240px>"
+							+"<br>"
+							+"<h5><b>"+value.prfnm+"</b></h5>"
+							+"<p>"+value.prfpdfrom+"</p>"
+							+"<p>"+value.prfpdto+"</p>"
+							+"<p>"+value.fcltynm+"<p>"
+							+"<p>"+value.genrenm+"<p>"
+							+"</div>"					
+						}
+						
+					});
+					
+				  }  
+				
+				//클래스 API 뒤에 이어서 붙임 (더보기 버튼)
+				$(".API").append(str);
+				
+				/* 더보기 완료하면 다시 더보기버튼 보여줌 */
+				$('#more_btn_div').show();
+				
+			},
+			
+			error: function(xhr, status, error){
+				/* alert(error); */
+				alert("검색결과가 없습니다.");
+				
+			}			
+		});/* ajax */
+		
+		//기본 이벤트 제거
+		event.preventDefault();
+		
+}/* function moreRead()*/
+
+	
+</script>
      
    
    <%@ include file="../inc/main2Bottom.jsp" %> 
