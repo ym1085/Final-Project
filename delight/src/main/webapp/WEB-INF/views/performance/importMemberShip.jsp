@@ -35,7 +35,7 @@
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),	
             name : 'DELIGHT 티켓 예매 결제',
-            amount : 			'50000',																		 	
+            amount : 			'151',																		 	
             buyer_email : 		'${email}',						
             buyer_name : 		'${memberVo.username}',					
             buyer_tel : 		'${hp}',						
