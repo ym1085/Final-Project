@@ -10,17 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MyPageController {
 	private static final Logger logger
 	=LoggerFactory.getLogger(MyPageController.class);
-	
-	
-
 
 	@RequestMapping("/imp/myreview.do")
 	public void myreview() {
 		
 	}
 	
-
-
 	@RequestMapping("/myreviewList.do")
 	public void myreviewList() {
 		
@@ -42,10 +37,4 @@ public class MyPageController {
 	public void myWriteReviewList() {
 		
 	}
-	@RequestMapping("/myreserCancle.do")
-	public void myreserCansle() {
-		
-	}
-
-
 }

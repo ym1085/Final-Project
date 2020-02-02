@@ -44,4 +44,9 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationDao.canTotalRecord(dateSearchVo);
 	}
 
+	@Override
+	public Map<String, Object> selectCanDetail(ReservationVO reservationVo) {
+		return reservationDao.selectCanDetail(reservationVo);
+	}
+
 }

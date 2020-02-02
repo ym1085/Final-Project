@@ -117,13 +117,12 @@
 		</if>
 	</select>
 	
+	<select id="selectCanDetail" parameterType="reservationVo" resultType="map">
+		SELECT r.*,p.pay_seq,p.reg_date,usedmileage
+		FROM tbl_reservation r join tbl_payment p
+		on r.RESERVATION_SEQ = p.RESERVATION_SEQ
+		where userid=#{userid} and p.PAY_CONDITION='Y'
+		and p.reservation_seq=#{reservation_seq}
+	</select>
+	
 </mapper>
-
-
-
-
-
-
-
-
-

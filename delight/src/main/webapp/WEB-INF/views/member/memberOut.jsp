@@ -76,7 +76,7 @@
 			<div class="in2">
 			<label class="inla2">탈퇴 사유</label>
 			<c:forEach var="map" items="${list }">
-			<input type="radio" name="outReasonNo" value="${map['OUT_REASON_SEQ'] }"><label>${map['OUT_REASON'] }</label>
+			<label><input type="radio" name="outReasonNo" value="${map['OUT_REASON_SEQ'] }">${map['OUT_REASON'] }</label>
 			</c:forEach>
 			<p>※ 회원탈퇴를 신청하시면 현재 로그인 된 아이디는 즉시탈퇴 처리 되며, 해당 아이디로는 재가입 하실 수 없습니다.</p>
 			</div>

@@ -75,13 +75,11 @@ th#heading {
 #mybody .likeTr {
 	height: 59px;
 }
-
 #mybody div, img {
-	width: 101px;
-	height: 149px;
+	width: 157px;
+	height: 188px;
 	float: left;
 }
-
 .mybodyP {
 	margin-top: 18%;
 	margin-left: 32%;
@@ -200,25 +198,25 @@ input#btDay7 {
 .cansledl dd, dt {
 	float: left;
 }
-
+.cansledl dd {
+    margin-left: 8px;
+}
+.cansledl dt {
+	font-weight: bold;
+	color: black;
+}
 .cansleList {
 	width: 945%;
 	padding: 31px 2px;
 	height: 80px;
 	border-bottom: 1px solid gray;
 }
-/* .cansleList {
-	width: 57%;
-	padding: 31px 2px;
-	height: 80px;
-	border-bottom: 1px solid gray;
-} */
 .cansleList_layout {
     display: flex;
 }
 .MycanInfo {
     width: 26%;
-    height: 488px;
+    height: 327px;
     border: 1px solid gray;
     position: relative;
     left: 52%;
@@ -234,8 +232,9 @@ input#btDay7 {
 .cansleList input {
 	margin-left: 60px;
 }
-.cansleList2 input {
+.cansleList2 input{
 	margin-left: 60px;
+	margin-right: 7px;
 }
 
 .cansleList .cansleTitle {
@@ -278,7 +277,10 @@ input.cansleSub {
 	margin: 15px 5px;
 	font-weight: bold;
 }
-
+.cansletjfaud>span{
+	color: red;
+	font-weight: bold;
+}
 .mysecCansle {
 	text-decoration: underline;
 }

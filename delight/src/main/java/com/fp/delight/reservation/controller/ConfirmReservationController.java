@@ -14,11 +14,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fp.delight.common.DateSearchVO;
 import com.fp.delight.common.PaginationInfo;
 import com.fp.delight.common.Utility;
+import com.fp.delight.performent.controller.PerformentAPI;
+import com.fp.delight.refund.model.RefundService;
+import com.fp.delight.refund.model.RefundVO;
+import com.fp.delight.refundbec.model.RefundbecService;
+import com.fp.delight.refundbec.model.RefundbecVO;
 import com.fp.delight.reservation.model.ReservationService;
+import com.fp.delight.reservation.model.ReservationVO;
 
 @Controller
 @RequestMapping("/member")
@@ -28,6 +36,12 @@ public class ConfirmReservationController {
 	
 	@Autowired
 	private ReservationService reservationService;
+	
+	@Autowired
+	private RefundbecService refundbecService;
+	
+	@Autowired
+	private RefundService refundService;
 	
 	@RequestMapping("/imp/mysec.do")
 	public void mysec(HttpSession session,Model model) {
@@ -112,4 +126,47 @@ public class ConfirmReservationController {
 		model.addAttribute("pagingInfo",pagingInfo);
 	}
 	
+	@RequestMapping(value = "/myreserCancle.do",method = RequestMethod.GET)
+	public void myreserCansle_get(@RequestParam(defaultValue = "0")int reservationSeq,
+			HttpSession session,Model model) {
+		String userid=(String)session.getAttribute("userid");
+		ReservationVO reservationVo=new ReservationVO();
+		reservationVo.setUserid(userid);
+		reservationVo.setReservation_seq(reservationSeq);
+		
+		Map<String, Object> map=reservationService.selectCanDetail(reservationVo);
+		
+		List<RefundbecVO> refundlist=refundbecService.selectRefundbecAll();
+
+		PerformentAPI perfom=new PerformentAPI();
+		Map<String, Object> perfomap=perfom.performDetail((String)map.get("MT20ID"));
+		
+		model.addAttribute("map",map);
+		model.addAttribute("refundlist",refundlist);
+		model.addAttribute("poster",(String)perfomap.get("poster"));
+	}
+	
+	@RequestMapping(value = "/myreserCancle.do",method =RequestMethod.POST )
+	public String myreserCansle_post(@ModelAttribute RefundVO refundVo,
+			@RequestParam(defaultValue = "0")int reservationSeq,Model model) {
+		//@RequestParam(defaultValue = "0")int paySeq,
+		//@RequestParam(defaultValue = "0")int refundbecSeq
+		logger.info("@@@@@@refundVo={}",refundVo);
+		logger.info("@@@@@@reservationSeq={}",reservationSeq);
+		int cnt=refundService.insertRefund(refundVo);
+		
+		String msg="",url="";
+		if(cnt>0) {
+			msg="취소신청이 완료되었습니다!";
+			url="/member/myPage.do";
+		}else {
+			msg="취소신청실패!";
+			url="/member/myreserCancle.do?reservationSeq="+reservationSeq;
+		}
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "common/message";
+	}
 }
