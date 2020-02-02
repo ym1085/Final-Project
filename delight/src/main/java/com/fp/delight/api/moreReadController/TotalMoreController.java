@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.api.moreRead.ApiTest_pfSearchMore;
+import com.fp.delight.perform.api.ApiTest_total;
 import com.fp.delight.performent.model.PerformentListVO;
 
 @Controller
@@ -55,4 +58,39 @@ public class TotalMoreController {
 
 		return list;
 	}
+	
+	/* TotalSearchController에 있던거 여기로 합침 ㅋ  */
+	/* @RequestMapping("/totalPerformSearch.do")
+	public String performentList(HttpServletRequest request){
+		String type=request.getParameter("type");
+		String sido=request.getParameter("sido");
+		String gugun=request.getParameter("gugun");
+		String stdate=request.getParameter("stdate");
+		String eddate=request.getParameter("eddate");
+		String perfomName=request.getParameter("performName");
+		String pageIndex=request.getParameter("pageIndex");
+		
+		if(perfomName!=null && !perfomName.isEmpty()) {
+			perfomName=perfomName.replace(" ", "");
+		}
+		
+		logger.info("표 설정 공연 검색 파라미터 type={},sido={}",type,sido);
+		logger.info("표 설정 공연 검색 파라미터 gugun={},stdate={}",gugun,stdate);
+		logger.info("표 설정 공연 검색 파라미터 eddate={},perfomName={}",eddate,perfomName);
+		logger.info("표 설정 공연 검색 파라미터 page={}",pageIndex);
+		
+		if(perfomName==null) perfomName="";
+		ApiTest_total api=new ApiTest_total();
+		
+		List<PerformentListVO> list=new ArrayList<PerformentListVO>();
+		try {
+			list = api.receiveAPI(type, sido, gugun, stdate, eddate, perfomName, pageIndex);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "mainSearchResult/mainPerformSearch";
+	} */
 }

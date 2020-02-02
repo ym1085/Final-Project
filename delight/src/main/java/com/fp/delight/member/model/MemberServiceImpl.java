@@ -133,4 +133,9 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.buymemberShip(premiumVo);
 	}
 
+	@Override
+	public int updateUserforMembership(MemberVO memberVo) {
+		return memberDao.updateUserforMembership(memberVo);
+	}
+
 }

@@ -255,11 +255,19 @@ function condition(){
 		return false;
 
 	}else if('${std}'!=$("#stdate").val()){
-		alert("첫째날 검색조건이 변경되었습니다. 다시 검색해주세요.");
-		$('#stdate').focus(); 
+		alert("시작날짜 검색조건이 변경되었습니다. 다시 검색해주세요.");
+		/* $('#stdate').focus(); */ 
+		$('#more_btn_div').hide();
+		return false;
 		/* $('#more_btn_div').hide();
 		return false; */
 
+	}else if('${edd}'!=$("#eddate").val()){
+		alert("종료날짜 검색조건이 변경되었습니다. 다시 검색해주세요.");
+		/* $('#eddate').focus();  */
+		$('#more_btn_div').hide();
+		return false;
+		
 	}else if('${param.performName}'!=$("#perfomName").val()){
 		alert('${param.performName}');
 		alert("공연명 검색조건이 변경되었습니다. 다시 검색해주세요.");

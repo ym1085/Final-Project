@@ -97,6 +97,12 @@
 		values(#{premium_seq}, #{name}, ${detail}, sysdate, add_months(to_char(sysdate,'YYYY-MM-DD'),6), #{userid})
 	</insert>
 	
+	<update id="updateUserforMembership" parameterType="memberVo">
+		update tbl_user
+		set grade_seq = #{gradeSeq}, grade_name = #{gradeName}
+		where userid = #{userid}
+	</update>
+	
 </mapper>
 
 

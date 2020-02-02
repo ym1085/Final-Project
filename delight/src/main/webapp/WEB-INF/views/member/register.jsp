@@ -267,7 +267,7 @@
 					<span class="w3ls-text w3ls-name" id = "email2Chk">
 						<select id = "email2" name = "email2">
 							<option value="naver.com">naver.com</option>
-							<option value="google.com">google.com</option>
+							<option value="gmail.com">gmail.com</option>
 							<option value="hanmail.net">hanmail.net</option>
 							<option value="nate.com">nate.com</option>
 							<option value="etc">직접 입력</option>

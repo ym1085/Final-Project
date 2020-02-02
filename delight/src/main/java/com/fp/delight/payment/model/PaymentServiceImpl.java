@@ -1,8 +1,5 @@
 package com.fp.delight.payment.model;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,4 +25,26 @@ public class PaymentServiceImpl implements PaymentService{
 	public int insertPayment(int reservationSeq) {
 		return paymentDao.insertPayment(reservationSeq);
 	}
+
+	@Override
+	public int totalRefundforMemberGrade(String userGrade) {	//환불액
+		return paymentDao.totalRefundforMemberGrade(userGrade);	
+	}
+
+	@Override
+	public int totalPayforMemberGrade(String userGrade) {		//총액
+		return paymentDao.totalPayforMemberGrade(userGrade);
+	}
+	
+	@Override
+	public String selectReservation(ReservationVO reservationVo) {
+		return paymentDao.selectReservation(reservationVo);
+	}
+
+	@Override
+	public int selectRefundCount() {
+		return paymentDao.selectRefundCount();
+	}
+
+
 }

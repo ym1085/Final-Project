@@ -28,7 +28,39 @@
 		where reservation_seq = #{reservationSeq}
     </insert>
 	
+	<select id="totalRefundforMemberGrade" parameterType="string" resultType="int">
+		select sum(d.refund_price) as pay_price
+		from tbl_user a left join tbl_reservation b
+		on a.userid = b.userid
+		left join tbl_payment c
+		on b.reservation_seq = c.reservation_seq
+		left join tbl_refund d
+		on c.pay_seq = d.pay_seq
+		where a.userid = #{userGrade}
+		and d.compflag = 'Y' 
+		and c.pay_condition='Y'
+	</select>
+	
+	<select id="totalPayforMemberGrade" parameterType="string" resultType="int">
+		select sum(p.PAY_PRICE) "totalpay"
+      	from TBL_RESERVATION r join TBL_PAYMENT p
+      	on r.RESERVATION_SEQ = p.RESERVATION_SEQ 
+      	where r.userid=#{userGrade}
+	</select>
+	
+	 <select id="selectReservation" resultType="string" parameterType="reservationVo">
+    	SELECT userid
+		from tbl_reservation
+		where pay_ticket_number = #{pay_ticket_number}
+    </select>
+
+	<select id="selectRefundCount" resultType="int">
+		select count(*) 
+		from tbl_refund
+	</select>
+	
 </mapper>
+
 
 
 

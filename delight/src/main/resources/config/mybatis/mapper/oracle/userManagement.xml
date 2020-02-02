@@ -9,6 +9,11 @@
 		where grade_name!='admin' order by grade_seq
 	</select>
 	
+	<select id="gradeListforPayment" resultType="gradeVo">
+		select * from tbl_grade 
+		where grade_name!='admin' order by grade_seq desc
+	</select>
+	
 	<select id="gradeBySeqSel" resultType="gradeVo" parameterType="int">
 		select * from tbl_grade where grade_seq=#{gradeSeq}
 	</select>

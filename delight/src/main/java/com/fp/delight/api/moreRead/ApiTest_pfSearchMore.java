@@ -55,6 +55,7 @@ public class ApiTest_pfSearchMore {
 	            + "&signgucode="+sido
 	            + "&signgucodesub="+gugun
 	            + "&rows=30"
+	            + "&shcate="+type
 	            + "&shprfnm="+performName;
 	  
 	  
