@@ -21,6 +21,7 @@ import com.fp.delight.common.Utility;
 import com.fp.delight.reservation.model.ReservationService;
 
 @Controller
+@RequestMapping("/member")
 public class ConfirmReservationController {
 	private static final Logger logger
 	=LoggerFactory.getLogger(ConfirmReservationController.class);
@@ -28,7 +29,7 @@ public class ConfirmReservationController {
 	@Autowired
 	private ReservationService reservationService;
 	
-	@RequestMapping("/member/imp/mysec.do")
+	@RequestMapping("/imp/mysec.do")
 	public void mysec(HttpSession session,Model model) {
 		String userid=(String)session.getAttribute("userid");
 		logger.info("@@userid={}",userid);
@@ -38,7 +39,7 @@ public class ConfirmReservationController {
 		logger.info("@@@@@list.size()={}",list.size());
 	}
 	
-	@RequestMapping("/member/mysecList.do")
+	@RequestMapping("/mysecList.do")
 	public void mysecList(@ModelAttribute DateSearchVO dateSearchVo,
 			HttpSession session,Model model) {
 		String userid=(String)session.getAttribute("userid");
@@ -65,6 +66,46 @@ public class ConfirmReservationController {
 		List<Map<String, Object>> list=reservationService.selectReserList(dateSearchVo);
 		
 		int totalRecord=reservationService.TotalRecord(dateSearchVo);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		model.addAttribute("list",list);
+		model.addAttribute("pagingInfo",pagingInfo);
+	}
+	
+	@RequestMapping("/imp/mysecCan.do")
+	public void mysecCan(HttpSession session,Model model) {
+		String userid=(String)session.getAttribute("userid");
+		List<Map<String, Object>> list=reservationService.selectCanNew5(userid);
+		model.addAttribute("list",list);
+	}
+	
+	@RequestMapping("/mysecCanList.do")
+	public void mysecCanList(@ModelAttribute DateSearchVO dateSearchVo,
+			HttpSession session,Model model) {
+		String userid=(String)session.getAttribute("userid");
+		dateSearchVo.setCustomerId(userid);
+		
+		String startDay=dateSearchVo.getStartDay();
+		if(startDay==null || startDay.isEmpty()) {
+			Date today = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String str=sdf.format(today);
+			
+			dateSearchVo.setStartDay(str);
+			dateSearchVo.setEndDay(str);			
+		}
+		
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(Utility.LIKE_RECORD_COUNT);
+		pagingInfo.setCurrentPage(dateSearchVo.getCurrentPage());
+		
+		dateSearchVo.setRecordCountPerPage(Utility.LIKE_RECORD_COUNT);
+		dateSearchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		List<Map<String, Object>> list=reservationService.selectCanList(dateSearchVo);
+		
+		int totalRecord=reservationService.canTotalRecord(dateSearchVo);
 		pagingInfo.setTotalRecord(totalRecord);
 		
 		model.addAttribute("list",list);

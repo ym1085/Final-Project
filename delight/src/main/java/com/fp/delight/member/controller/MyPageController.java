@@ -12,20 +12,14 @@ public class MyPageController {
 	=LoggerFactory.getLogger(MyPageController.class);
 	
 	
-	@RequestMapping("/imp/mysecCan.do")
-	public void mysecCan() {
-		
-	}
+
 
 	@RequestMapping("/imp/myreview.do")
 	public void myreview() {
 		
 	}
 	
-	@RequestMapping("/mysecCanList.do")
-	public void mysecCanList() {
-		
-	}
+
 
 	@RequestMapping("/myreviewList.do")
 	public void myreviewList() {
@@ -48,7 +42,7 @@ public class MyPageController {
 	public void myWriteReviewList() {
 		
 	}
-	@RequestMapping("/myreserCansle.do")
+	@RequestMapping("/myreserCancle.do")
 	public void myreserCansle() {
 		
 	}

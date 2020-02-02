@@ -55,6 +55,68 @@
 			</if>
 	</select>
 	
+	<select id="selectCanNew5" parameterType="string" resultType="map">
+		select *
+			from
+			(
+			    SELECT r.*,e.COMPFLAG,e.refund_cancle,e.refund_cancle_ok,f.DETAIL
+				FROM tbl_reservation r join tbl_payment p
+				on r.RESERVATION_SEQ = p.RESERVATION_SEQ
+				join tbl_refund e
+				on p.PAY_SEQ=e.PAY_SEQ
+				join tbl_refundbec f
+				on e.REFUNDBEC_SEQ = f.REFUNDBEC_SEQ
+				where userid=#{userid} and p.PAY_CONDITION='C'
+				order by r.reservation_seq desc
+			)
+			<![CDATA[
+			where rownum<=5
+		]]>	
+	</select>
+	
+		<select id="selectCanList" parameterType="dateSearchVo" resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		        SELECT r.*,e.COMPFLAG,e.refund_cancle,e.refund_cancle_ok,f.DETAIL
+				FROM tbl_reservation r join tbl_payment p
+				on r.RESERVATION_SEQ = p.RESERVATION_SEQ
+				join tbl_refund e
+				on p.PAY_SEQ=e.PAY_SEQ
+				join tbl_refundbec f
+				on e.REFUNDBEC_SEQ = f.REFUNDBEC_SEQ
+				where p.PAY_CONDITION='C' and refund_cancle>=#{startDay}
+				<![CDATA[ and refund_cancle < to_Date(#{endDay})+1]]>
+				<if test="customerId!=null and customerId!=''">
+					and userid=#{customerId}
+				</if>
+				order by r.reservation_seq desc
+		    )A
+		)
+		where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>	
+	</select>
+	
+	<select id="canTotalRecord" parameterType="dateSearchVo" resultType="int">
+		SELECT count(*)
+		FROM tbl_reservation r join tbl_payment p
+		on r.RESERVATION_SEQ = p.RESERVATION_SEQ
+		join tbl_refund e
+		on p.PAY_SEQ=e.PAY_SEQ
+		join tbl_refundbec f
+		on e.REFUNDBEC_SEQ = f.REFUNDBEC_SEQ
+		where p.PAY_CONDITION='C' and refund_cancle>=#{startDay}
+		<![CDATA[ and refund_cancle < to_Date(#{endDay})+1]]>
+		<if test="customerId!=null and customerId!=''">
+			and userid=#{customerId}
+		</if>
+	</select>
+	
 </mapper>
 
 

@@ -78,7 +78,7 @@
 				<input type="submit" value="조회" id="listsubmit">
 			</form>
 			
-<table class="mytable">
+			<table class="mytable">
 				<colgroup>
 					<col style="width:350px">
 					<col style="width:159px">

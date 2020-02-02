@@ -95,7 +95,10 @@
 					<c:forEach var="like" items="${list }">
 					<tr class="likeTr">
 						<td class="likeTd">
-							<p class="mybodylikeP">(${like.GENRE })${like.PRFNM }
+							<p class="mybodylikeP">
+							<a class="linkperDetail" href="<c:url value='/recentInsert.do?perfomid=${like.MT20ID}'/>">
+							(${like.GENRE })${like.PRFNM }
+							</a>
 							<input type="hidden" value="${like.MT20ID }" class="likeperfomId">
 							</p>
 							<p class="mybodylikeimgList" style="color: red;"><img class="likeListimg" alt="좋아요이미지" src="<c:url value='/resources/images/like2.png' />">

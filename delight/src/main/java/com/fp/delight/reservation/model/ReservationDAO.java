@@ -9,4 +9,7 @@ public interface ReservationDAO {
 	List<Map<String, Object>>selectReserNew5(String userid);
 	List<Map<String, Object>> selectReserList(DateSearchVO dateSearchVo);
 	int TotalRecord(DateSearchVO dateSearchVo);
+	List<Map<String, Object>>selectCanNew5(String userid);
+	List<Map<String, Object>>selectCanList(DateSearchVO dateSearchVo);
+	int canTotalRecord(DateSearchVO dateSearchVo);
 }
