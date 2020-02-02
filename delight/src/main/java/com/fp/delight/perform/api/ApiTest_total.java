@@ -23,7 +23,7 @@ public class ApiTest_total {
    public int INDENT_FACTOR = 4;
    
    public List<PerformentListVO> receiveAPI(String type, String sido, String gugun, String stdate, 
-		   String eddate, String performName) throws MalformedURLException, IOException{
+		   String eddate, String performName, String pageIndex) throws MalformedURLException, IOException{
 	   
 	  //공연명 검색할 때, 띄어쓰기 없애기
 	   
@@ -45,7 +45,7 @@ public class ApiTest_total {
 	            + "service=4c8aebff91d74e2396fccc287989884a"
 	            + "&stdate="+stdate
 	            + "&eddate="+eddate
-	            + "&cpage=1"
+	            + "&cpage="+pageIndex
 	            + "&signgucode="+sido
 	            + "&signgucodesub="+gugun
 	            + "&rows=30"

@@ -151,19 +151,6 @@
 		   </div>
 	   </div>
 	   
-	   <!-- 더보기 새로 추가함 -->
-	   <div id="more_btn_div" align="center" style="width: 87%;float: right;" class="pfdetail">
-	   <!-- <input type="hidden" name="viewCount" id="viewCount" value="0">
-	   <input type="hidden" name="startCount" id="startCount" value="0"> -->
-	   
-	   <hr>
-	   		<a id="more_btn_a" href="javascript:moreContent('more_list', 5);">
-	   			더보기(More)
-	   		</a>
-	   <hr>
-	   </div>
-	   <!-- 페이지 만들떄마다 복붙 -->
-	   <!-- div안에서작업 그외엔 건들지말것 -->
 	   
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>" ></script>
 <link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.min.css'/>">

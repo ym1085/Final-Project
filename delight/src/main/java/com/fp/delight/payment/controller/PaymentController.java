@@ -13,11 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fp.delight.admin.userManagemet.model.GradeManagerService;
+import com.fp.delight.member.model.MemberService;
+import com.fp.delight.member.model.MemberVO;
+import com.fp.delight.mypage.model.GradeVO;
 import com.fp.delight.payment.model.PaymentService;
 import com.fp.delight.payment.model.PaymentVO;
 import com.fp.delight.reservation.model.ReservationVO;
 import com.fp.delight.ticket.model.TicketService;
 import com.fp.delight.ticket.model.TicketVO;
+import com.google.api.services.calendar.model.Event.Source;
 
 @Controller
 @RequestMapping("/payment")
@@ -31,6 +36,12 @@ public class PaymentController {
 	@Autowired
 	private TicketService ticketService;
 			
+	@Autowired
+	private GradeManagerService grademanagerService;
+	
+	@Autowired
+	private MemberService memberService;
+	
 	//[※] 메서드 
 	//비회원 : showPaymentend.do 요청으로 들어옵니다.
 	//일반회원 : showPaymentendUser.do 요청으로 들어옵니다.
@@ -221,7 +232,7 @@ public class PaymentController {
 		
 		int ticketResult = ticketService.updateTicketForPayment(ticketVo);
 		logger.info("공연별 판매수량, 사용자가 선택한 티켓 값을 더한 결과 ticketResult={} ", ticketResult);
-		
+	
 		model.addAttribute("pay_ticket_number", pay_ticket_number);		//예매번호
 		model.addAttribute("prfnm", prfnm);								//공연명
 		model.addAttribute("select_date", select_date);					//선택한 공연 날짜
@@ -236,6 +247,94 @@ public class PaymentController {
 		model.addAttribute("chkuserid", chkuserid);						//현재 로그인한 유저 id - 체크용
 		model.addAttribute("selled", selled);
 	
+		//결제완료가 되면 -> 회원등급 분류 -> TBL_USER -> GRADE_NAME -> UPDATE
+		//tbl_user join tbl_payment join tbl_refund
+		String userGrade = paymentService.selectReservation(reservationVo);
+		logger.info("회원등급 비교를 위해 사용될 userGrade={}",userGrade);
+		
+		int totalRefund = 0;
+		
+		//인생..... 진심
+		int chkCount = paymentService.selectRefundCount();
+		if(chkCount==0) {
+			logger.info("데이터 없다 니미랄 새끼야");
+		}else {
+			//환불금액 -> 'Y' 인 상태의 금액
+			totalRefund = paymentService.totalRefundforMemberGrade(userGrade);
+			logger.info("로그인 한 회원의 총 환불금액 여부, 파라미터 totalRefund={} ", totalRefund);
+		}
+		
+		//로그인 한 유저가 결제한 총 결제 금액
+		int totalPrice = paymentService.totalPayforMemberGrade(userGrade);
+		logger.info("로그인 한 회원의 총 결제금액 여부, 파라미터 totalPrice={} ", totalPrice);
+		
+		//환불 금액을 뺀 유저의 총 결제금액 -> 이걸로 회원등급 결정
+		int conditionPrice = totalPrice - totalRefund;
+		logger.info("로그인 한 회원 총결제 금액 여부, 환불 금액 - 총액 conditionPrice={} ", conditionPrice);
+		
+		int [] totalStandardPrice = new int[6];
+		int chkNum = 0;
+		
+		List<GradeVO> list=grademanagerService.gradeListforPayment();
+		
+		for(GradeVO grade : list) {
+			totalStandardPrice[chkNum] = grade.getGradeStandard();
+			System.out.println(totalStandardPrice[chkNum]);
+			chkNum++;
+		}
+		
+		//총액
+		/*int toPrice=conditionPrice;	
+		int idx=0;
+      	
+      	for(int i=0;i<list.size();i++) {
+      		GradeVO vo=list.get(i);
+      		if(toPrice>=vo.getGradeStandard()) {	
+      			idx=i;
+      			break;
+      		}
+      	}*/
+		
+		//회원 등급 -> 
+		//-> 50000, 1000000, 1500000, 2000000 
+		//-> 유저의 회원등급 업데이트
+		MemberVO memberVo = new MemberVO();
+		if(conditionPrice>=totalStandardPrice[0]) {
+			memberVo.setGradeSeq(5);
+			memberVo.setGradeName("vip");
+			memberVo.setUserid(userGrade);
+			int gradeResult = memberService.updateUserforMembership(memberVo);
+			logger.info("회원등급 변경 결과, VIP result={}", gradeResult);
+			
+		}else if(conditionPrice>=totalStandardPrice[1]) {
+			memberVo.setGradeSeq(4);
+			memberVo.setGradeName("p");
+			memberVo.setUserid(userGrade);
+			int gradeResult = memberService.updateUserforMembership(memberVo);
+			logger.info("회원등급 변경 결과, P result={}", gradeResult);
+			
+		}else if(conditionPrice>=totalStandardPrice[2]) {
+			memberVo.setGradeSeq(3);
+			memberVo.setGradeName("g");
+			memberVo.setUserid(userGrade);
+			int gradeResult = memberService.updateUserforMembership(memberVo);
+			logger.info("회원등급 변경 결과, G result={}", gradeResult);
+			
+		}else if(conditionPrice>=totalStandardPrice[3]) {
+			memberVo.setGradeSeq(2);
+			memberVo.setGradeName("s");
+			memberVo.setUserid(userGrade);
+			int gradeResult = memberService.updateUserforMembership(memberVo);
+			logger.info("회원등급 변경 결과, S result={}", gradeResult);
+			
+		}else if(conditionPrice>=totalStandardPrice[4]) {
+			memberVo.setGradeSeq(1);
+			memberVo.setGradeName("b");
+			memberVo.setUserid(userGrade);
+			int gradeResult = memberService.updateUserforMembership(memberVo);
+			logger.info("회원등급 변경 결과, B result={}", gradeResult);
+		}
+		
 		return "performance/showPaymentend";
 	}
 	

@@ -82,14 +82,18 @@ public class SalesController {
 		Map<String, Object> map=api.performDetail(perfomid);
 		
 		String sdate=(String) map.get("prfpdfrom");
+		logger.info("sdate={}",sdate);
 		String eddate=(String) map.get("prfpdto");
+		logger.info("eddate={}",eddate);
 		Date d=new Date();
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy.MM.DD");
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy.MM.dd");
 		String now=sdf.format(d);
 		String[] nowymd=now.split("\\.");
 		String[] sdateymd=sdate.split("\\.");
-		Date sd=new Date(Integer.parseInt(sdateymd[0]), Integer.parseInt(sdateymd[1]), Integer.parseInt(sdateymd[2]));
-		
+		Date sd=new Date(Integer.parseInt(sdateymd[0])-1900, Integer.parseInt(sdateymd[1])-1, Integer.parseInt(sdateymd[2]));
+		logger.info("시작일 sd={}",sdf.format(sd));
+		logger.info("현재 now={}",sdf.format(d));
+		logger.info("비교={}",sd.compareTo(d));
 		if(sd.compareTo(d)>0) {
 			//map.put("sdateymd",nowymd );
 			map.put("sdateymd", sdateymd);

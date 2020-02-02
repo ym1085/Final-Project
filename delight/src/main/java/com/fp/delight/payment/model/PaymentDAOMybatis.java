@@ -30,4 +30,27 @@ public class PaymentDAOMybatis implements PaymentDAO{
 	public int insertPayment(int reservationSeq) {
 		return sqlsession.insert(namespace+"insertPayment", reservationSeq);
 	}
+
+	@Override
+	public int totalRefundforMemberGrade(String userGrade) {
+		return sqlsession.selectOne(namespace+"totalRefundforMemberGrade", userGrade);
+	}
+
+	@Override
+	public int totalPayforMemberGrade(String userGrade) {
+		return sqlsession.selectOne(namespace+"totalPayforMemberGrade", userGrade);
+	}
+	
+	@Override
+	public String selectReservation(ReservationVO reservationVo) {
+		return sqlsession.selectOne(namespace+"selectReservation", reservationVo);
+	}
+
+	@Override
+	public int selectRefundCount() {
+		return sqlsession.selectOne(namespace+"selectRefundCount");
+	}
+
+	
+
 }

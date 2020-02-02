@@ -51,4 +51,32 @@ public class MemberManagerDAOMybatis implements MemberManagerDAO {
 		return sqlSession.selectList(namespace+"userAll");
 	}
 
+	@Override
+	public List<Map<String, Object>> paymentList(MemberVO memberVo) {
+		return sqlSession.selectList(namespace+"paymentList", memberVo);
+	}
+
+	@Override
+	public int paymentTotal(MemberVO memberVo) {
+		return sqlSession.selectOne(namespace+"paymentTotal", memberVo);
+	}
+
+	@Override
+	public int totalpayment(String userid) {
+		int cnt=0;
+		if(sqlSession.selectOne(namespace+"totalpayment", userid)!=null) {
+			cnt=sqlSession.selectOne(namespace+"totalpayment", userid);
+		}
+		return cnt;
+	}
+
+	@Override
+	public int totalrefund(String userid) {
+		int cnt=0;
+		if(sqlSession.selectOne(namespace+"totalrefund", userid)!=null) {
+			cnt=sqlSession.selectOne(namespace+"totalrefund", userid);
+		}
+		return cnt;
+	}
+
 }

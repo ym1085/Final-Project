@@ -13,4 +13,8 @@ public interface MemberManagerDAO {
 	int forcedExit(String userid);
 	int cancle(String userid);
 	List<MemberVO> userAll();
+	List<Map<String, Object>> paymentList(MemberVO memberVo);
+	int paymentTotal(MemberVO memberVo);
+	int totalpayment(String userid);
+	int totalrefund(String userid);
 }

@@ -157,7 +157,7 @@
               </a>
               <div class="collapse" id="sell">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="#"> 
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/refundReqList.do'/>"> 
 				  환불신청 내역 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/salesSetting.do'/>" > 
 				  판매수량 설정</a></li>

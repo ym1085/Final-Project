@@ -28,8 +28,12 @@ public class ApiTest_pfSearchMore {
 	   
 	  //공연명 검색할 때, 띄어쓰기 없애기
 	  String name = performName;
+	  
 	  String PerformName = "";/*name.replaceAll(" ", "");*/
 	  
+	  if(performName!=null && !performName.isEmpty()) {
+		  performName=performName.replaceAll(" ", "");
+	  }
 	  
 	  //1~20페이지까지 랜덤으로 값을 선택해서 상세페이지를 로딩 할 때마다, 다른 값을 뿌려준다
 	  //난수 생성
@@ -51,7 +55,8 @@ public class ApiTest_pfSearchMore {
 	            + "&signgucode="+sido
 	            + "&signgucodesub="+gugun
 	            + "&rows=30"
-	            + "&shprfnm="+PerformName;
+	            + "&shcate="+type
+	            + "&shprfnm="+performName;
 	  
 	  
 	  Map<String, Object> map=new HashMap<String, Object>();

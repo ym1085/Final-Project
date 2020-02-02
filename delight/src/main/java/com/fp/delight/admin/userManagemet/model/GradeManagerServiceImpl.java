@@ -27,6 +27,11 @@ public class GradeManagerServiceImpl implements GradeManagerService{
 	public int gradeEdit(GradeVO gradeVo) {
 		return gradeManagerDao.gradeEdit(gradeVo);
 	}
+
+	@Override
+	public List<GradeVO> gradeListforPayment() {
+		return gradeManagerDao.gradeListforPayment();
+	}
 	
 	
 }

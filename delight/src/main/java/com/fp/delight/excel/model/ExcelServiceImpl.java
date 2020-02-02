@@ -187,9 +187,9 @@ public class ExcelServiceImpl implements ExcelService{
 		
 		
 		if(type.equals("test")) {  //테스트 경로
-			path=props.getProperty("file.upload.path.test");
+			path=props.getProperty("excel.upload.path.test");
 		}else { //배포시 실제 경로
-			String upDir=props.getProperty("file.upload.path");
+			String upDir=props.getProperty("excel.upload.path");
 			path
 			=request.getSession().getServletContext().getRealPath(upDir);
 			

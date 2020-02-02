@@ -22,13 +22,13 @@ public class TotalSearchController {
 	@RequestMapping("/totalPerformSearch.do")
 	public String performentList(@RequestParam String type, @RequestParam(required = false) String sido,
 			@RequestParam(required = false) String gugun, @RequestParam String stdate, @RequestParam String eddate, 
-			@RequestParam(required = false) String performName, Model model) {
+			@RequestParam(required = false) String performName, @RequestParam String pageIndex, Model model) {
 		logger.info("공연 API, 공연목록 데이터 출력!");
 		logger.info("sido={},gugun={}",sido,gugun);
 		logger.info("performName={}",performName);
 		try {
 			ApiTest_total apiTest = new ApiTest_total();
-    		List<PerformentListVO> alist = apiTest.receiveAPI(type, sido, gugun, stdate, eddate, performName); 
+    		List<PerformentListVO> alist = apiTest.receiveAPI(type, sido, gugun, stdate, eddate, performName, pageIndex); 
 			
 			model.addAttribute("alist", alist);
     	} catch (MalformedURLException e) {

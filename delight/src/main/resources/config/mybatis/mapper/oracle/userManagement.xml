@@ -9,6 +9,11 @@
 		where grade_name!='admin' order by grade_seq
 	</select>
 	
+	<select id="gradeListforPayment" resultType="gradeVo">
+		select * from tbl_grade 
+		where grade_name!='admin' order by grade_seq desc
+	</select>
+	
 	<select id="gradeBySeqSel" resultType="gradeVo" parameterType="int">
 		select * from tbl_grade where grade_seq=#{gradeSeq}
 	</select>
@@ -143,6 +148,73 @@
 	
 	<select id="anwCk" parameterType="int" resultType="int">
 		select count(*) from TBL_INQANW where inquery_seq=#{inqSeq}
+	</select>
+	
+	<sql id="searchWhere3">
+			and refYN like '%' || #{searchKeyword} || '%'
+	</sql>
+	
+	<select id="paymentList" parameterType="memberVo" resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from 
+		    (	
+		    	select *
+				from
+				(
+				select u.USERID, r.PAY_PRICE, r.REs_DATE, r.PRFNM,case when f.COMPFLAG is null then 'N'
+				                                                       when f.compflag='N' then 'ing'
+				                                                        else 'Y'
+				                                                        end refYN
+				from TBL_USER u left join TBL_RESERVATION r
+				on u.USERID = r.USERID
+				left join TBL_PAYMENT p
+				on p.RESERVATION_SEQ = r.RESERVATION_SEQ
+				left join TBL_REFUND f
+				on f.PAY_SEQ = p.PAY_SEQ
+				)
+				where userid=#{userid}
+				<include refid="searchWhere3"></include>
+		    ) A
+		) where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="paymentTotal" parameterType="memberVo" resultType="int">
+		select count(*)
+		from
+		(
+		select u.USERID, r.PAY_PRICE, r.REs_DATE, r.PRFNM,case when f.COMPFLAG is null then 'N'
+		                                                       when f.compflag='N' then 'ing'
+		                                                        else 'Y'
+		                                                        end refYN
+		from TBL_USER u left join TBL_RESERVATION r
+		on u.USERID = r.USERID
+		left join TBL_PAYMENT p
+		on p.RESERVATION_SEQ = r.RESERVATION_SEQ
+		left join TBL_REFUND f
+		on f.PAY_SEQ = p.PAY_SEQ
+		)
+		where userid=#{userid}
+		<include refid="searchWhere3"></include>
+	</select>
+	
+	<select id="totalpayment" parameterType="string" resultType="int">
+		select sum(p.PAY_PRICE) "totalpay"
+		from TBL_RESERVATION r join TBL_PAYMENT p
+		on r.RESERVATION_SEQ = p.RESERVATION_SEQ where r.USERID=#{userid}
+	</select>
+	
+	<select id="totalrefund" parameterType="string" resultType="int">
+		select sum(e.REFUND_PRICE) "totalrefund"
+		from TBL_RESERVATION r join TBL_PAYMENT p
+		on r.RESERVATION_SEQ = p.RESERVATION_SEQ
+		join TBL_REFUND e
+		on p.PAY_SEQ=e.PAY_SEQ where r.userid=#{userid} and e.COMPFLAG='Y'
 	</select>
 </mapper>
 

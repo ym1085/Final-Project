@@ -8,6 +8,6 @@ public interface GradeManagerDAO {
 	List<GradeVO> gradeList();
 	GradeVO gradeBySeqSel(int gradeSeq);
 	int gradeEdit(GradeVO gradeVo);
-	
+	List<GradeVO> gradeListforPayment();
 	
 }

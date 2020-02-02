@@ -29,6 +29,11 @@ public class GradeManagerDAOMybatis implements GradeManagerDAO{
 	public int gradeEdit(GradeVO gradeVo) {
 		return sqlSession.update(namespace+"gradeEdit", gradeVo);
 	}
+
+	@Override
+	public List<GradeVO> gradeListforPayment() {
+		return sqlSession.selectList(namespace+"gradeListforPayment");
+	}
 	
 	
 }

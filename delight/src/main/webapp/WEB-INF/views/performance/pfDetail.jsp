@@ -307,6 +307,7 @@
 				  			action="<c:url value='/performance/pfReservation.do'/>"
 				  		</c:if>		
 				  >
+				  
 			 	 		<input type="hidden" name="mt20id" value="${map2['mt20id']}"> 				<!-- 공연id -->
 			  			<input type="hidden" name="mt10id" value="${map2['mt10id']}">				<!-- 공연시설id -->
 			  			<input type="hidden" name="prfnm" value="${map2['prfnm']}">	 				<!-- 공연명 -->
