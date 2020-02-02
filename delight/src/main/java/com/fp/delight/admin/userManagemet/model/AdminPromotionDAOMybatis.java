@@ -24,5 +24,15 @@ public class AdminPromotionDAOMybatis implements AdminPromotionDAO{
 	public int promotiontotal(PromotionVO promotionVo) {
 		return sqlSession.selectOne(namespace+"promotiontotal", promotionVo);
 	}
+
+	@Override
+	public PromotionVO promotionDetail(int proseq) {
+		return sqlSession.selectOne(namespace+"promotionDetail", proseq);
+	}
+
+	@Override
+	public int promoDel(int proseq) {
+		return sqlSession.delete(namespace+"promoDel", proseq);
+	}
 	
 }

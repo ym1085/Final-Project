@@ -101,16 +101,16 @@ public class FileUploadUtil {
 		
 		if(type.equals("test")) {  //테스트 경로
 			if(uploadPathType==REVIEW_UPLOAD) {
-				path=props.getProperty("file.upload.path.test");
+				path=props.getProperty("review.upload.path.test");
 			}else if(uploadPathType==PROMOTION_UPLOAD) {
-				path=props.getProperty("imageFile.upload.path.test");
+				path=props.getProperty("promotion.upload.path.test");
 			}
 		}else { //배포시 실제 경로
 			String upDir="";
 			if(uploadPathType==REVIEW_UPLOAD) {			
-				upDir=props.getProperty("file.upload.path");
+				upDir=props.getProperty("review.upload.path");
 			}else if(uploadPathType==PROMOTION_UPLOAD) {
-				upDir=props.getProperty("imageFile.upload.path");
+				upDir=props.getProperty("promotion.upload.path");
 			}
 			
 			path

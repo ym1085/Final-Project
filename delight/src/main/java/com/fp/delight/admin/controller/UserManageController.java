@@ -1,9 +1,11 @@
 package com.fp.delight.admin.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -22,6 +24,8 @@ import com.fp.delight.admin.userManagemet.model.InqAnwService;
 import com.fp.delight.admin.userManagemet.model.InqAnwVO;
 import com.fp.delight.admin.userManagemet.model.MemberListVO;
 import com.fp.delight.admin.userManagemet.model.MemberManagerService;
+import com.fp.delight.admin.userManagemet.model.PromotionListVO;
+import com.fp.delight.common.FileUploadUtil;
 import com.fp.delight.common.PaginationInfo;
 import com.fp.delight.common.SearchVO;
 import com.fp.delight.common.Utility;
@@ -49,6 +53,9 @@ public class UserManageController {
 	
 	@Autowired
 	private AdminPromotionService adminPromotionService;
+	
+	@Autowired
+	private FileUploadUtil fileUtil;
 	
 	@RequestMapping("/gradeManagement.do")
 	public void gradeManagement(Model model) {
@@ -307,6 +314,101 @@ public class UserManageController {
 		model.addAttribute("list", list);
 		model.addAttribute("pagingInfo", pagingInfo);
 		
+	}
+	
+	@RequestMapping("/promotionDetail.do")
+	public void promotionDetail(@RequestParam int proseq,Model model) {
+		logger.info("홍보글 상세보기 파라미터 proseq={}",proseq);
+		
+		PromotionVO vo=adminPromotionService.promotionDetail(proseq);
+		
+		logger.info("검색 결과 vo={}",vo);
+		
+		model.addAttribute("vo", vo);
+	}
+	
+	@RequestMapping("/promoDelDetail.do")
+	@ResponseBody
+	public int promoDetailDel(@RequestParam int proseq,HttpServletRequest request) {
+		logger.info("홍보글 상세보기에서 삭제하기 파라미터 proseq={}",proseq);
+		
+		PromotionVO vo=adminPromotionService.promotionDetail(proseq);
+		String path=fileUtil.getFilePath(request, FileUploadUtil.PROMOTION_UPLOAD);
+		path=path+"/"+vo.getPromoteP1();
+		logger.info("path={}",path);
+		File f=new File(path);
+		int cnt=adminPromotionService.promoDel(proseq);
+		
+		if(cnt>0) {
+			if(f.exists()) {
+				boolean bool=f.delete();
+				logger.info("삭제 결과 bool={}",bool);
+			}
+		}
+		
+		return cnt;
+	}
+	
+	@RequestMapping("/promoDel.do")
+	public String promoDel(@RequestParam int proseq,HttpServletRequest request,Model model) {
+		logger.info("홍보글목록에서 삭제 파라미터 proseq={}",proseq);
+		
+		PromotionVO vo=adminPromotionService.promotionDetail(proseq);
+		String path=fileUtil.getFilePath(request, FileUploadUtil.PROMOTION_UPLOAD);
+		path=path+"/"+vo.getPromoteP1();
+		File f=new File(path);
+		int cnt=adminPromotionService.promoDel(proseq);
+		
+		String msg="삭제중 오류 발생", url="/admin/userManagement/promotionBoardList.do";
+		if(cnt>0) {
+			if(f.exists()) {
+				boolean bool=f.delete();
+				logger.info("삭제 결과 bool={}",bool);
+				msg="해당 홍보글 삭제 완료";
+			}
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	@RequestMapping("/multiDel.do")
+	public String multiDel(@ModelAttribute PromotionListVO promotionListVo,HttpServletRequest request,
+			Model model) {
+		logger.info("홍보글 멀티 삭제 파라미터 promotionListVo={}",promotionListVo);
+		
+		List<PromotionVO> list=promotionListVo.getPromotionList();
+		
+		
+		for(int i=0;i<list.size();i++) {
+			PromotionVO vo=list.get(i);
+			int proseq=vo.getPromoteSeq();
+			if(proseq>0) {
+				PromotionVO vo2=adminPromotionService.promotionDetail(proseq);
+				logger.info("vo2={}",vo2);
+				String path=fileUtil.getFilePath(request, FileUploadUtil.PROMOTION_UPLOAD);
+				path=path+"/"+vo2.getPromoteP1();
+				File f=new File(path);
+					if(f.exists()) {
+						boolean bool=f.delete();
+						logger.info("삭제 결과 bool={}",bool);
+					}
+			}
+		}//for
+		
+		int cnt=adminPromotionService.promoMultiDel(list);
+		
+		String msg="멀티삭제중 오류 발생", url="/admin/userManagement/promotionBoardList.do";
+		if(cnt>0) {
+			msg="선택한 홍보글 삭제 완료";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
 	}
 }
 
