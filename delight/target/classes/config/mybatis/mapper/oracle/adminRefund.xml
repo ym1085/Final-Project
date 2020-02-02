@@ -21,7 +21,7 @@
 		    from 
 		    (	
 		    	select u.USERID, f.REFUND_PRICE,f.REFUNDBEC_SEQ,b.DETAIL,f.REFUND_CANCLE,f.COMPFLAG,
-		    	f.REFUND_SEQ,p.PAY_SEQ,r.RESERVATION_SEQ,r.TICKET_SEQ,f.REFUND_CANCLE_OK
+		    	f.REFUND_SEQ,p.PAY_SEQ,r.RESERVATION_SEQ,r.TICKET_SEQ,f.REFUND_CANCLE_OK,p.USEDMILEAGE
 				from TBL_REFUND f join TBL_REFUNDBEC b
 				on f.REFUNDBEC_SEQ = b.REFUNDBEC_SEQ
 				join TBL_PAYMENT p
@@ -79,6 +79,10 @@
 	</selectKey>
 		insert into TBL_MILEAGE values(#{mileageSeq},#{mileagePoint},default,#{userid},#{mileaebecSeq})
 	</insert>
+	
+	<select id="usedmileageBySeq" parameterType="int" resultType="paymentVo">
+		select usedmileage from TBL_PAYMENT where pay_seq=#{paySeq}
+	</select>
 </mapper>
 
 

@@ -139,7 +139,7 @@
 				  회원/회원별 결제목록 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/inqueryList.do'/>"> 
 				  문의목록 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="#"> 
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/promotionBoardList.do'/>"> 
 				  홍보게시판 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="#"> 
 				  후기게시판 </a></li>

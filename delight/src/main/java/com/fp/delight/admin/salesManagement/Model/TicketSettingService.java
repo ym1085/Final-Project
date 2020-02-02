@@ -19,4 +19,5 @@ public interface TicketSettingService {
 	TicketSettingVO setiingBySeq(int ticketSeq);
 	int settingEdit(TicketSettingVO ticketSettingVo);
 	int settingDel(int ticketSeq);
+	
 }

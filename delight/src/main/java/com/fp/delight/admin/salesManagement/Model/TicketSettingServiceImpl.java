@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fp.delight.common.SearchVO;
 
@@ -78,5 +79,6 @@ public class TicketSettingServiceImpl implements TicketSettingService{
 	public int settingDel(int ticketSeq) {
 		return ticketSettingDao.settingDel(ticketSeq);
 	}
+
 
 }

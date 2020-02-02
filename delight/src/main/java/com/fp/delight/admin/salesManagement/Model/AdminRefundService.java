@@ -8,4 +8,6 @@ import com.fp.delight.common.SearchVO;
 public interface AdminRefundService {
 	List<Map<String, Object>> refundList(SearchVO searchVo);
 	int refundListTotal(SearchVO searchVo);
+	int refundApproval(String variables);
+	int multiRefund(List<String> seqList);
 }

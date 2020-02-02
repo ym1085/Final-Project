@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fp.delight.admin.userManagemet.model.AdminPromotionService;
 import com.fp.delight.admin.userManagemet.model.GradeManagerService;
 import com.fp.delight.admin.userManagemet.model.InqAnwService;
 import com.fp.delight.admin.userManagemet.model.InqAnwVO;
@@ -28,6 +29,7 @@ import com.fp.delight.email.DM;
 import com.fp.delight.email.EmailSender;
 import com.fp.delight.member.model.MemberVO;
 import com.fp.delight.mypage.model.GradeVO;
+import com.fp.delight.promotion.model.PromotionVO;
 
 @Controller
 @RequestMapping("/admin/userManagement")
@@ -44,6 +46,9 @@ public class UserManageController {
 	
 	@Autowired
 	private InqAnwService inqAnwService;
+	
+	@Autowired
+	private AdminPromotionService adminPromotionService;
 	
 	@RequestMapping("/gradeManagement.do")
 	public void gradeManagement(Model model) {
@@ -279,5 +284,29 @@ public class UserManageController {
 		
 	}
 	
+	@RequestMapping("/promotionBoardList.do")
+	public void promotionBoardList(@ModelAttribute PromotionVO promotionVo,
+			Model model) {
+		logger.info("홍보게시판 파라미터 promotionVo={}",promotionVo);
+		
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.ANNBLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(Utility.SETTING_RECORD_COUNT);
+		pagingInfo.setCurrentPage(promotionVo.getCurrentPage());
+		
+		promotionVo.setRecordCountPerPage(Utility.ANNBLOCK_SIZE);
+		promotionVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		int totalRecord=adminPromotionService.promotiontotal(promotionVo);
+		
+		logger.info("홍보글 totalRecord={}",totalRecord);
+		
+		List<PromotionVO> list=adminPromotionService.promotionList(promotionVo);
+		logger.info("검색 결과 list.size()={}",list.size());
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+	}
 }
 

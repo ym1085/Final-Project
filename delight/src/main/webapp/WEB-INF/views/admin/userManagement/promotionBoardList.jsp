@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@include file="../inc/adminTop.jsp" %>
 <!-- 페이징 처리 관련 form -->
-<form action="<c:url value='/admin/salesManagement/refundReqList.do'/>" 
+<form action="<c:url value='/admin/userManagement/promotionBoardList.do'/>" 
 	name="frmPage" method="post">
 	<input type="hidden" name="searchCondition" 
-		value="f.COMPFLAG" id="aa1">
+		value="mileagegive" id="aa1">
 	<input type="hidden" name="searchKeyword" 
 		value="${param.searchKeyword}" id="aa2">
 	<input type="hidden" name="currentPage" value="${pagingInfo.currentPage }"  id="aa3">
@@ -18,11 +18,11 @@
 <div class="content-wrapper">
 
 	<form name="frmSearch" method="post" 
-   		action='<c:url value="/admin/salesManagement/refundReqList.do"/>'>
+   		action='<c:url value="/admin/userManagement/promotionBoardList.do"/>'>
 <div class="card">	
 	<div class="card-body">
 			<div class="text-right" id="typebox">
-				<span>현재 상황</span> <select name="searchKeyword" id="type"
+				<span>지급 유무</span> <select name="searchKeyword" id="type"
 					class="form-control-sm">
 					<option value="">전체</option>
 					<option value="N"
@@ -38,9 +38,11 @@
 			<div id="tablediv">
 			<table class="table text-center table-bordered">
 		<colgroup>
-			<col style="width: 40%;">
+			<col style="width: 5%;">
+			<col style="width: 25%;">
 			<col style="width: 20%;">
 			<col style="width: 20%;">
+			<col style="width: 10%;">
 			<col style="width: 10%;">
 			<col style="width: 10%;">
 
@@ -48,38 +50,42 @@
 		
 		<thead class="table-danger">
 			<tr>
+				<th><input type="checkbox" id="chk"></th>
 				<th>제목</th>
 				<th>등록일</th>
 				<th>아이디</th>
 				<th>지급 유무</th>
+				<th>지급</th>
 				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:if test="${empty list }">
 				<tr>
-					<td colspan="5">환불신청 내역이 없습니다.</td>
+					<td colspan="7">등록된 홍보글이 없습니다.</td>
 				</tr>
 			</c:if>
 			<c:if test="${!empty list }">
 				<c:set var="idx" value="0" />
-				<c:forEach var="map" items="${list }">
+				<c:forEach var="vo" items="${list }">
 					<tr>
-						<td>${map['USERID'] }</td>
+						<td><input type="checkbox" id="chk_${idx }" 
+						name="promotionList[${idx }].promoteSeq" 
+						value="${vo.promoteSeq }"></td>
+						<td><a href="#">${vo.promoteTitle }</a></td>
 						<td>
-						<fmt:formatNumber value="${map['REFUND_PRICE'] }" pattern="#,###"/>원
+						<fmt:formatDate value="${vo.reviewRegdate }" pattern="yyyy-MM-dd"/>
 						</td>
-						<td>${map['DETAIL'] }</td>
+						<td>${vo.userid }</td>
+						<td>${vo.mileagegive }</td>
 						<td>
-						<fmt:formatDate value="${map['REFUND_CANCLE'] }" pattern="yyyy-MM-dd"/>
+						<c:if test="${mileagegive==N }">
+						<button type="button" class="btn btn-gradient-success btn-sm">지급</button>
+						</c:if>
 						</td>
-						<td>${map['COMPFLAG'] }</td>
 						<td>
-						<fmt:formatDate value="${map['REFUND_CANCLE_OK'] }" pattern="yyyy-MM-dd"/>
-						</td>
-						<td>
-						<c:if test="${map['COMPFLAG']=='N' }">
-						<button type="button" class="btn btn-gradient-success btn-sm">승인</button>
+						<c:if test="${mileagegive==N }">
+						<button type="button" class="btn btn-gradient-danger btn-sm">삭제</button>
 						</c:if>
 						</td>
 					</tr>
@@ -88,6 +94,10 @@
 			</c:if>
 		</tbody>
 		</table>
+		</div>
+		<div id="btdiv" class="text-right">
+			<button type="button" class="btn btn-gradient-success btn-sm" id="multiGive">선택 지급</button>
+			<button type="button" class="btn btn-gradient-danger btn-sm" id="multiDel">선택 삭제</button>
 		</div>
 	</div>
 	<div class="divPage text-center">
@@ -117,18 +127,18 @@
 	<div class="divSearch text-center">
    	
         <select name="searchCondition2"  class="form-control-sm" id="searchCondition2">
-            <option value="u.USERID" 
-            	<c:if test="${param.searchCondition2=='u.USERID' }">
+            <option value="promote_title" 
+            	<c:if test="${param.searchCondition2=='promote_title' }">
             		selected="selected"
             	</c:if>
             >제목</option>
-            <option value="f.REFUND_CANCLE" 
-            	<c:if test="${param.searchCondition2=='f.REFUND_CANCLE' }">
+            <option value="review_regdate" 
+            	<c:if test="${param.searchCondition2=='review_regdate' }">
             		selected="selected"
             	</c:if>
             >등록일</option>
-            <option value="f.REFUND_CANCLE" 
-            	<c:if test="${param.searchCondition2=='f.REFUND_CANCLE' }">
+            <option value="userid" 
+            	<c:if test="${param.searchCondition2=='userid' }">
             		selected="selected"
             	</c:if>
             >아이디</option>
@@ -172,12 +182,15 @@ th{
 .divSearch{
 	margin-bottom: 20px;
 }
+#btdiv{
+	margin-top: 10px;
+}
 </style>
 
 <script type="text/javascript">
 $(function() {
-	$("#salesManagement").addClass("active");
-	$("#sell").addClass("show");
+	$("#userManagement").addClass("active");
+	$("#user").addClass("show");
 	$("#frmdiv *").css("float","left");
 	$("#frmdiv").css("float","right");
 	$("form[name=searchfrm]").css("overflow","hidden");
@@ -201,29 +214,7 @@ $(function() {
 	
 });
 
-function del(seq){
-	$.ajax({
-		url:"<c:url value='/admin/salesManagement/settingDel.do'/>",
-		type:"post",
-		data:
-			{
-				ticketSeq:seq
-			}
-		,
-		success:function(res){
-			 if(res==1){
-				alert("표 수량 설정 삭제완료!!");
-				location.reload();
-			}else {
-				alert("삭제 중 오류 발생");
-			}
-			
-		},
-		error:function(xhr,status,error){
-			alert("Error : "+status+", "+error);
-		}
-	});
-}
+
 
 function pageFunc(curPage){
 	document.frmPage.currentPage.value=curPage;
