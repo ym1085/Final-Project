@@ -34,5 +34,10 @@ public class AdminPromotionDAOMybatis implements AdminPromotionDAO{
 	public int promoDel(int proseq) {
 		return sqlSession.delete(namespace+"promoDel", proseq);
 	}
+
+	@Override
+	public int giveComp(int proseq) {
+		return sqlSession.update(namespace+"giveComp", proseq);
+	}
 	
 }

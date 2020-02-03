@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@include file="../inc/adminTop.jsp" %>
 <!-- 페이징 처리 관련 form -->
-<form action="<c:url value='/admin/userManagement/promotionBoardList.do'/>" 
+<form action="<c:url value='/admin/userManagement/reviewBoardList.do'/>" 
 	name="frmPage" method="post">
 	<input type="hidden" name="searchCondition" 
-		value="mileagegive" id="aa1">
+		value="review_type" id="aa1">
 	<input type="hidden" name="searchKeyword" 
 		value="${param.searchKeyword}" id="aa2">
 	<input type="hidden" name="currentPage" value="${pagingInfo.currentPage }"  id="aa3">
@@ -18,31 +18,31 @@
 <div class="content-wrapper">
 
 	<form name="frmSearch" method="post" 
-   		action='<c:url value="/admin/userManagement/promotionBoardList.do"/>'>
+   		action='<c:url value="/admin/userManagement/reviewBoardList.do"/>'>
 <div class="card">	
 	<div class="card-body">
 			<div class="text-right" id="typebox">
-				<span>지급 유무</span> <select name="searchKeyword" id="type"
+				<span>후기 종류</span> <select name="searchKeyword" id="type"
 					class="form-control-sm">
 					<option value="">전체</option>
-					<option value="N"
-						<c:if test="${param.searchKeyword=='N' }">
+					<option value="1"
+						<c:if test="${param.searchKeyword=='1' }">
 			            		selected="selected"
-			        </c:if>>지급 전</option>
-					<option value="Y"
-						<c:if test="${param.searchKeyword=='Y' }">
+			        </c:if>>일반 후기</option>
+					<option value="2"
+						<c:if test="${param.searchKeyword=='2' }">
 			            		selected="selected"
-			        </c:if>>지급 후</option>
+			        </c:if>>포토 후기</option>
 				</select>
 			</div>
 			<div id="tablediv">
 			<table class="table text-center table-bordered">
 		<colgroup>
 			<col style="width: 5%;">
+			<col style="width: 10%;">
 			<col style="width: 25%;">
 			<col style="width: 20%;">
 			<col style="width: 20%;">
-			<col style="width: 10%;">
 			<col style="width: 10%;">
 			<col style="width: 10%;">
 
@@ -51,48 +51,46 @@
 		<thead class="table-danger">
 			<tr>
 				<th><input type="checkbox" id="chk"></th>
-				<th>제목</th>
+				<th>후기타입</th>
+				<th>제목<sub>(평점)</sub></th>
+				<th>공연명<sub>(종류)</sub></th>
 				<th>등록일</th>
 				<th>아이디</th>
-				<th>지급 유무</th>
-				<th>지급</th>
 				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:if test="${empty list }">
 				<tr>
-					<td colspan="7">등록된 홍보글이 없습니다.</td>
+					<td colspan="7">등록된 후기글이 없습니다.</td>
 				</tr>
 			</c:if>
 			<c:if test="${!empty list }">
 				<c:set var="idx" value="0" />
-				<c:forEach var="vo" items="${list }">
+				<c:forEach var="map" items="${list }">
 					<tr>
 						<td>
-						<c:if test="${vo.mileagegive=='N' }">
 						<input type="checkbox" id="chk_${idx }" 
-						name="promotionList[${idx }].promoteSeq" 
-						value="${vo.promoteSeq }">
+						name="reviewSeqList[${idx }]" 
+						value="${map['REVIEW_SEQ'] }">
+						</td>
+						<td>
+						<c:if test="${map['REVIEW_TYPE']=='1' }">
+						일반후기
+						</c:if>
+						<c:if test="${map['REVIEW_TYPE']=='2' }">
+						포토후기
 						</c:if>
 						</td>
-						<td><a href="#">${vo.promoteTitle }</a>
-						<input type="hidden" value="${vo.promoteSeq }">
+						<td><a href="#">${map['REVIEW_TITLE'] }</a><sub>(${map['REVIEW_SCORE'] })</sub>
 						</td>
+						<td>${map['PRFNM'] }<sub>(${map['PERFOMTYPE'] })</sub></td>
 						<td>
-						<fmt:formatDate value="${vo.reviewRegdate }" pattern="yyyy-MM-dd"/>
+						<fmt:formatDate value="${map['REVIEW_REGDATE'] }" pattern="yyyy-MM-dd"/>
 						</td>
-						<td>${vo.userid }</td>
-						<td>${vo.mileagegive }</td>
+						<td>${map['USERID'] }</td>
 						<td>
-						<c:if test="${vo.mileagegive=='N' }">
-						<button type="button" class="btn btn-gradient-success btn-sm give">지급</button>
-						</c:if>
-						</td>
-						<td>
-						<c:if test="${vo.mileagegive=='N' }">
 						<button type="button" class="btn btn-gradient-danger btn-sm del">삭제</button>
-						</c:if>
 						</td>
 					</tr>
 					<c:set var="idx" value="${idx+1}" />
@@ -133,8 +131,8 @@
 	<div class="divSearch text-center">
    	
         <select name="searchCondition2"  class="form-control-sm" id="searchCondition2">
-            <option value="promote_title" 
-            	<c:if test="${param.searchCondition2=='promote_title' }">
+            <option value="review_title" 
+            	<c:if test="${param.searchCondition2=='review_title' }">
             		selected="selected"
             	</c:if>
             >제목</option>
@@ -148,6 +146,11 @@
             		selected="selected"
             	</c:if>
             >아이디</option>
+             <option value="prfnm" 
+            	<c:if test="${param.searchCondition2=='prfnm' }">
+            		selected="selected"
+            	</c:if>
+            >공연명</option>
         </select>   
         <input type="text" name="searchKeyword2" title="검색어 입력" id="searchKeyword2"
         	value="${param.searchKeyword2}"  class="form-control-sm">   
@@ -210,18 +213,15 @@ $(function() {
 	});
 	
 	$(".del").click(function() {
-		var seq=$(this).parent().parent().find("input[type=checkbox]").val();
-		location.href="<c:url value='/admin/userManagement/promoDel.do?proseq="+seq+"'/>";
-	});
-	
-	$(".give").click(function() {
-		var seq=$(this).parent().parent().find("input[type=checkbox]").val();
-		location.href="<c:url value='/admin/userManagement/pointGive.do?proseq="+seq+"'/>";
+		if(confirm("해당 후기글을 삭세하시겠습니까?")){
+			var seq=$(this).parent().parent().find("input[type=checkbox]").val();
+			location.href="<c:url value='/admin/userManagement/reviewDel.do?reviewseq="+seq+"'/>";
+		}
 	});
 	
 	$("table a").click(function() {
-		var proseq=$(this).next().val();
-		window.open("/delight/admin/userManagement/promotionDetail.do?proseq="+proseq,"detail",
+		var reviewseq=$(this).parent().parent().find("input[type=checkbox]").val();
+		window.open("/delight/admin/userManagement/reviewDetail.do?reviewseq="+reviewseq,"detail",
 		"width=800,height=890,left=0,top=0,location=yes,resizable=yes");
 		
 	});
@@ -229,22 +229,13 @@ $(function() {
 	$("#multiDel").click(function() {
 		if($("tbody input[type=checkbox]:checked").length>0){
 			$('form[name=frmSearch]').prop("action",
-			"<c:url value='/admin/userManagement/multiDel.do'/>");	
+			"<c:url value='/admin/userManagement/reviewMultiDel.do'/>");	
 			$('form[name=frmSearch]').submit();
 		}else{
-			alert("삭제할 홍보글을 선택해주세요.");
+			alert("삭제할 후기글을 선택해주세요.");
 		}
 	});
-	
-	$("#multiGive").click(function() {
-		if($("tbody input[type=checkbox]:checked").length>0){
-			$('form[name=frmSearch]').prop("action",
-			"<c:url value='/admin/userManagement/multiGive.do'/>");	
-			$('form[name=frmSearch]').submit();
-		}else{
-			alert("삭제할 홍보글을 선택해주세요.");
-		}
-	});
+
 	
 	$("thead input[type=checkbox]").click(function(){
 		$("tbody input[type=checkbox]")

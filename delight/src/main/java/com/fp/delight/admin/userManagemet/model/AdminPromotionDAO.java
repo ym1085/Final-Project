@@ -9,4 +9,5 @@ public interface AdminPromotionDAO {
 	int promotiontotal(PromotionVO promotionVo);
 	PromotionVO promotionDetail(int proseq);
 	int promoDel(int proseq);
+	int giveComp(int proseq);
 }

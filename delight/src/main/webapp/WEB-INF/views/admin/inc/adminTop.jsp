@@ -141,7 +141,7 @@
 				  문의목록 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/promotionBoardList.do'/>"> 
 				  홍보게시판 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="#"> 
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/reviewBoardList.do'/>"> 
 				  후기게시판 </a></li>
                   
                 </ul>

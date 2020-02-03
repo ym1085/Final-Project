@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.admin.userManagemet.model.AdminPromotionService;
+import com.fp.delight.admin.userManagemet.model.AdminReviewService;
 import com.fp.delight.admin.userManagemet.model.GradeManagerService;
 import com.fp.delight.admin.userManagemet.model.InqAnwService;
 import com.fp.delight.admin.userManagemet.model.InqAnwVO;
 import com.fp.delight.admin.userManagemet.model.MemberListVO;
 import com.fp.delight.admin.userManagemet.model.MemberManagerService;
 import com.fp.delight.admin.userManagemet.model.PromotionListVO;
+import com.fp.delight.admin.userManagemet.model.ReviewListVO;
 import com.fp.delight.common.FileUploadUtil;
 import com.fp.delight.common.PaginationInfo;
 import com.fp.delight.common.SearchVO;
@@ -53,6 +55,9 @@ public class UserManageController {
 	
 	@Autowired
 	private AdminPromotionService adminPromotionService;
+	
+	@Autowired
+	private AdminReviewService adminReviewService;
 	
 	@Autowired
 	private FileUploadUtil fileUtil;
@@ -403,6 +408,244 @@ public class UserManageController {
 		String msg="멀티삭제중 오류 발생", url="/admin/userManagement/promotionBoardList.do";
 		if(cnt>0) {
 			msg="선택한 홍보글 삭제 완료";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	@RequestMapping("/pointGive.do")
+	public String pointGive(@RequestParam int proseq,Model model) {
+		logger.info("홍보글 포인트 지급 파라미터 proseq={}",proseq);
+		
+		PromotionVO promotionVo=adminPromotionService.promotionDetail(proseq);
+		
+		int cnt=adminPromotionService.promotepoint(promotionVo);
+		
+		String msg="포인트 지급 중 오류 발생", url="/admin/userManagement/promotionBoardList.do";
+		
+		if(cnt>0) {
+			msg="해당글 포인트 지급 완료";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	@RequestMapping("/promogiveDetail.do")
+	@ResponseBody
+	public int promogiveDetail(@RequestParam int proseq) {
+		logger.info("홍보글 상세보기 포인트 지급 파라미터 proseq={}",proseq);
+		
+		PromotionVO promotionVo=adminPromotionService.promotionDetail(proseq);
+		
+		int cnt=adminPromotionService.promotepoint(promotionVo);
+		
+		return cnt;
+	}
+	
+	@RequestMapping("/multiGive.do")
+	public String multiGive(@ModelAttribute PromotionListVO promotionListVo,
+			Model model) {
+		logger.info("홍보글 멀티 포인트 지급 파라미터 promotionListVo={}",promotionListVo);
+		
+		List<PromotionVO> promotionList=promotionListVo.getPromotionList();
+		
+		int cnt=adminPromotionService.promoMultiPoint(promotionList);
+		
+		String msg="포인트 지급 중 오류 발생", url="/admin/userManagement/promotionBoardList.do";
+		
+		if(cnt>0) {
+			msg="선택글 포인트 지급 완료";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	@RequestMapping("/reviewBoardList.do")
+	public void reviewBoardList(@ModelAttribute SearchVO searchVo,Model model) {
+		logger.info("후기글 목록 보기 파라미터 searchVo={}",searchVo);
+		
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.ANNBLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(Utility.LIKE_RECORD_COUNT);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		
+		searchVo.setRecordCountPerPage(Utility.LIKE_RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		int totalRecord=adminReviewService.reviewListTotal(searchVo);
+		logger.info("totalRecord={}",totalRecord);
+		
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		List<Map<String, Object>> list=adminReviewService.adminreviewList(searchVo);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
+	}
+	
+	@RequestMapping("/reviewDetail.do")
+	public void reviewDetail(@RequestParam int reviewseq,Model model) {
+		logger.info("후기 상세보기 파라미터 reviewseq={}",reviewseq);
+		
+		Map<String, Object> map=adminReviewService.adminReviewDetail(reviewseq);
+		logger.info("검색결과 map.toString()={}",map.toString());
+		model.addAttribute("map", map);
+	}
+	
+	@RequestMapping("/reviewDelDetail.do")
+	@ResponseBody
+	public int reviewDelDetail(@RequestParam int reviewseq,HttpServletRequest request) {
+		logger.info("후기상세보기에서 삭제 파라미터 reviewseq={}",reviewseq);
+		Map<String, Object> map=adminReviewService.adminReviewDetail(reviewseq);
+		int reviewtype=(Integer) map.get("REVIEW_TYPE");
+		
+		//파일부터 삭제
+		if(reviewtype==2) {
+			String path=fileUtil.getFilePath(request, FileUploadUtil.REVIEW_UPLOAD);
+			String file1path=path+"/"+map.get("REVIEW_P1");
+			logger.info("사진1path={}",file1path);
+			File f=new File(file1path);
+			if(f.exists()) {
+				boolean bool=f.delete();
+				logger.info("사진1 삭제 결과 bool={}",bool);
+			}
+			if(!((String)map.get("REVIEW_P2")).isEmpty()) {
+				String file2path=path+"/"+map.get("REVIEW_P2");
+				File f2=new File(file2path);
+				if(f2.exists()) {
+					boolean bool=f.delete();
+					logger.info("사진22삭제 결과 bool={}",bool);
+				}
+			}
+			if(!((String)map.get("REVIEW_P3")).isEmpty()) {
+				String file3path=path+"/"+map.get("REVIEW_P3");
+				File f3=new File(file3path);
+				if(f3.exists()) {
+					boolean bool=f.delete();
+					logger.info("사진3 삭제 결과 bool={}",bool);
+				}
+			}
+			
+		}
+		
+		//게시물 삭제
+		int cnt=adminReviewService.reviewDel(reviewseq);
+		
+		return cnt;
+		
+	}
+	
+	@RequestMapping("/reviewDel.do")
+	public String reviewDel(@RequestParam int reviewseq,
+			HttpServletRequest request,Model model) {
+		logger.info("후기 목록에서 삭제 파라미터 reviewseq={}",reviewseq);
+		Map<String, Object> map=adminReviewService.adminReviewDetail(reviewseq);
+		int reviewtype=(Integer) map.get("REVIEW_TYPE");
+		
+		//파일부터 삭제
+		if(reviewtype==2) {
+			String path=fileUtil.getFilePath(request, FileUploadUtil.REVIEW_UPLOAD);
+			String file1path=path+"/"+map.get("REVIEW_P1");
+			logger.info("사진1path={}",file1path);
+			File f=new File(file1path);
+			if(f.exists()) {
+				boolean bool=f.delete();
+				logger.info("사진1 삭제 결과 bool={}",bool);
+			}
+			if(!((String)map.get("REVIEW_P2")).isEmpty()) {
+				String file2path=path+"/"+map.get("REVIEW_P2");
+				File f2=new File(file2path);
+				if(f2.exists()) {
+					boolean bool=f.delete();
+					logger.info("사진22삭제 결과 bool={}",bool);
+				}
+			}
+			if(!((String)map.get("REVIEW_P3")).isEmpty()) {
+				String file3path=path+"/"+map.get("REVIEW_P3");
+				File f3=new File(file3path);
+				if(f3.exists()) {
+					boolean bool=f.delete();
+					logger.info("사진3 삭제 결과 bool={}",bool);
+				}
+			}
+			
+		}
+		
+		//게시물 삭제
+		int cnt=adminReviewService.reviewDel(reviewseq);
+		
+		String msg="후기글 삭제 중 오류 발생", url="/admin/userManagement/reviewBoardList.do";
+		
+		if(cnt>0) {
+			msg="후기글 삭제 완료";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+		
+	}
+	
+	@RequestMapping("/reviewMultiDel.do")
+	public String reviewMultiDel(@ModelAttribute ReviewListVO reviewSeqList,
+			HttpServletRequest request,Model model) {
+		logger.info("선택 후기글 삭제 파라미터 reviewSeqList={}",reviewSeqList);
+		
+		List<Integer> reviewList=reviewSeqList.getReviewSeqList();
+		
+		for(int seq:reviewList) {
+			if(seq>0) {
+				logger.info("후기글 사진 삭제");
+				Map<String, Object> map=adminReviewService.adminReviewDetail(seq);
+				int reviewtype=(Integer) map.get("REVIEW_TYPE");
+				
+				//파일부터 삭제
+				if(reviewtype==2) {
+					String path=fileUtil.getFilePath(request, FileUploadUtil.REVIEW_UPLOAD);
+					String file1path=path+"/"+map.get("REVIEW_P1");
+					logger.info("사진1path={}",file1path);
+					File f=new File(file1path);
+					if(f.exists()) {
+						boolean bool=f.delete();
+						logger.info("사진1 삭제 결과 bool={}",bool);
+					}
+					if(!((String)map.get("REVIEW_P2")).isEmpty()) {
+						String file2path=path+"/"+map.get("REVIEW_P2");
+						File f2=new File(file2path);
+						if(f2.exists()) {
+							boolean bool=f.delete();
+							logger.info("사진22삭제 결과 bool={}",bool);
+						}
+					}
+					if(!((String)map.get("REVIEW_P3")).isEmpty()) {
+						String file3path=path+"/"+map.get("REVIEW_P3");
+						File f3=new File(file3path);
+						if(f3.exists()) {
+							boolean bool=f.delete();
+							logger.info("사진3 삭제 결과 bool={}",bool);
+						}
+					}
+					
+				}//사진 삭제 if
+				
+			}
+		}//for
+		int cnt=adminReviewService.reviewMultiDel(reviewList);
+		
+		String msg="선택 후기글 삭제 중 오류 발생", url="/admin/userManagement/reviewBoardList.do";
+		
+		if(cnt>0) {
+			msg="선택한 후기글 삭제 완료";
 		}
 		
 		model.addAttribute("msg", msg);

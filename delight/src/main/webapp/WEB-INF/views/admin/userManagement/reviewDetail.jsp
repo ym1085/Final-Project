@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${vo.promoteTitle } - 상세보기</title>
+<title>${map['REVIEW_TITLE'] } - 상세보기</title>
 <link rel="stylesheet" 
     href="<c:url value='/resources/admin/assets/vendors/mdi/css/materialdesignicons.min.css'/>">
     <link rel="stylesheet" 
@@ -48,14 +48,9 @@
 }
 </style>
 <script type="text/javascript">
-	var seq=${vo.promoteSeq};
-	var userid='${vo.userid}';
+	var seq=${map['REVIEW_SEQ']};
+	
 	$(function() {
-		$("#pointgive").click(function() {
-			if(confirm("포인트 지급 하시겠습니까?")){
-				pointgive();
-			}
-		});	
 	
 		$("#del").click(function() {
 			Del();
@@ -63,40 +58,17 @@
 	});
 	
 	
-	function pointgive(){
-		$.ajax({
-			url: "<c:url value='/admin/userManagement/promogiveDetail.do'/>",
-			type:"post",
-			data: {
-				proseq : seq
-			},
-			success:function(res){
-				if(res==1){
-					alert("해당 글 작성자에게 포인트를 지급하였습니다.");
-					$(opener.document).find("form[name=frmPage]").submit();
-					self.close();
-				}
-			},
-			error:function(xhr,status,error){
-				alert("Error : "+status+", "+error);
-			}
-		});
-	}
-	
-	
-
-	
 	function Del(){
 		if(confirm("해당 홍보글을 삭제 하시겠습니까?")){
 			$.ajax({
-				url: "<c:url value='/admin/userManagement/promoDelDetail.do'/>",
+				url: "<c:url value='/admin/userManagement/reviewDelDetail.do'/>",
 				type:"post",
 				data: {
-					proseq : seq
+					reviewseq : seq
 				},
 				success:function(res){
 					if(res==1){
-						alert("해당글을 삭제하였습니다.");
+						alert("해당 후기글을 삭제하였습니다.");
 						$(opener.document).find("form[name=frmPage]").submit();
 						self.close();
 					}else{
@@ -117,17 +89,33 @@
 	<div class="card">
 		
 		<div id="titlereg">
-		<div id="title" class="text-center">제목 : ${vo.promoteTitle }
+		<div id="title" class="text-center">제목 : ${map['REVIEW_TITLE'] }
+		<sub>장르  : ${map['PERFOMTYPE'] }</sub>
 		</div>
 		<div id="reg" class="text-right">작성일 :  
-		<fmt:formatDate value="${vo.reviewRegdate }" pattern="yyyy-MM-dd"/>
+		<fmt:formatDate value="${map['REVIEW_REGDATE'] }" pattern="yyyy-MM-dd"/>
 		</div>
 		</div>
 		<div class="card-body" id="annContent">
-		${vo.promoteContent }
-		<div id="imgdiv">
-		<img alt="홍보 사진" src="<c:url value='/promotionupload/${vo.promoteP1 }'/>">
-		</div>
+		${map['REVIEW_CONTENT'] }
+		<c:if test="${map['REVIEW_P1']!=null }">
+			<hr>
+			<div id="imgdiv">
+			<img alt="리뷰 사진1" src="<c:url value='/reviewupload/${map["REVIEW_P1"] }'/>" >
+			</div>
+		</c:if>
+		<c:if test="${map['REVIEW_P2']!=null }">
+			<hr>
+			<div id="imgdiv2">
+			<img alt="리뷰 사진2" src="<c:url value='/reviewupload/${map["REVIEW_P2"] }'/>">
+			</div>
+		</c:if>
+		<c:if test="${map['REVIEW_P3']!=null }">
+			<hr>
+			<div id="imgdiv3">
+			<img alt="리뷰 사진3" src="<c:url value='/reviewupload/${map["REVIEW_P3"] }'/>">
+			</div>
+		</c:if>
 		</div>
 	</div>
 	
@@ -135,10 +123,7 @@
 	
 	<div id="btnspan">
 
-	<c:if test="${vo.mileagegive=='N' }">
-	<button class="btn btn-success btn-sm" id="pointgive">지급</button>
 	<button class="btn btn-danger btn-sm" id="del">삭제</button>
-	</c:if>
 	
 	</div>
 	</div>
