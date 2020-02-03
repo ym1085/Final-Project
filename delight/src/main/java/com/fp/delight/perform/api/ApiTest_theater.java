@@ -7,9 +7,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
@@ -23,8 +26,8 @@ import com.fp.delight.performent.model.PerformentListVO;
 public class ApiTest_theater {
    public int INDENT_FACTOR = 4;
    
-   //파라미터값 type으로 뮤지컬 값 AAAB를 받아와서 로딩한다
-   public List<PerformentListVO> receiveAPI(String type) throws MalformedURLException, IOException{
+   //파라미터값 type으로 연극 값 AAAB를 받아와서 로딩한다
+   public List<PerformentListVO> receiveAPI(String type, String pageIndex) throws MalformedURLException, IOException{
 	   
 	   //14일 전 날짜 변수선언
 	   String minus = null;
@@ -51,25 +54,24 @@ public class ApiTest_theater {
 	   //현재날짜로부터 7일 후 날짜 구하고 저장
 	   cal.add(Calendar.DATE, 7);
 	   plus = timeformat.format(cal.getTime());
-		  
-	   //1~3페이지까지 랜덤으로 값을 선택해서 메인1을 로딩 할 때마다, 다른 값을 뿌려준다
-	   //난수 생성
-	   int randomValue;
-	   randomValue = (int)(Math.random()*3 + 1);
 	   
-	   String th="AAAA"; //연극
+	   /*String th = type;
+	   th="AAAA"; */
 	   
 	   //API 공공데이터 URL 설정
 	   String apiurl="http://www.kopis.or.kr/openApi/restful/pblprfr?"
 	            + "service=4c8aebff91d74e2396fccc287989884a"
 	            + "&stdate="+minus
 	            + "&eddate="+plus
-	            + "&cpage="+randomValue
+	            + "&cpage="+pageIndex
 	            + "&rows=20"
-	            + "&shcate="+th;
+	            + "&shcate="+type;
+	              
+	 Map<String, Object> map=new HashMap<String, Object>();
+	 List<PerformentListVO> list2=new ArrayList<PerformentListVO>();
 	  	  
-	  //URL 연결
-      HttpURLConnection urlcon=(HttpURLConnection) new URL(apiurl).openConnection();
+	 //URL 연결
+     HttpURLConnection urlcon=(HttpURLConnection) new URL(apiurl).openConnection();
       
       urlcon.connect();
       BufferedInputStream bis = new BufferedInputStream(urlcon.getInputStream());
@@ -82,20 +84,38 @@ public class ApiTest_theater {
  
         JSONObject xmlJSONObj = XML.toJSONObject(st.toString());
         String jsonPrettyPrintString = xmlJSONObj.toString(INDENT_FACTOR);
-       
-        JSONArray jsonarr=xmlJSONObj.getJSONObject("dbs").getJSONArray("db");
+        
+        int pageCount=0;
         ObjectMapper mapper = new ObjectMapper();
+        if(st.toString().length()>44) {
+            Object xm=xmlJSONObj.getJSONObject("dbs").get("db");
+            if(xm instanceof JSONArray) {
+               JSONArray jsonarr=xmlJSONObj.getJSONObject("dbs").getJSONArray("db");
+               if(pageCount==0) {
+                  //pageCount=pageCount(startDay, endDay, performName);
+               }
+               list2=mapper.readValue(jsonarr.toString(), new TypeReference<List<PerformentListVO>>() {});
+               map.put("list", list2);     
+            }else if(xm instanceof JSONObject) {
+               JSONObject json=xmlJSONObj.getJSONObject("dbs").getJSONObject("db");
+               list2.add((PerformentListVO) mapper.readValue(json.toString(), new TypeReference<PerformentListVO>() {}));
+               if(pageCount==0) {
+               //   pageCount=pageCount(startDay, endDay, performName);
+               }
+               map.put("list", list2);
+              
+            }
+         }
        
-        List<PerformentListVO> list=null;
-        list=mapper.readValue(jsonarr.toString(), new TypeReference<List<PerformentListVO>>() {});
-
         //디버깅
-        for(int i=0;i<list.size();i++) {
-           PerformentListVO vo=list.get(i);
+        for(int i=0;i<list2.size();i++) {
+           PerformentListVO vo=list2.get(i);
            System.out.println("공연 id="+vo.getMt20id());
         }
         
         //Controller
-        return list;
+        return list2;
    }
+   
+   
 }//class

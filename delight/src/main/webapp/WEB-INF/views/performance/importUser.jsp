@@ -40,12 +40,13 @@
        	var ticketSeat = 			"${ticketSeat}";				//관람자 이메일
        	var ticketSeq = 			"${ticketSeq}";   				//선택된 티켓의 좌석 등급 -> TICKET_SEQ활용 데이터 뽑아왔을거임
        	var ticketCount = 			"${ticketCount}";				//티켓 SEQ
+       	var mileagePoint = 			"${mileagePoint}";				//마일리지 체크
        	
        	//디버깅 -> 배포할때 지울겁니다 지우지마세요.
        	alert("티켓 총액 값 : "+ticketPriceSubmitUser+"\n공연 id : "+perfomid+"\n공연 시설 id : "+perfomfacilityid+"\nticketVo_공연일자 : "+perfomdate
        			+"\nticketVo=공연시간 : "+perfomtime+"\n공연 장소 : "+perfomplace+"\n공연제목 : "+perfomtitle+"\n공연 타입 : "+perfomtype+"\n예매자명 : "+username
        			+"\n예매자 이메일 : "+useremail+"\n관람자명 : "+username2+"\n관람자 이메일 : "+useremail2+"\n티켓 수량 SEQ : "+ticketSeq+"\n판매하는 표 좌석등급 : "+ticketSeat+
-       			"\n선택된 티켓 수량 : "+ticketCount+"\n로그인 된 유저 id : "+userid);
+       			"\n선택된 티켓 수량 : "+ticketCount+"\n로그인 된 유저 id : "+userid+"\n유저의 마일리지 값 : "+mileagePoint);
        
         
         IMP.request_pay({
@@ -94,7 +95,7 @@
                 //성공시 이동할 페이지
                 //페이코 우리은행으로 무통장입금 계좌 발급 받을 시 오류 날 수 있습니다.
                 alert("결제가 완료되었습니다!");
-                location.href="<c:url value='/payment/showPaymentendUser.do?mt20id=${perfomid}&mt10id=${perfomfacilityid}&prfnm=${perfomtitle}&perfomtype=${perfomtype}&select_date=${perfomdate}&select_time=${perfomtime}&booking=${ticketCount}&seat_class=${ticketSeat}&userid=${userid}&useremail=${useremail}&ticket_seq=${ticketSeq}&pay_price=${ticketPriceSubmitUser}&username=${username}&username2=${username2}&useremail2=${useremail2}&perfomplace=${perfomplace}&hp=${hp}'/>";
+                location.href="<c:url value='/payment/showPaymentendUser.do?mt20id=${perfomid}&mt10id=${perfomfacilityid}&prfnm=${perfomtitle}&perfomtype=${perfomtype}&select_date=${perfomdate}&select_time=${perfomtime}&booking=${ticketCount}&seat_class=${ticketSeat}&userid=${userid}&useremail=${useremail}&ticket_seq=${ticketSeq}&pay_price=${ticketPriceSubmitUser}&username=${username}&username2=${username2}&useremail2=${useremail2}&perfomplace=${perfomplace}&hp=${hp}&mileagePoint=${mileagePoint}'/>";
             } else {
                 msg = '결제에 실패하였습니다.';
                 msg += '에러내용 : ' + rsp.error_msg;

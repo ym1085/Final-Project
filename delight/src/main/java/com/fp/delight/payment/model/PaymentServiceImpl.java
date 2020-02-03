@@ -1,5 +1,7 @@
 package com.fp.delight.payment.model;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +24,8 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public int insertPayment(int reservationSeq) {
-		return paymentDao.insertPayment(reservationSeq);
+	public int insertPayment(Map<String, Object> map) {
+		return paymentDao.insertPayment(map);
 	}
 
 	@Override
@@ -41,10 +43,10 @@ public class PaymentServiceImpl implements PaymentService{
 		return paymentDao.selectReservation(reservationVo);
 	}
 
-	@Override
+	/*@Override
 	public int selectRefundCount() {
 		return paymentDao.selectRefundCount();
-	}
+	}*/
 
 
 }

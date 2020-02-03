@@ -47,12 +47,12 @@
    
    /* 포스터 이미지 */
    .testImg {
-   	text-align: center;
-   	float: left;
-   	margin-left: 20px;
-   	margin-right: 20px;
-   	margin-top: 20px;
-   	margin-bottom: 20px;
+	   	text-align: center;
+	   	float: left;
+	   	margin-left: 20px;
+	   	margin-right: 20px;
+	   	margin-top: 20px;
+	   	margin-bottom: 20px;
    }
    
    /* 더보기버튼 */
@@ -258,18 +258,16 @@ function condition(){
 		alert("시작날짜 검색조건이 변경되었습니다. 다시 검색해주세요.");
 		/* $('#stdate').focus(); */ 
 		$('#more_btn_div').hide();
-		return false;
-		/* $('#more_btn_div').hide();
-		return false; */
+		return false; 
 
 	}else if('${edd}'!=$("#eddate").val()){
 		alert("종료날짜 검색조건이 변경되었습니다. 다시 검색해주세요.");
-		/* $('#eddate').focus();  */
+		/* $('#eddate').focus(); */ 
 		$('#more_btn_div').hide();
-		return false;
-		
+		return false; 
+
 	}else if('${param.performName}'!=$("#perfomName").val()){
-		alert('${param.performName}');
+		
 		alert("공연명 검색조건이 변경되었습니다. 다시 검색해주세요.");
 		$('#perfomName').focus(); 
 		$('#more_btn_div').hide();

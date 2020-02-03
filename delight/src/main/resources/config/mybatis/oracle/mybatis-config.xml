@@ -8,6 +8,7 @@
 	  <setting name="cacheEnabled" value="true"/>
 	  <setting name="useGeneratedKeys" value="false"/>
 	  <setting name="mapUnderscoreToCamelCase" value="true"/>
+	  <setting name="jdbcTypeForNull" value="VARCHAR"/>
 	</settings>
 	
 </configuration>

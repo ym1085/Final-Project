@@ -1,6 +1,5 @@
 package com.fp.delight.payment.model;
 
-import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -27,18 +26,26 @@ public class PaymentDAOMybatis implements PaymentDAO{
 	}
 	
 	@Override
-	public int insertPayment(int reservationSeq) {
-		return sqlsession.insert(namespace+"insertPayment", reservationSeq);
+	public int insertPayment(Map<String, Object> map) {
+		return sqlsession.insert(namespace+"insertPayment", map);
 	}
 
 	@Override
 	public int totalRefundforMemberGrade(String userGrade) {
-		return sqlsession.selectOne(namespace+"totalRefundforMemberGrade", userGrade);
+		int cnt=0;
+		if(sqlsession.selectOne(namespace+"totalRefundforMemberGrade", userGrade)!=null) {
+			cnt=sqlsession.selectOne(namespace+"totalRefundforMemberGrade", userGrade);
+		}
+		return cnt;
 	}
 
 	@Override
 	public int totalPayforMemberGrade(String userGrade) {
-		return sqlsession.selectOne(namespace+"totalPayforMemberGrade", userGrade);
+		int cnt=0;	
+		if(sqlsession.selectOne(namespace+"totalPayforMemberGrade", userGrade)!=null) {
+			cnt=sqlsession.selectOne(namespace+"totalPayforMemberGrade", userGrade);
+		}
+		return cnt;	
 	}
 	
 	@Override
@@ -46,10 +53,10 @@ public class PaymentDAOMybatis implements PaymentDAO{
 		return sqlsession.selectOne(namespace+"selectReservation", reservationVo);
 	}
 
-	@Override
+	/*@Override
 	public int selectRefundCount() {
 		return sqlsession.selectOne(namespace+"selectRefundCount");
-	}
+	}*/
 
 	
 

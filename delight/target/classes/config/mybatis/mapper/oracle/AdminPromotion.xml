@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.admin.promotion">
+	
+	<sql id="searchWhere">
+		<if test="searchKeyword2!=null and searchKeyword2!=''">
+			and ${searchCondition2} like '%' || #{searchKeyword2} || '%'
+		</if>
+	</sql>
+	
+	<resultMap type="promotionVo" id="getpromotion">
+		<result column="PROMOTE_SEQ" property="promoteSeq" jdbcType="BIGINT"/>
+		<result column="PROMOTE_TITLE" property="promoteTitle" jdbcType="VARCHAR"/>
+		<result column="PROMOTE_CONTENT" property="promoteContent" javaType="java.lang.String" jdbcType="CLOB"/>
+		<result column="PROMOTE_P1" property="promoteP1" javaType="java.lang.String" jdbcType="CLOB"/>
+		<result column="REVIEW_REGDATE" property="reviewRegdate"  jdbcType="TIMESTAMP"/>
+		<result column="MILEAGEGIVE" property="mileagegive"  jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result column="USERID" property="userid"  jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<select id="promotionList" parameterType="promotionVo" resultMap="getpromotion">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from 
+		    (	
+		    	select * from TBL_PROMOTE 
+				where mileagegive like '%'|| #{searchKeyword} ||'%'
+			    <include refid="searchWhere"></include>
+			    order by promote_seq desc
+		    ) A
+		) where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="promotiontotal" parameterType="promotionVo" resultType="int">
+		select count(*) from TBL_PROMOTE 
+		where mileagegive like '%'|| #{searchKeyword} ||'%'
+	    <include refid="searchWhere"></include>
+	</select>
+	
+	<select id="promotionDetail" parameterType="int" resultMap="getpromotion">
+		select * from TBL_PROMOTE where promote_seq=#{proseq}
+	</select>
+	
+	<delete id="promoDel" parameterType="int">
+		delete from TBL_PROMOTE where promote_seq=#{proseq}
+	</delete>
+	
+	<update id="giveComp" parameterType="int">
+		update TBL_PROMOTE set mileagegive='Y' where promote_seq=#{proseq}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+

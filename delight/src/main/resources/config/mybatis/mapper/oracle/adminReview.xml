@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.admin.review">
+	<resultMap type="HashMap" id="getreviewList">
+		<result column="REVIEW_SEQ" property="REVIEW_SEQ"/>
+		<result column="REVIEW_TYPE" property="REVIEW_TYPE"/>
+		<result column="REVIEW_MT20ID" property="REVIEW_MT20ID"/>
+		<result column="REVIEW_TITLE" property="REVIEW_TITLE"/>
+		<result column="REVIEW_CONTENT" property="REVIEW_CONTENT" jdbcType="CLOB" javaType="java.lang.String"/>
+		<result column="REVIEW_SCORE" property="REVIEW_SCORE"/>
+		<result column="REVIEW_P1" property="REVIEW_P1" jdbcType="CLOB" javaType="java.lang.String"/>
+		<result column="REVIEW_P2" property="REVIEW_P2" jdbcType="CLOB" javaType="java.lang.String"/>
+		<result column="REVIEW_P3" property="REVIEW_P3" jdbcType="CLOB" javaType="java.lang.String"/>
+		<result column="REVIEW_REGDATE" property="REVIEW_REGDATE" />
+		<result column="REVIEW_MILEAGE" property="REVIEW_MILEAGE" />
+		<result column="USERID" property="USERID" />
+		<result column="RESERVATION_SEQ" property="RESERVATION_SEQ" />
+		<result column="PRFNM" property="PRFNM" />
+		<result column="PERFOMTYPE" property="PERFOMTYPE" />
+	</resultMap>
+	
+	<sql id="searchWhere1">
+			where review_type like '%' || #{searchKeyword} || '%'	
+	</sql>
+	<sql id="searchWhere2">
+		<if test="searchKeyword2!=null and searchKeyword2!=''">
+			and ${searchCondition2} like '%' || #{searchKeyword2} || '%'
+		</if>
+	</sql>
+	
+	<select id="adminreviewList" parameterType="searchVo" resultMap="getreviewList">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from 
+		    (	
+		    	select v.*,r.PRFNM,r.PERFOMTYPE
+				from TBL_REVIEW v join TBL_RESERVATION r
+				on v.RESERVATION_SEQ = r.RESERVATION_SEQ
+				<include refid="searchWhere1"></include>
+			    <include refid="searchWhere2"></include>
+			    order by review_seq desc
+		    ) A
+		) where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="reviewListTotal" parameterType="searchVo" resultType="int">
+		select count(*)
+		from TBL_REVIEW v join TBL_RESERVATION r
+		on v.RESERVATION_SEQ = r.RESERVATION_SEQ
+		<include refid="searchWhere1"></include>
+	    <include refid="searchWhere2"></include>
+	</select>
+	
+	<select id="adminReviewDetail" parameterType="int" resultMap="getreviewList">
+		select v.*,r.PRFNM,r.PERFOMTYPE
+		from TBL_REVIEW v join TBL_RESERVATION r
+		on v.RESERVATION_SEQ = r.RESERVATION_SEQ
+		where review_seq=#{reviewseq}
+	</select>
+	
+	<delete id="adminReviewDel" parameterType="int">
+		delete from TBL_REVIEW where  review_seq=#{reviewseq}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+

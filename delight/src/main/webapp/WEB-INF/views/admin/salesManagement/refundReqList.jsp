@@ -40,7 +40,8 @@
 		<colgroup>
 			<col style="width: 5%;">
 			<col style="width: 10%;">
-			<col style="width: 15%;">
+			<col style="width: 7.5%;">
+			<col style="width: 7.5%;">
 			<col style="width: 20%;">
 			<col style="width: 15%;">
 			<col style="width: 5%;">
@@ -53,6 +54,7 @@
 				<th><input type="checkbox" id="chk"></th>
 				<th>아이디</th>
 				<th>환불 금액</th>
+				<th>사용한 마일리지</th>
 				<th>환불사유</th>
 				<th>환불 신청일</th>
 				<th>완료 상황</th>
@@ -63,7 +65,7 @@
 		<tbody>
 			<c:if test="${empty list }">
 				<tr>
-					<td colspan="8">환불신청 내역이 없습니다.</td>
+					<td colspan="9">환불신청 내역이 없습니다.</td>
 				</tr>
 			</c:if>
 			<c:if test="${!empty list }">
@@ -80,6 +82,9 @@
 						<td>${map['USERID'] }</td>
 						<td>
 						<fmt:formatNumber value="${map['REFUND_PRICE'] }" pattern="#,###"/>원
+						</td>
+						<td>
+						<fmt:formatNumber value="${map['USEDMILEAGE'] }" pattern="#,###"/>원
 						</td>
 						<td>${map['DETAIL'] }</td>
 						<td>
@@ -101,6 +106,10 @@
 		</tbody>
 		</table>
 		</div>
+	
+	<div id="btdiv" class="text-right">
+		<button type="button" class="btn btn-gradient-danger btn-sm" id="multiRefund">선택 승인</button>
+	</div>
 	</div>
 	<div class="divPage text-center">
 	 <!-- 이전블럭으로 이동 -->
@@ -180,6 +189,9 @@ th{
 .divSearch{
 	margin-bottom: 20px;
 }
+#btdiv{
+	margin-top: 10px;
+}
 </style>
 
 <script type="text/javascript">
@@ -198,40 +210,29 @@ $(function() {
 		
 	});
 	
+	$("thead input[type=checkbox]").click(function(){
+		$("tbody input[type=checkbox]")
+			.prop("checked", this.checked);
+	});
 
+	$("table button").click(function() {
+		var seq=$(this).parent().parent().find("input[type=checkbox]").val();
+		location.href="<c:url value='/admin/salesManagement/refund.do?seq="+seq+"'/>";
+	});
 	
-	$(".editwindow").click(function() {
-		var ticketseq=$(this).next().val();
-		window.open("/delight/admin/salesManagement/settingEdit.do?ticketseq="+ticketseq,"discount",
-		"width=500,height=328,left=0,top=0,location=yes,resizable=yes");
-		
+	$("#multiRefund").click(function() {
+		if($("tbody input[type=checkbox]:checked").length>0){
+			$('form[name=frmSearch]').prop("action",
+			"<c:url value='/admin/salesManagement/multiRefund.do'/>");	
+			$('form[name=frmSearch]').submit();
+		}else{
+			alert("승인할 요청을 선택해주세요.");
+		}
 	});
 	
 });
 
-function del(seq){
-	$.ajax({
-		url:"<c:url value='/admin/salesManagement/settingDel.do'/>",
-		type:"post",
-		data:
-			{
-				ticketSeq:seq
-			}
-		,
-		success:function(res){
-			 if(res==1){
-				alert("표 수량 설정 삭제완료!!");
-				location.reload();
-			}else {
-				alert("삭제 중 오류 발생");
-			}
-			
-		},
-		error:function(xhr,status,error){
-			alert("Error : "+status+", "+error);
-		}
-	});
-}
+
 
 function pageFunc(curPage){
 	document.frmPage.currentPage.value=curPage;

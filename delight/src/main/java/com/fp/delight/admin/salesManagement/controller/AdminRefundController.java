@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fp.delight.admin.salesManagement.Model.AdminRefundService;
+import com.fp.delight.admin.salesManagement.Model.RefundSeqList;
 import com.fp.delight.common.PaginationInfo;
 import com.fp.delight.common.SearchVO;
 import com.fp.delight.common.Utility;
@@ -51,5 +53,38 @@ public class AdminRefundController {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pagingInfo", pagingInfo);
+	}
+	
+	@RequestMapping("/refund.do")
+	public String refund(@RequestParam String seq,Model model) {
+		logger.info("환불승인 파라미터 seq={}",seq);
+		
+		int cnt=adminRefundService.refundApproval(seq);
+		
+		String msg="환불 승인 중 에러 발생", url="/admin/salesManagement/refundReqList.do";
+		if(cnt>0) {
+			msg="해당 유저 환불 승인 완료";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	@RequestMapping("/multiRefund.do")
+	public String multiRefund(@ModelAttribute RefundSeqList seqList,Model model) {
+		logger.info("다중 환불 파라미터 seqList={}",seqList);
+		List<String> variList=seqList.getSeqList();
+		int cnt=adminRefundService.multiRefund(variList);
+		
+		String msg="다중 환불 승인 중 에러 발생", url="/admin/salesManagement/refundReqList.do";
+		
+		if(cnt>0) {
+			msg="해당 유저들 환불 승인 완료";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
 	}
 }

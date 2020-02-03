@@ -4,19 +4,15 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.api.moreRead.ApiTest_pfSearchMore;
-import com.fp.delight.perform.api.ApiTest_total;
 import com.fp.delight.performent.model.PerformentListVO;
 
 @Controller
@@ -24,6 +20,7 @@ import com.fp.delight.performent.model.PerformentListVO;
 public class TotalMoreController {
 	private static final Logger logger=LoggerFactory.getLogger(TotalMoreController.class);
 	
+	/*메인에서 검색결과창 넘어왔을 때 더보기*/
 	@RequestMapping("/totalMoreRead.do")
 	@ResponseBody
 	public Object totalMoreRead(HttpServletRequest request) {
@@ -49,7 +46,7 @@ public class TotalMoreController {
 		
 		List<PerformentListVO> list=new ArrayList<PerformentListVO>();
 		try {
-			list = api.totalPMoreRead(type, sido, gugun, stdate, eddate, perfomName, pageIndex);
+			list = api.receiveAPI(type, sido, gugun, stdate, eddate, perfomName, pageIndex);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -59,9 +56,11 @@ public class TotalMoreController {
 		return list;
 	}
 	
-	/* TotalSearchController에 있던거 여기로 합침 ㅋ  */
-	/* @RequestMapping("/totalPerformSearch.do")
-	public String performentList(HttpServletRequest request){
+
+	
+	/*전체검색에서 조건 넘겼을 때*/
+	@RequestMapping("/totalPerformSearch.do")
+	public String performentList(HttpServletRequest request,Model model) {
 		String type=request.getParameter("type");
 		String sido=request.getParameter("sido");
 		String gugun=request.getParameter("gugun");
@@ -70,6 +69,10 @@ public class TotalMoreController {
 		String perfomName=request.getParameter("performName");
 		String pageIndex=request.getParameter("pageIndex");
 		
+		if(pageIndex==null) {
+			pageIndex="1";
+		}
+		//공연명이 널값이 아닌 경우, 띄어쓰기 없앤다 
 		if(perfomName!=null && !perfomName.isEmpty()) {
 			perfomName=perfomName.replace(" ", "");
 		}
@@ -80,7 +83,7 @@ public class TotalMoreController {
 		logger.info("표 설정 공연 검색 파라미터 page={}",pageIndex);
 		
 		if(perfomName==null) perfomName="";
-		ApiTest_total api=new ApiTest_total();
+		ApiTest_pfSearchMore api=new ApiTest_pfSearchMore();
 		
 		List<PerformentListVO> list=new ArrayList<PerformentListVO>();
 		try {
@@ -90,7 +93,11 @@ public class TotalMoreController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		model.addAttribute("alist", list);
 
 		return "mainSearchResult/mainPerformSearch";
-	} */
+
+	}
+	
 }

@@ -8,6 +8,7 @@ public class PaymentVO {
 	private Timestamp reg_date; 
 	private String pay_condition; 
 	private int reservation_seq;
+	private int usedmileage;
 	
 	public int getPay_seq() {
 		return pay_seq;
@@ -39,10 +40,17 @@ public class PaymentVO {
 	public void setReservation_seq(int reservation_seq) {
 		this.reservation_seq = reservation_seq;
 	}
-	
+	public int getUsedmileage() {
+		return usedmileage;
+	}
+	public void setUsedmileage(int usedmileage) {
+		this.usedmileage = usedmileage;
+	}
 	@Override
 	public String toString() {
 		return "PaymentVO [pay_seq=" + pay_seq + ", pay_price=" + pay_price + ", reg_date=" + reg_date
-				+ ", pay_condition=" + pay_condition + ", reservation_seq=" + reservation_seq + "]";
-	} 
+				+ ", pay_condition=" + pay_condition + ", reservation_seq=" + reservation_seq + ", usedmileage="
+				+ usedmileage + "]";
+	}
+	
 }

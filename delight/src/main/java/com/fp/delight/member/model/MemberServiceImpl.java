@@ -138,4 +138,9 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.updateUserforMembership(memberVo);
 	}
 
+	@Override
+	public int updateUserforMileage(MemberVO memberVo) {
+		return memberDao.updateUserforMileage(memberVo);
+	}
+
 }

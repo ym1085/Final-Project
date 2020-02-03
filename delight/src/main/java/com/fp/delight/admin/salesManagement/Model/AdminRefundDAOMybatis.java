@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.fp.delight.common.SearchVO;
+import com.fp.delight.member.model.MemberVO;
+import com.fp.delight.mileage.model.MileageVO;
+import com.fp.delight.payment.model.PaymentVO;
 
 @Repository
 public class AdminRefundDAOMybatis implements AdminRefundDAO{
@@ -25,4 +28,41 @@ public class AdminRefundDAOMybatis implements AdminRefundDAO{
 	public int refundListTotal(SearchVO searchVo) {
 		return sqlSession.selectOne(namespace+"refundListTotal", searchVo);
 	}
+
+	@Override
+	public int refComOk(int refundSeq) {
+		return sqlSession.update(namespace+"refComOk", refundSeq);
+	}
+
+	@Override
+	public int paymentC(int paySeq) {
+		return sqlSession.update(namespace+"paymentC", paySeq);
+	}
+
+	@Override
+	public int resSeqBybooking(int resSeq) {
+		return sqlSession.selectOne(namespace+"resSeqBybooking", resSeq);
+	}
+
+	@Override
+	public int selledDown(TicketSettingVO ticketSettingVo) {
+		return sqlSession.update(namespace+"selledDown", ticketSettingVo);
+	}
+
+	@Override
+	public int usermilReturn(MemberVO memberVo) {
+		return sqlSession.update(namespace+"usermilReturn", memberVo);
+	}
+
+	@Override
+	public int adminMileage(MileageVO mileageVo) {
+		return sqlSession.insert(namespace+"adminMileage", mileageVo);
+	}
+
+	@Override
+	public PaymentVO usedmileageBySeq(int paySeq) {
+		return sqlSession.selectOne(namespace+"usedmileageBySeq", paySeq);
+	}
+	
+	
 }

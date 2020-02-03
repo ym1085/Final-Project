@@ -46,13 +46,27 @@
    .tabmenu input:checked ~ .tabCon{display:block;border-top: 0.2px solid #efe7e7;}
    
    /* 포스터 이미지 */
-   .testImg{
-   	text-align: center;
-   	float: left;
-   	margin-left: 20px;
-   	margin-right: 20px;
-   	margin-top: 20px;
-   	margin-bottom: 20px;
+   .testImg {
+	   	text-align: center;
+	   	float: left;
+	   	margin-left: 20px;
+	   	margin-right: 20px;
+	   	margin-top: 20px;
+	   	margin-bottom: 20px;
+   }
+   
+   /* 더보기버튼 */
+   .btn_moreRead {
+   		display: inline-block;
+		padding: 13px 30px;
+		border-radius: 0;
+		font-size: 16px;
+		color: #fff;
+		text-transform: capitalize;
+		-webkit-transition: 0.5s;
+		transition: 0.5s;
+		background-color: rgb(255, 0, 102);
+		font-weight: 500;
    }
 }
 </style>
@@ -87,26 +101,47 @@
       <!-- 풀테스트 -->
    </div>
    
+   <!-- 메인에서 받는날짜랑 datepicker로 받는 날짜랑 형식이 다름-->
+   <!-- 날짜 받을 때, / 있는지 없는지 구분-->
+   <!-- 시작 날짜 -->
+   <c:set  var="std" value="${param.startDay }"/>
+     <c:if test='${fn:indexOf(std, "/")==-1 }'>
+     	<c:set var="std" value="${param.stdate }"/>
+     </c:if>
+     <c:if test='${fn:indexOf(std,"/")!=-1 }'>
+     	<c:set var="s" value="${fn:split(std,'/') }" />
+     	<c:set var="std" value="${s[2] }${s[0] }${s[1] }"  />
+     </c:if>
      
+   <!-- 종료 날짜 -->
+   <c:set  var="edd" value="${param.endDay }"/>
+   	 <c:if test='${fn:indexOf(edd, "/")==-1 }'>
+     	<c:set var="edd" value="${param.eddate }"/>
+     </c:if>
+     <c:if test='${fn:indexOf(edd,"/")!=-1 }'>
+     	<c:set var="s" value="${fn:split(edd,'/') }" />
+     	<c:set var="edd" value="${s[2] }${s[0] }${s[1] }"  />
+     </c:if>
+    
    <!--검색결과 페이지에서 연극 카테고리 클릭하면 나오는 화면,  -예진- -->
    <div style="width: 87%;float: right;" class="pfdetail">
    		<div id="perfomrtitleFromMain">
    			<form action="<c:url value="/performSearchResult/theaterDetail_Search.do"/>" method="post">
    			
-			<c:import url="/inc/inc_area.do"></c:import>&nbsp;&nbsp;&nbsp;
+			<c:import url="/inc/inc_area.do"></c:import>&nbsp;&nbsp;&nbsp; 
 			
 			<span>시작일</span>
-			<input type="text" id="stdate" name="stdate" value="${param.stdate }"
+			<input type="text" id="stdate" name="stdate" value="${std }"
 				style="width:100px;height:40px;font-size:15px;" required="required">
 			&nbsp;&nbsp;
 			 
 			<span>종료일</span>
-			<input type="text" id="eddate" name="eddate" value="${param.eddate }"
+			<input type="text" id="eddate" name="eddate" value="${edd }"
 				style="width:100px;height:40px;font-size:15px;" required="required">
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			
 			<span>공연명</span>
-			<input type="text" id="perfomName" name="perfomName" value="${param.perfomName }"
+			<input type="text" id="perfomName" name="performName" value="${param.performName }"
 				style="width:150px;height:40px;font-size:15px;">
 			&nbsp;&nbsp;
 				
@@ -134,12 +169,38 @@
 			</c:forEach>	 
 		   </div>
 	   </div>
-	   <!-- 페이지 만들떄마다 복붙 -->
-	   <!-- div안에서작업 그외엔 건들지말것 -->
+	   
+	   <!-- 더보기 버튼! 인풋은 hidden -->
+	   <div id="more_btn_div" align="center" style="width: 87%;float: right;" class="pfdetail">
+	   		<!-- value값에 정수로 저장되어있어도 넘길때 String으로 넘긴다 -->
+	   		<input id="page" name="page" type="text" value="1" hidden="hidden">
+	   		<input id="moreRead" name="moreRead" type="submit" class="btn_moreRead" value="더보기(More)" onclick="condition()">
+	   </div>
 	   
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>" ></script>
 <link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.min.css'/>">
+
 <script type="text/javascript">
+//왼쪽 네브바에서 연극 카테고리 클릭했을때, 알림 뜨게 한다
+/* window.onload = function () {
+	 alert("오늘 날짜로부터 14일 전 ~ 7일 후의 연극 정보를 로딩합니다.");
+} */
+
+/* 시도 구군 - 사용자가 선택한 값 고정시키기 */
+$(function(){	
+	$("#sido option").each(function(){
+		if($(this).val()=='${param.sido}'){
+			$(this).prop("selected","selected");
+		}
+	});
+	
+	$("#sido").trigger("change");
+	
+ 	/* moreRead(); */ 
+});
+
+/* 날짜 */
+$(function(){
 	
 	$("#stdate").datepicker({changeYear: true,dateFormat: "yymmdd",
 		maxDate: /* "+1m +15d", */	"+6m",
@@ -147,15 +208,127 @@
 		showOtherMonths: true,
 		dayNamesMin: ["일","월","화","수","목","금","토"],
 		monthNames: ["1월","2월","3월","4월","5월","6월",
-			"7월","8월","9월","10월","11월","12월"]});
-	
+				"7월","8월","9월","10월","11월","12월"]});
+		
 	$("#eddate").datepicker({changeYear: true,dateFormat: "yymmdd",
 		maxDate: "6m",
 		minDate: "-6m",
 		showOtherMonths: true,
 		dayNamesMin: ["일","월","화","수","목","금","토"],
 		monthNames: ["1월","2월","3월","4월","5월","6월",
-			"7월","8월","9월","10월","11월","12월"]}); 
+				"7월","8월","9월","10월","11월","12월"]});
+	
+});
+
+/* 검색조건 변경 후 더보기 버튼 누를때 유효성 검사 */
+function condition(){
+	if('${param.sido}'!=$("#sido option:selected").val()){
+		alert("지역(시, 도) 검색조건이 변경되었습니다. 다시 검색해주세요.");
+		$('#sido').focus(); 
+		$('#more_btn_div').hide();
+		return false;
+
+	}else if('${param.gugun}'!=$("#gugun option:selected").val()){
+		alert("지역(구, 군)검색조건이 변경되었습니다. 다시 검색해주세요.");
+		$('#gugun').focus(); 
+		$('#more_btn_div').hide();
+		return false;
+
+	}else if('${std}'!=$("#stdate").val()){
+		alert("시작날짜 검색조건이 변경되었습니다. 다시 검색해주세요.");
+		/* $('#stdate').focus(); */ 
+		$('#more_btn_div').hide();
+		return false; 
+
+	}else if('${edd}'!=$("#eddate").val()){
+		alert("종료날짜 검색조건이 변경되었습니다. 다시 검색해주세요.");
+		/* $('#eddate').focus(); */ 
+		$('#more_btn_div').hide();
+		return false; 
+
+	}else if('${param.performName}'!=$("#perfomName").val()){
+		alert('${param.performName}');
+		alert("공연명 검색조건이 변경되었습니다. 다시 검색해주세요.");
+		$('#perfomName').focus(); 
+		$('#more_btn_div').hide();
+		return false;
+
+	}else{	
+		moreRead();
+	}
+}
+
+
+/* 더보기 ajax */
+function moreRead(){
+	/* 더보기 실행할 때, 검색중 알람 뜨게 하고 버튼은 없애벌인다*/
+	alert("해당 조건 검색 중입니다. 잠시만 기다려 주세요.");	
+	$('#more_btn_div').hide(); 
+	
+		var page = parseInt($('input[name=page]').val());
+		var pageIndex = page+1;
+		$("#page").val(pageIndex);
+		
+		$.ajax({
+			url:"<c:url value='/performSearchResult/theaterMoreRead.do'/>",
+			type: 'post',
+			data : 
+				{
+					"type" : $("#type").val(),
+					"sido" : $("#sido").val(),
+					"gugun" : $("#gugun").val(),
+					"stdate" : $("#stdate").val(),
+					"eddate" : $("#eddate").val(),
+					"pageIndex" : $("#page").val(),
+					"performName" : $("#perfomName").val()				
+				},
+			success: function(res){
+				 if(res.length==0){ 
+					//더 불러올 API 없는 경우
+					 $('#moreRead').hide();
+					 alert("더 불러올 공연 없으니까 검색 ㄴㄴ");
+					
+				 }else{ 
+					//불러올 API 있는 경우
+					var str="";
+					
+					$.each(res,function(idx,value){
+						if(value.genrenm=='연극' || value.genrenm== '뮤지컬'){
+							str+="<div class = 'testImg'>"
+							+"<img src='"+value.poster+ "' class='img-responsive' width=240px height=240px>"
+							+"<br>"
+							+"<h5><b>"+value.prfnm+"</b></h5>"
+							+"<p>"+value.prfpdfrom+"</p>"
+							+"<p>"+value.prfpdto+"</p>"
+							+"<p>"+value.fcltynm+"<p>"
+							+"<p>"+value.genrenm+"<p>"
+							+"</div>"					
+						}
+						
+					});
+					
+				  }  
+				
+				//클래스 API 뒤에 이어서 붙임 (더보기 버튼)
+				$(".API").append(str);
+				
+				/* 더보기 완료하면 다시 더보기버튼 보여줌 */
+				$('#more_btn_div').show();
+				
+			},
+			
+			error: function(xhr, status, error){
+				/* alert(error); */
+				alert("검색결과가 없습니다.");
+				
+			}			
+		});/* ajax */
+		
+		//기본 이벤트 제거
+		event.preventDefault();
+		
+}/* function moreRead()*/
+
 	
 </script>	
 	     

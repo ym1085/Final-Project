@@ -30,4 +30,5 @@ public interface MemberService {
 	Map<String, Object> selectMemberShip(String userid); 
 	int buymemberShip(PremiumVO premiumVo);
 	int updateUserforMembership(MemberVO memberVo);
+	int updateUserforMileage(MemberVO memberVo);
 }	
