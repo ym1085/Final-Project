@@ -15,8 +15,8 @@
 }
 
 .writeReview3 div, img {
-	width: 140px;
-	height: 172px;
+	width: 168px;
+	height: 191px;
 	float: left;
 }
 
@@ -34,6 +34,8 @@
 	font-size: 1.3em;
 	float: left;
 	margin-top: 4px;
+	color: red;
+	font-weight: bold;
 }
 
 .writeReview3 {
@@ -84,7 +86,7 @@ input#inqueryTitle {
 	font-size: 15px;
 	position: absolute;
 	bottom: 82px;
-	width: 115px;
+	width: 130px;
 	right: 16.5%;
 	font-weight: bold;
 	color: black;
@@ -115,4 +117,28 @@ input.infoWrite {
 }
 input[type="file"] {
     margin-left: 27px;
+    width: 216px;
+}
+.writeReview2{
+	color: black;
+	font-weight: bold;
+}
+#file2{
+	display: none;
+}
+#file3{
+	display: none;
+}
+input#fileM{
+	display: none;
+	font-weight: bold;
+    font-size: 1.2em;
+    height: 34px;
+    padding-bottom: 32px;
+}
+input#fileP {
+    font-weight: bold;
+    font-size: 1.2em;
+    height: 34px;
+    padding-bottom: 32px;
 }

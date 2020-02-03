@@ -21,20 +21,8 @@ public class MyPageController {
 		
 	}
 
-	@RequestMapping("/myWriteReview.do")
-	public void myWriteReview() {
-		
-	}
-	@RequestMapping("/NmReview.do")
-	public void NmReview() {
-		
-	}
 	@RequestMapping("/PhotoReview.do")
 	public void PhotoReview() {
-		
-	}
-	@RequestMapping("/myWriteReviewList.do")
-	public void myWriteReviewList() {
 		
 	}
 }

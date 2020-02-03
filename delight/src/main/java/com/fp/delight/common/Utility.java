@@ -8,6 +8,4 @@ public class Utility {
 	public static final int BLOCK_SIZE=10;
 	public static final int SETTING_RECORD_COUNT=10;
 
-	
-	
 }
