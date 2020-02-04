@@ -8,6 +8,7 @@ public class MileageVO {
 	private Timestamp mileageReg;
 	private String userid;
 	private int mileaebecSeq;
+	
 	public int getMileageSeq() {
 		return mileageSeq;
 	}
@@ -38,11 +39,11 @@ public class MileageVO {
 	public void setMileaebecSeq(int mileaebecSeq) {
 		this.mileaebecSeq = mileaebecSeq;
 	}
+	
 	@Override
 	public String toString() {
 		return "MileageVO [mileageSeq=" + mileageSeq + ", mileagePoint=" + mileagePoint + ", mileageReg=" + mileageReg
 				+ ", userid=" + userid + ", mileaebecSeq=" + mileaebecSeq + "]";
 	}
-	
 	
 }
