@@ -231,7 +231,7 @@ public class PaymentController {
 		if(mileagePoint!=0) {
 			//[구분] 
 			//로그인 한 유저가 마일리지를 사용했음	     -> mileagePoint!=0
-			//로그인 한 유저가 마일리지를 사용하지 않았음 -> mileagePoint==0
+			//로그인 한 유저가 마일리지를 사용하지 않았음 	 -> mileagePoint==0
 			MileageVO mileageVo = null;
 			
 			//마일리지 변화사유 -> 유저가 마일리지를 사용함 -> 마일리지변화에 시퀸스 (5) 셋팅

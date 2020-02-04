@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
 <script type="text/javascript">
 	var ctx = "/delight";
 	
@@ -82,7 +81,6 @@
 	});
 </script>
 <style type="text/css">
-<<<<<<< HEAD
 	div.inqinfo1 {
     	font-size: 0.9em;
     	margin-left: 22px;
@@ -154,6 +152,15 @@
 					<c:if test="${!empty memberShipMap['NAME'] }">
 						<div id="buymembershipParent2">
 							<p id="buymembership3">*회원권  : ${memberShipMap['NAME']}</p>
+							<p id="buymembership4">
+								<%-- <c:set var="stDate" value="${memberShipMap['START_DATE']}"/> --%>
+								*기간  : <%-- ${memberShipMap['START_DATE']} --%>
+								<fmt:parseDate value="${memberShipMap['START_DATE']}" var='start_date' pattern='yyyy-MM-dd'/>
+								<fmt:formatDate value="${start_date}" pattern="yyyy-MM-dd"/>
+								~
+								<fmt:parseDate value="${memberShipMap['END_DATE']}" var='end_date' pattern='yyyy-MM-dd'/>
+								<fmt:formatDate value="${end_date}" pattern="yyyy-MM-dd"/>
+							</p>
 						</div>
 					</c:if>
 				</div>

@@ -16,6 +16,12 @@
 
 	<script language="javascript" type="text/javascript">
 		$(function(){
+			//회원권 구매
+			$("#memberShip").click(function(){
+				window.open(ctx+"/member/mymemberShip.do","맴버십 구입",
+				"width=650,height=500,left=500,top=250,location=yes,resizable=yes");
+			}); 
+			
 			var usermileage=$("#mileage").html();
 			//alert(usermileage);
 			
@@ -298,6 +304,7 @@
 		#ticketPriceSumUser{border: none;height: 25px;text-align: left;margin-top: -7px;margin-left: 6px;}
 		#wonha2{float:left;}
 		input:focus { outline: none;}
+		#choosePricepfst{margin-left: 0px;}
 	</style>
 	
 	<!-- 페이지 만들떄마다 복붙 -->
@@ -305,7 +312,7 @@
 		<!-- left side -->
 		<aside class="left-sidebar" style="width: 13%;">
 			<div class="logo" style="margin-bottom: 63%;">
-				<a href="#welcome"
+				<a href="<c:url value='/index.do'/>"
 					style="color: white; font-size: 2.5em; font-family: 'Limelight', cursive;">
 					Delight </a>
 			</div>
@@ -399,7 +406,7 @@
 						<span>
 							<fnt:formatNumber value="${stPriceFinalTotal}" pattern="#,###"/>원
 						</span>
-						<select style="margin-left:7px" name="choosePricepfst" id="choosePricepfst" class="selectOne">
+						<select style="margin-left:7px;" name="choosePricepfst" id="choosePricepfst" class="selectOne">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -487,7 +494,7 @@
 							<input type="hidden" name="genrenm" value="${param.genrenm }">												<!-- 공연타입 -->
 							<input type="hidden" name="ticketSeq" value="${tkVo.ticketSeq }">											<!-- 티켓SEQ --> 			
 							<input type="hidden" name="ticketSeat" value="${tkVo.sellclass }">											<!-- 선택한 좌석 SEQ-->
-							<input type="text" name="mileagePoint" id="mileagePoint" value="0">											<!-- 해당 유저의 마일리지 포인트 -->
+							<input type="hidden" name="mileagePoint" id="mileagePoint" value="0">										<!-- 해당 유저의 마일리지 포인트 -->
 						</form>
 					</div>
 					
@@ -522,11 +529,11 @@
 						<p>등급할인</p>
 						<p class="fp2">
 							<c:if test="${empty membergrade['GRADE_NAME']}">
-								현재등급 : <mark style="color:silver;color: black;">회원 등급이 존재하지 않습니다.</mark> 
+								현재등급 : <mark style="background-color:#fdfd6b; color: black;">회원 등급이 존재하지 않습니다.</mark> 
 							</c:if>
 							
 							<c:if test="${!empty membergrade['GRADE_NAME']}">
-								현재등급 : <mark style="color:silver;color: black;">${membergrade['GRADE_NAME']}</mark> 
+								현재등급 : <mark style="background-color:#fdfd6b; color: black;">${membergrade['GRADE_NAME']}</mark> 
 							</c:if>
 						</p>
 						
@@ -537,8 +544,8 @@
 						<p>회원권 할인</p>
 							<c:if test="${empty map_membership['NAME']}">
 								<p class="fp2">
-									회원권 : <mark id="memberShip" style="color:silver;color: black;">
-												<a href="<c:url value='#'/>">회원권 구매</a>
+									회원권 : <mark id="memberShip" style="background-color:#fdfd6b; color: black;">
+												회원권 구매로 이동
 										   </mark>
 								</p>
 								<span class="one4">0%</span>
@@ -546,7 +553,7 @@
 							
 							<c:if test="${!empty map_membership['NAME']}">
 								<p class="fp2">
-									회원권 : <mark id="memberShip" style="color:silver;color: black;">
+									회원권 : <mark id="memberShip" style="background-color:#fdfd6b; color: black;">
 										${map_membership['NAME']}
 									</mark>
 								</p>
@@ -559,11 +566,11 @@
 						<p>마일리지 사용</p>
 						<p class="fp2">
 							<c:if test="${empty memberVo.mileagePoint}">
-								소유하신마일리지 : <mark id="mileage" style="color:silver;color: black">0</mark> 
+								소유하신마일리지 : <mark id="mileage" style="background-color:#fdfd6b; color: black">0</mark> 
 							</c:if>
 							
 							<c:if test="${!empty memberVo.mileagePoint}">
-								소유하신마일리지 : <mark id="mileage" style="color:silver;color: black">${memberVo.mileagePoint}</mark> <!--  --> 
+								소유하신마일리지 : <mark id="mileage" style="background-color:#fdfd6b; color: black">${memberVo.mileagePoint}</mark> <!--  --> 
 							</c:if>
 						</p>
 						<input type="checkbox" id="checkM" name="checkbox"><span>적용</span>	<!--  -->

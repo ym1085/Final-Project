@@ -41,6 +41,8 @@
 	<c:import url="/member/imp/myreview.do"></c:import>
 	<c:import url="/member/imp/mylike.do"></c:import>
 	<c:import url="/member/imp/mynewPer.do"></c:import>
+	<c:import url="/member/imp/myMileage.do"></c:import>	<!-- 적립 내역  -->
+	
 	</div>
 	<!-- div안에서작업 그외엔 건들지말것 -->
 	

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.mileage">
+
+	<select id="earnMileage" parameterType="mileageVo" resultType="map">
+		select *
+		from 
+		(
+		    select a.*, b.mileage_bec 
+		    from tbl_mileage a join tbl_mileagebec b
+		    on a.MILEAEBEC_SEQ = b.MILEAEBEC_SEQ
+		    and userid = 'younmin1085'
+		    and a.mileaebec_seq = 1
+		)
+		<![CDATA[
+		where rownum <= 5
+		]]>	
+	</select>
+		
+</mapper>
+
+
+
+
+
+
+
+
+
