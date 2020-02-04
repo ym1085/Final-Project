@@ -76,6 +76,7 @@
 				<!-- 조회기간 include -->
 				<c:import url="imp/dateTerm.jsp"></c:import>
 				<input type="submit" value="조회" id="listsubmit">
+				<span style="color: red;font-weight: bold;">*환불신청하신날 기준으로 검색이 가능합니다.</span>
 			</form>
 
 			<table class="mytable">

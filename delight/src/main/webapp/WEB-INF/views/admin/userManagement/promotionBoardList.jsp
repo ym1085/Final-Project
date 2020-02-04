@@ -69,23 +69,29 @@
 				<c:set var="idx" value="0" />
 				<c:forEach var="vo" items="${list }">
 					<tr>
-						<td><input type="checkbox" id="chk_${idx }" 
+						<td>
+						<c:if test="${vo.mileagegive=='N' }">
+						<input type="checkbox" id="chk_${idx }" 
 						name="promotionList[${idx }].promoteSeq" 
-						value="${vo.promoteSeq }"></td>
-						<td><a href="#">${vo.promoteTitle }</a></td>
+						value="${vo.promoteSeq }">
+						</c:if>
+						</td>
+						<td><a href="#">${vo.promoteTitle }</a>
+						<input type="hidden" value="${vo.promoteSeq }">
+						</td>
 						<td>
 						<fmt:formatDate value="${vo.reviewRegdate }" pattern="yyyy-MM-dd"/>
 						</td>
 						<td>${vo.userid }</td>
 						<td>${vo.mileagegive }</td>
 						<td>
-						<c:if test="${mileagegive==N }">
-						<button type="button" class="btn btn-gradient-success btn-sm">지급</button>
+						<c:if test="${vo.mileagegive=='N' }">
+						<button type="button" class="btn btn-gradient-success btn-sm give">지급</button>
 						</c:if>
 						</td>
 						<td>
-						<c:if test="${mileagegive==N }">
-						<button type="button" class="btn btn-gradient-danger btn-sm">삭제</button>
+						<c:if test="${vo.mileagegive=='N' }">
+						<button type="button" class="btn btn-gradient-danger btn-sm del">삭제</button>
 						</c:if>
 						</td>
 					</tr>
@@ -203,13 +209,46 @@ $(function() {
 		
 	});
 	
-
+	$(".del").click(function() {
+		var seq=$(this).parent().parent().find("input[type=checkbox]").val();
+		location.href="<c:url value='/admin/userManagement/promoDel.do?proseq="+seq+"'/>";
+	});
 	
-	$(".editwindow").click(function() {
-		var ticketseq=$(this).next().val();
-		window.open("/delight/admin/salesManagement/settingEdit.do?ticketseq="+ticketseq,"discount",
-		"width=500,height=328,left=0,top=0,location=yes,resizable=yes");
+	$(".give").click(function() {
+		var seq=$(this).parent().parent().find("input[type=checkbox]").val();
+		location.href="<c:url value='/admin/userManagement/pointGive.do?proseq="+seq+"'/>";
+	});
+	
+	$("table a").click(function() {
+		var proseq=$(this).next().val();
+		window.open("/delight/admin/userManagement/promotionDetail.do?proseq="+proseq,"detail",
+		"width=800,height=890,left=0,top=0,location=yes,resizable=yes");
 		
+	});
+	
+	$("#multiDel").click(function() {
+		if($("tbody input[type=checkbox]:checked").length>0){
+			$('form[name=frmSearch]').prop("action",
+			"<c:url value='/admin/userManagement/multiDel.do'/>");	
+			$('form[name=frmSearch]').submit();
+		}else{
+			alert("삭제할 홍보글을 선택해주세요.");
+		}
+	});
+	
+	$("#multiGive").click(function() {
+		if($("tbody input[type=checkbox]:checked").length>0){
+			$('form[name=frmSearch]').prop("action",
+			"<c:url value='/admin/userManagement/multiGive.do'/>");	
+			$('form[name=frmSearch]').submit();
+		}else{
+			alert("삭제할 홍보글을 선택해주세요.");
+		}
+	});
+	
+	$("thead input[type=checkbox]").click(function(){
+		$("tbody input[type=checkbox]")
+			.prop("checked", this.checked);
 	});
 	
 });

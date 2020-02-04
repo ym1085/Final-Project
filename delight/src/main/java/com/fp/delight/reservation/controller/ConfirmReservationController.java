@@ -137,7 +137,7 @@ public class ConfirmReservationController {
 		Map<String, Object> map=reservationService.selectCanDetail(reservationVo);
 		
 		List<RefundbecVO> refundlist=refundbecService.selectRefundbecAll();
-
+		
 		PerformentAPI perfom=new PerformentAPI();
 		Map<String, Object> perfomap=perfom.performDetail((String)map.get("MT20ID"));
 		

@@ -12,7 +12,30 @@
             $("#star_grade a#"+idx).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
             $("#starNum").val(idx);
             return false;
-		}	
+		}
+		$(function(){
+			$("form[name=reviewfrm]").submit(function(){
+				if($("#inqueryTitle").val().length<1){
+					alert("제목을입력해주세요!");
+					$("#inqueryTitle").focus();
+					event.preventDefault();
+				}else if($("#inqueryContent").val().length<21){
+					alert("내용은 20자 이상입력해주셔야합니다.");
+					$("#inqueryContent").focus();
+					event.preventDefault();
+				}else if($("#starNum").val()<1){
+					alert("별점을 매겨주세요");
+					$("#starNum").focus();
+					event.preventDefault();
+				}
+			});
+			
+			$("#inqueryContent").keyup(function(){
+				var content=$(this).val().length;
+				$("#chkContent").html(content);
+			});
+			
+		});
 </script>
 <style type="text/css">
      #star_grade a{
@@ -57,22 +80,26 @@
 <div style="width: 87%; float: right;">
 
 	<section class="mysec">
-	<form action="">
+	<form action="<c:url value='/member/NmReview.do' />" method="post" name="reviewfrm">
 		<div class="mysecDiv">
 		<div class="writeReview">
 			<h2 class="mytit">일반후기 작성</h2>
 			<input type="hidden" value="1" name="reviewType">
+			<input type="hidden" value="${param.reservationSeq }" name="reservationSeq">
+			<input type="hidden" value="${vo.reviewMt20id }" name="reviewMt20id">
+			
 		</div>
 		<div class="writeReview2">
 			<p>- 작성된 후기는 Delight 콘텐츠로 사용될 수 있습니다.<br>
-			   - 등록하신 후기는 해당 공연 상세보기 후기 란에 공개되어있습니다.</p>
+			   - 등록하신 후기는 해당 공연 상세보기 후기 란에 공개되어있습니다.<br>
+			   - 한번 등록하신 후기는 수정 불가능하며 신중하게 작성 부탁드립니다.</p>
 		</div>
 		<div class="writeReview3">
-		<img alt="" src="<c:url value='/resources/images/del3.jpg' />">
-		<p class="mybodyP">내용</p>
+		<img alt="" src="${poster }">
+		<p class="mybodyP">${vo.perfomtype }<br>${vo.prfnm }</p>
 		</div>
 		<div class="writeReview4">
-		<p class="stainfo">별점을 매겨주세요</p>
+		<p class="stainfo">* 별점을 매겨주세요</p>
 		<p id="star_grade">
         <a href="#" onclick="star(1)" id="1">★</a>
         <a href="#" onclick="star(2)" id="2">★</a>
@@ -80,17 +107,17 @@
         <a href="#" onclick="star(4)" id="4">★</a>
         <a href="#" onclick="star(5)" id="5">★</a>
 		</p>
-		<input type="hidden" id="starNum" value=""/>
+		<input type="hidden" id="starNum" name="reviewScore" value=""/>
 		</div>
 		<div class="writeReview5">
 		<p>관람 하신 공연의 후기 제목을 입력해주세요.</p>
-		<input type="text" id="inqueryTitle" value=""/>
+		<input type="text" id="inqueryTitle" name="reviewTitle" value=""/>
 		</div>
 		<p class="contenttitle">관람하신 공연의 후기를 작성해주세요.(10자이상)</p>
 		<div class="writeReview6">
-		<textarea id="inqueryContent"></textarea>
+		<textarea id="inqueryContent" name="reviewContent"></textarea>
 		<!-- keyUp걸기 -->
-		<p class="review6info"><span>0</span>자 / 20자 이상</p>
+		<p class="review6info"><span id="chkContent">0</span>자 / 20자 이상</p>
 		</div>
 		<div class="writeReview7">
 		<input type="submit" value="등록하기" class="infoWrite">

@@ -43,6 +43,18 @@
 		where mileagegive like '%'|| #{searchKeyword} ||'%'
 	    <include refid="searchWhere"></include>
 	</select>
+	
+	<select id="promotionDetail" parameterType="int" resultMap="getpromotion">
+		select * from TBL_PROMOTE where promote_seq=#{proseq}
+	</select>
+	
+	<delete id="promoDel" parameterType="int">
+		delete from TBL_PROMOTE where promote_seq=#{proseq}
+	</delete>
+	
+	<update id="giveComp" parameterType="int">
+		update TBL_PROMOTE set mileagegive='Y' where promote_seq=#{proseq}
+	</update>
 </mapper>
 
 
