@@ -105,8 +105,8 @@
 	
 	<update id="updateUserforMileage" parameterType="memberVo">
 		update tbl_user
-		set mileagepoint = #{mileagepoint}
-		where userid = #{userid};
+		set mileagePoint = #{mileagePoint}
+		where userid = #{userid}
 	</update>
 </mapper>
 

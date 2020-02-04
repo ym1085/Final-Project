@@ -75,6 +75,11 @@ th#heading {
 #mybody .likeTr {
 	height: 59px;
 }
+
+#mybody .earnMileage{
+	height: 59px;
+}
+
 #mybody div, img {
 	width: 157px;
 	height: 188px;
@@ -174,7 +179,7 @@ input#btDay7 {
 }
 
 .canslereser {
-	width: 57%;
+	width: 70%;
 	height: 50px;
 	border-bottom: 2px solid black;
 	padding: 10px 0px;
@@ -206,7 +211,7 @@ input#btDay7 {
 	color: black;
 }
 .cansleList {
-	width: 945%;
+	width: 1156%;
 	padding: 31px 2px;
 	height: 80px;
 	border-bottom: 1px solid gray;
@@ -215,11 +220,11 @@ input#btDay7 {
     display: flex;
 }
 .MycanInfo {
-    width: 26%;
-    height: 327px;
+    width: 13%;
+    height: 404px;
     border: 1px solid gray;
     position: relative;
-    left: 52%;
+    left: 65%;
     margin-top: -5px;
 }
 .cansleList2 {
@@ -283,6 +288,7 @@ input.cansleSub {
 }
 .mysecCansle {
 	text-decoration: underline;
+	color: red;
 }
 
 input.newPerReser {
@@ -415,4 +421,23 @@ input#mybodylikeCan {
 }
 a.linkperDetail {
     color: black;
+}
+.MycanInfo span {
+    color: red;
+    font-weight: bold;
+}
+
+.MycanInfo div {
+    margin-top: 35px;
+    margin-left: 9px;
+}
+
+.MycanInfo p {
+    color: black;
+    font-weight: bold;
+}
+
+.MycanInfo label {
+    color: black;
+    font-weight: bold;
 }

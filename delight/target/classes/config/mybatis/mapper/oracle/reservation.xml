@@ -8,10 +8,13 @@
 		select *
 		from
 		(
-		    SELECT r.*,p.pay_condition
-			FROM tbl_reservation r join tbl_payment p
+		    SELECT r.*,p.pay_condition,(select count(*) from tbl_review v
+			where v.RESERVATION_SEQ=r.reservation_seq)V
+			FROM tbl_reservation r LEFT join tbl_payment p
 			on r.RESERVATION_SEQ = p.RESERVATION_SEQ
-			where userid=#{userid} and p.PAY_CONDITION='Y'
+			LEFT join tbl_refund f
+			on p.pay_seq=f.pay_seq
+			where userid=#{userid} and p.PAY_CONDITION='Y' and f.refund_cancle is null
 			order by r.reservation_seq desc
 		)
 		<![CDATA[
@@ -26,10 +29,14 @@
 		    select rownum as RNUM, A.*
 		    from
 		    (
-		        SELECT r.*,p.pay_condition
+		        SELECT r.*,p.pay_condition,(select count(*) from tbl_review v
+		 		where v.RESERVATION_SEQ=r.reservation_seq)V
 				FROM tbl_reservation r join tbl_payment p
 				on r.RESERVATION_SEQ = p.RESERVATION_SEQ 
-				where p.PAY_CONDITION='Y' and res_date>=#{startDay}
+				LEFT join tbl_refund f
+				on p.pay_seq=f.pay_seq
+				where p.PAY_CONDITION='Y'  and f.refund_cancle is null
+				 and res_date>=#{startDay}
 				<![CDATA[ and res_date < to_Date(#{endDay})+1]]>
 				<if test="customerId!=null and customerId!=''">
 					and userid=#{customerId}
@@ -48,7 +55,10 @@
 			SELECT count(*)
 			FROM tbl_reservation r join tbl_payment p
 			on r.RESERVATION_SEQ = p.RESERVATION_SEQ 
-			where p.PAY_CONDITION='Y' and res_date>=#{startDay}
+			LEFT join tbl_refund f
+			on p.pay_seq=f.pay_seq
+			where p.PAY_CONDITION='Y' and f.refund_cancle is null
+			and res_date>=#{startDay}
 			<![CDATA[ and res_date < to_Date(#{endDay})+1]]>
 			<if test="customerId!=null and customerId!=''">
 				and userid=#{customerId}
@@ -66,7 +76,7 @@
 				on p.PAY_SEQ=e.PAY_SEQ
 				join tbl_refundbec f
 				on e.REFUNDBEC_SEQ = f.REFUNDBEC_SEQ
-				where userid=#{userid} and p.PAY_CONDITION='C'
+				where userid=#{userid}
 				order by r.reservation_seq desc
 			)
 			<![CDATA[
@@ -88,7 +98,7 @@
 				on p.PAY_SEQ=e.PAY_SEQ
 				join tbl_refundbec f
 				on e.REFUNDBEC_SEQ = f.REFUNDBEC_SEQ
-				where p.PAY_CONDITION='C' and refund_cancle>=#{startDay}
+				where refund_cancle>=#{startDay}
 				<![CDATA[ and refund_cancle < to_Date(#{endDay})+1]]>
 				<if test="customerId!=null and customerId!=''">
 					and userid=#{customerId}

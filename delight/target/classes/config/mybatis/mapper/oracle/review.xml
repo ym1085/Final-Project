@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.review">
+	
+	<select id="selectReviewList" parameterType="dateSearchVo" resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		        SELECT r.*,p.pay_condition,(select count(*) from tbl_review v
+		 		where v.RESERVATION_SEQ=r.reservation_seq)V
+				FROM tbl_reservation r join tbl_payment p
+				on r.RESERVATION_SEQ = p.RESERVATION_SEQ 
+				LEFT join tbl_refund f
+				on p.pay_seq=f.pay_seq
+				where p.PAY_CONDITION='Y' and f.refund_cancle is null
+				<![CDATA[ and r.select_date+1<sysdate]]>
+				 and res_date>=#{startDay} 
+				<![CDATA[ and res_date < to_Date(#{endDay})+1]]>
+				<if test="customerId!=null and customerId!=''">
+					and userid=#{customerId}
+				</if>
+				order by r.reservation_seq desc
+		    )A
+		)
+		where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>	
+	</select>
+	
+	<select id="TotalRecord" parameterType="dateSearchVo"
+		resultType="int">
+			SELECT count(*)
+			FROM tbl_reservation r join tbl_payment p
+			on r.RESERVATION_SEQ = p.RESERVATION_SEQ 
+			LEFT join tbl_refund f
+			on p.pay_seq=f.pay_seq
+			where p.PAY_CONDITION='Y' and f.refund_cancle is null
+			<![CDATA[ and r.select_date+1<sysdate]]>
+			and res_date>=#{startDay}
+			<![CDATA[ and res_date < to_Date(#{endDay})+1]]>
+			<if test="customerId!=null and customerId!=''">
+				and userid=#{customerId}
+			</if>
+	</select>
+	
+	<select id="reservationDetail" parameterType="int" resultType="reservationVo">
+		select * from tbl_reservation
+		where reservation_seq=#{reservation_seq}
+	</select>
+	
+	<insert id="insertReview" parameterType="reviewVo">
+		<selectKey resultType="int" keyProperty="reviewSeq" order="BEFORE">
+			select review_seq.nextval from dual
+		</selectKey>
+		insert into tbl_review(review_seq,review_type,review_mt20id,review_title,review_content,review_score,
+		review_p1,review_p2,review_p3,review_mileage,userid,reservation_seq)
+		values(#{reviewSeq},#{reviewType},#{reviewMt20id},#{reviewTitle},#{reviewContent},#{reviewScore},
+		#{reviewP1},#{reviewP2},#{reviewP3},#{reviewMileage},#{userid},#{reservationSeq})
+	</insert>
+	
+	<update id="updateUserMg" parameterType="mileageVo">
+		update tbl_user
+		set mileagePoint=#{mileagePoint}
+		where userid=#{userid}
+	</update>
+	
+	<insert id="insertMileeage" parameterType="mileageVo">
+		<selectKey keyProperty="mileageSeq" resultType="int" order="BEFORE">
+			select mileage_seq.nextval from dual
+		</selectKey>
+		insert into tbl_mileage(mileage_seq,mileage_point,userid,mileaebec_seq)
+		values(#{mileageSeq},#{mileagePoint},#{userid},#{mileaebecSeq})
+	</insert>
+	
+</mapper>

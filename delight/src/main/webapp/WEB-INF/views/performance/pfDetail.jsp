@@ -206,10 +206,9 @@
       <!-- left side -->
       <aside class="left-sidebar" style="width: 13%;">
          <div class="logo" style="margin-bottom: 63%;">
-            <a href="#welcome" style="color: white; 
-               font-size: 2.5em; font-family: 'Limelight', cursive;">
-               Delight 
-            </a>
+            <a href="<c:url value='/index.do'/>"
+				style="color: white; font-size: 2.5em; font-family: 'Limelight', cursive;">
+				Delight</a>
          </div>
          
          <nav class="left-nav" style="margin-top: 100%;">

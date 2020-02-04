@@ -236,7 +236,7 @@
 		<!-- left side -->
 		<aside class="left-sidebar" style="width: 13%;">
 			<div class="logo" style="margin-bottom: 63%;">
-				<a href="#welcome"
+				<a href="<c:url value='/index.do'/>"
 					style="color: white; font-size: 2.5em; font-family: 'Limelight', cursive;">
 					Delight </a>
 			</div>
@@ -332,7 +332,7 @@
 						<span class="A">
 							<fnt:formatNumber value="${stPriceFinalTotal}" pattern="#,###"/>원 
 						</span>
-						<select name="choosestPrice" id="choosestPrice" class="B" style="margin-left: 7px;">
+						<select name="choosestPrice" id="choosestPrice" class="B" style="margin-left: 0px;">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -439,7 +439,7 @@
 						
 						<c:if test="${!empty ticketVo.detail}">
 							<p class="fp2">
-								<mark>${ticketVo.detail}</mark>
+								${ticketVo.detail}
 							</p>
 						</c:if>
 						
