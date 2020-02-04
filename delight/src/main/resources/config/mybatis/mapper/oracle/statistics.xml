@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.admin.statistics">
+	
+	<select id="gendercount" resultType="map">
+		select gender,round(count(*)/(select count(*) from tbl_user where grade_name!='admin')*100,2) count
+		from TBL_USER 
+		where grade_name!='admin'
+		group by gender
+	</select>
+	
+	<select id="agegroup" resultType="chartVo">
+		select round(count(*)/(select count(*) from tbl_user where grade_name!='admin')*100,2) total
+		 from 
+		 (
+		     select case when agegroup='1' or agegroup='0' then '10대'
+		            when agegroup='2' then '20대'
+		            when agegroup='3' then '30대'
+		            when agegroup='4' then '40대'
+		            when agegroup='5' then '50대'
+		            when agegroup='6' then '60대'
+		            when agegroup='7' then '70대'
+		            when agegroup='8' then '80대'
+		            when agegroup='9' then '90대'
+		            end age
+		 from ( select userid, birth, 
+		    round((to_char(sysdate, 'yyyy')- 
+		    substr(birth, 1,4)+1 )/10) agegroup
+		 from tbl_user)
+		 )
+		 group by age
+		 order by age
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+

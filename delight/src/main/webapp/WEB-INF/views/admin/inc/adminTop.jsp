@@ -179,7 +179,7 @@
               </a>
               <div class="collapse" id="chart">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="#"> 
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/numericalStatement/memberStatistics.do'/>"> 
 				  회원통계 </a></li>
                   <li class="nav-item"> <a class="nav-link" href="#"> 
 				  매출통계 </a></li>
