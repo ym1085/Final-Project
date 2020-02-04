@@ -42,7 +42,7 @@ $(function() {
         	title: {
                 text: '회원비율'
             },
-            categories: ['']
+            categories: ['성비율']
         },
         yAxis: {
             title: {
@@ -51,7 +51,7 @@ $(function() {
             plotLines: [{
                 value: 0,
                 width: 1,
-                color: '#808080'
+                color: '#080927'
             }]
         },
         series: [{
@@ -83,7 +83,7 @@ $(function() {
         	title: {
                 text: '연령대'
             },
-            categories: ['10대','20대','30대','40대','50대','60대','70대','80대','90대']
+            categories: ${age}
         },
         yAxis: {
             title: {

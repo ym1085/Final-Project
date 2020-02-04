@@ -1,6 +1,7 @@
 package com.fp.delight.admin.statistics.model;
 
 public class ChartVO {
+	private String age;
 	private Double total;
 
 	public Double getTotal() {
@@ -11,10 +12,20 @@ public class ChartVO {
 		this.total = total;
 	}
 
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
 	@Override
 	public String toString() {
-		return "ChartVO [total=" + total + "]";
+		return "ChartVO [age=" + age + ", total=" + total + "]";
 	}
+
+	
 
 	
 	

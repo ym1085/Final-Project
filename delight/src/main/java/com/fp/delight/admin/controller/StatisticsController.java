@@ -40,11 +40,15 @@ public class StatisticsController {
 		
 		JSONArray jso=new JSONArray();
 		for(int i=0;i<agegroup.size();i++) {
-			JSONObject ob=new JSONObject();
 			jso.put(agegroup.get(i).getTotal());
+		}
+		JSONArray jso2=new JSONArray();
+		for(int i=0;i<agegroup.size();i++) {
+			jso2.put(agegroup.get(i).getAge());
 		}
 		
 		
 		model.addAttribute("agegroup", jso);
+		model.addAttribute("age", jso2);
 	}
 }

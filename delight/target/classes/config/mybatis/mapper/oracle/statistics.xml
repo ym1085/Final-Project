@@ -7,12 +7,12 @@
 	<select id="gendercount" resultType="map">
 		select gender,round(count(*)/(select count(*) from tbl_user where grade_name!='admin')*100,2) count
 		from TBL_USER 
-		where grade_name!='admin'
+		where grade_name!='admin' and out_date is null
 		group by gender
 	</select>
 	
 	<select id="agegroup" resultType="chartVo">
-		select round(count(*)/(select count(*) from tbl_user where grade_name!='admin')*100,2) total
+		select age,round(count(*)/(select count(*) from tbl_user where grade_name!='admin' and out_date is null)*100,2) total
 		 from 
 		 (
 		     select case when agegroup='1' or agegroup='0' then '10대'
@@ -28,7 +28,7 @@
 		 from ( select userid, birth, 
 		    round((to_char(sysdate, 'yyyy')- 
 		    substr(birth, 1,4)+1 )/10) agegroup
-		 from tbl_user)
+		 from tbl_user where out_date is null)
 		 )
 		 group by age
 		 order by age
