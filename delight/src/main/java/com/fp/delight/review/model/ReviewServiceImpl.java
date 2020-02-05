@@ -3,6 +3,8 @@ package com.fp.delight.review.model;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fp.delight.common.DateSearchVO;
 import com.fp.delight.mileage.model.MileageVO;
 import com.fp.delight.reservation.model.ReservationVO;
+import com.fp.delight.review.controller.ReviewController;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
+	
 	@Autowired
 	private ReviewDAO reviewDao;
 
@@ -53,5 +57,21 @@ public class ReviewServiceImpl implements ReviewService{
 		}
 		return cnt;
 	}
+
+	@Override
+	public List<Map<String, Object>> selectReviewNew5(String userid) {
+		return reviewDao.selectReviewNew5(userid);
+	}
+
+	@Override
+	public List<Map<String, Object>> ReviewWriteList(DateSearchVO dateSearchVo) {
+		return reviewDao.ReviewWriteList(dateSearchVo);
+	}
+
+	@Override
+	public int ReviewWriteTotalRecord(DateSearchVO dateSearchVo) {
+		return reviewDao.ReviewWriteTotalRecord(dateSearchVo);
+	}
+
 	
 }

@@ -18,4 +18,7 @@ public interface ReviewService {
 	int TotalRecord(DateSearchVO dateSearchVo);
 	ReservationVO reservationDetail(int reservation_seq);
 	int insertReview(ReviewVO reviewVo);
+	List<Map<String, Object>> selectReviewNew5(String userid);
+	List<Map<String, Object>> ReviewWriteList(DateSearchVO dateSearchVo);
+	int ReviewWriteTotalRecord(DateSearchVO dateSearchVo);
 }

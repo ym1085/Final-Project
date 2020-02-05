@@ -47,5 +47,22 @@ public class ReviewDAOMybatis implements ReviewDAO{
 	public int insertMileeage(MileageVO mileageVo) {
 		return sqlSession.insert(namespace+"insertMileeage",mileageVo);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectReviewNew5(String userid) {
+		return sqlSession.selectList(namespace+"selectReviewNew5",userid);
+	}
+
+	@Override
+	public List<Map<String, Object>> ReviewWriteList(DateSearchVO dateSearchVo) {
+		return sqlSession.selectList(namespace+"ReviewWriteList",dateSearchVo);
+	}
+
+	@Override
+	public int ReviewWriteTotalRecord(DateSearchVO dateSearchVo) {
+		return sqlSession.selectOne(namespace+"ReviewWriteTotalRecord",dateSearchVo);
+	}
+
+
 	
 }

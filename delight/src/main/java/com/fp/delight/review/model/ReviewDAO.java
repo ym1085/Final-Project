@@ -14,4 +14,7 @@ public interface ReviewDAO {
 	int insertReview(ReviewVO reviewVo);
 	int updateUserMg(ReviewVO reviewVo);
 	int insertMileeage(MileageVO mileageVo);
+	List<Map<String, Object>> selectReviewNew5(String userid);
+	List<Map<String, Object>> ReviewWriteList(DateSearchVO dateSearchVo);
+	int ReviewWriteTotalRecord(DateSearchVO dateSearchVo);
 }

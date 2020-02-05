@@ -142,8 +142,8 @@
 					</tr>
 					</c:forEach>
 					</c:if>
-				</tbody>
 				<!-- 반복 끝-->
+				</tbody>
 			</table>
 			<div id="page">
 					<!-- 이전블럭으로 이동 -->

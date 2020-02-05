@@ -78,4 +78,73 @@
 		values(#{mileageSeq},#{mileagePoint},#{userid},#{mileaebecSeq})
 	</insert>
 	
+	<resultMap type="HashMap" id="getreviewList">
+		<result column="REVIEW_SEQ" property="REVIEW_SEQ"/>
+		<result column="REVIEW_TYPE" property="REVIEW_TYPE"/>
+		<result column="REVIEW_MT20ID" property="REVIEW_MT20ID"/>
+		<result column="REVIEW_TITLE" property="REVIEW_TITLE"/>
+		<result column="REVIEW_CONTENT" property="REVIEW_CONTENT" jdbcType="CLOB" javaType="java.lang.String"/>
+		<result column="REVIEW_SCORE" property="REVIEW_SCORE"/>
+		<result column="REVIEW_P1" property="REVIEW_P1" jdbcType="CLOB" javaType="java.lang.String"/>
+		<result column="REVIEW_P2" property="REVIEW_P2" jdbcType="CLOB" javaType="java.lang.String"/>
+		<result column="REVIEW_P3" property="REVIEW_P3" jdbcType="CLOB" javaType="java.lang.String"/>
+		<result column="REVIEW_REGDATE" property="REVIEW_REGDATE" />
+		<result column="REVIEW_MILEAGE" property="REVIEW_MILEAGE" jdbcType="BIGINT" javaType="java.lang.Integer"/>
+		<result column="USERID" property="USERID" />
+		<result column="RESERVATION_SEQ" property="RESERVATION_SEQ" />
+		<result column="PRFNM" property="PRFNM" />
+		<result column="PERFOMTYPE" property="PERFOMTYPE" />
+		<result column="PAY_TICKET_NUMBER" property="PAY_TICKET_NUMBER" />
+	</resultMap>
+	
+	<select id="selectReviewNew5" parameterType="string" resultMap="getreviewList">
+		select A.*
+		from
+		(
+			select r.*,p.prfnm,p.perfomtype,p.pay_ticket_number
+			from tbl_review r join tbl_reservation p
+			on r.RESERVATION_SEQ=p.RESERVATION_SEQ
+			where r.userid=#{userid}
+			order by review_seq desc
+		) A
+		<![CDATA[
+		where rownum<=3
+		]]>	
+	</select>
+	
+	<select id="ReviewWriteList" parameterType="dateSearchVo" resultMap="getreviewList">
+		select *
+		from
+			(
+			    select rownum as RNUM, A.*
+			    from
+			    (
+			        select r.*,p.prfnm,p.perfomtype,p.pay_ticket_number
+					from tbl_review r join tbl_reservation p
+					on r.RESERVATION_SEQ=p.RESERVATION_SEQ
+					where review_regdate>=#{startDay}
+					<![CDATA[ and review_regdate < to_Date(#{endDay})+1]]>
+					<if test="customerId!=null and customerId!=''">
+						and r.userid=#{customerId}
+					</if>
+					order by review_seq desc
+			    )A
+			)
+			where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>	
+	</select>
+	
+	<select id="ReviewWriteTotalRecord" parameterType="dateSearchVo" resultType="int">
+			select count(*)
+			from tbl_review r join tbl_reservation p
+			on r.RESERVATION_SEQ=p.RESERVATION_SEQ
+			where review_regdate>=#{startDay}
+			<![CDATA[ and review_regdate < to_Date(#{endDay})+1]]>
+			<if test="customerId!=null and customerId!=''">
+				and r.userid=#{customerId}
+			</if>
+	</select>
+	
 </mapper>

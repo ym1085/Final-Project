@@ -129,7 +129,6 @@ public class ReviewController {
 				  fileUtil.fileUpload(request, FileUploadUtil.REVIEW_UPLOAD, userid);
 		  logger.info("list.size={}",list.size());
 		  
-		  
 		  if(list.size()==1) {
 			  reviewVo.setReviewP1(userid+"/"+list.get(0));
 		  }else if(list.size()==2) {
@@ -160,5 +159,46 @@ public class ReviewController {
 		  return "common/message";
 	  } 
 
-	  
+		@RequestMapping("/imp/myreview.do")
+		public void myreview(HttpSession session,Model model) {
+			String userid=(String)session.getAttribute("userid");
+			List<Map<String, Object>> list=reviewService.selectReviewNew5(userid);
+			model.addAttribute("list",list);
+		}
+		
+		@RequestMapping("/myreviewList.do")
+		public void myreviewList(@ModelAttribute DateSearchVO dateSearchVo,HttpSession session,
+				Model model) {
+			String userid=(String)session.getAttribute("userid");
+			dateSearchVo.setCustomerId(userid);
+			
+			String startDay=dateSearchVo.getStartDay();
+			if(startDay==null || startDay.isEmpty()) {
+				Date today = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String str=sdf.format(today);
+				
+				dateSearchVo.setStartDay(str);
+				dateSearchVo.setEndDay(str);			
+			}
+			
+			logger.info("@@파라미터확인userid={}",userid);
+			logger.info("@@파라미터확인dateSearchVo={}",dateSearchVo);
+			
+			PaginationInfo pagingInfo=new PaginationInfo();
+			pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+			pagingInfo.setRecordCountPerPage(Utility.LIKE_RECORD_COUNT);
+			pagingInfo.setCurrentPage(dateSearchVo.getCurrentPage());
+			
+			dateSearchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+			dateSearchVo.setRecordCountPerPage(Utility.LIKE_RECORD_COUNT);
+			
+			List<Map<String, Object>> list=reviewService.ReviewWriteList(dateSearchVo);
+			
+			int totalRecord=reviewService.ReviewWriteTotalRecord(dateSearchVo);
+			pagingInfo.setTotalRecord(totalRecord);
+			
+			model.addAttribute("list",list);
+			model.addAttribute("pagingInfo",pagingInfo);
+		}
 }
