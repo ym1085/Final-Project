@@ -30,6 +30,14 @@
 			</div>
 		</div>
 	</div>
+	<hr>
+	<div class="card">
+		<div class="card-body">
+			<div id="chart4">
+			
+			</div>
+		</div>
+	</div>
 </div>
 
 <%@include file="../inc/adminBottom.jsp" %>
@@ -185,6 +193,66 @@ $(function() {
 		}
 	});
 
+	$.ajax({
+		url: "<c:url value='/admin/numericalStatement/dayvisitor.do'/>",
+		type:"get",
+		dataType:"json",
+		success:function(res){
+			//alert(res);
+			var con=[];
+			var val=[];
+			$.each(res,function(idx,value){
+				con.push(value.day);
+				val.push(value.count);
+			})
+			//alert(con);
+			//alert(val);
+			Highcharts.chart('chart4', {
+		        chart: {
+		            type: 'line'
+		        },
+		        title: {
+		            text: '일별 방문자 수'
+		        },
+		        xAxis: {
+		        	title: {
+		                text: '방문자 수'
+		            },
+		            categories: con,
+		        },
+		        yAxis: {
+		            title: {
+		                text: '명수'
+		            },
+		            plotLines: [{
+		                value: 0,
+		                width: 1,
+		                color: '#080927'
+		            }]
+		        },
+		        series: [{
+		            name: '방문자 수',
+		            data: val
+		        }],
+		        legend: {
+		            layout: 'vertical',
+		            align: 'right',
+		            verticalAlign: 'middle',
+		            borderWidth: 0
+		        },
+		        tooltip: {
+		            valueSuffix: '명'
+		        },
+		        credits: {
+		            enabled: false
+		        }
+		    });
+		},
+		error:function(xhr,status,error){
+			alert("Error : "+status+", "+error);
+		}
+	});
+	
 	
 });
 

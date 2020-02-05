@@ -10,6 +10,7 @@ public class ChartVO {
 	private Long totalsales;
 	private int totalselled;
 	private String type;
+	private int count;
 	
 	public Double getTotal() {
 		return total;
@@ -67,23 +68,21 @@ public class ChartVO {
 		this.type = type;
 	}
 
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 	@Override
 	public String toString() {
 		return "ChartVO [age=" + age + ", total=" + total + ", day=" + day + ", join=" + join + ", totalsales="
-				+ totalsales + ", totalselled=" + totalselled + ", type=" + type + "]";
+				+ totalsales + ", totalselled=" + totalselled + ", type=" + type + ", count=" + count + "]";
 	}
 
 	
 
-	
-	
-
-	
-
-	
-
-	
-	
-	
 	
 }

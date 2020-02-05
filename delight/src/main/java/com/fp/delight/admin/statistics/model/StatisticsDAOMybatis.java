@@ -38,6 +38,11 @@ public class StatisticsDAOMybatis implements StatisticsDAO {
 	public List<ChartVO> dayselled() {
 		return sqlSession.selectList(namespace+"dayselled");
 	}
+
+	@Override
+	public List<ChartVO> dayvisitor() {
+		return sqlSession.selectList(namespace+"dayvisitor");
+	}
 	
 	
 }

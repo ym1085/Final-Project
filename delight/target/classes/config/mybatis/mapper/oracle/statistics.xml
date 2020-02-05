@@ -57,6 +57,13 @@
 		group by to_date(r.RES_DATE),perfomtype
 		order by day
 	</select>
+	
+	<select id="dayvisitor" resultType="chartVo">
+		select to_date(visitor_today) day ,visitor_count count
+		from VISITORS 
+		where to_date(visitor_today)>=to_date(sysdate)-7
+		order by to_date(visitor_today)
+	</select>
 </mapper>
 
 

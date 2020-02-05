@@ -35,6 +35,11 @@ public class StatisticsServiceImpl implements StatisticsService{
 	public List<ChartVO> dayselled() {
 		return statisticsDao.dayselled();
 	}
+
+	@Override
+	public List<ChartVO> dayvisitor() {
+		return statisticsDao.dayvisitor();
+	}
 	
 	
 }

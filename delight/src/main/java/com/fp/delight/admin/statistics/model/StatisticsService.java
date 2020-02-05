@@ -9,4 +9,5 @@ public interface StatisticsService {
 	List<ChartVO> joincount();
 	List<ChartVO> daysales();
 	List<ChartVO> dayselled();
+	List<ChartVO> dayvisitor();
 }

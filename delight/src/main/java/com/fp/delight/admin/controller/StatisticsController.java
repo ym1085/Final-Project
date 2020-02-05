@@ -85,4 +85,15 @@ public class StatisticsController {
 		
 		return list;
 	}
+	
+	@RequestMapping("/dayvisitor.do")
+	@ResponseBody
+	public Object dayvisitor() {
+		logger.info("일별 방문자 수 그래프");
+		
+		List<ChartVO> list=statisticesService.dayvisitor();
+		logger.info("list.size()={}",list.size());
+		
+		return list;
+	}
 }
