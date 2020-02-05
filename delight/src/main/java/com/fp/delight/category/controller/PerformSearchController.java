@@ -9,10 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.fp.delight.api.ApiTest_arSearch;
 import com.fp.delight.api.ApiTest_pfSearch;
-import com.fp.delight.api.ApiTest_reservation;
 import com.fp.delight.performent.model.PerformentListVO;
 
 
@@ -63,22 +61,4 @@ public class PerformSearchController {
 		return "mainSearchResult/mainPerformSearch";
 	}
 	
-	//메인에서 예매하기 버튼 -> 검색결과 페이지로 로딩
-	@RequestMapping(value = "/doReservation.do")
-	public String Reservation_get(Model model) {
-		logger.info("예약페이지 화면 보여주기");
-    	
-    	try {
-    		ApiTest_reservation apiTest = new ApiTest_reservation();
-    		List<PerformentListVO> alist = apiTest.receiveAPI(); 
-			
-			model.addAttribute("alist", alist);
-    	} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    	
-		return "mainSearchResult/mainPerformSearch";
-	}
 }
