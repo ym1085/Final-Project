@@ -23,6 +23,21 @@ public class StatisticsDAOMybatis implements StatisticsDAO {
 	public List<ChartVO> agegroup() {
 		return sqlSession.selectList(namespace+"agegroup");
 	}
+
+	@Override
+	public List<ChartVO> joincount() {
+		return sqlSession.selectList(namespace+"joincount");
+	}
+
+	@Override
+	public List<ChartVO> daysales() {
+		return sqlSession.selectList(namespace+"daysales");
+	}
+
+	@Override
+	public List<ChartVO> dayselled() {
+		return sqlSession.selectList(namespace+"dayselled");
+	}
 	
 	
 }

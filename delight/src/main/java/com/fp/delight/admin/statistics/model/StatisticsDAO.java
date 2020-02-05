@@ -6,4 +6,7 @@ import java.util.Map;
 public interface StatisticsDAO {
 	List<Map<String, Object>> gendercount();
 	List<ChartVO> agegroup();
+	List<ChartVO> joincount();
+	List<ChartVO> daysales();
+	List<ChartVO> dayselled();
 }

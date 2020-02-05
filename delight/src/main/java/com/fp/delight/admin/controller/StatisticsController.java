@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.admin.statistics.model.ChartVO;
 import com.fp.delight.admin.statistics.model.StatisticsService;
@@ -50,5 +51,38 @@ public class StatisticsController {
 		
 		model.addAttribute("agegroup", jso);
 		model.addAttribute("age", jso2);
+	}
+	
+	@RequestMapping("/joincount.do")
+	@ResponseBody
+	public Object joincount(Model model) {
+		logger.info("ajax로 하이차트 일별 가입자 수");
+		List<ChartVO> list=statisticesService.joincount();
+		
+		return list;
+	}
+	
+	@RequestMapping("/salesSatistics.do")
+	public void salesSatistics() {
+		logger.info("매출 통계 보여주기");
+	}
+	
+	@RequestMapping("/daysales.do")
+	@ResponseBody
+	public Object daysales() {
+		logger.info("ajax로 하이차트 일별 매출");
+		List<ChartVO> list=statisticesService.daysales();
+		logger.info("list.size()={}",list.size());
+		return list;
+	}
+	
+	@RequestMapping("/dayselled.do")
+	@ResponseBody
+	public Object dayselled() {
+		logger.info("일별 예매 수량 차트");
+		List<ChartVO> list=statisticesService.dayselled();
+		logger.info("list.size()={}",list.size());
+		
+		return list;
 	}
 }

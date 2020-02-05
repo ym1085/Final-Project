@@ -20,6 +20,21 @@ public class StatisticsServiceImpl implements StatisticsService{
 	public List<ChartVO> agegroup() {
 		return statisticsDao.agegroup();
 	}
+
+	@Override
+	public List<ChartVO> joincount() {
+		return statisticsDao.joincount();
+	}
+
+	@Override
+	public List<ChartVO> daysales() {
+		return statisticsDao.daysales();
+	}
+
+	@Override
+	public List<ChartVO> dayselled() {
+		return statisticsDao.dayselled();
+	}
 	
 	
 }

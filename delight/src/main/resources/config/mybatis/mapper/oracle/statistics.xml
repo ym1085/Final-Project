@@ -33,6 +33,30 @@
 		 group by age
 		 order by age
 	</select>
+	
+	<select id="joincount" resultType="chartVo">
+		select to_date(join_date) day ,count(*) join
+		from TBL_USER 
+		where <![CDATA[to_date(join_date)>=(to_date(sysdate)-7)]]>
+		group by to_date(join_date)
+		order by to_date(join_date)
+	</select>
+	
+	<select id="daysales" resultType="chartVo">
+		select to_date(reg_date) day ,sum(pay_price) totalsales
+		from TBL_PAYMENT 
+		where pay_condition='Y' and <![CDATA[to_date(reg_date)>=(to_date(sysdate)-7)]]>
+		group by to_date(reg_date)
+	</select>
+	
+	<select id="dayselled" resultType="chartVo">
+		select perfomtype type,to_date(r.RES_DATE) day ,sum(t.SELLED) totalselled
+		from TBL_RESERVATION r join TBL_TICKET t
+		on r.TICKET_SEQ = t.TICKET_SEQ
+		where <![CDATA[to_date(r.RES_DATE)>=to_date(sysdate)-7]]>
+		group by to_date(r.RES_DATE),perfomtype
+		order by day
+	</select>
 </mapper>
 
 
