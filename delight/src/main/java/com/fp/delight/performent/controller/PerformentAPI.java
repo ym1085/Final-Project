@@ -66,6 +66,46 @@ public class PerformentAPI {
 		return map;
 	}
 	
+	//공연 상세 메서드
+		public Map<String, Object> performDetail(){
+			String detail="http://www.kopis.or.kr/openApi/restful/pblprfr/PF132236?service=9382c5404b3046389912b28accd9b214";
+			
+			System.out.println("detail api주소="+detail);
+			
+			Map<String, Object> map=null;
+			
+			try {
+				HttpURLConnection urlcon=(HttpURLConnection) new URL(detail).openConnection();
+		
+				urlcon.connect();
+				BufferedInputStream bis = new BufferedInputStream(urlcon.getInputStream());
+				BufferedReader reader = new BufferedReader(new InputStreamReader(bis));
+				StringBuffer st = new StringBuffer();
+				String line;
+				while ((line = reader.readLine()) != null) {
+					st.append(line);
+				}
+		
+				JSONObject xmlJSONObj = XML.toJSONObject(st.toString());
+				JSONObject obj=xmlJSONObj.getJSONObject("dbs").getJSONObject("db");
+				System.out.println(obj.toMap());
+				
+				ObjectMapper mapper = new ObjectMapper();
+				
+				map=mapper.readValue(obj.toString(), new TypeReference<Map<String,Object>>() {});
+				
+				System.out.println(map.toString());
+				
+				}catch(MalformedURLException e) {
+					e.printStackTrace();
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+				
+			return map;
+		}
+	
+	
 	//위도,경도
 	public Map<String, Object> performLocation(String perforLoc){
 		String detail="http://www.kopis.or.kr/openApi/restful/prfplc/"

@@ -9,5 +9,5 @@ public class Utility {
 	public static final int SETTING_RECORD_COUNT=10;
 	public static final int PROMOTE_POINT_GIVE=1000;
 	
-	
+	public static final int MILEAGE_RECORD_COUNT=5;
 }
