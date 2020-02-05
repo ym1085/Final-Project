@@ -19,7 +19,7 @@
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
-    <!-- endinject -->
+    <!--  -->
     <!-- Layout styles -->
     <link rel="stylesheet" 
     href="<c:url value='/resources/admin/assets/css/style.css'/>">
