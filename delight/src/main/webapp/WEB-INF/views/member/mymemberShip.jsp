@@ -9,6 +9,10 @@
 <title>맴버쉽 구입</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/mainstyle.css'/>">
 <style type="text/css">
+	body{
+		 background: #f3f3f3;
+	}
+	
 	div#buyerforUser {
 	    width: 300px;
 	    height: 200px;
@@ -63,9 +67,13 @@
 	    color: white;
 	}
 	
+	span#temporaryPercent {
+    	font-size: 14px;
+	}
+	
 	input#membershipDetail{
 		border: 0px;
-	    width: 200px;
+        width: 142px;
 	    height: 25px;
 	    text-align: center;
 	    font-size: 14px;
@@ -75,7 +83,7 @@
 	}
 	
 	input#payMemberShip {
-	    background: lightgoldenrodyellow;
+	    background: aliceblue;
 	    width: 100px;
 	    height: 40px;
 	    border: 2px solid lightgray;
@@ -83,25 +91,24 @@
 	}
 	
 	input#backtoDetail{
-		background: lightgoldenrodyellow;
+		background: aliceblue;
 	    width: 100px;
 	    height: 40px;
 	    border: 2px solid lightgray;
 	    font-size: 14px;
+	} 
+	
+	#stDate {
+    	font-size: 15px;
+    	background-color: white;
+    	color: #585353;
 	}
+
 
 </style>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.4.1.min.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
-		//사용하기
-		$("").click(function(){
-			//$(opener.document).find("#userid").val("${param.userid}");
-			//$(opener.document).find("#chkId").val("Y");
-			//$(opener.document).find("#userid").attr("readonly","readonly");
-			
-		});
-		
 		$("#payMemberShip").click(function(){
 			var membershipName = $("#membershipName").val();
 			var membershipDetail = $("#membershipDetail").val();
@@ -131,17 +138,17 @@
 			<br>
 			
 			<input name="membershipDetail" id="membershipDetail" value="시즌동안모든예약:10"
-				readonly="readonly">%
+				readonly="readonly"><span id="temporaryPercent">퍼센트 할인</span>
 			<br>
 			
-			<span name="stDate">
-				[구매한 날짜부터 6개월 동안 유효한 회원권]	
+			<span id="stDate">
+				구매한 날짜부터 6개월 동안 유효한 회원권
 			</span>
 		</div>
 		
 		<div id="buyerforUserPayment">
-			<input type="button" id="payMemberShip" value="회원권 구매"></button>
-			<input type="button" id="backtoDetail" value="돌아가기"></button>
+			<input type="button" id="payMemberShip" value="회원권 구매">
+			<input type="button" id="backtoDetail" value="돌아가기">
 		</div>
 	</form>
 	

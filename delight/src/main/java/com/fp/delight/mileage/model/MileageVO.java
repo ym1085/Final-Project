@@ -2,12 +2,15 @@ package com.fp.delight.mileage.model;
 
 import java.sql.Timestamp;
 
-public class MileageVO {
+import com.fp.delight.common.SearchVO;
+
+public class MileageVO extends SearchVO{
 	private int mileageSeq;
 	private int mileagePoint;
 	private Timestamp mileageReg;
 	private String userid;
 	private int mileaebecSeq;
+	
 	public int getMileageSeq() {
 		return mileageSeq;
 	}
@@ -38,11 +41,11 @@ public class MileageVO {
 	public void setMileaebecSeq(int mileaebecSeq) {
 		this.mileaebecSeq = mileaebecSeq;
 	}
+	
 	@Override
 	public String toString() {
 		return "MileageVO [mileageSeq=" + mileageSeq + ", mileagePoint=" + mileagePoint + ", mileageReg=" + mileageReg
-				+ ", userid=" + userid + ", mileaebecSeq=" + mileaebecSeq + "]";
+				+ ", userid=" + userid + ", mileaebecSeq=" + mileaebecSeq + ", toString()=" + super.toString() + "]";
 	}
-	
 	
 }

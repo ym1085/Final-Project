@@ -75,6 +75,11 @@ th#heading {
 #mybody .likeTr {
 	height: 59px;
 }
+
+#mybody .earnMileage{
+	height: 59px;
+}
+
 #mybody div, img {
 	width: 157px;
 	height: 188px;

@@ -9,9 +9,9 @@
 		<!-- left side -->
 		<aside class="left-sidebar" style="width: 13%;">
 			<div class="logo" style="margin-bottom: 63%;">
-				<a href="#welcome"
+				<a href="<c:url value='/index.do'/>"
 					style="color: white; font-size: 2.5em; font-family: 'Limelight', cursive;">
-					Delight </a>
+				Delight</a>
 			</div>
 
 			<nav class="left-nav" style="margin-top: 100%;">
@@ -41,6 +41,8 @@
 	<c:import url="/member/imp/myreview.do"></c:import>
 	<c:import url="/member/imp/mylike.do"></c:import>
 	<c:import url="/member/imp/mynewPer.do"></c:import>
+	<c:import url="/member/imp/myMileageSub.do"></c:import>
+	
 	</div>
 	<!-- div안에서작업 그외엔 건들지말것 -->
 	
