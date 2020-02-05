@@ -286,7 +286,13 @@ public class PaymentController {
 			MemberVO memberVo = new MemberVO();
 			memberVo.setUserid(userid);
 			
-			mileagePoint = (int)(pay_price*0.005);
+			MemberVO memberVoChk = memberService.selectMember(userid);
+			logger.info("회원 마일리지 가져와서 더해줘야함, 파라미터 memberVoChk={} ", memberVoChk);
+			
+			int mileagePointChk = memberVoChk.getMileagePoint();
+			logger.info("마일리지를 사용하지않은 상황 -> 현재 로그인 된 유저의 마일리지 mileagePointChk={} ", mileagePointChk);
+			
+			mileagePoint = (int)(pay_price*0.005)+mileagePointChk;
 			logger.info("마일리지가 적용되지 않은 티켓의 총액 값 * 0.005를 한 가격 mileagePoint={} ", mileagePoint);
 			memberVo.setMileagePoint(mileagePoint);
 			

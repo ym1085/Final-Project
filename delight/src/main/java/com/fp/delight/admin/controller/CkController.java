@@ -47,7 +47,7 @@ public class CkController {
 						byte[] bytes = file.getBytes();
 						String upPath = req.getSession().getServletContext().getRealPath("img");
 						//String upPath = "D:/lecture/delight/delight2/delight/src/main/webapp/resources/img";
-
+						
 						fileName = getUniqueFileName(fileOrginalName);
 						
 						//int idx=fileName.lastIndexOf(".");

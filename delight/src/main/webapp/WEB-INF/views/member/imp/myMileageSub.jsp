@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <link type="text/css" rel="stylesheet"
-	href="<c:url value='/resources/css/mysec.css' />" />
+	href="<c:url value='/resources/css/mysec.css' />"/>
 
 <section class="mysec" style="float: left;">
 	<div class="mysecDiv">
@@ -43,15 +43,24 @@
 					<tr class="likeTr">
 						<td style="text-align: left">
 							<p class="mybodylikeP" >
-								<fmt:parseDate value="${map['MILEAGE_REG']}" var='mileage_date' pattern='yyyy-MM-dd'/>
-								<fmt:formatDate value="${mileage_date}" pattern="yyyy-MM-dd"/>
+								<fmt:parseDate value="${map['MILEAGE_REG']}" var='mileage_date' pattern='yyyy-MM-dd HH:mm'/>
+								<fmt:formatDate value="${mileage_date}" pattern="yyyy-MM-dd HH:mm"/>
 							</p>
 						</td>
 				
 						<td style="text-align: center">
-							<p class="mybodylikeP" >
-								${map["MILEAGE_POINT"]}
-							</p>
+							<c:set var="mileaebacSeq" value="${map['MILEAEBEC_SEQ']}" />
+							<c:if test="${mileaebacSeq==1}">
+								<p class="mybodylikeP" >
+									+${map["MILEAGE_POINT"]}원
+								</p>
+							</c:if>
+							
+							<c:if test="${mileaebacSeq==5}">
+								<p class="mybodylikeP" >
+									-${map["MILEAGE_POINT"]}원
+								</p>
+							</c:if>
 						</td>
 			
 						<td style="text-align: center;">
