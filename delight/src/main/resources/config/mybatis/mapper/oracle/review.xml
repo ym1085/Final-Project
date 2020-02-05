@@ -64,9 +64,9 @@
 		#{reviewP1},#{reviewP2},#{reviewP3},#{reviewMileage},#{userid},#{reservationSeq})
 	</insert>
 	
-	<update id="updateUserMg" parameterType="mileageVo">
+	<update id="updateUserMg" parameterType="reviewVo">
 		update tbl_user
-		set mileagePoint=#{mileagePoint}
+		set mileagePoint=#{reviewMileage}
 		where userid=#{userid}
 	</update>
 	

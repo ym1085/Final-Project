@@ -31,10 +31,10 @@
 }
 
 .writeReview4 .stainfo {
-	font-size: 1.3em;
+	font-size: 1.1em;
 	float: left;
 	margin-top: 4px;
-	color: red;
+	color: black;
 	font-weight: bold;
 }
 
@@ -81,15 +81,17 @@ input#inqueryTitle {
 	border: 1px solid gray;
 	margin-top: 1%;
 }
-
 .review6info {
 	font-size: 15px;
 	position: absolute;
-	bottom: 82px;
+	bottom: 0px;
 	width: 130px;
 	right: 16.5%;
 	font-weight: bold;
 	color: black;
+}
+p.contenttitle {
+    height: 80px;
 }
 #inqueryContent{
 	width: 100%;
@@ -115,8 +117,17 @@ input.infoWrite {
     color: white;
     font-weight: bold;
 }
+.filesear {
+    color: black;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+span.fileError {
+    color: red;
+    font-weight: bold;
+}
 input[type="file"] {
-    margin-left: 27px;
+    margin-right: 27px;
     width: 216px;
 }
 .writeReview2{
@@ -141,4 +152,14 @@ input#fileP {
     font-size: 1.2em;
     height: 34px;
     padding-bottom: 32px;
+}
+p.contenttitle {
+    color: black;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+p.reviewTitleinfo {
+    color: black;
+    font-size: 1.1em;
+    font-weight: bold;
 }

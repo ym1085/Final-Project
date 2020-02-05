@@ -16,7 +16,20 @@
 		$(function(){
 			$("#file2").hide();
 			$("#file3").hide();
+			
 			$("form[name=reviewfrm]").submit(function(){
+				var file1=$("#file1").val();
+				var file2=$("#file2").val();
+				var file3=$("#file3").val();
+				
+				var jpg='jpg';
+				var png='png';
+				
+				file1=file1.substr(file1.lastIndexOf(".")+1);
+				file2=file2.substr(file2.lastIndexOf(".")+1);
+				file3=file3.substr(file3.lastIndexOf(".")+1);
+				
+				
 				if($("#inqueryTitle").val().length<1){
 					alert("제목을입력해주세요!");
 					$("#inqueryTitle").focus();
@@ -37,8 +50,20 @@
 					alert("보여지는 파일 첨부는 업로드하셔야합니다.");
 					$("#file2").focus();
 					event.preventDefault();
-				}else if($("#file2").val().length<1 && $("#filelength").val()==2){
+				}else if($("#file3").val().length<1 && $("#filelength").val()==3){
 					alert("보여지는 파일 첨부는 업로드하셔야합니다.");
+					$("#file3").focus();
+					event.preventDefault();
+				}else if(file1!='' && (file1!=jpg && file1!=png)){
+					alert("이미지파일은 jpg나png만 등록이 가능합니다.");
+					$("#file1").focus();
+					event.preventDefault();
+				}else if(file2!='' && (file2!=jpg && file2!=png)){
+					alert("이미지파일은 jpg나png만 등록이 가능합 니다.");
+					$("#file2").focus();
+					event.preventDefault();
+				}else if(file3!='' && (file3!=jpg && file3!=png)){
+					alert("이미지파일은 jpg나png만 등록이 가능합니다.");
 					$("#file3").focus();
 					event.preventDefault();
 				}
@@ -55,11 +80,12 @@
 					$("#fileM").show();
 					$("#file2").show();
 					$("#filelength").val(2);
+					$("#reviewMg").val(75);
 				}else if($("#filelength").val()==2){
 					$("#fileP").hide();
 					$("#file3").show();
 					$("#filelength").val(3);
-					
+					$("#reviewMg").val(100);
 				}
 				
 			});
@@ -68,10 +94,14 @@
 				if($("#filelength").val()==2){
 					$("#fileM").hide();
 					$("#file2").hide();
+					$("#file2").val(""); 
 					$("#filelength").val(1);
+					$("#reviewMg").val(50);
 				}else if($("#filelength").val()==3){
 					$("#file3").hide();
+					$("#file3").val("");
 					$("#filelength").val(2);
+					$("#reviewMg").val(75);
 					$("#fileP").show();
 				}
 				
@@ -123,12 +153,14 @@
 <div style="width: 87%; float: right;">
 
 	<section class="mysec">
-	<form action="<c:url value='/member/PhotoReview.do' />" method="post" name="reviewfrm">
+	<form action="<c:url value='/member/PhotoReview.do' />" method="post" name="reviewfrm" enctype="multipart/form-data">
 		<div class="mysecDiv">
 		<div class="writeReview">
 			<h2 class="mytit">포토후기 작성</h2>
 			<input type="hidden" value="2" name="reviewType">
 			<input type="hidden" value="${param.reservationSeq }" name="reservationSeq">
+			<input type="hidden" value="${vo.mt20id }" name="reviewMt20id">
+			<input type="hidden" value="50" id="reviewMg" name="reviewMileage">
 		</div>
 		<div class="writeReview2">
 			<p>- 작성된 후기는 Delight 콘텐츠로 사용될 수 있습니다.<br>
@@ -136,11 +168,11 @@
 			   - 한번 등록하신 후기는 수정 불가능하며 신중하게 작성 부탁드립니다.</p>
 		</div>
 		<div class="writeReview3">
-		<img alt="" src="<c:url value='/resources/images/del3.jpg' />">
-		<p class="mybodyP">내용</p>
+		<img alt="" src="${poster }">
+		<p class="mybodyP">${vo.perfomtype }<br>${vo.prfnm }</p>
 		</div>
 		<div class="writeReview4">
-		<p class="stainfo">* 별점을 매겨주세요</p>
+		<p class="stainfo">- 별점을 매겨주세요</p>
 		<p id="star_grade">
         <a href="#" onclick="star(1)" id="1">★</a>
         <a href="#" onclick="star(2)" id="2">★</a>
@@ -151,16 +183,18 @@
 		<input type="hidden" id="starNum" name="reviewScore" value=""/>
 		</div>
 		<div class="writeReview5">
-		<p>관람 하신 공연의 후기 제목을 입력해주세요.</p>
-		<input type="text" id="inqueryTitle" name="reviewTitle" value=""/>
+		<p class="filesear">- 관람 하신 공연의 후기 제목을 입력해주세요.</p>
+		<input type="text" maxlength="30" id="inqueryTitle" name="reviewTitle" value=""/>
 		</div>
-		<p class="contenttitle">관람하신 공연의 후기를 작성해주세요.(10자이상)
-		<input type="file" name="reviewP1" id="file1">
-		<input type="file" name="reviewP1"  id="file2">
-		<input type="file" name="reviewP1"  id="file3">
+		<p class="contenttitle">
+		<input type="file" name="reviewPho1" id="file1" value="">
+		<input type="file" name="reviewPho2"  id="file2" value="">
+		<input type="file" name="reviewPho3"  id="file3" value="">
 		<input type="button" id="fileM" value="-">
 		<input type="button" id="fileP" value="+">
-		<input type="hidden" id="filelength" value="1">
+		<input type="hidden" id="filelength" name="fileLength" value="1">
+		<span class="fileError">* 이미지파일은 JPG,PNG만 등록이가능합니다.</span><br><br>
+		<span  class="filesear">- 관람하신 공연의 후기를 작성해주세요.(10자이상)</span>
 		</p>
 		<div class="writeReview6">
 		<textarea id="inqueryContent" name="reviewContent"></textarea>

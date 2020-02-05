@@ -86,7 +86,8 @@
 			<h2 class="mytit">일반후기 작성</h2>
 			<input type="hidden" value="1" name="reviewType">
 			<input type="hidden" value="${param.reservationSeq }" name="reservationSeq">
-			<input type="hidden" value="${vo.reviewMt20id }" name="reviewMt20id">
+			<input type="hidden" value="${vo.mt20id }" name="reviewMt20id">
+			<input type="hidden" value="20" name="reviewMileage">
 			
 		</div>
 		<div class="writeReview2">
@@ -99,7 +100,7 @@
 		<p class="mybodyP">${vo.perfomtype }<br>${vo.prfnm }</p>
 		</div>
 		<div class="writeReview4">
-		<p class="stainfo">* 별점을 매겨주세요</p>
+		<p class="stainfo">- 별점을 매겨주세요</p>
 		<p id="star_grade">
         <a href="#" onclick="star(1)" id="1">★</a>
         <a href="#" onclick="star(2)" id="2">★</a>
@@ -110,10 +111,10 @@
 		<input type="hidden" id="starNum" name="reviewScore" value=""/>
 		</div>
 		<div class="writeReview5">
-		<p>관람 하신 공연의 후기 제목을 입력해주세요.</p>
-		<input type="text" id="inqueryTitle" name="reviewTitle" value=""/>
+		<p class="reviewTitleinfo">- 관람 하신 공연의 후기 제목을 입력해주세요.</p>
+		<input type="text" maxlength="30" id="inqueryTitle" name="reviewTitle" value=""/>
 		</div>
-		<p class="contenttitle">관람하신 공연의 후기를 작성해주세요.(10자이상)</p>
+		<p class="contenttitle" style="height: 21px;">- 관람하신 공연의 후기를 작성해주세요.(10자이상)</p>
 		<div class="writeReview6">
 		<textarea id="inqueryContent" name="reviewContent"></textarea>
 		<!-- keyUp걸기 -->

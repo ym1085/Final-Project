@@ -8,13 +8,14 @@ import com.fp.delight.reservation.model.ReservationVO;
 
 public interface ReviewService {
 	
-	public static final int NM_REVIEW_MG=20; //일반후기적립금
-	public static final int PH_REVIEW_MG=50; //포토후기적립금
-
 	public static final int NM_REVIEW_SEQ=2; //일반후기적립금일시
 	public static final int PH_REVIEW_SEQ=3; //포토후기적립금일시
+	
+	public static final int NM_REVIEW_TYPE=1; //일반후기타입
+	public static final int PH_REVIEW_TYPE=2; //포토후기타입
 	
 	List<Map<String, Object>>selectReviewList(DateSearchVO dateSearchVo);
 	int TotalRecord(DateSearchVO dateSearchVo);
 	ReservationVO reservationDetail(int reservation_seq);
+	int insertReview(ReviewVO reviewVo);
 }

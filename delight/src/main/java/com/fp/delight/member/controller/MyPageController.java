@@ -21,8 +21,4 @@ public class MyPageController {
 		
 	}
 
-	@RequestMapping("/PhotoReview.do")
-	public void PhotoReview() {
-		
-	}
 }
