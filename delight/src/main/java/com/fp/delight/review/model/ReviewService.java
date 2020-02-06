@@ -21,4 +21,5 @@ public interface ReviewService {
 	List<Map<String, Object>> selectReviewNew5(String userid);
 	List<Map<String, Object>> ReviewWriteList(DateSearchVO dateSearchVo);
 	int ReviewWriteTotalRecord(DateSearchVO dateSearchVo);
+	Map<String, Object> reviewDetail(ReviewVO reviewVo);
 }
