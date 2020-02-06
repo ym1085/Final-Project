@@ -23,14 +23,10 @@ public class MileageServiceImpl implements MileageService{
 	}
 
 	@Override
-	public List<Map<String, Object>> selectChoiceMileage(MileageVO mileageVo) {
-		return mileageDao.selectChoiceMileage(mileageVo);
+	public int selectTotalRecordforMileage(MileageVO mileageVo) {
+		return mileageDao.selectTotalRecordforMileage(mileageVo);
 	}
 
-	@Override
-	public int selectTotalRecordforMileage(String userid) {
-		return mileageDao.selectTotalRecordforMileage(userid);
-	}
-
+	
 	
 }

@@ -11,7 +11,7 @@
 	<div class="mysecDiv">
 		<h2 class="mytit">마일리지 적립 내역</h2>
 
-		<a class="mytitSubnewper" style="margin-left: 65%;" href="<c:url value='/member/myMileageList.do' />">전체</a>
+		<a class="mytitSubnewper" style="margin-left: 65%;" href="<c:url value='/member/myMileageTitle1.do?mileaebecSeq=2&currentPage=1'/>">전체</a>
 		
 		<table class="mytable">
 			<colgroup>
@@ -29,6 +29,7 @@
 			</thead>
 
 			<tbody id="mybody">
+			
 				<c:if test="${empty list}">
 					<tr class="likeTr">
 						<td colspan="2" style="text-align: center;">

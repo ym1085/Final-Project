@@ -25,14 +25,10 @@ public class MileageDAOMybatis implements MileageDAO{
 	}
 
 	@Override
-	public List<Map<String, Object>> selectChoiceMileage(MileageVO mileageVo) {
-		return sqlSession.selectList(namespace+"selectChoiceMileage", mileageVo);
+	public int selectTotalRecordforMileage(MileageVO mileageVo) {
+		return sqlSession.selectOne(namespace+"selectTotalRecordforMileage", mileageVo);
 	}
 
-	@Override
-	public int selectTotalRecordforMileage(String userid) {
-		return sqlSession.selectOne(namespace+"selectTotalRecordforMileage", userid);
-	}
 	
 	
 }

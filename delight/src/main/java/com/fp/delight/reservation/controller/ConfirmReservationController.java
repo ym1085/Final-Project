@@ -47,9 +47,10 @@ public class ConfirmReservationController {
 	public void mysec(HttpSession session,Model model) {
 		String userid=(String)session.getAttribute("userid");
 		logger.info("@@userid={}",userid);
-		List<Map<String, Object>> list=reservationService.selectReserNew5(userid);
 		
+		List<Map<String, Object>> list=reservationService.selectReserNew5(userid);
 		model.addAttribute("list",list);
+		
 		logger.info("@@@@@list.size()={}",list.size());
 	}
 	

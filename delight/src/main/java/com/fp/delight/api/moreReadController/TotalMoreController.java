@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.fp.delight.api.moreRead.ApiTest_pfSearchMore;
 import com.fp.delight.performent.model.PerformentListVO;
 
@@ -57,7 +56,6 @@ public class TotalMoreController {
 	}
 	
 
-	
 	/*전체검색에서 조건 넘겼을 때*/
 	@RequestMapping("/totalPerformSearch.do")
 	public String performentList(HttpServletRequest request,Model model) {

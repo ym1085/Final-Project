@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.ticketSearch">
+	
+	<select id="selectReservation" parameterType="ticketVo" resultType="ticketVo">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		        select * from tbl_ticket
+				where prfdate >= sysdate
+				<if test="prfnm!=null and prfnm!=''">
+					and prfnm like '%' || #{prfnm} || '%'
+				</if>
+		    )A
+		)
+		where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>	
+	</select>
+	
+	<select id="selectTotalRecord" parameterType="ticketVo" resultType="int">
+		select count(*) from tbl_ticket
+		where prfdate >= sysdate
+		<if test="prfnm!=null and prfnm!=''">
+			and prfnm like '%' || #{prfnm} || '%'
+		</if>
+	</select>
+	
+	
+	
+</mapper>
+

@@ -22,6 +22,22 @@
 			</div>
 		</div>
 	</div>
+	<hr>
+	<div class="card">
+		<div class="card-body">
+			<div id="chart3">
+			
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class="card">
+		<div class="card-body">
+			<div id="chart4">
+			
+			</div>
+		</div>
+	</div>
 </div>
 
 <%@include file="../inc/adminBottom.jsp" %>
@@ -42,7 +58,7 @@ $(function() {
         	title: {
                 text: '회원비율'
             },
-            categories: ['성비율']
+            categories: ['성비율'],
         },
         yAxis: {
             title: {
@@ -52,7 +68,8 @@ $(function() {
                 value: 0,
                 width: 1,
                 color: '#080927'
-            }]
+            }],
+            max: 100
         },
         series: [{
             name: '남자',
@@ -69,6 +86,9 @@ $(function() {
         },
         tooltip: {
             valueSuffix: '%'
+        },
+        credits: {
+            enabled: false
         }
     });
 	
@@ -107,8 +127,133 @@ $(function() {
         },
         tooltip: {
             valueSuffix: '%'
+        },
+        credits: {
+            enabled: false
         }
     });
+	
+	$.ajax({
+		url: "<c:url value='/admin/numericalStatement/joincount.do'/>",
+		type:"get",
+		dataType:"json",
+		success:function(res){
+			//alert(res);
+			var con=[];
+			var val=[];
+			$.each(res,function(idx,value){
+				con.push(value.day);
+				val.push(value.join);
+			})
+			//alert(con);
+			//alert(val);
+			Highcharts.chart('chart3', {
+		        chart: {
+		            type: 'line'
+		        },
+		        title: {
+		            text: '일자별 가입자 수'
+		        },
+		        xAxis: {
+		        	title: {
+		                text: '가입자 수'
+		            },
+		            categories: con,
+		        },
+		        yAxis: {
+		            title: {
+		                text: '명수'
+		            },
+		            plotLines: [{
+		                value: 0,
+		                width: 1,
+		                color: '#080927'
+		            }]
+		        },
+		        series: [{
+		            name: '가입자수',
+		            data: val
+		        }],
+		        legend: {
+		            layout: 'vertical',
+		            align: 'right',
+		            verticalAlign: 'middle',
+		            borderWidth: 0
+		        },
+		        tooltip: {
+		            valueSuffix: '명'
+		        },
+		        credits: {
+		            enabled: false
+		        }
+		    });
+		},
+		error:function(xhr,status,error){
+			alert("Error : "+status+", "+error);
+		}
+	});
+
+	$.ajax({
+		url: "<c:url value='/admin/numericalStatement/dayvisitor.do'/>",
+		type:"get",
+		dataType:"json",
+		success:function(res){
+			//alert(res);
+			var con=[];
+			var val=[];
+			$.each(res,function(idx,value){
+				con.push(value.day);
+				val.push(value.count);
+			})
+			//alert(con);
+			//alert(val);
+			Highcharts.chart('chart4', {
+		        chart: {
+		            type: 'line'
+		        },
+		        title: {
+		            text: '일별 방문자 수'
+		        },
+		        xAxis: {
+		        	title: {
+		                text: '방문자 수'
+		            },
+		            categories: con,
+		        },
+		        yAxis: {
+		            title: {
+		                text: '명수'
+		            },
+		            plotLines: [{
+		                value: 0,
+		                width: 1,
+		                color: '#080927'
+		            }]
+		        },
+		        series: [{
+		            name: '방문자 수',
+		            data: val
+		        }],
+		        legend: {
+		            layout: 'vertical',
+		            align: 'right',
+		            verticalAlign: 'middle',
+		            borderWidth: 0
+		        },
+		        tooltip: {
+		            valueSuffix: '명'
+		        },
+		        credits: {
+		            enabled: false
+		        }
+		    });
+		},
+		error:function(xhr,status,error){
+			alert("Error : "+status+", "+error);
+		}
+	});
+	
+	
 });
 
 </script>
