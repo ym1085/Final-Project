@@ -65,7 +65,7 @@
                                 id="navbarSupportedContent" style="float: right">
                                 <ul class="navbar-nav" style="margin-left: 73%;">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">랭킹</a>
+                                        <a class="nav-link" href="<c:url value='/performance/pfRanking.do'/>">랭킹</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">고객센터</a>

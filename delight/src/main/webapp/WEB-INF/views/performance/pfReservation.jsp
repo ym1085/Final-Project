@@ -319,14 +319,15 @@
 
 			<nav class="left-nav" style="margin-top: 100%;">
 				<ul id="nav">
-					<li class="active"><a href="#contact-form">Contact Form</a></li>
-					<li><a href="#subscription-form">Subscription Form</a></li>
-					<li><a href="#video">Video Tutorial</a></li>
-					<li><a href="#credit">Source and Credit</a></li>
-					<li>
-					<div
-					style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
-				</ul>
+               <li class="active"><a href="<c:url value='/performance/pfRanking.do'/>">랭킹</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value='/performSearchResult/theaterSearch.do?type=AAAA'/>">연극</a></li>
+               <li><a href="<c:url value='/performSearchResult/musicalSearch.do?type=AAAB'/>">뮤지컬</a></li>
+               <li><a href="<c:url value='/performSearchResult/areaSearch.do'/>">지역별</a></li>
+               <li><a href="<c:url value='/performSearchResult/periodSearch.do'/>">기간별</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value="/mainSearchResult/doReservation.do"/>">예매하기</a></li>
+            	</ul>
 			</nav>
 		</aside>
 		<!-- left side -->
