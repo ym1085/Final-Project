@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fp.delight.admin.userManagemet.model.GradeManagerService;
 import com.fp.delight.member.model.MemberService;
 import com.fp.delight.member.model.MemberVO;
+import com.fp.delight.mileage.model.MileageVO;
 import com.fp.delight.mypage.model.GradeVO;
 import com.fp.delight.payment.model.PaymentService;
 import com.fp.delight.payment.model.PaymentVO;
@@ -183,10 +184,8 @@ public class PaymentController {
 		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 username={} username2={} ", username, username2);
 		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 useremail2={} seat_class={} ", useremail2, seat_class);
 		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 ticket_seq={} booking={} ", ticket_seq, booking);
-		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 ticketPriceSubmit={} useremail={} ", pay_price, useremail);
+		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 pay_price={} useremail={} ", pay_price, useremail);
 		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 hp={} mileagePoint={} ", hp, mileagePoint);
-		
-		//마일리지명 변경해줌
 		
 		ReservationVO reservationVo = new ReservationVO();
 		reservationVo.setMt10id(mt20id);
@@ -230,16 +229,81 @@ public class PaymentController {
 		
 		//[중반부-파이널-유저테이블 마일리지 UPDATE]
 		if(mileagePoint!=0) {
+			//[구분] 
+			//로그인 한 유저가 마일리지를 사용했음	     -> mileagePoint!=0
+			//로그인 한 유저가 마일리지를 사용하지 않았음 -> mileagePoint==0
+			MileageVO mileageVo = null;
+			
+			//마일리지 변화사유 -> 유저가 마일리지를 사용함 -> 마일리지변화에 시퀸스 (5) 셋팅
+			mileageVo = new MileageVO();
+			mileageVo.setMileagePoint(mileagePoint);
+			logger.info("현재 결제 후 나온 마일리지의 변화 금액, mileagePoint={} ", mileagePoint);
+			mileageVo.setUserid(userid);
+			logger.info("로그인 한 회원 ID= 한번더 찍기, USERID={} ", userid);
+			mileageVo.setMileaebecSeq(5);//결제 금액 할인
+			
+			//마일리지 변화 사유에 INSERT -> 사유는 해당 유저가 마일리지를 사용
+			int mgResult = paymentService.insertMileage(mileageVo);
+			logger.info("마일리지 변화 사유 테이블에 insert한 결과, mgResult={} ", mgResult);	//시퀸스 - 5 /// 마일리지 - 90원
+			
+			//여기서 다시 셋팅
+			int temporaryMileage = mileagePoint;
+			//사용한 마일리지 값을 우선 받아둔다(사용자가 사용한 마일리지 포인트)
+			logger.info("로그인 한 유저가 사용한 마일리지 금액, 파라미터 temporaryMileage={} ", temporaryMileage);
+			
 			MemberVO memberVo = new MemberVO();
 			memberVo.setUserid(userid);
 			
-			mileagePoint = (int)(mileagePoint*0.005);
+			//결제금액 * 0.005를 로그인 한 유저 마일리지로 결정
+			mileagePoint = (int)(pay_price*0.005);		
+			
+			mileageVo = new MileageVO();
+			mileageVo.setMileagePoint(mileagePoint);
+			logger.info("현재 결제 후 나온 마일리지의 변화 금액, mileagePoint={} ", mileagePoint);
+			mileageVo.setUserid(userid);
+			logger.info("로그인 한 회원 ID= 한번더 찍기, USERID={} ", userid);
+			mileageVo.setMileaebecSeq(1);//결제 후 적립
+			
+			//마일리지 변화 사유에 INSERT -> 사유는 결제 처리가 전부 완료된 후 마일리지 테이블에 INSERT
+			int mgResult2 = paymentService.insertMileage(mileageVo);
+			logger.info("마일리지 변화 사유 테이블에 insert한 결과, mgResult={} ", mgResult2);
+		
+			//결제 후 기본적으로 적립되는 0.005%의 mileagePoint - 유저가 사용한 마일리지 값을 뺀다.
+			mileagePoint = mileagePoint - temporaryMileage;
+			logger.info("결제 후 적립되는 마일리지 - 유저가 사용한 마일리지의 값, mileagePoint={} ", mileagePoint);
+			
+			memberVo.setMileagePoint(mileagePoint);
+			
+			//현재 로그인 한 유저의 마일리지를 업데이트 해줌.
+			int mileageResult = memberService.updateUserforMileage(memberVo);
+			logger.info("로그인 한 회원의 마일리지 적용 O -> 일반 결제 후, mileageResult={} ", mileageResult);
+			
+			//결제 후 적립된 마일리지 + 유저가 사용한 마일리지 -> 마일리지변화 테이블에 INSERT
+			//mileagePoint = temporaryMileage + temporaryMileage2;
+		
+		
+		}else if(mileagePoint==0){
+			MemberVO memberVo = new MemberVO();
+			memberVo.setUserid(userid);
+			
+			mileagePoint = (int)(pay_price*0.005);
+			logger.info("마일리지가 적용되지 않은 티켓의 총액 값 * 0.005를 한 가격 mileagePoint={} ", mileagePoint);
 			memberVo.setMileagePoint(mileagePoint);
 			
 			int mileageResult = memberService.updateUserforMileage(memberVo);
-			logger.info("로그인 한 회원의 결제 후 마일리지 적립 결과, mileageResult={} ", mileageResult);
+			logger.info("로그인 한 회원의 마일리지 적용 x -> 일반 결제 후, mileageResult={} ", mileageResult);
+			
+			MileageVO mileageVo = new MileageVO();
+			mileageVo.setMileagePoint(mileagePoint);
+			logger.info("현재 결제 후 나온 마일리지의 변화 금액, mileagePoint={} ", mileagePoint);
+			mileageVo.setUserid(userid);
+			logger.info("로그인 한 회원 ID= 한번더 찍기, USERID={} ", userid);
+			mileageVo.setMileaebecSeq(1);//결제 후 적립
+			
+			int mgResult = paymentService.insertMileage(mileageVo);
+			logger.info("마일리지 변화 사유 테이블에 insert한 결과, mgResult={} ", mgResult);
 		}
-		
+
 		//ticketVo
 		TicketVO ticketVo= new TicketVO();
 		
@@ -273,8 +337,8 @@ public class PaymentController {
 		//tbl_user join tbl_payment join tbl_refund
 		String userGrade = paymentService.selectReservation(reservationVo);
 		logger.info("회원등급 비교를 위해 사용될 userGrade={}",userGrade);
+
 		
-		//인생..... 진심
 		int totalRefund = paymentService.totalRefundforMemberGrade(userGrade);
 		logger.info("로그인 한 회원의 총 환불금액 여부, 파라미터 totalRefund={} ", totalRefund);
 		
@@ -296,18 +360,6 @@ public class PaymentController {
 			System.out.println(totalStandardPrice[chkNum]);
 			chkNum++;
 		}
-		
-		//총액
-		/*int toPrice=conditionPrice;	
-		int idx=0;
-      	
-      	for(int i=0;i<list.size();i++) {
-      		GradeVO vo=list.get(i);
-      		if(toPrice>=vo.getGradeStandard()) {	
-      			idx=i;
-      			break;
-      		}
-      	}*/
 		
 		//회원 등급 -> 
 		//-> 50000, 1000000, 1500000, 2000000 

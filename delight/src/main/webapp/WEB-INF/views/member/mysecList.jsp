@@ -76,6 +76,7 @@
 				<!-- 조회기간 include -->
 				<c:import url="imp/dateTerm.jsp"></c:import>
 				<input type="submit" value="조회" id="listsubmit">
+				<span style="color: red;font-weight: bold;">*관람하시는날이 아닌 예매 하신 날로 검색이 가능합니다.</span>
 			</form>
 			
 			<table class="mytable">
@@ -114,21 +115,29 @@
 						<td style="text-align: center;">(${map['PERFOMTYPE'] })${map['PRFNM'] }</td>
 						<td style="text-align: center"><fmt:formatDate value="${map['RES_DATE'] }" pattern="yyyy-MM-dd"/></td>
 						<td style="text-align: center">${map['PAY_TICKET_NUMBER'] }</td>
-						<td style="text-align: center">${map['BOOKING'] }/${map['PAY_PRICE'] }</td>
-						<td style="text-align: center">${map['SELECT_DATE'] }</td>
+						<td style="text-align: center">${map['BOOKING'] } / ${map['PAY_PRICE'] }</td>
+						<td style="text-align: center">
+						<fmt:formatDate value="${map['SELECT_DATE'] }" pattern="yyyy-MM-dd"/>
+						 / ${map['SELECT_TIME'] }시</td>
 						<td style="text-align: center">
 							<jsp:useBean id="now" class="java.util.Date" />
-							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" var="today" />
-						<c:if test="${today>map['SELECT_DATE'] && map['PAY_CONDITION']=='Y'}">
+							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+							<fmt:formatDate value="${map['SELECT_DATE'] }" pattern="yyyy-MM-dd" var="selectDate" />
+						<c:if test="${today<selectDate && map['PAY_CONDITION']=='Y' && map['V']<1}">
 						<!-- 예매 하면 바로 주문취소 넣어주고 만약 공연을봤다 면 후기작성으로-->
-						<a class="mysecCansle" href="<c:url value='/member/myreserCansle.do?reservationSeq=${map["RESERVATION_SEQ"] }' />">주문취소</a>
+						<a class="mysecCansle" href="<c:url value='/member/myreserCancle.do?reservationSeq=${map["RESERVATION_SEQ"] }' />">예매취소</a>
 						</c:if>
-						
-						<c:if test="${today<map['SELECT_DATE'] && map['PAY_CONDITION']=='Y'}">
+						<c:if test="${today==selectDate && map['PAY_CONDITION']=='Y' && map['V']<1}">
+						<!-- 예매 하면 바로 주문취소 넣어주고 만약 공연을봤다 면 후기작성으로-->
+						<span>취소불가</span>
+						</c:if>
+						<c:if test="${today>selectDate && map['PAY_CONDITION']=='Y' && map['V']<1}">
 						<input class="mybodyBt" type="button" value="후기작성"
 						onclick="location.href='<c:url value="/member/myWriteReviewList.do" />'"/>
 						</c:if>
-						
+						<c:if test="${map['V']>0 && map['PAY_CONDITION']=='Y' && today>selectDate}">
+						<span>후기작성완료</span>
+						</c:if>
 						</td>
 					</tr>
 					</c:forEach>

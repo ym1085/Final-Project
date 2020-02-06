@@ -81,10 +81,12 @@ public class AdminRefundServiceImpl implements AdminRefundService{
 			
 			//환불 증가
 			MileageVO mileageVo=new MileageVO();
-			mileageVo.setUserid(userid);
-			mileageVo.setMileagePoint(usedmileageBySeq);
-			mileageVo.setMileaebecSeq(7);
-			cnt=adminRefundDao.adminMileage(mileageVo);
+			if(usedmileageBySeq!=0) {
+				mileageVo.setUserid(userid);
+				mileageVo.setMileagePoint(usedmileageBySeq);
+				mileageVo.setMileaebecSeq(7);
+				cnt=adminRefundDao.adminMileage(mileageVo);
+			}
 			//환불 감소
 			mileageVo.setMileagePoint(savmileage*(-1));
 			mileageVo.setMileaebecSeq(6);
@@ -156,10 +158,13 @@ public class AdminRefundServiceImpl implements AdminRefundService{
 				
 				//환불 증가
 				MileageVO mileageVo=new MileageVO();
-				mileageVo.setUserid(userid);
-				mileageVo.setMileagePoint(usedmileageBySeq);
-				mileageVo.setMileaebecSeq(7);
-				cnt=adminRefundDao.adminMileage(mileageVo);
+				if(usedmileageBySeq!=0) {
+					mileageVo.setUserid(userid);
+					mileageVo.setMileagePoint(usedmileageBySeq);
+					mileageVo.setMileaebecSeq(7);
+					cnt=adminRefundDao.adminMileage(mileageVo);
+				}
+				
 				//환불 감소
 				mileageVo.setMileagePoint(savmileage*(-1));
 				mileageVo.setMileaebecSeq(6);

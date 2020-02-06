@@ -10,4 +10,6 @@ public interface AdminPromotionService {
 	PromotionVO promotionDetail(int proseq);
 	int promoDel(int proseq);
 	int promoMultiDel(List<PromotionVO> list);
+	int promotepoint(PromotionVO promotionVo);
+	int promoMultiPoint(List<PromotionVO> promotionList);
 }

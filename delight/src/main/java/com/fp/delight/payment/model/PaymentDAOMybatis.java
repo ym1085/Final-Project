@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.fp.delight.mileage.model.MileageVO;
 import com.fp.delight.reservation.model.ReservationVO;
 
 @Repository
@@ -51,6 +52,11 @@ public class PaymentDAOMybatis implements PaymentDAO{
 	@Override
 	public String selectReservation(ReservationVO reservationVo) {
 		return sqlsession.selectOne(namespace+"selectReservation", reservationVo);
+	}
+
+	@Override
+	public int insertMileage(MileageVO mileageVo) {
+		return sqlsession.insert(namespace+"insertMileage", mileageVo);
 	}
 
 	/*@Override

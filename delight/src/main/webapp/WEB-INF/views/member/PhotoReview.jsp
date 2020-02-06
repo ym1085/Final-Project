@@ -12,7 +12,73 @@
             $("#star_grade a#"+idx).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
             $("#starNum").val(idx);
             return false;
-		}	
+		}
+		$(function(){
+			$("#file2").hide();
+			$("#file3").hide();
+			$("form[name=reviewfrm]").submit(function(){
+				if($("#inqueryTitle").val().length<1){
+					alert("제목을입력해주세요!");
+					$("#inqueryTitle").focus();
+					event.preventDefault();
+				}else if($("#inqueryContent").val().length<21){
+					alert("내용은 20자 이상 입력해주세요");
+					$("#inqueryContent").focus();
+					event.preventDefault();
+				}else if($("#starNum").val()<1){
+					alert("별점을 매겨주세요");
+					$("#starNum").focus();
+					event.preventDefault();
+				}else if($("#file1").val().length<1 && $("#filelength").val()==1){
+					alert("포토후기작성시 사진은1개이상 업로드하셔야합니다.");
+					$("#file1").focus();
+					event.preventDefault();
+				}else if($("#file2").val().length<1 && $("#filelength").val()==2){
+					alert("보여지는 파일 첨부는 업로드하셔야합니다.");
+					$("#file2").focus();
+					event.preventDefault();
+				}else if($("#file2").val().length<1 && $("#filelength").val()==2){
+					alert("보여지는 파일 첨부는 업로드하셔야합니다.");
+					$("#file3").focus();
+					event.preventDefault();
+				}
+
+			});
+			
+			$("#inqueryContent").keyup(function(){
+				var content=$(this).val().length;
+				$(".chklength").html(content);
+			});
+			
+			$("#fileP").click(function(){
+				if($("#filelength").val()==1){
+					$("#fileM").show();
+					$("#file2").show();
+					$("#filelength").val(2);
+				}else if($("#filelength").val()==2){
+					$("#fileP").hide();
+					$("#file3").show();
+					$("#filelength").val(3);
+					
+				}
+				
+			});
+			
+			$("#fileM").click(function(){
+				if($("#filelength").val()==2){
+					$("#fileM").hide();
+					$("#file2").hide();
+					$("#filelength").val(1);
+				}else if($("#filelength").val()==3){
+					$("#file3").hide();
+					$("#filelength").val(2);
+					$("#fileP").show();
+				}
+				
+			});
+			
+			
+		});
 </script>
 <style type="text/css">
      #star_grade a{
@@ -57,22 +123,24 @@
 <div style="width: 87%; float: right;">
 
 	<section class="mysec">
-	<form action="">
+	<form action="<c:url value='/member/PhotoReview.do' />" method="post" name="reviewfrm">
 		<div class="mysecDiv">
 		<div class="writeReview">
 			<h2 class="mytit">포토후기 작성</h2>
 			<input type="hidden" value="2" name="reviewType">
+			<input type="hidden" value="${param.reservationSeq }" name="reservationSeq">
 		</div>
 		<div class="writeReview2">
 			<p>- 작성된 후기는 Delight 콘텐츠로 사용될 수 있습니다.<br>
-			   - 등록하신 후기는 해당 공연 상세보기 후기 란에 공개되어있습니다.</p>
+			   - 등록하신 후기는 해당 공연 상세보기 후기 란에 공개되어있습니다.<br>
+			   - 한번 등록하신 후기는 수정 불가능하며 신중하게 작성 부탁드립니다.</p>
 		</div>
 		<div class="writeReview3">
 		<img alt="" src="<c:url value='/resources/images/del3.jpg' />">
 		<p class="mybodyP">내용</p>
 		</div>
 		<div class="writeReview4">
-		<p class="stainfo">별점을 매겨주세요</p>
+		<p class="stainfo">* 별점을 매겨주세요</p>
 		<p id="star_grade">
         <a href="#" onclick="star(1)" id="1">★</a>
         <a href="#" onclick="star(2)" id="2">★</a>
@@ -80,17 +148,24 @@
         <a href="#" onclick="star(4)" id="4">★</a>
         <a href="#" onclick="star(5)" id="5">★</a>
 		</p>
-		<input type="hidden" id="starNum" value=""/>
+		<input type="hidden" id="starNum" name="reviewScore" value=""/>
 		</div>
 		<div class="writeReview5">
 		<p>관람 하신 공연의 후기 제목을 입력해주세요.</p>
-		<input type="text" id="inqueryTitle">
+		<input type="text" id="inqueryTitle" name="reviewTitle" value=""/>
 		</div>
-		<p class="contenttitle">관람하신 공연의 후기를 작성해주세요.(10자이상)<input type="file"></p>
+		<p class="contenttitle">관람하신 공연의 후기를 작성해주세요.(10자이상)
+		<input type="file" name="reviewP1" id="file1">
+		<input type="file" name="reviewP1"  id="file2">
+		<input type="file" name="reviewP1"  id="file3">
+		<input type="button" id="fileM" value="-">
+		<input type="button" id="fileP" value="+">
+		<input type="hidden" id="filelength" value="1">
+		</p>
 		<div class="writeReview6">
-		<textarea id="inqueryContent"></textarea>
+		<textarea id="inqueryContent" name="reviewContent"></textarea>
 		<!-- keyUp걸기 -->
-		<p class="review6info"><span>0</span>자 / 20자 이상</p>
+		<p class="review6info"><span class="chklength">0</span>자 / 20자 이상</p>
 		</div>
 		<div class="writeReview7">
 		<input type="submit" value="등록하기" class="infoWrite">

@@ -183,13 +183,15 @@ public class SalesController {
 			
 		}else {
 			String temp=dayhour.substring(0, dayhour.indexOf("("));
+			logger.info("temp={},dayhour={}",temp,dayhour);
 			if(temp.indexOf(" ~ ")!=-1) {
 				String[] arr=temp.split(" ~ ");
+				logger.info("arr[0]={},arr[1]={}",arr[0],arr[1]);
 				int[] qq=adminCommon.getdoubledow(arr);
 				if(qq[0]>qq[1]) {
 					if(qq[1]==0) {
 						if((qq[0]<=dow && dow<=6)||dow==0) {
-							String aa=temp.substring(temp.indexOf("(")+1, temp.lastIndexOf(")"));
+							String aa=dayhour.substring(dayhour.indexOf("(")+1, dayhour.lastIndexOf(")"));
 							if(aa.indexOf(",")!=-1) {
 								String[] hour=aa.split(",");
 								map.put("hour", hour);
@@ -202,7 +204,7 @@ public class SalesController {
 						}
 					}else {
 						if(qq[0]<=dow && dow<=qq[1]) {
-							String aa=temp.substring(temp.indexOf("(")+1, temp.lastIndexOf(")"));
+							String aa=dayhour.substring(dayhour.indexOf("(")+1, dayhour.lastIndexOf(")"));
 							if(aa.indexOf(",")!=-1) {
 								String[] hour=aa.split(",");
 								map.put("hour", hour);

@@ -1,3 +1,4 @@
+<%@page import="java.sql.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,7 +13,7 @@
 		$(".refReason").first().prop('checked', true); 
 		
 		$("form[name=frmCan]").submit(function(){
-			if(!confirm("정말 환불신청하시겠습니까?")){//아니요일경우
+			if(!confirm("환불신청하시겠습니까?")){//아니요일경우
 				event.preventDefault();
 			}
 		});
@@ -104,6 +105,21 @@
  			</c:forEach>
 			</div>
 			
+			<jsp:useBean id="now" class="java.util.Date" />
+			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+			
+			<fmt:parseDate value="${today }" var="strPlanDate" pattern="yyyy-MM-dd"/>
+			<fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
+			<fmt:parseDate value="${map['SELECT_DATE'] }" var="endPlanDate" pattern="yyyy-MM-dd"/>
+			<fmt:parseNumber value="${endPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
+			<c:set var="gap" value="${endDate - strDate }" />
+			
+			<c:set var="fees" value="0"/>
+			<c:if test="${gap<=9 && gap>=7 }"><c:set var="fees" value="${(map['PAY_PRICE']+1)*0.1 }"/></c:if>
+			<c:if test="${gap<=6 && gap>=3 }"><c:set var="fees" value="${(map['PAY_PRICE']+1)*0.2 }"/></c:if>
+			<c:if test="${gap<=2 && gap>=1 }"><c:set var="fees" value="${(map['PAY_PRICE']+1)*0.3 }"/></c:if>
+			<fmt:parseNumber var="fees2" value="${fees }" integerOnly="true" />
+			
 			<div class="canslereser">
 			결제금액
 			</div>
@@ -119,10 +135,29 @@
  			<label class="cansleTitle">마일리지사용</label> <p class="gkfdls">${map['USEDMILEAGE'] }</p>
 			</div>
 			<div class="cansleList">
- 			<label class="cansleTitle">최종금액</label> <p>${map['PAY_PRICE'] }</p>
+ 			<label class="cansleTitle">수수료</label> <p class="gkfdls">${fees2 }</p>
+			</div>
+			<div class="cansleList">
+ 			<label class="cansleTitle">최종금액</label> <p>${map['PAY_PRICE']-fees2 }</p>
 			</div>
 			</div>
 			<div class="MycanInfo">
+			<div><label>*취소수수료</label><p>~<fmt:formatDate value="${map['RES_DATE'] }" pattern="yyyy-MM-dd"/>
+			<br><span>취소수수료 없음</span></p></div>
+			<div>
+			<p>관람일 9일 전~7일 전</p>
+			<span>티켓 금액의 10%</span>
+			</div>
+			<div>
+			<p>관람일 6일 전~3일 전</p>
+			<span>티켓 금액의 20%</span>
+			</div>
+			<div>
+			<p>관람일 2일 전~1일 전</p>
+			<span>티켓 금액의 30%</span>
+			</div>
+			<div></div>
+			<div></div>
 			</div>
 			</div>
 			<label class="cansletjfaud">

@@ -51,9 +51,9 @@
 	var seq=${vo.promoteSeq};
 	var userid='${vo.userid}';
 	$(function() {
-		$("#topsetting").click(function() {
-			if(confirm("상단 고정으로 설정 하시겠습니까?")){
-				topChk();
+		$("#pointgive").click(function() {
+			if(confirm("포인트 지급 하시겠습니까?")){
+				pointgive();
 			}
 		});	
 	
@@ -63,16 +63,16 @@
 	});
 	
 	
-	function topsetting(){
+	function pointgive(){
 		$.ajax({
-			url: "<c:url value='/admin/announcement/topsetting.do'/>",
+			url: "<c:url value='/admin/userManagement/promogiveDetail.do'/>",
 			type:"post",
 			data: {
-				annSeq : annseq
+				proseq : seq
 			},
 			success:function(res){
 				if(res==1){
-					alert("해당 글을 상단 고정하였습니다.");
+					alert("해당 글 작성자에게 포인트를 지급하였습니다.");
 					$(opener.document).find("form[name=frmPage]").submit();
 					self.close();
 				}
