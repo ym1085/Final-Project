@@ -160,6 +160,7 @@ public class AdminPerfomAPI {
 		System.out.println("detail api주소="+detail);
 		
 		Map<String, Object> map=null;
+		
 		try {
 		HttpURLConnection urlcon=(HttpURLConnection) new URL(detail).openConnection();
 

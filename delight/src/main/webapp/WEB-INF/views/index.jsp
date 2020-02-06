@@ -51,7 +51,7 @@
        
         <div class="main_menu_iner">
             <div class="container">
-                <div class="row align-items-center ">
+                <div class="ro.w align-items-center ">
                     <div class="col-lg-12">
                         <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
                             <a class="navbar-brand" href="index.html"> <span class="q1">Delight</span> </a>
