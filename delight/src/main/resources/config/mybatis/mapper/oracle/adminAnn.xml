@@ -8,8 +8,8 @@
 		<selectKey keyProperty="annSeq" resultType="int" order="BEFORE">
 			select ann_seq.nextval from dual
 		</selectKey>
-		insert into tbl_ann(ann_seq,ann_type,ann_title,ann_content,userid)
-		values(#{annSeq},#{annType},#{annTitle},#{annContent},#{userid})
+		insert into tbl_ann(ann_seq,ann_type,ann_title,ann_content,userid,ann_img)
+		values(#{annSeq},#{annType},#{annTitle},#{annContent},#{userid},#{annImg})
 	</insert>
 	
 	<sql id="searchWhere">

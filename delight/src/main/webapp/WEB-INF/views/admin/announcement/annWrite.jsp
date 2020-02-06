@@ -138,6 +138,10 @@ $(function() {
 		}
 	});
 	
+	$("#cke_206_label").click(function() {
+		alert($(".cke_dialog_ui_input_text").val());
+	});
+	
 });
 
 </script>
