@@ -28,7 +28,6 @@
 				}); 
 			});
 		});
-		
 	    
 	    $(".product a").mouseout(function () {
 	        $(".product a img").css("display", "none"); // hide all product images
@@ -71,7 +70,7 @@
 <section class="mysec">
 		<div class="mysecDiv">
 			<h2 class="mytit">예매내역 조회</h2>
-			
+			<h2 style="float:left;color:red;font-size:15px;padding-top:7px;padding-left:8px;">공연명에 마우스를 올려 해당 공연 포스터를 확인하세요</h2>
 			<a class="mytitSub" href="<c:url value='/member/mysecList.do' />">전체</a>
 			
 			<table class="mytable">
@@ -113,12 +112,12 @@
 							<p class="product">
 								<a href="#">
 									<img class="settingImg" src="#"/>
-									(${map['PERFOMTYPE']})${map['PRFNM']}
+										(${map['PERFOMTYPE']})${map['PRFNM']}
 									<input type="hidden" name="mt20id" class="mt20id" value="${map['MT20ID']}"> 
 								</a>
 							</p>
 						</td>
-		
+						
 						<td style="text-align: center"><fmt:formatDate value="${map['RES_DATE']}" pattern="yyyy-MM-dd"/></td>
 						<td style="text-align: center">${map['PAY_TICKET_NUMBER']}</td>
 						<td style="text-align: center">${map['BOOKING'] } / ${map['PAY_PRICE']}</td>
@@ -160,5 +159,5 @@
 				<!-- 반복 끝-->
 			</table>
 		</div>
-		<span style="color: red;font-size: 13px;position: absolute;top: 54%;left: 15%;">공연명에 마우스를 올려 해당 공연 포스터를 확인하세요</span>
+		
 	</section>
