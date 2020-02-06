@@ -232,6 +232,7 @@
 	</style>
 	
 	<!-- 페이지 만들떄마다 복붙 -->
+
 	<div style="width: 13%; float: left; height: 100%;">
 		<!-- left side -->
 		<aside class="left-sidebar" style="width: 13%;">
@@ -258,6 +259,7 @@
 	</div>
 	<!-- 페이지 만들떄마다 복붙 -->
 	
+
 	<!-- div안에서작업 그외엔 건들지말것 -->
 	
 <div style="width: 87%; float: right; height: 1194px;">
