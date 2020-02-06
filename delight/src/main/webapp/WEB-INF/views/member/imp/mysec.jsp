@@ -9,33 +9,26 @@
 	//마우스 오버 -> ajax => posterUrl 가져오서 밑 img src = " " <- 넣어준다.
 	$(document).ready(function () {
 		
-		/*$(".product a").mouseover(function () {
-	        $(".product a img").css("display", "none"); // hide all product images
-	        $(this).find("img").css("display", "inline-block"); // show current hover image
-	    
-	        $.ajax({
-				url:"<c:url value='#'/>",
-				type:"post",
-				data:{"mt20id":$("#mt20Id").val()},
-				dataType:"json",
-				success:function(res){
-					alert(res);	
-					
-					var str="";
-					if(res){
-			
-					}else{
-
+		$(".product").each(function(){
+			$(".product").mouseover(function () {
+		        $(".product a img").css("display", "none"); // hide all product images
+		        $(this).find("img").css("display", "inline-block"); // show current hover image
+		    
+		        $.ajax({
+					url:"<c:url value='/member/imp/myImage.do'/>",
+					type:"post",
+					data:{"perfomid":$(this).find("input").val()},
+					dataType:"json",
+					success:function(res){
+						$(".settingImg").attr("src", res.poster);
+					},
+					error:function(xhr, status, error){
+						alert("Error : " + status +"=>"+ error);
 					}
-					
-					$("#checkError").html(str);
-					$("#checkError").show();
-				},
-				error:function(xhr, status, error){
-					alert("Error : " + status +"=>"+ error);
-				}
-			}); 
-		});*/
+				}); 
+			});
+		});
+		
 	    
 	    $(".product a").mouseout(function () {
 	        $(".product a img").css("display", "none"); // hide all product images
@@ -48,12 +41,23 @@
 	p.product a img {
 	    display: none;
 	    position: absolute;
-	    width:200px;
-	    height:250px;
-	    left: 100px;
+	    width:230px;
+	    height:270px;
+	    left: 150px;
 	    top: -22px;
 		border: 3px solid black;
 	}
+	
+	.settingImgSub{
+	    display: none;
+	    position: absolute;
+	    width:230px;
+	    height:270px;
+	    left: 150px;
+	    top: -22px;
+		border: 3px solid black;
+	}
+	
 	p.product a {
 	    display: inline-block;
 	    position: relative;
@@ -101,17 +105,20 @@
 				</c:if>
 				
 				<c:if test="${!empty list }">
+				<input type="hidden" name="mt20id" id="mt20id" value="PF159528">
 				<c:forEach var="map" items="${list}">
-				<input type="hidden" name="mt20Id" id="mt20Id" value="${map['MT20ID']}">
-				
 				<!-- 반복 시작-->
 					<tr>
-						<td class="product" style="text-align: center;">
+						<td style="text-align: left;">
 							<p class="product">
-								<a href="#"><img src="<c:url value='/resources/images/banner.jpg'/>" alt=""/>
-								(${map['PERFOMTYPE'] })${map['PRFNM']}</a>
+								<a href="#">
+									<img class="settingImg" src="#"/>
+									(${map['PERFOMTYPE']})${map['PRFNM']}
+									<input type="hidden" name="mt20id" class="mt20id" value="${map['MT20ID']}"> 
+								</a>
 							</p>
 						</td>
+		
 						<td style="text-align: center"><fmt:formatDate value="${map['RES_DATE']}" pattern="yyyy-MM-dd"/></td>
 						<td style="text-align: center">${map['PAY_TICKET_NUMBER']}</td>
 						<td style="text-align: center">${map['BOOKING'] } / ${map['PAY_PRICE']}</td>
@@ -152,7 +159,6 @@
 				</tbody>
 				<!-- 반복 끝-->
 			</table>
-		
-			<input type="hidden" name="mt20id" value="${map_perfom['mt20id']}">	<!-- YM -->	
-		</div>	
+		</div>
+		<span style="color: red;font-size: 13px;position: absolute;top: 54%;left: 15%;">공연명에 마우스를 올려 해당 공연 포스터를 확인하세요</span>
 	</section>
