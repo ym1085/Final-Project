@@ -73,5 +73,10 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.ReviewWriteTotalRecord(dateSearchVo);
 	}
 
+	@Override
+	public Map<String, Object> reviewDetail(ReviewVO reviewVo) {
+		return reviewDao.reviewDetail(reviewVo);
+	}
+
 	
 }

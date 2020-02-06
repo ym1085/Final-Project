@@ -64,7 +64,7 @@
     						$("#hp").val("");
     						$("#title").val("");
     						$("#cotent").val(""); 
-    					}
+    					} 
     				},
     				error:function(xhr, status, error){
     					alert("Error : "+status+", "+ error);

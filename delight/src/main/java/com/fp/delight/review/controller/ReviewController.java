@@ -1,5 +1,6 @@
 package com.fp.delight.review.controller;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.common.DateSearchVO;
 import com.fp.delight.common.FileUploadUtil;
@@ -200,5 +202,31 @@ public class ReviewController {
 			
 			model.addAttribute("list",list);
 			model.addAttribute("pagingInfo",pagingInfo);
+		}
+		
+		@RequestMapping("/reviewDetail.do")
+		@ResponseBody
+		public Object reviewDetail(@RequestParam int reviewSeq,
+				HttpSession session) {
+			logger.info("ajax 처리 시작");
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			
+			String userid=(String)session.getAttribute("userid");
+			ReviewVO reviewVo=new ReviewVO();
+			reviewVo.setReviewSeq(reviewSeq);
+			reviewVo.setUserid(userid);
+			
+			Map<String, Object> map=reviewService.reviewDetail(reviewVo);
+			String perfomid=(String)map.get("REVIEW_MT20ID");
+			PerformentAPI perfom=new PerformentAPI();
+			map.putAll(perfom.performDetail(perfomid));
+			
+			map.put("REVIEW_REGDATE", sdf.format(map.get("REVIEW_REGDATE")));
+			
+			String content=(String)map.get("REVIEW_CONTENT");
+			map.put("REVIEW_CONTENT",content.replace("\r\n", "<br>"));
+			
+			logger.info("확인@@#@#@#@ map={}",map);
+			return map;
 		}
 }

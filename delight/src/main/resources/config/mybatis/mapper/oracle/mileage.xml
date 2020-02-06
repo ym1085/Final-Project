@@ -19,6 +19,16 @@
 		]]>	
 	</select>
 		
+	<sql id="searchMileage">
+		<if test="mileaebecSeq==1">
+			and a.mileaebec_seq = #{mileaebecSeq}
+		</if>
+		
+		<if test="mileaebecSeq==5">
+			and a.mileaebec_seq = #{mileaebecSeq}
+		</if>
+	</sql>
+		
 	<select id="selectAllMileage" parameterType="mileageVo" resultType="map">
 		select *
 		from
@@ -30,6 +40,7 @@
 				from tbl_mileage a join tbl_mileagebec b
 				on a.MILEAEBEC_SEQ = b.MILEAEBEC_SEQ
 				and userid = #{userid}
+				<include refid="searchMileage"></include>
 				order by mileage_seq desc
 		    )A
 		)
@@ -37,7 +48,6 @@
 		<![CDATA[
 		and RNUM<= #{firstRecordIndex} + #{recordCountPerPage}
 		]]>	
-		
 	</select>	
 	
 	<select id="selectTotalRecordforMileage" parameterType="mileageVo" resultType="int">
@@ -45,18 +55,9 @@
 		from tbl_mileage a join tbl_mileagebec b
 		on a.MILEAEBEC_SEQ = b.MILEAEBEC_SEQ
 		and userid = #{userid}
+		<include refid="searchMileage"></include>
 		order by mileage_seq desc
 	</select>
-	
-	<select id="selectChoiceMileage" parameterType="mileageVo" resultType="map">
-		select a.*, b.mileage_bec 
-		from tbl_mileage a join tbl_mileagebec b
-		on a.MILEAEBEC_SEQ = b.MILEAEBEC_SEQ
-		and userid = #{userid}
-		and a.mileaebec_seq = #{mileaebecSeq}
-		order by mileage_seq desc
-	</select>	
-	
 	
 </mapper>
 

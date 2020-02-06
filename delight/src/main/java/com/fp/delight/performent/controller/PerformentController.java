@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.fp.delight.admin.salesManagement.Model.TicketDiscountVO;
 import com.fp.delight.admin.salesManagement.Model.TicketSettingService;
-import com.fp.delight.admin.salesManagement.Model.TicketSettingVO;
 import com.fp.delight.like.model.LikeService;
 import com.fp.delight.like.model.LikeVO;
 import com.fp.delight.member.model.MemberService;

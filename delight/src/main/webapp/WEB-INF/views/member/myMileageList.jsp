@@ -9,27 +9,27 @@
 	href="<c:url value='/resources/css/mysec.css' />" />
 	
 <script type="text/javascript">
+    	function mileTitle1(item, curPage){
+    		$("#mileaebecSeq").val(item);
+    		$("#currentPage").val(curPage);
+    		$("form[name=frmMile]").submit();
+    	}  
+    	
     	function pageFunc(curPage){
     		$("#currentPage").val(curPage);
+    		$("form[name=frmMile]").submit();
+    	}
+    	
+    	$(function(){
+    		$(".chkMileage").each(function(){
+    			$(this).click(function(){
+    				$(this).css("font-weight", "bold");
+    				$(this).css("color", "red");
+					
+    			});
+    		});
     		
-    		$("form[name=frminq1]").submit();
-    	}
-    	
-    	function mileTitle1(){
-    		//alert("체크");		
-    		location.href = "<c:url value='/member/myMileageTitle1.do'/>";
-    	}
-    	
-    	function mileTitle2(){
-    		//alert("체크");		
-    		location.href = "<c:url value='/member/myMileageTitle2.do'/>";
-    	}
-    	
-    	function mileTitle3(){
-    		//alert("체크");		
-    		location.href = "<c:url value='/member/myMileageTitle3.do'/>";
-    	}
-    	
+    	});
 </script>
 
 <!-- 페이지 만들떄마다 복붙 -->
@@ -61,8 +61,9 @@
 
 <!-- div안에서작업 그외엔 건들지말것 -->
 <div style="width: 87%; float: right;">
-	<form name="frminq1" method="post" action="<c:url value='/member/myMileageTitle1.do'/>">
-		<input type="hidden" name="currentPage" id="currentPage">
+	<form name="frmMile" method="post" action="<c:url value='/member/myMileageTitle1.do'/>">
+		<input type="hidden" name="currentPage" id="currentPage" value="${param.currentPage }">
+		<input type="hidden" name="mileaebecSeq" id="mileaebecSeq" value="${param.mileaebecSeq }">
 	</form>
 	
 	<section class="mysec" style="margin-top: 5%;">
@@ -72,7 +73,9 @@
 			
 			<div id="myMileageSubDiv" style="width:84%; height:300px; border-top:3px solid black;margin-top:7px;">
 				<p id="myMileageSubP1" style="margin-bottom: 10px;margin-top: 10px;">현재 적립금</p>
-				<p id="myMileageSubP2" style="font-size:1.5em;font-weight: bold;font-family: 맑은고딕;margin-bottom: 10px;">2,500원</p>
+				<p id="myMileageSubP2" style="font-size:1.5em;font-weight: bold;font-family: 맑은고딕;margin-bottom: 10px;">
+					<fmt:formatNumber value="${memberVo.mileagePoint}" pattern="#,###"/>원
+				</p>
 				<br>
 				<p id="myMileageSubP3">
 					- 적립금은 구매 확정시 지급됩니다.
@@ -83,10 +86,11 @@
 			</div>
 			
 			<ul>
-				<li id="mileTitle1" style="float:left;padding-bottom:1%;padding-right:1%" onclick="mileTitle1();">전체</li>
-				<li id="mileTitle2" style="float:left;padding-bottom:1%;padding-right:1%" onclick="mileTitle2();">사용</li>
-				<li id="mileTitle3" style="float:left;padding-bottom:1%;" onclick="mileTitle3();">적립</li>
+				<li class="chkMileage" id="mileTitle1" style="float:left;padding-bottom:1%;padding-right:1%" onclick="mileTitle1(2,1);">전체</li>
+				<li class="chkMileage" id="mileTitle2" style="float:left;padding-bottom:1%;padding-right:1%" onclick="mileTitle1(5,1);">사용</li>
+				<li class="chkMileage" id="mileTitle3" style="float:left;padding-bottom:1%;" onclick="mileTitle1(1,1);">적립</li>
 			</ul>
+			
 			<table class="mytable">
 				<colgroup>
 					<col style="width: 200px">
@@ -127,6 +131,7 @@
 							
 							<td style="text-align: center;">
 								<c:set var="mileaebacSeq" value="${map['MILEAEBEC_SEQ']}" />
+								
 								<c:if test="${mileaebacSeq==1}">
 									<p class="mybodylikeP" >
 										+${map["MILEAGE_POINT"]}원
@@ -160,6 +165,7 @@
 				<!-- 반복 끝-->
 			</table>
 			
+			<!-- [1] -->
 			<div id="page">
 				<!-- 이전블럭으로 이동 -->
 				<c:if test="${pagingInfo.firstPage>1 }">
@@ -173,13 +179,13 @@
 
 				<!-- 페이지 번호 추가 -->
 				<!-- [1][2][3][4][5][6][7][8][9][10] -->
-				<c:forEach var="i" begin="${pagingInfo.firstPage }"
+				<c:forEach var="i" begin="${pagingInfo.firstPage}"
 					end="${pagingInfo.lastPage }">
 					<c:if test="${i==pagingInfo.currentPage }">
 						<span> ${i}</span>
 					</c:if>
 					<c:if test="${i!=pagingInfo.currentPage }">
-						<a href="#" onclick="pageFunc(${i})"> ${i }</a>
+						<a href="#" onclick="pageFunc(${i})"> ${i}</a>
 					</c:if>
 				</c:forEach>
 				<!--  페이지 번호 끝 -->
@@ -194,7 +200,8 @@
 					</a>
 				</c:if>
 			</div>
-					
+			<!-- [1] -->
+			
 		</div>
 	</section>
 </div>
