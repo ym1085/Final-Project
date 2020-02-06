@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.mileage">
+
+	<select id="myMileage" parameterType="mileageVo" resultType="map">
+		select *
+		from 
+		(
+		    select a.*, b.mileage_bec 
+		    from tbl_mileage a join tbl_mileagebec b
+		    on a.MILEAEBEC_SEQ = b.MILEAEBEC_SEQ
+		    and userid = #{userid}
+		    order by mileage_seq desc
+		)
+		<![CDATA[
+		where rownum <= 5
+		]]>	
+	</select>
+		
+	<sql id="searchMileage">
+		<if test="mileaebecSeq==1">
+			and a.mileaebec_seq = #{mileaebecSeq}
+		</if>
+		
+		<if test="mileaebecSeq==5">
+			and a.mileaebec_seq = #{mileaebecSeq}
+		</if>
+	</sql>
+		
+	<select id="selectAllMileage" parameterType="mileageVo" resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		        select a.*, b.mileage_bec 
+				from tbl_mileage a join tbl_mileagebec b
+				on a.MILEAEBEC_SEQ = b.MILEAEBEC_SEQ
+				and userid = #{userid}
+				<include refid="searchMileage"></include>
+				order by mileage_seq desc
+		    )A
+		)
+		where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>	
+	</select>	
+	
+	<select id="selectTotalRecordforMileage" parameterType="mileageVo" resultType="int">
+		select count(*) 
+		from tbl_mileage a join tbl_mileagebec b
+		on a.MILEAEBEC_SEQ = b.MILEAEBEC_SEQ
+		and userid = #{userid}
+		<include refid="searchMileage"></include>
+		order by mileage_seq desc
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+

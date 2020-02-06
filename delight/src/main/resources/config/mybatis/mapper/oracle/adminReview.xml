@@ -14,7 +14,7 @@
 		<result column="REVIEW_P2" property="REVIEW_P2" jdbcType="CLOB" javaType="java.lang.String"/>
 		<result column="REVIEW_P3" property="REVIEW_P3" jdbcType="CLOB" javaType="java.lang.String"/>
 		<result column="REVIEW_REGDATE" property="REVIEW_REGDATE" />
-		<result column="REVIEW_MILEAGE" property="REVIEW_MILEAGE" />
+		<result column="REVIEW_MILEAGE" property="REVIEW_MILEAGE" jdbcType="BIGINT" javaType="java.lang.Integer"/>
 		<result column="USERID" property="USERID" />
 		<result column="RESERVATION_SEQ" property="RESERVATION_SEQ" />
 		<result column="PRFNM" property="PRFNM" />

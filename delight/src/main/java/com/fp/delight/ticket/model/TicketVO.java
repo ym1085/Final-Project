@@ -2,7 +2,9 @@ package com.fp.delight.ticket.model;
 
 import java.sql.Timestamp;
 
-public class TicketVO {
+import com.fp.delight.common.SearchVO;
+
+public class TicketVO extends SearchVO{
 	private int ticketSeq;
 	private String mt20id;
 	private String prfnm;

@@ -2,6 +2,7 @@ package com.fp.delight.admin.userManagemet.model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,7 @@ public class AdminReviewServiceImpl implements AdminReviewService{
 		int cnt=0;
 		Map<String, Object> map=adminReviewDao.adminReviewDetail(reviewseq);
 		String userid=(String) map.get("USERID");
-		int reviewtype=(Integer) map.get("REVIEW_TYPE");
+		int reviewtype=Integer.parseInt((String) map.get("REVIEW_TYPE"));
 		int reviewmileage=(Integer) map.get("REVIEW_MILEAGE");
 		
 		try {
@@ -59,6 +60,8 @@ public class AdminReviewServiceImpl implements AdminReviewService{
 			}else if(reviewtype==2) {
 				mileageVo.setMileaebecSeq(3);
 			}
+			mileageVo.setUserid(userid);
+			System.out.println("mileageVo="+mileageVo);
 			cnt=adminRefundDao.adminMileage(mileageVo);
 			//글 삭제
 			cnt=adminReviewDao.adminReviewDel(reviewseq);
@@ -81,7 +84,7 @@ public class AdminReviewServiceImpl implements AdminReviewService{
 				if(seq>0) {
 					Map<String, Object> map=adminReviewDao.adminReviewDetail(seq);
 					String userid=(String) map.get("USERID");
-					int reviewtype=(Integer) map.get("REVIEW_TYPE");
+					int reviewtype=Integer.parseInt((String) map.get("REVIEW_TYPE"));
 					int reviewmileage=(Integer) map.get("REVIEW_MILEAGE");
 					//유저 마일리지 차감
 					MemberVO memberVo=new MemberVO();
@@ -96,6 +99,7 @@ public class AdminReviewServiceImpl implements AdminReviewService{
 					}else if(reviewtype==2) {
 						mileageVo.setMileaebecSeq(3);
 					}
+					mileageVo.setUserid(userid);
 					cnt=adminRefundDao.adminMileage(mileageVo);
 					//글 삭제
 					cnt=adminReviewDao.adminReviewDel(seq);

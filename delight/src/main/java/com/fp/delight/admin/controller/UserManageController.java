@@ -506,7 +506,7 @@ public class UserManageController {
 	public int reviewDelDetail(@RequestParam int reviewseq,HttpServletRequest request) {
 		logger.info("후기상세보기에서 삭제 파라미터 reviewseq={}",reviewseq);
 		Map<String, Object> map=adminReviewService.adminReviewDetail(reviewseq);
-		int reviewtype=(Integer) map.get("REVIEW_TYPE");
+		int reviewtype=Integer.parseInt((String) map.get("REVIEW_TYPE"));
 		
 		//파일부터 삭제
 		if(reviewtype==2) {
@@ -518,19 +518,21 @@ public class UserManageController {
 				boolean bool=f.delete();
 				logger.info("사진1 삭제 결과 bool={}",bool);
 			}
-			if(!((String)map.get("REVIEW_P2")).isEmpty()) {
+			if(((String)map.get("REVIEW_P2"))!=null) {
 				String file2path=path+"/"+map.get("REVIEW_P2");
+				logger.info("file2path={}",file2path);
 				File f2=new File(file2path);
 				if(f2.exists()) {
-					boolean bool=f.delete();
+					boolean bool=f2.delete();
 					logger.info("사진22삭제 결과 bool={}",bool);
 				}
 			}
-			if(!((String)map.get("REVIEW_P3")).isEmpty()) {
+			if(((String)map.get("REVIEW_P3"))!=null) {
 				String file3path=path+"/"+map.get("REVIEW_P3");
+				logger.info("file3path={}",file3path);
 				File f3=new File(file3path);
 				if(f3.exists()) {
-					boolean bool=f.delete();
+					boolean bool=f3.delete();
 					logger.info("사진3 삭제 결과 bool={}",bool);
 				}
 			}
@@ -549,7 +551,7 @@ public class UserManageController {
 			HttpServletRequest request,Model model) {
 		logger.info("후기 목록에서 삭제 파라미터 reviewseq={}",reviewseq);
 		Map<String, Object> map=adminReviewService.adminReviewDetail(reviewseq);
-		int reviewtype=(Integer) map.get("REVIEW_TYPE");
+		int reviewtype=Integer.parseInt((String) map.get("REVIEW_TYPE"));
 		
 		//파일부터 삭제
 		if(reviewtype==2) {
@@ -561,19 +563,19 @@ public class UserManageController {
 				boolean bool=f.delete();
 				logger.info("사진1 삭제 결과 bool={}",bool);
 			}
-			if(!((String)map.get("REVIEW_P2")).isEmpty()) {
+			if(((String)map.get("REVIEW_P2"))!=null) {
 				String file2path=path+"/"+map.get("REVIEW_P2");
 				File f2=new File(file2path);
 				if(f2.exists()) {
-					boolean bool=f.delete();
+					boolean bool=f2.delete();
 					logger.info("사진22삭제 결과 bool={}",bool);
 				}
 			}
-			if(!((String)map.get("REVIEW_P3")).isEmpty()) {
+			if(((String)map.get("REVIEW_P3"))!=null) {
 				String file3path=path+"/"+map.get("REVIEW_P3");
 				File f3=new File(file3path);
 				if(f3.exists()) {
-					boolean bool=f.delete();
+					boolean bool=f3.delete();
 					logger.info("사진3 삭제 결과 bool={}",bool);
 				}
 			}
@@ -607,7 +609,7 @@ public class UserManageController {
 			if(seq>0) {
 				logger.info("후기글 사진 삭제");
 				Map<String, Object> map=adminReviewService.adminReviewDetail(seq);
-				int reviewtype=(Integer) map.get("REVIEW_TYPE");
+				int reviewtype=Integer.parseInt((String) map.get("REVIEW_TYPE"));
 				
 				//파일부터 삭제
 				if(reviewtype==2) {
@@ -619,19 +621,19 @@ public class UserManageController {
 						boolean bool=f.delete();
 						logger.info("사진1 삭제 결과 bool={}",bool);
 					}
-					if(!((String)map.get("REVIEW_P2")).isEmpty()) {
+					if(((String)map.get("REVIEW_P2"))!=null) {
 						String file2path=path+"/"+map.get("REVIEW_P2");
 						File f2=new File(file2path);
 						if(f2.exists()) {
-							boolean bool=f.delete();
+							boolean bool=f2.delete();
 							logger.info("사진22삭제 결과 bool={}",bool);
 						}
 					}
-					if(!((String)map.get("REVIEW_P3")).isEmpty()) {
+					if(((String)map.get("REVIEW_P3"))!=null) {
 						String file3path=path+"/"+map.get("REVIEW_P3");
 						File f3=new File(file3path);
 						if(f3.exists()) {
-							boolean bool=f.delete();
+							boolean bool=f3.delete();
 							logger.info("사진3 삭제 결과 bool={}",bool);
 						}
 					}

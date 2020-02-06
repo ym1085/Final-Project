@@ -25,51 +25,47 @@ public class FileUploadUtil {
 	private static final Logger logger
 		=LoggerFactory.getLogger(FileUploadUtil.class);
 	
-	public static final int REVIEW_UPLOAD=1;  //자료실 파일 업로드
+	public static final int REVIEW_UPLOAD=1;  //리뷰 사진 업로드
 	public static final int PROMOTION_UPLOAD=2; //상품 등록-이미지 업로드
 	
 	
 	@Resource(name = "fileUpProperties")
 	private Properties props;
 	
-	public List<Map<String, Object>> fileUpload(HttpServletRequest request,
-			int uploadPathType) {
+	public List<String> fileUpload(HttpServletRequest request,
+			int uploadPathType,String userid) {
 		//파일 업로드 처리
 		MultipartHttpServletRequest multiReq
 			=(MultipartHttpServletRequest)request;
 		
-		Map<String, MultipartFile> fileMap=multiReq.getFileMap();
+		List<MultipartFile> mlist=new ArrayList<MultipartFile>();
+		
+		if(multiReq.getFile("reviewPho1")!=null && !multiReq.getFile("reviewPho1").isEmpty()) {
+			mlist.add(multiReq.getFile("reviewPho1"));
+		}else if(multiReq.getFile("reviewPho2")!=null && !multiReq.getFile("reviewPho2").isEmpty()) {
+			mlist.add(multiReq.getFile("reviewPho2"));
+		}else if(multiReq.getFile("reviewPho3")!=null && !multiReq.getFile("reviewPho3").isEmpty()) {
+			mlist.add(multiReq.getFile("reviewPho3"));
+		}
 		
 		//결과를 넣을 List
-		List<Map<String, Object>> list
-			=new ArrayList<Map<String,Object>>();
+		List<String> list
+			=new ArrayList<String>();
 		
-		Iterator<String> iter=fileMap.keySet().iterator();
-		while(iter.hasNext()) {
-			String key=iter.next();
-			MultipartFile tempFile=fileMap.get(key);
-			
+		for(int i=0; i<mlist.size();i++) {
+			MultipartFile tempFile=mlist.get(i);
+			System.out.println(mlist.get(i));
 			//업로드된 경우
 			if(!tempFile.isEmpty()) {
-				//변경전 (원래) 파일명
-				String originFileName=tempFile.getOriginalFilename();
 				//변경된 파일명
-				String fileName=getUniqueFileName(originFileName);
-				//파일 크기
-				long fileSize=tempFile.getSize();
+				String fileName=tempFile.getOriginalFilename();
 				
-				Map<String, Object> map
-					=new HashMap<String, Object>();
-				map.put("originalFileName", originFileName);
-				map.put("fileName", fileName);
-				map.put("fileSize", fileSize);
-				
-				list.add(map);
+				list.add(fileName);
 				
 				//업로드 처리
 				//업로드할 경로 구하기
 				String upPath=getFilePath(request, uploadPathType);
-				
+				upPath=upPath+"/"+userid;
 				File folder=new File(upPath);
 				
 				if(!folder.exists()) {
@@ -87,7 +83,7 @@ public class FileUploadUtil {
 				}			
 				
 			}
-		}//while
+		}//for
 		
 		return list;
 	}

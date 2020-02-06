@@ -31,12 +31,12 @@
 		select A.*
 		from
 		(
-		select likecount_seq,prfnm,genre,mt20id,(select count(*)
-		from tbl_like b
-		where b.mt20id=a.mt20id) LA
-		from tbl_like a
-		where userid=#{userid}
-		order by likecount_seq desc
+			select likecount_seq,prfnm,genre,mt20id,(select count(*)
+			from tbl_like b
+			where b.mt20id=a.mt20id) LA
+			from tbl_like a
+			where userid=#{userid}
+			order by likecount_seq desc
 		) A
 		<![CDATA[
 		where rownum<=7

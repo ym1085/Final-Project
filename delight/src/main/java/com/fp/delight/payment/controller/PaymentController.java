@@ -20,11 +20,9 @@ import com.fp.delight.member.model.MemberVO;
 import com.fp.delight.mileage.model.MileageVO;
 import com.fp.delight.mypage.model.GradeVO;
 import com.fp.delight.payment.model.PaymentService;
-import com.fp.delight.payment.model.PaymentVO;
 import com.fp.delight.reservation.model.ReservationVO;
 import com.fp.delight.ticket.model.TicketService;
 import com.fp.delight.ticket.model.TicketVO;
-import com.google.api.services.calendar.model.Event.Source;
 
 @Controller
 @RequestMapping("/payment")
@@ -78,8 +76,8 @@ public class PaymentController {
 		//[1] ModelAttribute쓰기에는 받아오는 컬럼이 중구난방이여서 RequestParam을 사용했습니다.
 		//[2] ReservationVo 값 Setting == ModelAttribute
 		ReservationVO reservationVo = new ReservationVO();
-		reservationVo.setMt10id(mt20id);
-		reservationVo.setMt20id(mt10id);
+		reservationVo.setMt20id(mt20id);
+		reservationVo.setMt10id(mt10id);
 		reservationVo.setBooking(booking);
 		reservationVo.setPerfomtype(perfomtype);
 		reservationVo.setPrfnm(prfnm);
@@ -188,8 +186,8 @@ public class PaymentController {
 		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 hp={} mileagePoint={} ", hp, mileagePoint);
 		
 		ReservationVO reservationVo = new ReservationVO();
-		reservationVo.setMt10id(mt20id);
-		reservationVo.setMt20id(mt10id);
+		reservationVo.setMt10id(mt10id);
+		reservationVo.setMt20id(mt20id);
 		reservationVo.setBooking(booking);
 		reservationVo.setPerfomtype(perfomtype);
 		reservationVo.setPrfnm(prfnm);
@@ -231,7 +229,7 @@ public class PaymentController {
 		if(mileagePoint!=0) {
 			//[구분] 
 			//로그인 한 유저가 마일리지를 사용했음	     -> mileagePoint!=0
-			//로그인 한 유저가 마일리지를 사용하지 않았음 -> mileagePoint==0
+			//로그인 한 유저가 마일리지를 사용하지 않았음 	 -> mileagePoint==0
 			MileageVO mileageVo = null;
 			
 			//마일리지 변화사유 -> 유저가 마일리지를 사용함 -> 마일리지변화에 시퀸스 (5) 셋팅
@@ -286,7 +284,7 @@ public class PaymentController {
 			MemberVO memberVo = new MemberVO();
 			memberVo.setUserid(userid);
 			
-			mileagePoint = (int)(pay_price*0.005);
+			mileagePoint = (int)(pay_price*0.005);	
 			logger.info("마일리지가 적용되지 않은 티켓의 총액 값 * 0.005를 한 가격 mileagePoint={} ", mileagePoint);
 			memberVo.setMileagePoint(mileagePoint);
 			
