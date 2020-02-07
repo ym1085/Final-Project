@@ -33,31 +33,34 @@
 </script>
 
 <!-- 페이지 만들떄마다 복붙 -->
-<div style="width: 13%; float: left; height: 100%;">
-	<!-- left side -->
-	<aside class="left-sidebar" style="width: 13%;">
-		<div class="logo" style="margin-bottom: 63%;">
-			<a href="<c:url value='/index.do'/>"
-				style="color: white; font-size: 2.5em; font-family: 'Limelight', cursive;">
-				Delight</a>
-		</div>
-
-		<nav class="left-nav" style="margin-top: 100%;">
-			<ul id="nav">
-				<li class="active"><a href="#contact-form">Contact Form</a></li>
-				<li><a href="#subscription-form">Subscription Form</a></li>
-				<li><a href="#video">Video Tutorial</a></li>
-				<li><a href="#credit">Source and Credit</a></li>
-				<li>
-					<div
-						style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div>
-				</li>
-			</ul>
-		</nav>
-	</aside>
-	<!-- left side -->
-</div>
-<!-- 페이지 만들떄마다 복붙 -->
+   <div style="width: 13%; float: left; height: 100%;">
+      <!-- left side -->
+      <aside class="left-sidebar" style="width: 13%;">
+         <div class="logo" style="margin-bottom: 63%;">
+            <a href="<c:url value='/index.do'/>" style="color: white; 
+               font-size: 2.5em; font-family: 'Limelight', cursive;">
+               Delight 
+            </a>
+         </div>
+         
+         <nav class="left-nav" style="margin-top: 100%;">
+            <ul id="nav">
+               <li class="active"><a href="<c:url value='/performance/pfRanking.do'/>">랭킹</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value='/performSearchResult/theaterSearch.do?type=AAAA'/>">연극</a></li>
+               <li><a href="<c:url value='/performSearchResult/musicalSearch.do?type=AAAB'/>">뮤지컬</a></li>
+               <li><a href="<c:url value='/performSearchResult/areaSearch.do'/>">지역별</a></li>
+               <li><a href="<c:url value='/performSearchResult/periodSearch.do'/>">기간별</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value="/mainSearchResult/doReservation.do"/>">예매하기</a></li>
+            </ul>
+         </nav>
+      </aside>
+      
+      <!-- left side -->
+      <!-- 풀테스트 -->
+   </div>
+	<!-- div안에서작업 그외엔 건들지말것 -->
 
 <!-- div안에서작업 그외엔 건들지말것 -->
 <div style="width: 87%; float: right;">
@@ -71,16 +74,25 @@
 			<h2 class="mytit" style="margin-bottom: 0px;">적립금</h2>
 			<br><br>
 			
-			<div id="myMileageSubDiv" style="width:84%; height:300px; border-top:3px solid black;margin-top:7px;">
-				<p id="myMileageSubP1" style="margin-bottom: 10px;margin-top: 10px;">현재 적립금</p>
-				<p id="myMileageSubP2" style="font-size:1.5em;font-weight: bold;font-family: 맑은고딕;margin-bottom: 10px;">
+			<div id="myMileageSubDiv" style="width:84%; height:325px; border-top:3px solid black;margin-top:7px;">
+				<p id="myMileageSubP1" style="margin-bottom: 60px;margin-top: 10px;">
+					<img style="width: 100px;height: 100px;" src="<c:url value='/resources/images/loginUser.png'/>">
+					<span>회원 등급 : </span><span style="font-size: 15px;font-weight: bold;">${memberVo.gradeName}</span><br>
+					<span>회원명 :  </span><span style="font-size: 15px;font-weight: bold;">${(memberVo.username)}</span><br> 
+					<span>이메일 : </span><span style="font-size: 15px;font-weight: bold;">${email}</span>
+				</p>
+				
+				<span style="font-size: 20px;margin-bottom: 10px;">Leave Mileage</span><br>
+				<img style="width: 45px;height: 45px;" src="<c:url value='/resources/images/cash.png'/>">
+				<p id="myMileageSubP2" style="font-size:1.5em;font-weight: bold;font-family:맑은고딕;margin-bottom: 10px;
+					display: inline-block;background: aliceblue;margin-top: 10px;margin-left: 10px;">
 					<fmt:formatNumber value="${memberVo.mileagePoint}" pattern="#,###"/>원
 				</p>
 				<br>
-				<p id="myMileageSubP3">
-					- 적립금은 구매 확정시 지급됩니다.
+				<p style="color: red;font-size: 12px;font-weight: bold;" id="myMileageSubP3">
+					- 적립금은 결제 완료시 지급됩니다.
 				</p>
-				<p id="myMileageSubP4">
+				<p style="color: red;font-size: 12px;font-weight: bold;" id="myMileageSubP4">
 					- 후기/홍보 게시판 글 작성 시 적립금이 지급됩니다.
 				</p>
 			</div>
@@ -170,7 +182,7 @@
 				<!-- 이전블럭으로 이동 -->
 				<c:if test="${pagingInfo.firstPage>1 }">
 					<a class="imgblock" href="#" onclick="pageFunc(1)"> <img
-						src="<c:url value='/resources/images/first.gif'/>" alt="처음으로">
+						src="<c:url value='/resources/images/first.gif'/>" alt="">
 					</a>
 					<a class="imgblock" href="#" onclick="pageFunc(${pagingInfo.firstPage-1})"> <img
 						src="<c:url value='/resources/images/first2.gif'/>" alt="이전 블럭으로">
@@ -193,10 +205,10 @@
 				<!-- 다음블럭으로 이동 -->
 				<c:if test="${pagingInfo.lastPage< pagingInfo.totalPage}">
 					<a class="imgblock" href="#" onclick="pageFunc(${pagingInfo.lastPage+1})"> <img
-						src="<c:url value='/resources/images/last2.gif'/>" alt="다음 블럭으로">
+						src="<c:url value='/resources/images/last2.gif'/>" alt="">
 					</a>
 					<a class="imgblock" href="#" onclick="pageFunc(${pagingInfo.totalPage})"> <img
-						src="<c:url value='/resources/images/last.gif'/>" alt="다음 블럭으로">
+						src="<c:url value='/resources/images/last.gif'/>" alt="">
 					</a>
 				</c:if>
 			</div>

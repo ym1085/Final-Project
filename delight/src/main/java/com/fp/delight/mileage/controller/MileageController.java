@@ -70,6 +70,15 @@ public class MileageController {
 		MemberVO memberVo = memberService.selectMember(userid);
 		logger.info("현재 로그인 한 유저 정보(마일리지), memberVo={}", memberVo);
 		
+		String email = "";
+		String email1 = memberVo.getEmail1();
+		String email2 = memberVo.getEmail2();
+		
+		if(email1!=null && !email1.isEmpty() && email2!=null && !email2.isEmpty()) {
+			email = email1+"@"+email2;
+			logger.info("로그인 된 유저의 이메일 체크, email={} ", email);
+		}
+		
 		PaginationInfo pagingInfo=new PaginationInfo();
 		
 		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
@@ -96,6 +105,7 @@ public class MileageController {
 		
 		model.addAttribute("pagingInfo",pagingInfo);
 		model.addAttribute("memberVo", memberVo);
+		model.addAttribute("email", email);
 		
 		return "member/myMileageList";
 	}

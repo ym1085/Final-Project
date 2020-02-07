@@ -37,7 +37,7 @@ public class ExcelController {
 	@Autowired
 	private MemberManagerService memberManagerService;
 	
-	@RequestMapping("/exceluploadImport.do")
+	@RequestMapping("/admin/exceluploadImport.do")
 	public String excelImport() {
 		logger.info("엑셀 임포트 화면 보여주기");
 		return "excelImport/exceluploadImport";

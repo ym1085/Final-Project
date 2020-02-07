@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fp.delight.common.Utility;
 import com.google.gson.JsonObject;
 
 @Controller
@@ -84,8 +85,11 @@ public class CkController {
                         json.addProperty("uploaded", 1);
                         json.addProperty("fileName", fileName);
                         json.addProperty("url", fileUrl);
+                        Utility.urltag=upPath1;
+                        System.out.println("fileUrl="+upPath1);
                         System.out.println(json);
                         printWriter.println(json);
+                        
                     }catch(IOException e){
                         e.printStackTrace();
                     }finally{

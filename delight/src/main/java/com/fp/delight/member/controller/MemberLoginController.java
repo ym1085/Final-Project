@@ -27,8 +27,15 @@ public class MemberLoginController {
 	private MemberService memberService;
 	
 	@RequestMapping(value = "/login.do",method = RequestMethod.GET)
-	public void login_get() {
+	public String login_get(HttpSession session) {
+		String userid=(String)session.getAttribute("userid");
+		
+		if(userid!=null && !userid.isEmpty()) {
+			return "redirect:/index.do";
+		}
 		logger.info("회원 로그인 화면 보여주기");
+		
+		return "login/login";
 	}
 	
 	@RequestMapping(value = "/login.do",method = RequestMethod.POST)

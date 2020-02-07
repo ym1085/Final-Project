@@ -63,6 +63,11 @@ public class ReviewDAOMybatis implements ReviewDAO{
 		return sqlSession.selectOne(namespace+"ReviewWriteTotalRecord",dateSearchVo);
 	}
 
+	@Override
+	public Map<String, Object> reviewDetail(ReviewVO reviewVo) {
+		return sqlSession.selectOne(namespace+"reviewDetail",reviewVo);
+	}
+
 
 	
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.admin.model.AdminLoginService;
+import com.fp.delight.admin.model.AdminMainService;
 import com.fp.delight.member.model.MemberService;
 import com.fp.delight.member.model.MemberVO;
 
@@ -27,9 +28,24 @@ public class AdminController {
 	@Autowired
 	private AdminLoginService adminLoginService;
 	
+	@Autowired
+	private AdminMainService adminMainService;
+	
 	@RequestMapping("/adminMain.do")
-	public void adminMain() {
+	public void adminMain(Model model) {
 		logger.info("관리자 모드 메인화면 보여주기");
+		int todayInquery=adminMainService.todayInquery();
+		int tomorInquery=adminMainService.tomorInquery();
+		int todayRegister=adminMainService.todayRegister();
+		int tomorRegister=adminMainService.tomorRegister();
+		int tomorVisitor=adminMainService.tomorVisitor();
+		int todayVisitor=adminMainService.todayVisitor();
+		model.addAttribute("todayInquery",todayInquery );
+		model.addAttribute("tomorInquery",tomorInquery );
+		model.addAttribute("todayRegister",todayRegister );
+		model.addAttribute("tomorRegister",tomorRegister );
+		model.addAttribute("tomorVisitor",tomorVisitor );
+		model.addAttribute("todayVisitor",todayVisitor );
 	}
 	
 	@RequestMapping(value = "/adminLogin.do", method = RequestMethod.GET)

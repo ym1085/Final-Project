@@ -25,38 +25,103 @@
 		$("input[name=currentPage]").val(curPage);
 		$("form[name=frmPage]").submit();
 	}
+	
+    jQuery(document).ready(function() {
+      	 $("td#ddd").each(function(){
+      		 $(this).click(function(){
+	       			$.ajax({
+	    				type:"get",
+	    				url:"<c:url value='/member/reviewDetail.do'/>",
+	    				data:{"reviewSeq":$(this).find("#reviewSeq").val()},
+	    				success:function(res){
+	    					$(".reviewPoster>img").attr("src",res.poster);
+	    					$("#reviewgenrenm").html(res.genrenm);
+	    					$("#reviewTtile").html(res.prfnm);
+	    					$("#performterm").html(res.prfpdfrom+"~"+res.prfpdto);
+	    					$(".detailreview1").html(res.REVIEW_CONTENT);
+	    					$(".detailreview2>#reviewregdate").html(res.REVIEW_REGDATE);
+						
+	    					switch (res.REVIEW_SCORE) {
+							case 1:
+								$(".detailreview2>#reviewstar").attr("src","<c:url value='/resources/images/star1.png' />");
+								break;
+							case 2:
+								$(".detailreview2>#reviewstar").attr("src","<c:url value='/resources/images/star2.png' />");
+								break;
+							case 3:
+								$(".detailreview2>#reviewstar").attr("src","<c:url value='/resources/images/star3.png' />");
+								break;
+							case 4:
+								$(".detailreview2>#reviewstar").attr("src","<c:url value='/resources/images/star4.png' />");
+								break;
+							case 5:
+								$(".detailreview2>#reviewstar").attr("src","<c:url value='/resources/images/star5.png' />");
+								break;
+							default:
+								break;
+							}
+	    					
+	    					if(res.REVIEW_TYPE==1){
+	    						$(".reviewImg1>img").attr("src","");
+	    					}else if(res.REVIEW_TYPE==2){
+	    						$(".reviewImg1>img").attr("src","<c:url value='/resources/images/noimage.png'/>");
+	    						if(res.REVIEW_P1!=null || res.REVIEW_P1.length<1){
+	    	    					$("#reviewP1>img").attr("src","${pageContext.request.contextPath }/reviewupload/"+res.REVIEW_P1);
+	    							}else if(res.REVIEW_P2!=null || res.REVIEW_P2.length<1){
+	    	    					$("#reviewP2>img").attr("src","${pageContext.request.contextPath }/reviewupload/"+res.REVIEW_P2);
+	    							}else if(res.REVIEW_P3!=null || res.REVIEW_P3.length<1){
+	    	    					$("#reviewP3>img").attr("src","${pageContext.request.contextPath }/reviewupload/"+res.REVIEW_P3);
+	    							}
+	    					}
+	    					
+		    				$('#myModal2').show();
+	    				},
+	    				error:function(xhr, status, error){
+	    					alert("Error : "+status+", "+ error);
+	    				}
+	    			});	 
+      		 });
+      	 });
+      //팝업 Close 기능
+      $("#dddd").click(function(){
+           $('#myModal2').hide();
+      	
+      });
+      });
+       
 </script>
 <link type="text/css" rel="stylesheet"
 	href="<c:url value='/resources/css/mysec.css' />" />
 
 <!-- 페이지 만들떄마다 복붙 -->
-<div style="width: 13%; float: left; height: 100%;">
-	<!-- left side -->
-	<aside class="left-sidebar" style="width: 13%;">
-		<div class="logo" style="margin-bottom: 63%;">
-			<a href="#welcome"
-				style="color: white; font-size: 2.5em; font-family: 'Limelight', cursive;">
-				Delight </a>
-		</div>
-
-		<nav class="left-nav" style="margin-top: 100%;">
-			<ul id="nav">
-				<li class="active"><a href="#contact-form">Contact Form</a></li>
-				<li><a href="#subscription-form">Subscription Form</a></li>
-				<li><a href="#video">Video Tutorial</a></li>
-				<li><a href="#credit">Source and Credit</a></li>
-				<li>
-					<div
-						style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div>
-				</li>
-			</ul>
-		</nav>
-	</aside>
-	<!-- left side -->
-</div>
-<!-- 페이지 만들떄마다 복붙 -->
-
-<!-- div안에서작업 그외엔 건들지말것 -->
+   <div style="width: 13%; float: left; height: 100%;">
+      <!-- left side -->
+      <aside class="left-sidebar" style="width: 13%;">
+         <div class="logo" style="margin-bottom: 63%;">
+            <a href="<c:url value='/index.do'/>" style="color: white; 
+               font-size: 2.5em; font-family: 'Limelight', cursive;">
+               Delight 
+            </a>
+         </div>
+         
+         <nav class="left-nav" style="margin-top: 100%;">
+            <ul id="nav">
+               <li class="active"><a href="<c:url value='/performance/pfRanking.do'/>">랭킹</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value='/performSearchResult/theaterSearch.do?type=AAAA'/>">연극</a></li>
+               <li><a href="<c:url value='/performSearchResult/musicalSearch.do?type=AAAB'/>">뮤지컬</a></li>
+               <li><a href="<c:url value='/performSearchResult/areaSearch.do'/>">지역별</a></li>
+               <li><a href="<c:url value='/performSearchResult/periodSearch.do'/>">기간별</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value="/mainSearchResult/doReservation.do"/>">예매하기</a></li>
+            </ul>
+         </nav>
+      </aside>
+      
+      <!-- left side -->
+      <!-- 풀테스트 -->
+   </div>
+	<!-- div안에서작업 그외엔 건들지말것 -->
 
 <div style="width: 87%; float: right;">
 	<section class="mysec" style="margin-top: 5%;">
@@ -110,7 +175,7 @@
 								<td style="text-align: left">
 									<p class="mybodyP">(${map['PERFOMTYPE'] })${map['PRFNM'] }</p>
 								</td>
-								<td style="text-align: left;"><img style="height: 24px;"
+								<td id="ddd" style="text-align: left;"><img style="height: 24px;"
 									alt=""
 									src="<c:url value='/resources/images/star${map["REVIEW_SCORE"] }.png' />">
 									<p style="margin-left: 15px;">
@@ -137,6 +202,7 @@
 											${content }
 										</c:if>
 									</p>
+									<input type="hidden" value="${map['REVIEW_SEQ'] }" id="reviewSeq">
 								</td>
 								<td style="text-align: center">${map['PAY_TICKET_NUMBER'] }</td>
 								<td style="text-align: center"><c:if
@@ -191,6 +257,35 @@
 			</div>
 		</div>
 	</section>
+		<!-- The Modal -->
+    <div id="myModal2" class="modal2">
+ 
+      <!-- Modal content -->
+      <div class="modal-content2"> 
+      			<div class="reviewsodyd">
+      				<div class="reviewPoster">
+      				<img alt="" src="">
+      				<p id="reviewgenrenm"></p>
+      				<p id="reviewTtile"></p>
+      				<p id="performterm"></p>
+      				</div>
+      				<div class="reviewsodyd2">
+      					<div class="detailreview1"></div>
+      					<p class="detailreview2">&nbsp;&nbsp;<img id="reviewstar" alt="후기평점" src="" /> &nbsp;&nbsp;|&nbsp;&nbsp; 작성일: <span id="reviewregdate"></span></p>
+      				</div>
+      			</div>
+                <div class="reviewImg1" id="reviewP1"><img alt="" src="<c:url value='/resources/images/noimage.png' />"/></div>
+                <div class="reviewImg1" id="reviewP2"><img alt="" src="<c:url value='/resources/images/noimage.png' />"/></div>
+                <div class="reviewImg1" id="reviewP3"><img alt="" src="<c:url value='/resources/images/noimage.png' />"/></div>
+            <div id="dddd" style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;">
+                <span class="pop_bt" style="font-size: 13pt;" >
+                     닫기
+                </span>
+            </div>
+      </div>
+ 
+    </div>
+    <!--End Modal-->
 </div>
 <!-- div안에서작업 그외엔 건들지말것 -->
 

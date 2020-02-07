@@ -52,7 +52,7 @@
     .cancellationTable{border-collapse: collapse;border-color: lightgray;}
     .booking{margin-bottom: 8px;}
     div#cancellationExplain {margin-top: 23px;}
-    button.banner {width: 231px;height: 56px;border: none;background: #93f26c;color: white;font-size: 1.4em;font-weight: bold;margin-top: 45px;box-shadow: 3px 1px 6px 2px #7df183}
+    button.banner {width: 231px;height: 56px;border: none;background: #93f26c;color: white;font-size: 1.4em;font-weight: bold;box-shadow: 3px 1px 6px 2px #7df183}
     #mainposter{width: 100%; height: 100%;}
     .performDetailtable > tbody > tr th{background-color:#fbfbfb;padding-left: 10px; font-weight: 400;font-family: serif;margin-bottom:80px;}
  	.performDetailtable > tbody > tr td{padding-left: 13px;font-family: serif;}
@@ -85,11 +85,14 @@
  
    .tabmenu input:checked ~ label{background:white;border: 0.2px solid #efe7e7; border-bottom: none;font-weight: bold;} 
    .tabmenu input:checked ~ .tabCon{display:block;}
+   
    .box-more{background-color: #fafafa;padding: 25px 20px 25px 130px;}
-   .tabmenu ul li { line-height: 30px;}
+   .tabmenu ul li {line-height: 30px;}
+   
    select#selectDate2 {width: 250px;}
+   
    /* 삭제하지마세요 - 사이드 배너 */
-   #floatMenu {position: absolute;width: 230px;height: 700px;left: 1487px;top:120px;}
+   #floatMenu {position: absolute;width: 230px;height:650px;left: 1550px;top:120px;border: 0.2px solid #efe7e7;}
 }
 </style>
 
@@ -206,25 +209,30 @@
       <!-- left side -->
       <aside class="left-sidebar" style="width: 13%;">
          <div class="logo" style="margin-bottom: 63%;">
-            <a href="<c:url value='/index.do'/>"
-				style="color: white; font-size: 2.5em; font-family: 'Limelight', cursive;">
-				Delight</a>
+            <a href="<c:url value='/index.do'/>" style="color: white; 
+               font-size: 2.5em; font-family: 'Limelight', cursive;">
+               Delight 
+            </a>
          </div>
          
          <nav class="left-nav" style="margin-top: 100%;">
             <ul id="nav">
-               <li class="active"><a href="#contact-form">Contact Form</a></li>
-               <li><a href="#subscription-form">Subscription Form</a></li>
-               <li><a href="#video">Video Tutorial</a></li>
-               <li><a href="#credit">Source and Credit</a></li>
-               <li>
-               <div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li class="active"><a href="#">랭킹</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value='/performSearchResult/theaterSearch.do?type=AAAA'/>">연극</a></li>
+               <li><a href="<c:url value='/performSearchResult/musicalSearch.do?type=AAAB'/>">뮤지컬</a></li>
+               <li><a href="<c:url value='/performSearchResult/areaSearch.do'/>">지역별</a></li>
+               <li><a href="<c:url value='/performSearchResult/periodSearch.do'/>">기간별</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value="/mainSearchResult/doReservation.do"/>">예매하기</a></li>
             </ul>
          </nav>
       </aside>
+      
       <!-- left side -->
       <!-- 풀테스트 -->
    </div>
+	<!-- div안에서작업 그외엔 건들지말것 -->
    
    <!-- 페이지 만들떄마다 복붙 -->
    <!-- div안에서작업 그외엔 건들지말것 -->
@@ -351,11 +359,11 @@
             <ul>
                <!-- 장소(Map_API) 지도는 건들지 말아주세요 -->
                <li id="tab4" class="btnCon">
-               <input type="radio" checked name="tabmenu" id="tabmenu4"> 
+               <input type="radio" checked="checked" name="tabmenu" id="tabmenu4"> 
                <label for="tabmenu4" style="margin-bottom: 0;" class = "lab">장소</label>
                   <div class="tabCon" id="tabConFirth">
                     <!-- MAP_API -->
-                  <div id="map" style="width: 100%; height: 400px;"></div>
+                  <div id="map" style="width: 800px; height: 400px;"></div>
                   <input type="text" value="${map2_location['la']}" id="x">
 				  <input type="text" value="${map2_location['lo']}" id="y">	
                   
@@ -389,7 +397,7 @@
                      marker.setMap(map);
                      
                      //API 작업 후 - 위도/경도 변경 해줄겁니다.
-                     var iwContent = '<div style="padding:5px;font-weight:bold;width:170px;">${map2_location['fcltynm']}<br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>',
+                     var iwContent = '<div style="padding:5px;font-weight:bold;width:170px;">${map2_location['fcltynm']}<br><a href="https://map.kakao.com/link/map/${map2_location['fcltynm']},'+x+','+y+'" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>',
                      // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                      iwPosition = new kakao.maps.LatLng(x,y); //인포윈도우 표시 위치입니다.
 
@@ -532,7 +540,7 @@
                               </tr>
                            </tbody>
                         </table>
-                     </div>
+                     </div><!--  -->
                   </div>
                </li>
                
@@ -755,7 +763,7 @@
 		 <div id="floatMenu">
 		 	<a href="<c:url value='/index.do'/>">
 		 		<button class="banner">Click Here!</button>
-		 			<img alt="배너" src="<c:url value='/resources/images/banner1.jpg'/>">
+	 			<img style="width: 150px;height: 150px;margin-left: 40px;margin-top: 20px;" src="<c:url value='/resources/images/banner1.jpg'/>">
 		 	</a>
 		 </div>
 
