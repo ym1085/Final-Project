@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
    
@@ -66,6 +66,7 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.min.css'/>">
 
 <script type="text/javascript">
+//페이징처리
 function pageFunc(curPage){
 	$("#currentPage").val(curPage);
 	
@@ -142,6 +143,11 @@ function pageFunc(curPage){
 		
 		<br><br><br><br><br>
 		<div style="width: 87%;float: right;" class="pfdetail">
+		
+			<form name="frminq1" method="post" action="<c:url value='/mainSearchResult/doReservation.do'/>">
+				<input type="hidden" name="currentPage" id="currentPage">
+			</form>
+	
 			<div id="page">
 					<!-- 이전블럭으로 이동 -->
 					<c:if test="${pagingInfo.firstPage>1 }">

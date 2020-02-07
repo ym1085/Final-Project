@@ -103,6 +103,7 @@
 					</tr>
 				</c:if>
 				
+				
 				<c:if test="${!empty list }">
 				<input type="hidden" name="mt20id" id="mt20id" value="PF159528">
 				<c:forEach var="map" items="${list}">

@@ -15,7 +15,7 @@
    #reservaitonNumber{margin-left: 10px;border: 0px;background-color: red; box-shadow: 1px 1px 2px red; color: white; font-weight: 500;}
    #reservationNumExplain{font-size: 14px; color: red; font-weight: bold;}
    #reservationExplain{font-weight: bold;color: red;font-size: 14px}
-   #home{width:70px; height:45px; border: 0px;background-color: red; box-shadow: 1px 1px 2px red; color: white; font-weight: 500;margin-right: 7px;}
+   #home {width: 100px;height: 50px;border: 0px;background-color: #0003ff;box-shadow: 1px 1px 2px #0d00ff;color: white;font-weight: 500;margin-right: 7px;}
    #chkReservation{width:80px; height:45px;border: 0px;background-color: blue; box-shadow: 1px 1px 2px blue; color: white; font-weight: 500;}
    .forButton {text-align: center;margin-top: 65px;}
    #spectators{border: 0;color: #9a9898;width: 250px;}
@@ -213,10 +213,6 @@
          <div class="forButton">
             <a href="<c:url value='/index.do'/>">
                <input type="button" name="home" id="home" value="Home">
-            </a>
-         
-            <a href="<c:url value='#'/>">
-               <input type="button" name="chkReservation" id="chkReservation" value="예약 확인">
             </a>
          </div>
          
