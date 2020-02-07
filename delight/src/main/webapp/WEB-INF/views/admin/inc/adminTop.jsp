@@ -188,7 +188,7 @@
             </li>
 			
 			 <li class="nav-item" id="excel">
-              <a class="nav-link" href="<c:url value='/exceluploadImport.do'/>">
+              <a class="nav-link" href="<c:url value='/admin/exceluploadImport.do'/>">
                 <span class="menu-title">엑셀 임포트</span>
                 <i class="mdi mdi-import menu-icon"></i>
               </a>
