@@ -54,7 +54,7 @@
                 <div class="ro.w align-items-center ">
                     <div class="col-lg-12">
                         <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                            <a class="navbar-brand" href="index.html"> <span class="q1">Delight</span> </a>
+                            <a class="navbar-brand" href="<c:url value='/index.do'/>"> <span class="q1">Delight</span> </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">

@@ -34,7 +34,7 @@ body {background: linear-gradient(135deg, #121721 0%, #000000 100%) fixed; color
       <!-- left side -->
       <aside class="left-sidebar" style="width: 13%;">
          <div class="logo" style="margin-bottom: 63%;">
-            <a href="#welcome" style="color: white; 
+            <a href="<c:url value='/index.do'/>" style="color: white; 
                font-size: 2.5em; font-family: 'Limelight', cursive;">
                Delight 
             </a>
