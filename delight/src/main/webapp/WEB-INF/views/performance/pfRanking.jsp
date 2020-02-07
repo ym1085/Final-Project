@@ -170,7 +170,7 @@ $(function(){
 		                     +"<div class='testImg' width='212px'>"
 		                        +"<img src='http://www.kopis.or.kr/"+value.poster+"'"+"class='img-responsive'>"
 		                        +"<div class='img-responsive-text'>"
-		                           +"<a href='<c:url value='/performance/pfDetail.do?perfomid="+value.mt20id+"'/>'>상세정보</a><br>"
+		                           +"<a class='toDetail' href='<c:url value='/performance/pfDetail.do?perfomid="+value.mt20id+"'/>'>상세정보</a><br>"
 		                           +"<span>예매율</span><br>"
 		                           +"<span>누적관객수</span><br>"                                                            
 		                              +"<div class='likeDiv'>"
