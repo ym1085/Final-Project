@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class CkController {
 	private static final Logger logger=LoggerFactory.getLogger(CkController.class);
 	
 	@RequestMapping(value="/adm/fileupload.do", method=RequestMethod.POST)
-	public String fileUpload(HttpServletRequest req, HttpServletResponse resp, 
+	public String fileUpload(HttpServletRequest req, HttpServletResponse resp, HttpSession session,
                  MultipartHttpServletRequest multiFile) throws IOException {
 		logger.info("시작");
 		
@@ -85,7 +86,9 @@ public class CkController {
                         json.addProperty("uploaded", 1);
                         json.addProperty("fileName", fileName);
                         json.addProperty("url", fileUrl);
-                        Utility.urltag=upPath1;
+                        
+                        String userid=(String) session.getAttribute("adminUserid");
+                        Utility.urltag.put(userid, upPath1);
                         System.out.println("fileUrl="+upPath1);
                         System.out.println(json);
                         printWriter.println(json);

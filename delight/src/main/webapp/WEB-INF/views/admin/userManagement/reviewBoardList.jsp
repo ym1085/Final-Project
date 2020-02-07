@@ -100,7 +100,6 @@
 		</table>
 		</div>
 		<div id="btdiv" class="text-right">
-			<button type="button" class="btn btn-gradient-success btn-sm" id="multiGive">선택 지급</button>
 			<button type="button" class="btn btn-gradient-danger btn-sm" id="multiDel">선택 삭제</button>
 		</div>
 	</div>

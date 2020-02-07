@@ -25,7 +25,7 @@ $(function() {
 <div class="card">
 <div class="card-body">
 <form id="form1" name="form1" method="post" enctype="multipart/form-data"
- action="<c:url value='/uploadExcelFile.do'/>">
+ action="<c:url value='/admin/uploadExcelFile.do'/>">
 	<select name="area" id="area">
 		<option value="">파일 선택</option>
 		<option value="sido">시,도파일</option>

@@ -28,6 +28,7 @@ import com.fp.delight.excel.model.ExcelService;
 import com.fp.delight.member.model.MemberVO;
 
 @Controller
+@RequestMapping("/admin")
 public class ExcelController {
 	private static final Logger logger=LoggerFactory.getLogger(ExcelController.class);
 	
@@ -37,7 +38,7 @@ public class ExcelController {
 	@Autowired
 	private MemberManagerService memberManagerService;
 	
-	@RequestMapping("/admin/exceluploadImport.do")
+	@RequestMapping("/exceluploadImport.do")
 	public String excelImport() {
 		logger.info("엑셀 임포트 화면 보여주기");
 		return "excelImport/exceluploadImport";
@@ -65,7 +66,7 @@ public class ExcelController {
 				cnt=excelService.insertGugun(vo);
 			}
 		}
-		String msg="인서트 실패", url="/exceluploadImport.do";
+		String msg="인서트 실패", url="/admin/exceluploadImport.do";
 		if(cnt>0) {
 			msg=area+"테이블 인서트 완료";
 		}

@@ -137,9 +137,11 @@ $(function() {
 			event.preventDefault();
 		}
 	});
-	
-	$("#cke_206_label").click(function() {
-		alert($(".cke_dialog_ui_input_text").val());
+
+	$("#sidebar li a").click(function() {
+		event.preventDefault();
+		var redir=$(this).attr("href");
+		location.href="<c:url value='/admin/redir.do?redirurl="+redir+"'/>";
 	});
 	
 });

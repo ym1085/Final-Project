@@ -121,7 +121,7 @@ $(function() {
 	
 	$("#exceldown").click(function() {
 		if(confirm("회원 목록을 다운로드 하시겠습니까?")){
-			location.href='/delight/userListExcelDown.do';		
+			location.href='/delight/admin/userListExcelDown.do';		
 		}
 	});
 	

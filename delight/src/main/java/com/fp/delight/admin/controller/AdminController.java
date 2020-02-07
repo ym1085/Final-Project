@@ -1,5 +1,7 @@
 package com.fp.delight.admin.controller;
 
+import java.io.File;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.admin.model.AdminLoginService;
 import com.fp.delight.admin.model.AdminMainService;
+import com.fp.delight.common.Utility;
 import com.fp.delight.member.model.MemberService;
 import com.fp.delight.member.model.MemberVO;
 
@@ -147,5 +150,28 @@ public class AdminController {
 		int res=adminLoginService.adminPwdCg(vo);
 		
 		return res;
+	}
+	
+	@RequestMapping("/redir.do")
+	public String adminRedir(@RequestParam String redirurl,HttpSession session) {
+		logger.info("공지 작성에서 화면 이동 파라미터 redirurl={}",redirurl);
+		
+		String userid=(String) session.getAttribute("adminUserid");
+		
+		String path=Utility.urltag.get(userid);
+		redirurl=redirurl.replace("/delight", "");
+		if(path!=null && !path.isEmpty()) {
+			File f=new File(path);
+			
+			if(f.exists()) {
+				boolean bool=f.delete();
+				logger.info("사진 올리고 작성완료 안한 경우 파일 삭제");
+				logger.info("삭제 결과 bool={}",bool);
+			}
+		}
+		Utility.urltag.remove(userid);
+		
+		return "redirect:"+redirurl;
+		
 	}
 }

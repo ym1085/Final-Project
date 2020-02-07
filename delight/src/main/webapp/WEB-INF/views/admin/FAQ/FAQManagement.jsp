@@ -23,11 +23,11 @@
 			<span>질문 유형</span>
 			<select name="searchKeyword" id="type" class="form-control-sm">
 				<option value="">전체</option>
-				<option value="가입"
-					<c:if test="${param.searchKeyword=='가입' }">
+				<option value="회원"
+					<c:if test="${param.searchKeyword=='회원' }">
 			            		selected="selected"
 			        </c:if>
-				>가입</option>
+				>회원</option>
 				<option value="예매/결제"
 					<c:if test="${param.searchKeyword=='예매/결제' }">
 			            		selected="selected"

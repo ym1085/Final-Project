@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +34,11 @@ public class AnnController {
 	private AnnService annService;
 	
 	@RequestMapping(value = "/annWrite.do",method = RequestMethod.GET)
-	public void annWrite_get() {
-		Utility.urltag="";
+	public void annWrite_get(HttpSession session) {
+		String userid=(String) session.getAttribute("adminUserid");
+		logger.info("userid={}",userid);
+		Utility.urltag.remove(userid);
+		logger.info("urltag={}",Utility.urltag.toString());
 		logger.info("공지 작성 화면 보이기");
 	}
 	
@@ -44,10 +48,12 @@ public class AnnController {
 	}
 	
 	@RequestMapping(value = "/annWrite.do",method = RequestMethod.POST)
-	public String annWrite_post(@ModelAttribute AnnVO annVo,Model model) {
-		annVo.setUserid("admin");
+	public String annWrite_post(@ModelAttribute AnnVO annVo,
+			HttpSession session,Model model) {
+		String userid=(String) session.getAttribute("adminUserid");
+		annVo.setUserid(userid);
 		logger.info("공지글 등록 시작 파라미터 annVo={}",annVo);
-		String urlt=Utility.urltag;
+		String urlt=Utility.urltag.get(userid);
 		logger.info("urlt={}",urlt);
 		annVo.setAnnImg(urlt);
 		logger.info("imgurl 세팅후 annVo={}",annVo);
