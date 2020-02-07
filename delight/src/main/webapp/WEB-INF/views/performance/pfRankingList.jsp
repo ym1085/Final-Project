@@ -8,7 +8,7 @@
 .swiper-slide{width: 212px; margin:20px; flex-shrink: unset;}
 .swiper-wrapper{width: auto;}
 .img-responsive {width: 212px; height: 240px;}
-.img-responsive-text {opacity: 0; width: 212px; height: 240px; padding: 60px 20px; text-align: center; font-size: 18px; font-weight: bold; color: white; position: absolute; top: 38.9%; left: 39.5%; transform: translate(-50%, -50%);}
+.img-responsive-text {opacity: 0; width: 212px; height: 240px; padding: 60px 20px; text-align: center; font-size: 18px; font-weight: bold; color: white; position: absolute; top: 38.5%; left: 45.5%; transform: translate(-50%, -50%);}
 .img-responsive-text:hover {opacity: 1; background: rgba(0, 0, 0, 0.4);}
 a {color: white;}
 a:hover{text-decoration: none; color: white;}

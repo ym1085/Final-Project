@@ -34,7 +34,7 @@ body {background: linear-gradient(135deg, #121721 0%, #000000 100%) fixed; color
       <!-- left side -->
       <aside class="left-sidebar" style="width: 13%;">
          <div class="logo" style="margin-bottom: 63%;">
-            <a href="#welcome" style="color: white; 
+            <a href="<c:url value='/index.do'/>" style="color: white; 
                font-size: 2.5em; font-family: 'Limelight', cursive;">
                Delight 
             </a>
@@ -43,12 +43,13 @@ body {background: linear-gradient(135deg, #121721 0%, #000000 100%) fixed; color
          <nav class="left-nav" style="margin-top: 100%;">
             <ul id="nav">
                <li class="active"><a href="<c:url value='/performance/pfRanking.do'/>">랭킹</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
                <li><a href="<c:url value='/performSearchResult/theaterSearch.do?type=AAAA'/>">연극</a></li>
                <li><a href="<c:url value='/performSearchResult/musicalSearch.do?type=AAAB'/>">뮤지컬</a></li>
                <li><a href="<c:url value='/performSearchResult/areaSearch.do'/>">지역별</a></li>
                <li><a href="<c:url value='/performSearchResult/periodSearch.do'/>">기간별</a></li>
-               <li>
-               <div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value="/mainSearchResult/doReservation.do"/>">예매하기</a></li>
             </ul>
          </nav>
       </aside>
@@ -169,7 +170,7 @@ $(function(){
 		                     +"<div class='testImg' width='212px'>"
 		                        +"<img src='http://www.kopis.or.kr/"+value.poster+"'"+"class='img-responsive'>"
 		                        +"<div class='img-responsive-text'>"
-		                           +"<a href='<c:url value='/performance/pfDetail.do?perfomid="+value.mt20id+"'/>'>상세정보</a><br>"
+		                           +"<a class='toDetail' href='<c:url value='/performance/pfDetail.do?perfomid="+value.mt20id+"'/>'>상세정보</a><br>"
 		                           +"<span>예매율</span><br>"
 		                           +"<span>누적관객수</span><br>"                                                            
 		                              +"<div class='likeDiv'>"
