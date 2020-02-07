@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.index">
+
+	<!-- <select id="selectSysdate" parameterType="indexVisitorsVO" resultType="int">
+		select count(*) from visitors
+		where to_date(visitor_today)=to_date(sysdate)
+		<if test="prfnm!=null and prfnm!=''">
+			and prfnm like '%' || #{prfnm} || '%'
+		</if>
+	</select>
+	
+	<insert id="insertSysdate" parameterType="indexVisitorsVO">
+		insert into visitors(visitor_today, visitor_count)
+	</insert> -->
+
+</mapper> 
