@@ -41,6 +41,7 @@
 	<c:import url="/member/imp/mysecCan.do"></c:import>
 	<c:import url="/member/imp/myinquery.do"></c:import>
 	<c:import url="/member/imp/myreview.do"></c:import>
+	<c:import url="/member/imp/myPromotion.do"></c:import>
 	<c:import url="/member/imp/mylike.do"></c:import>
 	<c:import url="/member/imp/mynewPer.do"></c:import>
 	<c:import url="/member/imp/myMileageSub.do"></c:import>

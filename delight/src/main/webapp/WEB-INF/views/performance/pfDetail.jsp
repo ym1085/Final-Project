@@ -18,7 +18,7 @@
    #like img{z-index:-1;margin: 11px 0px 0px 8px;}
    #likecount{width: 64px; height:63px;z-index:1;float:left;margin-top:115px;box-shadow: 0px 1px 4px 0px grey;}
    #likecount>div{z-index:-1;text-align: center;line-height: 3.5em; font-weight: 600;}
-   div#calandar {width: 307px;height: 393px;position: absolute;top:162px;left:1150px; border:0.5px solid #f3eeee;padding: 33px 10px 10px 30px;background-color: #f7f7f7;} /* 수정필요 */ 
+   div#calandar {width: 330px;height: 420px;position: absolute;top:162px;left:1123px; border:0.5px solid #f3eeee;padding: 33px 10px 10px 30px;background-color: #f7f7f7;} /* 수정필요 */ 
    .body{height:100%; padding:30px;width:75%;margin:30px;border-top: 0.7px dotted gray;}
    .section {width:70%;height:100%;float:left; padding: 5px 5px 5px 5px;}
    .aside{width:25%;height:90%; border: 1px solid #efe7e7;float:left;margin-left:50px;padding: 5px 5px 5px 5px;}
@@ -42,10 +42,10 @@
     span#explainParkImpl {font-size: 12px;font-family:-webkit-pictograph;line-height: 0px;}
     h4.parkInfo {margin-bottom: 10px;}
     #calandarSub h6{font-size: 12px; font-family:-webkit-body;}
-    #dateWhile{font-size: 11px; font-family:-webkit-body; font-weight: 400;}
-    select#selectDate {border: none;margin-top: 7px;font-weight: 400;}
-    input#ticketing {margin-left: 25px;width: 200px;height: 45px;border: none;background: red;border-radius: 5px;color: white;font-size: 1.1em;font-weight: bold;margin-top: 35px;  box-shadow: 6px 6px 8px 1px #a05260;}
-    #selectDate > option{font-size: 10px;}
+    #dateWhile{font-size: 17px; font-family:맑은고딕; font-weight: 400;margin-bottom: 8px;}
+    select#selectDate {border: none;margin-top: 10px;outline-style: none;border-radius: 7px;}
+    input#ticketing {margin-left: 35px;width: 200px;height: 45px;border: none;background: red;border-radius: 5px;color: white;font-size: 1.1em;font-weight: bold;margin-top: 25px;  box-shadow: 6px 6px 8px 1px #a05260;}
+    #selectDate > option{font-size: 17px;font-family: 맑은고딕;font-weight: 600;padding-left: 5px;}
     .cancellationTable > th,td{height: 50px;}
     .cancellationTable tr th {background-color:#fbfbfb;padding-left: 10px; font-weight: 400;font-family: serif;}
     .cancellationTable tr td{padding-left: 13px;font-family: serif;}
@@ -69,7 +69,9 @@
     span#parentSpan4 {margin-left: 10px;}
     table.performDetailtable {margin-bottom: 70px;}
     button#likeBt {background: white;border: none;outline: none;}
-    select#selectDate2 {width: 250px;border: 0.5px solid #ece8e8;}
+    select#selectDate2 {width: 265px;height: 35px;border: 0.5px solid #ece8e8;outline-style: none;border-radius: 5px;}
+    h5#finalTest {margin-bottom: 5px;font-family: 맑은고딕;}
+    
     
    /*다 없애고 수정해야 될 가능성이 있음(밤샘각)*/
    ul{list-style:none;}
@@ -89,10 +91,8 @@
    .box-more{background-color: #fafafa;padding: 25px 20px 25px 130px;}
    .tabmenu ul li {line-height: 30px;}
    
-   select#selectDate2 {width: 250px;}
-   
    /* 삭제하지마세요 - 사이드 배너 */
-   #floatMenu {position: absolute;width: 230px;height:650px;left: 1550px;top:120px;border: 0.2px solid #efe7e7;}
+   #floatMenu {position: absolute;width: 230px;height:780px;left: 1550px;top:120px;border: 0.2px solid #efe7e7;}
 }
 </style>
 
@@ -144,10 +144,10 @@
 		});
 		
 		$('button.banner').hover(function() {
-			$(this).html("You can join us!");
+			$(this).html("메인으로");
 			$(this).css('box-shadow', '5px 5px 7px 1px #7df183')
 		},function(){
-			$(this).html("Click Here!");
+			$(this).html("최근 본 공연");
 		});
 	
 		$('#firtstspan3').hover(function() {
@@ -301,8 +301,8 @@
 	         
 	         <div id = "calandar">
 		         <div id="calandarSub">
-		      		<h6>예매가능 공연 일자</h6>   
-		         	<span id="dateWhile">${map2['prfpdfrom'] }~${map2['prfpdto'] }</span>
+		      		<h5 id="finalTest">예매가능 공연 일자</h5>   
+		         	<p id="dateWhile">${map2['prfpdfrom'] }~${map2['prfpdto'] }</p>
 		         </div>
 		         <!-- commit용 -->
 		         <!-- 예매 버튼 클릭 시 -> pfReservationController로 이동 후 결제 진행   -->
@@ -332,13 +332,13 @@
 		         	<!-- 반복 끝 -->
 		         	</select>
 		         	
-		         	<select id="selectDate" size="12" style="width: 250px">
+		         	<select id="selectDate" size="8" style="width: 270px">
 		         		<option></option>
 		        	 </select> 
 			  	</c:if>
 			  	
-		         	<c:if test="${empty tclist }">
-		    	     <select id="selectDate" size="12" style="width: 250px">
+		         	<c:if test="${empty tclist}">
+		    	     <select id="selectDate" size="8" style="width: 270px">
 			         	<option value="dateN">예매가능한 공연 일자가  없습니다.</option>	
 		    	     </select> 
 		         	</c:if>
@@ -761,10 +761,12 @@
          </div>
 
 		 <div id="floatMenu">
-		 	<a href="<c:url value='/index.do'/>">
-		 		<button class="banner">Click Here!</button>
-	 			<img style="width: 150px;height: 150px;margin-left: 40px;margin-top: 20px;" src="<c:url value='/resources/images/banner1.jpg'/>">
-		 	</a>
+	 		<a href="<c:url value='/index.do'/>">
+	 			<button class="banner">최근 본 공연</button>
+ 			</a>
+ 			<c:forEach var="posterImg" items="${poster}">
+				<img style="width: 150px;height: 150px;margin-left: 40px;margin-top: 20px;" src="${posterImg}">
+ 			</c:forEach>
 		 </div>
 
 </div>

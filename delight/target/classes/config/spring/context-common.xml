@@ -31,8 +31,13 @@
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 
+<<<<<<< HEAD
 		<property name="username" value="glddld89@gmail.com"/>
 		<property name="password" value="rladlrwn89@"/>	
+=======
+		<property name="username" value="youngmin1085@gmail.com"/>
+		<property name="password" value="*yjym7245368"/>	
+>>>>>>> branch 'master' of https://github.com/delight123123/delight2.git
 
 		<property name="javaMailProperties">
 			<props>

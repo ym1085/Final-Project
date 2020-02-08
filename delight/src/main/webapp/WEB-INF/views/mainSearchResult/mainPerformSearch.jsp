@@ -282,7 +282,7 @@ function condition(){
 
 /* 더보기 ajax */
 function moreRead(){
-	/* 더보기 실행할 때, 검색중 알람 뜨게 하고 버튼은 없애벌인다*/
+	/* 더보기 실행할 때, 검색중 알람 뜨게 하고 버튼은 없앤다*/
 	alert("해당 조건 검색 중입니다. 잠시만 기다려 주세요.");	
 	$('#more_btn_div').hide(); 
 	
@@ -307,7 +307,7 @@ function moreRead(){
 				 if(res.length==0){ 
 					//더 불러올 API 없는 경우
 					 $('#moreRead').hide();
-					 alert("더 불러올 공연 없으니까 검색 ㄴㄴ");
+					 alert("더 불러올 공연이 없습니다.");
 					
 				 }else{ 
 					//불러올 API 있는 경우

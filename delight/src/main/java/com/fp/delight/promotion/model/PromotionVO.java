@@ -6,12 +6,13 @@ import com.fp.delight.common.SearchVO;
 
 public class PromotionVO extends SearchVO{
 	private int promoteSeq;
-	private String promoteTitle;
-	private String promoteContent;
-	private String promoteP1;
-	private Timestamp reviewRegdate;
-	private String mileagegive;
-	private String userid;
+	private String promoteTitle;	//홍보제목
+	private String promoteContent;	//홍보내용
+	private String promoteP1;	//홍보사진1장
+	private Timestamp reviewRegdate;	//등록날짜
+	private String mileagegive;	//마일리지 지급여부
+	private String userid;	//아이디
+	
 	public int getPromoteSeq() {
 		return promoteSeq;
 	}

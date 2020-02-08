@@ -35,6 +35,11 @@ public class RecentServiceImpl implements RecentService{
 	public int selectChkRecent(RecentVO recentVo) {
 		return recentDao.selectChkRecent(recentVo);
 	}
+
+	@Override
+	public List<RecentVO> selectRecentPerformance(String iporid) {
+		return recentDao.selectRecentPerformance(iporid);
+	}
 	
 	
 	
