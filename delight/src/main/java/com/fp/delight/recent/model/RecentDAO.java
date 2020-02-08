@@ -9,4 +9,5 @@ public interface RecentDAO {
 	List<RecentVO> selectRecentList(RecentVO recentVo);
 	int selectTotalRecord(String iporid);
 	int selectChkRecent(RecentVO recentVo);
+	List<RecentVO> selectRecentPerformance(String iporid);
 }

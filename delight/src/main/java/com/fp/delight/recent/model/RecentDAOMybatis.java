@@ -39,5 +39,10 @@ public class RecentDAOMybatis implements RecentDAO{
 	public int selectChkRecent(RecentVO recentVo) {
 		return sqlSession.selectOne(namespace+"selectChkRecent",recentVo);
 	}
+
+	@Override
+	public List<RecentVO> selectRecentPerformance(String iporid) {
+		return sqlSession.selectList(namespace+"selectRecentPerformance", iporid);
+	}
 	
 }
