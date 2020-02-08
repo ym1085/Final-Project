@@ -63,6 +63,8 @@
 		<interceptor>
 			<mapping path="/admin/**"/>
 			<exclude-mapping path="/admin/adminLogin.do"/>
+			<exclude-mapping path="/admin/adminPwdFind.do"/>
+			<exclude-mapping path="/admin/adminfindpwd.do"/>
 			<beans:ref bean="adminLoginInterceptor" />
 		</interceptor>	
 		

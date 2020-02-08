@@ -7,4 +7,5 @@ public interface AdminLoginService {
 	MemberVO selectAdmin(String userid);
 	int adminLogout(String userid);
 	int adminPwdCg(MemberVO memberVo);
+	int adminPwdFind(MemberVO memberVo);
 }

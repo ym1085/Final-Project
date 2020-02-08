@@ -30,6 +30,7 @@ $(function() {
 		<option value="">파일 선택</option>
 		<option value="sido">시,도파일</option>
 		<option value="gugun">구,군파일</option>
+		<option value="faq">FAQ파일</option>
 	</select>
     <input type="file" id="fileInput" name="fileInput">
     <button type="submit">엑셀업로드 작업</button>

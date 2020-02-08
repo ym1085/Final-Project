@@ -42,6 +42,11 @@
 			}
 		});
 		
+		$("#findpwd").click(function() {
+			window.open("/delight/admin/adminPwdFind.do","pwdfind",
+			"width=500,height=500,left=0,top=0,location=yes,resizable=yes");
+		});
+		
 	});
 </script>
   <body>
@@ -77,7 +82,7 @@
                        > 
                       <label class="form-check-label text-muted" for="chkSave">아이디 저장 </label>
                     </div>
-                    <a href="#" class="auth-link text-black">비밀번호를 잊어버리셨나요?</a>
+                    <a href="#" class="auth-link text-black" id="findpwd">비밀번호를 잊어버리셨나요?</a>
                   </div>
                   
                   

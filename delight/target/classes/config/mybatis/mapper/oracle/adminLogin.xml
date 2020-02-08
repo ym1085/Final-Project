@@ -23,6 +23,14 @@
 		set password=#{password}
 		where grade_name='admin' and userid=#{userid}
 	</update>
+	
+	<select id="adminCount" resultType="int" parameterType="memberVo">
+		select count(*) from tbl_user
+		where grade_name='admin' and userid=#{userid} 
+		and username=#{username} and birth=#{birth} 
+		and email1=#{email1} and email2=#{email2}
+	</select>
+	
 </mapper>
 
 
