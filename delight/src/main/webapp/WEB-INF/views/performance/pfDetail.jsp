@@ -18,7 +18,7 @@
    #like img{z-index:-1;margin: 11px 0px 0px 8px;}
    #likecount{width: 64px; height:63px;z-index:1;float:left;margin-top:115px;box-shadow: 0px 1px 4px 0px grey;}
    #likecount>div{z-index:-1;text-align: center;line-height: 3.5em; font-weight: 600;}
-   div#calandar {width: 330px;height: 420px;position: absolute;top:162px;left:1123px; border:0.5px solid #f3eeee;padding: 33px 10px 10px 30px;background-color: #f7f7f7;} /* 수정필요 */ 
+   div#calandar {width: 350px;height: 420px;position: absolute;top:162px;left:1123px; border:0.5px solid #f3eeee;padding: 33px 10px 10px 30px;background-color: #f7f7f7;} /* 수정필요 */ 
    .body{height:100%; padding:30px;width:75%;margin:30px;border-top: 0.7px dotted gray;}
    .section {width:70%;height:100%;float:left; padding: 5px 5px 5px 5px;}
    .aside{width:25%;height:90%; border: 1px solid #efe7e7;float:left;margin-left:50px;padding: 5px 5px 5px 5px;}
@@ -332,13 +332,13 @@
 		         	<!-- 반복 끝 -->
 		         	</select>
 		         	
-		         	<select id="selectDate" size="8" style="width: 270px">
+		         	<select id="selectDate" size="8" style="width:295px;">
 		         		<option></option>
 		        	 </select> 
 			  	</c:if>
 			  	
 		         	<c:if test="${empty tclist}">
-		    	     <select id="selectDate" size="8" style="width: 270px">
+		    	     <select id="selectDate" size="8" style="width: 295px;">
 			         	<option value="dateN">예매가능한 공연 일자가  없습니다.</option>	
 		    	     </select> 
 		         	</c:if>

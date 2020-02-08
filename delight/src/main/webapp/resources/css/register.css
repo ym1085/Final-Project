@@ -93,7 +93,7 @@ h2 {
     margin: 0 0 20px 0;
     padding: 10px 0;
     color: #fff;
-    font-family: 'Yeseva One', cursive;
+    font-family: 맑은고딕;
 }
 
 label.w3ls-opt {
@@ -105,7 +105,7 @@ label.w3ls-opt {
 	margin-top: 15px;
     padding: 10px 0;
 	color: #fff; 
-	font-family: 'Yeseva One', cursive;
+	font-family: 맑은고딕;
 }
 label.w3ls-opt {
     width: 30%;
@@ -124,7 +124,7 @@ label.w3ls-opt1 {
     text-transform: lowercase;
     letter-spacing: 2px;
     color: #fff;	
-	font-family: 'Yeseva One', cursive;
+	font-family: 맑은고딕;
 }
 input[type="text"],input[type="password"] {
     font-size: 15px;
@@ -243,7 +243,7 @@ input[type="submit"] {
 	background: #aa3ad8;
     color: #fff;
 	cursor: pointer;   
-	font-family: 'Yeseva One', cursive;
+	font-family: 맑은고딕;
 }
 input[type="submit"]:hover{
 	background: #441856;
@@ -277,7 +277,7 @@ input.price {
 	cursor: pointer;
 	color: #fff;
 	background: #dca01abd;
-	font-family: 'Yeseva One', cursive;
+	font-family: 맑은고딕;
 }
 span.w3ls-text.w3ls-name select option {
     color: #000;
