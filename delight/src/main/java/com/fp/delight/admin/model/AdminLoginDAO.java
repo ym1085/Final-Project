@@ -7,4 +7,5 @@ public interface AdminLoginDAO {
 	MemberVO selectAdmin(String userid);
 	int adminLogout(String userid);
 	int adminPwdCg(MemberVO memberVo);
+	int adminCount(MemberVO memberVo);
 }

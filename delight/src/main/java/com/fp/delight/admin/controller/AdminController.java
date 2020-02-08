@@ -2,6 +2,7 @@ package com.fp.delight.admin.controller;
 
 import java.io.File;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fp.delight.admin.model.AdminLoginService;
 import com.fp.delight.admin.model.AdminMainService;
 import com.fp.delight.common.Utility;
+import com.fp.delight.email.DM;
+import com.fp.delight.email.EmailSender;
 import com.fp.delight.member.model.MemberService;
 import com.fp.delight.member.model.MemberVO;
 
@@ -30,6 +34,8 @@ public class AdminController {
 	
 	@Autowired
 	private AdminLoginService adminLoginService;
+	
+	@Autowired EmailSender emailSender;
 	
 	@Autowired
 	private AdminMainService adminMainService;
@@ -172,6 +178,43 @@ public class AdminController {
 		Utility.urltag.remove(userid);
 		
 		return "redirect:"+redirurl;
+		
+	}
+	
+	@RequestMapping("/adminPwdFind.do")
+	public void adminPwdFind() {
+		logger.info("비밀번호 찾기 화면 보이기");
+	}
+	
+	@RequestMapping("/adminfindpwd.do")
+	@ResponseBody
+	public int adminfindpwd(@ModelAttribute MemberVO memberVo,@RequestParam String email3) {
+		logger.info("관리자 비밀번호 찾기 파라미터 memberVo={},email3={}",memberVo,email3);
+		String email2=memberVo.getEmail2();
+		if(email2.equals("etc")) memberVo.setEmail2(email3);
+		
+		int cnt=adminLoginService.adminPwdFind(memberVo);
+		if(cnt==-1) {
+			return -1;
+		}else if(cnt==1) {
+			logger.info("아이디 있음");
+			MemberVO vo=adminLoginService.selectAdmin(memberVo.getUserid());
+			String pwd=vo.getPassword();
+			String subject="관리자님 안녕하세요. 임시비밀번호입니다.";
+			String content=DM.dmUserPwdInfo(pwd);
+			String receiver=vo.getEmail1()+"@"+vo.getEmail2();
+			String sender="admin@delight.com";
+			try {
+				emailSender.sendMail(subject, content, receiver, sender);
+				logger.info("이메일 발송 성공");
+			} catch (MessagingException e) {
+				logger.info("이메일 발송 실패!!");
+				e.printStackTrace();
+			}
+			return 1;
+		}else {
+			return 0;
+		}
 		
 	}
 }

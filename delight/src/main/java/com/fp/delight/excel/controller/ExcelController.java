@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.slf4j.Logger;
@@ -22,6 +23,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.delight.admin.userManagemet.model.MemberManagerService;
+import com.fp.delight.ann.model.FAQService;
+import com.fp.delight.ann.model.FAQVO;
 import com.fp.delight.excel.model.AreaGugunVO;
 import com.fp.delight.excel.model.AreaSidoVO;
 import com.fp.delight.excel.model.ExcelService;
@@ -38,6 +41,9 @@ public class ExcelController {
 	@Autowired
 	private MemberManagerService memberManagerService;
 	
+	@Autowired
+	private FAQService faqService;
+	
 	@RequestMapping("/exceluploadImport.do")
 	public String excelImport() {
 		logger.info("엑셀 임포트 화면 보여주기");
@@ -47,6 +53,7 @@ public class ExcelController {
 	@RequestMapping(value = "/uploadExcelFile.do", method = RequestMethod.POST)
 	public String excelUpandImport(@RequestParam String area,
 			HttpServletRequest request, HttpServletResponse response,
+			HttpSession session,
 			Model model) {
 		logger.info("엑셀 인서트 시작 파라미터 area={}",area);
 		MultipartHttpServletRequest req=
@@ -64,6 +71,13 @@ public class ExcelController {
 			for(int i=0;i<list.size();i++) {
 				AreaGugunVO vo=list.get(i);
 				cnt=excelService.insertGugun(vo);
+			}
+		}else if(area.equals("faq")) {
+			List<FAQVO> list=excelService.excelFAQ(file, request,session);
+			
+			for(int i=0;i<list.size();i++) {
+				FAQVO faqVo=list.get(i);
+				cnt=faqService.FAQwrite(faqVo);
 			}
 		}
 		String msg="인서트 실패", url="/admin/exceluploadImport.do";

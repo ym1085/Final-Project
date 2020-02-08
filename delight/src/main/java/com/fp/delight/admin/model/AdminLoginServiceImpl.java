@@ -3,6 +3,7 @@ package com.fp.delight.admin.model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fp.delight.email.RandomKey;
 import com.fp.delight.member.model.MemberService;
 import com.fp.delight.member.model.MemberVO;
 
@@ -41,6 +42,22 @@ public class AdminLoginServiceImpl implements AdminLoginService{
 	@Override
 	public int adminPwdCg(MemberVO memberVo) {
 		return adminLoginDao.adminPwdCg(memberVo);
+	}
+
+	@Override
+	public int adminPwdFind(MemberVO memberVo) {
+		int cnt=adminLoginDao.adminCount(memberVo);
+		if(cnt==0) {
+			return -1;
+		}else {
+			RandomKey key=new RandomKey();
+			String tempPwd=key.randomKey1();
+			memberVo.setPassword(tempPwd);
+			
+			return adminPwdCg(memberVo);
+		}
+		
+		
 	}
 
 	
