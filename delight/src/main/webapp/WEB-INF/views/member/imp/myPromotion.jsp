@@ -8,7 +8,9 @@
 		<div class="mysecDiv">
 			<h2 class="mytit">나의 홍보내역</h2>
 			
-			<a class="mytitSub" href="<c:url value='/member/PromotionReview.do' />">작성</a>
+			<c:if test="${empty vo }">
+				<a class="mytitSub" href="<c:url value='/member/PromotionReview.do' />">작성</a>
+			</c:if>
 			
 			<table class="mytable">
 				<colgroup>
@@ -30,34 +32,45 @@
 				</thead>
 				
 				<tbody id="mybody">
-				<c:if test="${empty list }">
+				<c:if test="${empty vo }">
 				<tr>
 					<td colspan="6" style="text-align: center;">작성된 홍보글이 없습니다.</td>
 				</tr>
 				</c:if>
-				<c:if test="${!empty list }">
-				<c:forEach var="vo" items="${list }">
+				<c:if test="${!empty vo }">
 				<!-- 반복 시작-->
 					<tr>
-						<td style="text-align: left">
-							<p>${vo.promoteTitle}</p>
-						</td>
-						<td style="text-align: left;" id="ddd">
-							<p>${vo.promoteContent}</p>
+						<!-- 마일리지 지급받지 않은 경우, N-->
+						<c:if test="${vo.mileagegive == 'N'}">
+							<td style="text-align: left">
+								<p><a href="<c:url value='/member/PromotionDetail.do?promoteSeq=${vo.promoteSeq }' />">${vo.promoteTitle}</a></p>
+							</td>
+							<td style="text-align: left;" id="ddd">
+								<p><a href="<c:url value='/member/PromotionDetail.do?promoteSeq=${vo.promoteSeq }' />">${vo.promoteContent}</a></p>
+							</td>
+						</c:if>
+						
+						<!-- 마일리지 지급 받은 경우, Y-->
+						<c:if test="${vo.mileagegive == 'Y'}">
+							<td style="text-align: left">
+								<p>${vo.promoteTitle}</p>
+							</td>
+							<td style="text-align: left;" id="ddd">
+								<p>${vo.promoteContent}</p>
+							</td>
+						</c:if>
+						
+						<td style="text-align: center">
+							<p>${vo.reviewRegdate}</p>							
 						</td>
 						<td style="text-align: center">
-							<p>${vo.reviewRegdate}</p>
-						</td>
-						<td fmt:formatDate value="${vo.reviewRegdate }" 
-							pattern="yyyy-MM-dd"
-							style="text-align: center">							
+							<p>${vo.mileagegive}</p>
 						</td>
 						<td style="text-align: center">
 							<p>${vo.userid}</p>
 						</td>
 					</tr>
 				<!-- 반복 끝-->
-				</c:forEach>
 				</c:if>
 				</tbody>
 			</table>		

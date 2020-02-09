@@ -170,6 +170,7 @@
     
     <br><br>
     <section>
+    
     	<%@include file="category/categoryList.jsp" %>
     </section>
     <br><br>
