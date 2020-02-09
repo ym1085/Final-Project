@@ -86,7 +86,7 @@
          
          <nav class="left-nav" style="margin-top: 100%;">
             <ul id="nav">
-               <li class="active"><a href="#">랭킹</a></li>
+               <li class="active"><a href="<c:url value='/performance/pfRanking.do'/>">랭킹</a></li>
                <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
                <li><a href="<c:url value='/performSearchResult/theaterSearch.do?type=AAAA'/>">연극</a></li>
                <li><a href="<c:url value='/performSearchResult/musicalSearch.do?type=AAAB'/>">뮤지컬</a></li>
@@ -282,7 +282,7 @@ function condition(){
 
 /* 더보기 ajax */
 function moreRead(){
-	/* 더보기 실행할 때, 검색중 알람 뜨게 하고 버튼은 없애벌인다*/
+	/* 더보기 실행할 때, 검색중 알람 뜨게 하고 버튼은 없앤다*/
 	alert("해당 조건 검색 중입니다. 잠시만 기다려 주세요.");	
 	$('#more_btn_div').hide(); 
 	
@@ -307,7 +307,7 @@ function moreRead(){
 				 if(res.length==0){ 
 					//더 불러올 API 없는 경우
 					 $('#moreRead').hide();
-					 alert("더 불러올 공연 없으니까 검색 ㄴㄴ");
+					 alert("더 불러올 공연이 없습니다.");
 					
 				 }else{ 
 					//불러올 API 있는 경우

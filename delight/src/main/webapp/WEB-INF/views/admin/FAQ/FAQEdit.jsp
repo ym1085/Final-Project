@@ -90,11 +90,26 @@ $(function() {
 							<label class="font-weight-bold">질문 유형</label>
 							<select id="type" name="faqType" class="form-control form-control-sm">
 								<option value="">선택</option>
-								<option value="가입">가입</option>
-								<option value="예매/결제">예매/결제</option>
-								<option value="마일리지">마일리지</option>
-								<option value="이벤트">이벤트</option>
-								<option value="기타">기타</option>
+								<option value="회원"
+								<c:if test="${vo.faqType=='회원' }">
+			            		selected="selected"
+			        			</c:if>
+								>회원</option>
+								<option value="예매/결제"
+								<c:if test="${vo.faqType=='예매/결제' }">
+			            		selected="selected"
+			        			</c:if>
+								>예매/결제</option>
+								<option value="취소/환불"
+								<c:if test="${vo.faqType=='취소/환불' }">
+			            		selected="selected"
+			        			</c:if>
+								>취소/환불</option>
+								<option value="기타"
+								<c:if test="${vo.faqType=='기타' }">
+			            		selected="selected"
+			        			</c:if>
+								>기타</option>
 							</select>
 						</div>
 						<div>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.admin.main">
+	
+	<select id="todayInquery" resultType="int">
+		select count(*) from TBL_INQUERY 
+		where to_date(reg_date)=to_date(sysdate)
+	</select>
+	
+	<select id="tomorInquery" resultType="int">
+		select count(*) from TBL_INQUERY 
+		where to_date(reg_date)=to_date(sysdate)-1
+	</select>
+	
+	<select id="todayRegister" resultType="int">
+		select count(*) from tbl_user
+		where to_date(join_date)=to_date(sysdate) and grade_name!='admin'
+	</select>
+	
+	<select id="tomorRegister" resultType="int">
+		select count(*) from tbl_user
+		where to_date(join_date)=to_date(sysdate)-1 and grade_name!='admin'
+	</select>
+	
+	<select id="tomorVisitor" resultType="int">
+		select visitor_count
+		from VISITORS
+		where to_date(visitor_today)=to_date(sysdate)-1
+	</select>
+	
+	<select id="todayVisitor" resultType="int">
+		select visitor_count
+		from VISITORS
+		where to_date(visitor_today)=to_date(sysdate)
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+

@@ -173,6 +173,7 @@
 	li.check_li {position: absolute;top: 23em;}
 	li.check_li2{position: absolute;top: 31.7em;}
 	span#checkError {margin-left: 247px;}
+	
 </style>
 
 <!--style_sheet-->

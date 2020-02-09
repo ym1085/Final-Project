@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <section class="mysec" style="float: left;">
 		<div class="mysecDiv">
 			<h2 class="mytit">좋아요</h2>
@@ -31,8 +32,10 @@
 					<tr class="likeTr">
 						<td class="likeTd">
 							<p class="mybodylikeP">
-							<a class="linkperDetail" href="<c:url value='/recentInsert.do?perfomid=${like.MT20ID}'/>">(${like.GENRE })${like.PRFNM }</a>
-							<input type="hidden" value="${like.MT20ID }" class="likeperfomId">
+								<a class="linkperDetail" href="<c:url value='/recentInsert.do?perfomid=${like.MT20ID}'/>">
+									(${like.GENRE})${like.PRFNM}
+									<input type="hidden" value="${like.MT20ID}" class="likeperfomId">
+								</a>
 							</p>
 							<p class="mybodylikeimg" style="color: red;"><img class="likeListimg" alt="좋아요이미지" src="<c:url value='/resources/images/like2.png' />">
 							 <span>${like.LA }</span></p>

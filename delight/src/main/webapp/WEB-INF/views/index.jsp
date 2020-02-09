@@ -54,7 +54,7 @@
                 <div class="ro.w align-items-center ">
                     <div class="col-lg-12">
                         <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                            <a class="navbar-brand" href="index.html"> <span class="q1">Delight</span> </a>
+                            <a class="navbar-brand" href="<c:url value='/index.do'/>"> <span class="q1">Delight</span> </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,7 @@
                                 id="navbarSupportedContent" style="float: right">
                                 <ul class="navbar-nav" style="margin-left: 73%;">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">랭킹</a>
+                                        <a class="nav-link" href="<c:url value='/performance/pfRanking.do'/>">랭킹</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">고객센터</a>

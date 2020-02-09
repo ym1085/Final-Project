@@ -18,7 +18,7 @@
    #like img{z-index:-1;margin: 11px 0px 0px 8px;}
    #likecount{width: 64px; height:63px;z-index:1;float:left;margin-top:115px;box-shadow: 0px 1px 4px 0px grey;}
    #likecount>div{z-index:-1;text-align: center;line-height: 3.5em; font-weight: 600;}
-   div#calandar {width: 307px;height: 393px;position: absolute;top:162px;left:1150px; border:0.5px solid #f3eeee;padding: 33px 10px 10px 30px;background-color: #f7f7f7;} /* 수정필요 */ 
+   div#calandar {width: 350px;height: 420px;position: absolute;top:162px;left:1123px; border:0.5px solid #f3eeee;padding: 33px 10px 10px 30px;background-color: #f7f7f7;} /* 수정필요 */ 
    .body{height:100%; padding:30px;width:75%;margin:30px;border-top: 0.7px dotted gray;}
    .section {width:70%;height:100%;float:left; padding: 5px 5px 5px 5px;}
    .aside{width:25%;height:90%; border: 1px solid #efe7e7;float:left;margin-left:50px;padding: 5px 5px 5px 5px;}
@@ -42,17 +42,17 @@
     span#explainParkImpl {font-size: 12px;font-family:-webkit-pictograph;line-height: 0px;}
     h4.parkInfo {margin-bottom: 10px;}
     #calandarSub h6{font-size: 12px; font-family:-webkit-body;}
-    #dateWhile{font-size: 11px; font-family:-webkit-body; font-weight: 400;}
-    select#selectDate {border: none;margin-top: 7px;font-weight: 400;}
-    input#ticketing {margin-left: 25px;width: 200px;height: 45px;border: none;background: red;border-radius: 5px;color: white;font-size: 1.1em;font-weight: bold;margin-top: 35px;  box-shadow: 6px 6px 8px 1px #a05260;}
-    #selectDate > option{font-size: 10px;}
+    #dateWhile{font-size: 17px; font-family:맑은고딕; font-weight: 400;margin-bottom: 8px;}
+    select#selectDate {border: none;margin-top: 10px;outline-style: none;border-radius: 7px;}
+    input#ticketing {margin-left: 35px;width: 200px;height: 45px;border: none;background: red;border-radius: 5px;color: white;font-size: 1.1em;font-weight: bold;margin-top: 25px;  box-shadow: 6px 6px 8px 1px #a05260;}
+    #selectDate > option{font-size: 17px;font-family: 맑은고딕;font-weight: 600;padding-left: 5px;}
     .cancellationTable > th,td{height: 50px;}
     .cancellationTable tr th {background-color:#fbfbfb;padding-left: 10px; font-weight: 400;font-family: serif;}
     .cancellationTable tr td{padding-left: 13px;font-family: serif;}
     .cancellationTable{border-collapse: collapse;border-color: lightgray;}
     .booking{margin-bottom: 8px;}
     div#cancellationExplain {margin-top: 23px;}
-    button.banner {width: 231px;height: 56px;border: none;background: #93f26c;color: white;font-size: 1.4em;font-weight: bold;margin-top: 45px;box-shadow: 3px 1px 6px 2px #7df183}
+    button.banner {width: 231px;height: 56px;border: none;background: #93f26c;color: white;font-size: 1.4em;font-weight: bold;box-shadow: 3px 1px 6px 2px #7df183}
     #mainposter{width: 100%; height: 100%;}
     .performDetailtable > tbody > tr th{background-color:#fbfbfb;padding-left: 10px; font-weight: 400;font-family: serif;margin-bottom:80px;}
  	.performDetailtable > tbody > tr td{padding-left: 13px;font-family: serif;}
@@ -69,7 +69,9 @@
     span#parentSpan4 {margin-left: 10px;}
     table.performDetailtable {margin-bottom: 70px;}
     button#likeBt {background: white;border: none;outline: none;}
-    select#selectDate2 {width: 250px;border: 0.5px solid #ece8e8;}
+    select#selectDate2 {width: 265px;height: 35px;border: 0.5px solid #ece8e8;outline-style: none;border-radius: 5px;}
+    h5#finalTest {margin-bottom: 5px;font-family: 맑은고딕;}
+    
     
    /*다 없애고 수정해야 될 가능성이 있음(밤샘각)*/
    ul{list-style:none;}
@@ -85,11 +87,12 @@
  
    .tabmenu input:checked ~ label{background:white;border: 0.2px solid #efe7e7; border-bottom: none;font-weight: bold;} 
    .tabmenu input:checked ~ .tabCon{display:block;}
+   
    .box-more{background-color: #fafafa;padding: 25px 20px 25px 130px;}
-   .tabmenu ul li { line-height: 30px;}
-   select#selectDate2 {width: 250px;}
+   .tabmenu ul li {line-height: 30px;}
+   
    /* 삭제하지마세요 - 사이드 배너 */
-   #floatMenu {position: absolute;width: 230px;height: 700px;left: 1487px;top:120px;}
+   #floatMenu {position: absolute;width: 230px;height:780px;left: 1550px;top:120px;border: 0.2px solid #efe7e7;}
 }
 </style>
 
@@ -141,10 +144,10 @@
 		});
 		
 		$('button.banner').hover(function() {
-			$(this).html("You can join us!");
+			$(this).html("메인으로");
 			$(this).css('box-shadow', '5px 5px 7px 1px #7df183')
 		},function(){
-			$(this).html("Click Here!");
+			$(this).html("최근 본 공연");
 		});
 	
 		$('#firtstspan3').hover(function() {
@@ -206,25 +209,30 @@
       <!-- left side -->
       <aside class="left-sidebar" style="width: 13%;">
          <div class="logo" style="margin-bottom: 63%;">
-            <a href="<c:url value='/index.do'/>"
-				style="color: white; font-size: 2.5em; font-family: 'Limelight', cursive;">
-				Delight</a>
+            <a href="<c:url value='/index.do'/>" style="color: white; 
+               font-size: 2.5em; font-family: 'Limelight', cursive;">
+               Delight 
+            </a>
          </div>
          
          <nav class="left-nav" style="margin-top: 100%;">
             <ul id="nav">
-               <li class="active"><a href="#contact-form">Contact Form</a></li>
-               <li><a href="#subscription-form">Subscription Form</a></li>
-               <li><a href="#video">Video Tutorial</a></li>
-               <li><a href="#credit">Source and Credit</a></li>
-               <li>
-               <div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li class="active"><a href="#">랭킹</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value='/performSearchResult/theaterSearch.do?type=AAAA'/>">연극</a></li>
+               <li><a href="<c:url value='/performSearchResult/musicalSearch.do?type=AAAB'/>">뮤지컬</a></li>
+               <li><a href="<c:url value='/performSearchResult/areaSearch.do'/>">지역별</a></li>
+               <li><a href="<c:url value='/performSearchResult/periodSearch.do'/>">기간별</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value="/mainSearchResult/doReservation.do"/>">예매하기</a></li>
             </ul>
          </nav>
       </aside>
+      
       <!-- left side -->
       <!-- 풀테스트 -->
    </div>
+	<!-- div안에서작업 그외엔 건들지말것 -->
    
    <!-- 페이지 만들떄마다 복붙 -->
    <!-- div안에서작업 그외엔 건들지말것 -->
@@ -293,8 +301,8 @@
 	         
 	         <div id = "calandar">
 		         <div id="calandarSub">
-		      		<h6>예매가능 공연 일자</h6>   
-		         	<span id="dateWhile">${map2['prfpdfrom'] }~${map2['prfpdto'] }</span>
+		      		<h5 id="finalTest">예매가능 공연 일자</h5>   
+		         	<p id="dateWhile">${map2['prfpdfrom'] }~${map2['prfpdto'] }</p>
 		         </div>
 		         <!-- commit용 -->
 		         <!-- 예매 버튼 클릭 시 -> pfReservationController로 이동 후 결제 진행   -->
@@ -324,13 +332,13 @@
 		         	<!-- 반복 끝 -->
 		         	</select>
 		         	
-		         	<select id="selectDate" size="12" style="width: 250px">
+		         	<select id="selectDate" size="8" style="width:295px;">
 		         		<option></option>
 		        	 </select> 
 			  	</c:if>
 			  	
-		         	<c:if test="${empty tclist }">
-		    	     <select id="selectDate" size="12" style="width: 250px">
+		         	<c:if test="${empty tclist}">
+		    	     <select id="selectDate" size="8" style="width: 295px;">
 			         	<option value="dateN">예매가능한 공연 일자가  없습니다.</option>	
 		    	     </select> 
 		         	</c:if>
@@ -351,11 +359,11 @@
             <ul>
                <!-- 장소(Map_API) 지도는 건들지 말아주세요 -->
                <li id="tab4" class="btnCon">
-               <input type="radio" checked name="tabmenu" id="tabmenu4"> 
+               <input type="radio" checked="checked" name="tabmenu" id="tabmenu4"> 
                <label for="tabmenu4" style="margin-bottom: 0;" class = "lab">장소</label>
                   <div class="tabCon" id="tabConFirth">
                     <!-- MAP_API -->
-                  <div id="map" style="width: 100%; height: 400px;"></div>
+                  <div id="map" style="width: 800px; height: 400px;"></div>
                   <input type="text" value="${map2_location['la']}" id="x">
 				  <input type="text" value="${map2_location['lo']}" id="y">	
                   
@@ -389,7 +397,7 @@
                      marker.setMap(map);
                      
                      //API 작업 후 - 위도/경도 변경 해줄겁니다.
-                     var iwContent = '<div style="padding:5px;font-weight:bold;width:170px;">${map2_location['fcltynm']}<br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>',
+                     var iwContent = '<div style="padding:5px;font-weight:bold;width:170px;">${map2_location['fcltynm']}<br><a href="https://map.kakao.com/link/map/${map2_location['fcltynm']},'+x+','+y+'" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>',
                      // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                      iwPosition = new kakao.maps.LatLng(x,y); //인포윈도우 표시 위치입니다.
 
@@ -532,7 +540,7 @@
                               </tr>
                            </tbody>
                         </table>
-                     </div>
+                     </div><!--  -->
                   </div>
                </li>
                
@@ -753,10 +761,12 @@
          </div>
 
 		 <div id="floatMenu">
-		 	<a href="<c:url value='/index.do'/>">
-		 		<button class="banner">Click Here!</button>
-		 			<img alt="배너" src="<c:url value='/resources/images/banner1.jpg'/>">
-		 	</a>
+	 		<a href="<c:url value='/index.do'/>">
+	 			<button class="banner">최근 본 공연</button>
+ 			</a>
+ 			<c:forEach var="posterImg" items="${poster}">
+				<img style="width: 150px;height: 150px;margin-left: 40px;margin-top: 20px;" src="${posterImg}">
+ 			</c:forEach>
 		 </div>
 
 </div>

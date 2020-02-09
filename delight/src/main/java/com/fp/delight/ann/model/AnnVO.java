@@ -9,6 +9,7 @@ public class AnnVO extends SearchVO{
 	private String annType;
 	private String annTitle;
 	private String annContent;
+	private String annImg;
 	private String annTop;
 	private String annShow;
 	private Timestamp annRegdate;
@@ -61,12 +62,21 @@ public class AnnVO extends SearchVO{
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+	
+	
+	public String getAnnImg() {
+		return annImg;
+	}
+	public void setAnnImg(String annImg) {
+		this.annImg = annImg;
+	}
 	@Override
 	public String toString() {
 		return "AnnVO [annSeq=" + annSeq + ", annType=" + annType + ", annTitle=" + annTitle + ", annContent="
-				+ annContent + ", annTop=" + annTop + ", annShow=" + annShow + ", annRegdate=" + annRegdate
-				+ ", userid=" + userid + ", toString()=" + super.toString() + "]";
+				+ annContent + ", annImg=" + annImg + ", annTop=" + annTop + ", annShow=" + annShow + ", annRegdate="
+				+ annRegdate + ", userid=" + userid + ", toString()=" + super.toString() + "]";
 	}
+	
 	
 	
 	

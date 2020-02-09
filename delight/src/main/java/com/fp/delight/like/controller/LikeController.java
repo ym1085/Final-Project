@@ -71,7 +71,6 @@ public class LikeController {
 		return map;
 	}
 	
-	
 	@RequestMapping("/member/imp/mylike.do")
 	public void mylike(HttpSession session,Model model) {
 		
@@ -117,5 +116,4 @@ public class LikeController {
 		
 		return cnt;
 	}
-	
 }

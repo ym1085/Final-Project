@@ -1,8 +1,12 @@
 package com.fp.delight.admin.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +34,11 @@ public class AnnController {
 	private AnnService annService;
 	
 	@RequestMapping(value = "/annWrite.do",method = RequestMethod.GET)
-	public void annWrite_get() {
+	public void annWrite_get(HttpSession session) {
+		String userid=(String) session.getAttribute("adminUserid");
+		logger.info("userid={}",userid);
+		Utility.urltag.remove(userid);
+		logger.info("urltag={}",Utility.urltag.toString());
 		logger.info("공지 작성 화면 보이기");
 	}
 	
@@ -40,12 +48,17 @@ public class AnnController {
 	}
 	
 	@RequestMapping(value = "/annWrite.do",method = RequestMethod.POST)
-	public String annWrite_post(@ModelAttribute AnnVO annVo,Model model) {
-		annVo.setUserid("admin");
+	public String annWrite_post(@ModelAttribute AnnVO annVo,
+			HttpSession session,Model model) {
+		String userid=(String) session.getAttribute("adminUserid");
+		annVo.setUserid(userid);
 		logger.info("공지글 등록 시작 파라미터 annVo={}",annVo);
-		int cnt=annService.annInsert(annVo);
-		
+		String urlt=Utility.urltag.get(userid);
+		logger.info("urlt={}",urlt);
+		annVo.setAnnImg(urlt);
+		logger.info("imgurl 세팅후 annVo={}",annVo);
 		String msg="", url="/admin/announcement/annWrite.do";
+		int cnt=annService.annInsert(annVo);
 		if(cnt>0) {
 			msg="공지글 등록완료";
 		}else {
@@ -178,10 +191,27 @@ public class AnnController {
 	
 	@RequestMapping("/multiDel.do")
 	public String multiDel(@ModelAttribute AnnListVO annListVo,
-			@RequestParam int type,Model model) {
+			@RequestParam int type,HttpServletRequest req,Model model) {
 		logger.info("파라미터 annListVo={}",annListVo);
 		
 		List<AnnVO> list=annListVo.getAnnList();
+		//파일 삭제
+		for(int i=0;i<list.size();i++) {
+			AnnVO vo=list.get(i);
+			int seq=vo.getAnnSeq();
+			if(seq>0) {
+				AnnVO annVo=annService.selAnnBySeq(seq);
+				if(annVo.getAnnImg()!=null && annVo.getAnnImg()!="") {
+					String path=annVo.getAnnImg();
+					path=req.getContextPath()+path;
+					File f=new File(path);
+					if(f.exists()) {
+						boolean bool=f.delete();
+						logger.info("파일 삭제 결과 bool={}",bool);
+					}
+				}
+			}
+		}
 		
 		int cnt=annService.annMultiDel(list);
 		String msg="삭제 중 오류 발생", url="/admin/announcement/annInc.do";
@@ -282,9 +312,18 @@ public class AnnController {
 	
 	@RequestMapping("/annDel.do")
 	@ResponseBody
-	public int annDel(@RequestParam int annSeq) {
+	public int annDel(@RequestParam int annSeq, HttpServletRequest req) {
 		logger.info("공지글 삭제 파라미터 annSeq={}",annSeq);
-		
+		AnnVO annVo=annService.selAnnBySeq(annSeq);
+		if(annVo.getAnnImg()!=null && !annVo.getAnnImg().isEmpty()) {
+			String path=annVo.getAnnImg();
+			logger.info("path={}",path);
+			File f=new File(path);
+			if(f.exists()) {
+				boolean bool=f.delete();
+				logger.info("파일 삭제 결과 bool={}",bool);
+			}
+		}
 		int res=annService.annDel(annSeq);
 		
 		return res;

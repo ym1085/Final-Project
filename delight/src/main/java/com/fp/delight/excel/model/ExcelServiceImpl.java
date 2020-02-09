@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -37,6 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fp.delight.ann.model.FAQVO;
 import com.fp.delight.member.model.MemberVO;
 
 @Service
@@ -460,6 +462,76 @@ public class ExcelServiceImpl implements ExcelService{
         }
         
         return workbook;
+	}
+
+	@Override
+	public List<FAQVO> excelFAQ(MultipartFile file, HttpServletRequest request,HttpSession session) {
+		List<FAQVO> list=new ArrayList<FAQVO>();
+		String originFileName=file.getOriginalFilename();
+		String fileName=getUniqueFileName(originFileName);
+		String upPath=getFilePath(request);
+		String userid=(String) session.getAttribute("adminUserid");
+		try {
+			File f=new File(upPath, fileName);
+			file.transferTo(f);
+			
+			String ext=getExt(originFileName);
+			System.out.println("확장자명 = "+ext);
+			if(ext.equals(".xlsx")) {
+				XSSFWorkbook wb=new XSSFWorkbook(f);
+				XSSFSheet sheet=wb.getSheetAt(0);
+				for(int i=0;i<sheet.getLastRowNum()+1;i++) {
+					FAQVO vo=new FAQVO();
+					XSSFRow row=sheet.getRow(i);
+					if(row==null) {
+						continue;
+					}
+					
+					XSSFCell cell=row.getCell(0);
+					if(cell!=null)vo.setFaqTitle(cell.getStringCellValue());
+					cell=row.getCell(1);
+					if(cell!=null)vo.setFaqContent(cell.getStringCellValue());
+					cell=row.getCell(2);
+					if(cell!=null)vo.setFaqType(cell.getStringCellValue());
+					vo.setUserid(userid);
+					list.add(vo);
+				}
+			}else {
+				HSSFWorkbook wb=new HSSFWorkbook(new FileInputStream(f));
+				HSSFSheet sheet=wb.getSheetAt(0);
+				for(int i=0;i<sheet.getLastRowNum()+1;i++) {
+					FAQVO vo=new FAQVO();
+					HSSFRow row=sheet.getRow(i);
+					if(row==null) {
+						continue;
+					}
+					HSSFCell cell=row.getCell(0);
+					if(cell!=null)vo.setFaqTitle(cell.getStringCellValue());
+					cell=row.getCell(1);
+					if(cell!=null)vo.setFaqContent(cell.getStringCellValue());
+					cell=row.getCell(2);
+					if(cell!=null)vo.setFaqType(cell.getStringCellValue());
+					vo.setUserid(userid);
+					list.add(vo);
+				}
+			}
+			
+			
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidFormatException e) {
+			e.printStackTrace();
+		}finally {
+			File f=new File(upPath, fileName);
+			if(f.exists() && f.canRead()) {
+				f.delete();
+			}
+		}
+		
+		return list;
+		
 	}
 	
 }

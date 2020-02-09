@@ -161,14 +161,14 @@ $(function() {
     
 <div id="parent">
 	<!-- 일반 공지글 설정 -->
-	<div class="content-wrapper" id="normal">
+	<div class="content-wrapper" id="normal" style="background: #fbfbfb;">
 	<div>
 		<form name="frmSearch" method="post" 
    		action='<c:url value="/admin/announcement/annInc.do"/>'>
 		<div class="display-4">일반 공지글 설정</div>
 		
-		<div>
-		<table class="table table-bordered table-dark text-center">
+		<div class="card">
+		<table class="table table-bordered text-center">
 		<colgroup>
 			<col style="width: 5%;">
 			<col style="width: 60%;">
@@ -420,7 +420,7 @@ table a:hover{
 	outline: none;
 }
 #normal table a{
-	color: white;
+	color: black;
 }
 #event table a{
 	color: black;

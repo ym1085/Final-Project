@@ -23,26 +23,21 @@
 			<span>질문 유형</span>
 			<select name="searchKeyword" id="type" class="form-control-sm">
 				<option value="">전체</option>
-				<option value="가입"
-					<c:if test="${param.searchKeyword=='가입' }">
+				<option value="회원"
+					<c:if test="${param.searchKeyword=='회원' }">
 			            		selected="selected"
 			        </c:if>
-				>가입</option>
+				>회원</option>
 				<option value="예매/결제"
 					<c:if test="${param.searchKeyword=='예매/결제' }">
 			            		selected="selected"
 			        </c:if>
 				>예매/결제</option>
-				<option value="마일리지"
-					<c:if test="${param.searchKeyword=='마일리지' }">
+				<option value="취소/환불"
+					<c:if test="${param.searchKeyword=='취소/환불' }">
 			            		selected="selected"
 			        </c:if>
-				>마일리지</option>
-				<option value="이벤트"
-					<c:if test="${param.searchKeyword=='이벤트' }">
-			            		selected="selected"
-			        </c:if>
-				>이벤트</option>
+				>취소/환불</option>
 				<option value="기타"
 					<c:if test="${param.searchKeyword=='기타' }">
 			            		selected="selected"

@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fp.delight.common.Utility;
 import com.google.gson.JsonObject;
 
 @Controller
@@ -28,7 +30,7 @@ public class CkController {
 	private static final Logger logger=LoggerFactory.getLogger(CkController.class);
 	
 	@RequestMapping(value="/adm/fileupload.do", method=RequestMethod.POST)
-	public String fileUpload(HttpServletRequest req, HttpServletResponse resp, 
+	public String fileUpload(HttpServletRequest req, HttpServletResponse resp, HttpSession session,
                  MultipartHttpServletRequest multiFile) throws IOException {
 		logger.info("시작");
 		
@@ -84,8 +86,13 @@ public class CkController {
                         json.addProperty("uploaded", 1);
                         json.addProperty("fileName", fileName);
                         json.addProperty("url", fileUrl);
+                        
+                        String userid=(String) session.getAttribute("adminUserid");
+                        Utility.urltag.put(userid, upPath1);
+                        System.out.println("fileUrl="+upPath1);
                         System.out.println(json);
                         printWriter.println(json);
+                        
                     }catch(IOException e){
                         e.printStackTrace();
                     }finally{

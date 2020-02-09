@@ -53,6 +53,18 @@
 		where iporid=#{iporid} and mt20id=#{mt20id}
 	</select>
 	
+	<select id="selectRecentPerformance" parameterType="string" resultType="recentVo">
+		select * 
+		from
+		(
+		    select * from tbl_recent
+		    order by recent_seq desc
+		)A
+		<![CDATA[
+		where rownum <=4
+		]]>	
+		and iporid=#{iporid}
+	</select>
 </mapper>
 
 

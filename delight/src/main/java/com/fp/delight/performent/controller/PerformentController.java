@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.fp.delight.admin.salesManagement.Model.TicketDiscountVO;
 import com.fp.delight.admin.salesManagement.Model.TicketSettingService;
+import com.fp.delight.common.IPUtility;
 import com.fp.delight.like.model.LikeService;
 import com.fp.delight.like.model.LikeVO;
 import com.fp.delight.member.model.MemberService;
 import com.fp.delight.member.model.MemberVO;
 import com.fp.delight.performent.model.PerformentDetailVO;
 import com.fp.delight.performent.model.PerformentListVO;
+import com.fp.delight.recent.model.RecentService;
+import com.fp.delight.recent.model.RecentVO;
 import com.fp.delight.ticket.model.TicketService;
 import com.fp.delight.ticket.model.TicketVO;
 
@@ -43,6 +46,9 @@ public class PerformentController {
 	@Autowired
 	private TicketSettingService ticketSettingService;
 	
+	@Autowired
+	private RecentService recentService;
+	
 	@RequestMapping("/pfDetail.do")
 	public String performentList_post(@RequestParam String perfomid,HttpSession session,
 			Model model) {
@@ -62,6 +68,42 @@ public class PerformentController {
 				heart="like2.png";
 			}
 		}
+		
+		String iporid="";
+		if(userid!=null && !userid.isEmpty()) {
+			iporid=userid;
+		
+		}else {
+			IPUtility ip = new IPUtility();
+			iporid=ip.Url();
+			logger.info("iporid={}", iporid);
+		}
+		
+		List<RecentVO> recentList = recentService.selectRecentPerformance(iporid);
+		logger.info("최근 본 공연, 조건 -> USERID / 비회원 -> IP주소, recentList={} ", recentList);
+		logger.info("최근 본 공연, 조건 -> USERID / 비회원 -> IP주소, recentList.size={} ", recentList.size());
+		
+		String [] mt20id = new String[recentList.size()];
+		for(int i=0;i<recentList.size();i++) {
+			RecentVO recentVo = recentList.get(i);
+			mt20id[i]=recentVo.getMt20id();
+		}
+		model.addAttribute("mt20id", mt20id);
+		
+		PerformentAPI perfomAPI = new PerformentAPI();
+		
+		String [] poster = new String[recentList.size()];
+		String [] mt20id2 = new String[recentList.size()];
+		for(int i=0;i<recentList.size();i++) {
+			Map<String, Object> map = perfomAPI.performDetail(mt20id[i]);
+			poster[i]=(String) map.get("poster");
+			mt20id2[i]=(String) map.get("mt20id");
+			logger.info("poster=>{} ", poster[i]);
+			logger.info("mt20id2=>{} ",mt20id2);
+		}
+		
+		model.addAttribute("poster", poster);
+		model.addAttribute("mt20id2",mt20id2);
 		
 		int likeCount=likeService.selectLikeAll(perfomid);
 		if(likeCount==0) {

@@ -15,7 +15,7 @@
    #reservaitonNumber{margin-left: 10px;border: 0px;background-color: red; box-shadow: 1px 1px 2px red; color: white; font-weight: 500;}
    #reservationNumExplain{font-size: 14px; color: red; font-weight: bold;}
    #reservationExplain{font-weight: bold;color: red;font-size: 14px}
-   #home{width:70px; height:45px; border: 0px;background-color: red; box-shadow: 1px 1px 2px red; color: white; font-weight: 500;margin-right: 7px;}
+   #home {width: 100px;height: 50px;border: 0px;background-color: #0003ff;box-shadow: 1px 1px 2px #0d00ff;color: white;font-weight: 500;margin-right: 7px;}
    #chkReservation{width:80px; height:45px;border: 0px;background-color: blue; box-shadow: 1px 1px 2px blue; color: white; font-weight: 500;}
    .forButton {text-align: center;margin-top: 65px;}
    #spectators{border: 0;color: #9a9898;width: 250px;}
@@ -94,28 +94,30 @@
       <!-- left side -->
       <aside class="left-sidebar" style="width: 13%;">
          <div class="logo" style="margin-bottom: 63%;">
-            <a href="#welcome"
-               style="color: white; font-size: 2.5em; font-family: 'Limelight', cursive;">
-               Delight </a>
+            <a href="<c:url value='/index.do'/>" style="color: white; 
+               font-size: 2.5em; font-family: 'Limelight', cursive;">
+               Delight 
+            </a>
          </div>
-   
+         
          <nav class="left-nav" style="margin-top: 100%;">
             <ul id="nav">
-               <li class="active"><a href="#contact-form">Contact Form</a></li>
-               <li><a href="#subscription-form">Subscription Form</a></li>
-               <li><a href="#video">Video Tutorial</a></li>
-               <li><a href="#credit">Source and Credit</a></li>
-               <li>
-               <div
-               style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li class="active"><a href="<c:url value='/performance/pfRanking.do'/>">랭킹</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value='/performSearchResult/theaterSearch.do?type=AAAA'/>">연극</a></li>
+               <li><a href="<c:url value='/performSearchResult/musicalSearch.do?type=AAAB'/>">뮤지컬</a></li>
+               <li><a href="<c:url value='/performSearchResult/areaSearch.do'/>">지역별</a></li>
+               <li><a href="<c:url value='/performSearchResult/periodSearch.do'/>">기간별</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value="/mainSearchResult/doReservation.do"/>">예매하기</a></li>
             </ul>
          </nav>
       </aside>
+      
       <!-- left side -->
+      <!-- 풀테스트 -->
    </div>
-   <!-- 페이지 만들떄마다 복붙 -->
-   
-   <!-- div안에서작업 그외엔 건들지말것 -->
+	<!-- div안에서작업 그외엔 건들지말것 -->
       
    <div style="width: 87%; float: right; height: 100%;">
       <div class="paymentDivParent">결 제 완 료</div>
@@ -211,10 +213,6 @@
          <div class="forButton">
             <a href="<c:url value='/index.do'/>">
                <input type="button" name="home" id="home" value="Home">
-            </a>
-         
-            <a href="<c:url value='#'/>">
-               <input type="button" name="chkReservation" id="chkReservation" value="예약 확인">
             </a>
          </div>
          

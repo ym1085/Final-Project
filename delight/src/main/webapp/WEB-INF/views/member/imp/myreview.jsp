@@ -77,24 +77,26 @@
 
 <section class="mysec">
 		<div class="mysecDiv">
-			<h2 class="mytit">후기</h2>
+			<h2 class="mytit" style="margin-right: 100px;">후기</h2>
 			
-			<a class="mytitSubre" href="<c:url value='/member/myreviewList.do' />">전체</a>
+			<a class="mytitSub" href="<c:url value='/member/myreviewList.do' />">전체</a>
 			
 			<table class="mytable">
 				<colgroup>
 					<col style="width:350px">
-					<col style="width:776px">
-					<col style="width:150px">
+					<col style="width:344px">
+					<col style="width:275px">
+					<col style="width:275px">
 					<col style="width:140px">
 				</colgroup>
 			
 				<thead>
 					<tr>
-						<th id="heading" scope="col">예매정보</th>
+						<th id="heading" scope="col">제목</th>
 						<th id="heading" scope="col">내용</th>
-						<th id="heading" scope="col">예매번호</th>
-						<th id="heading" scope="col">후기종류</th>
+						<th id="heading" scope="col">등록날짜</th>
+						<th id="heading" scope="col">마일리지 지급</th>
+						<th id="heading" scope="col">작성자</th>
 					</tr>
 				</thead>
 				
