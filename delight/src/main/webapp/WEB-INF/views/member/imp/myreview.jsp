@@ -20,9 +20,7 @@
 	    					$("#reviewgenrenm").html(res.genrenm);
 	    					$("#reviewTtile").html(res.prfnm);
 	    					$("#performterm").html(res.prfpdfrom+"~"+res.prfpdto);
-	    					if(res.RVIEW_CONTENT.length>10){
-	    						
-	    					}
+	    					
 	    					$(".detailreview1").html(res.REVIEW_CONTENT);
 	    					$(".detailreview2>#reviewregdate").html(res.REVIEW_REGDATE);
 							
