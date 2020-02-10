@@ -1,5 +1,7 @@
 package com.fp.delight.promotion.model;
 
+
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,6 +20,22 @@ public class PromotionDAOMybatis implements PromotionDAO{
 	
 	@Override
 	public int insertPromotion(PromotionVO promotionVo) {
-		return sqlSession.insert(namespace+"insertPromotion",promotionVo);
+		return sqlSession.insert(namespace+"insertPromotion", promotionVo);
+	}
+	
+	@Override
+	public PromotionVO selectByPromoteSeq(int promoteSeq) {
+		return sqlSession.selectOne(namespace+"selectByPromoteSeq", promoteSeq);
+		
+	}
+	
+	@Override
+	public int updatePromotion(PromotionVO promotionVo) {
+		return sqlSession.update(namespace+"updatePromotion", promotionVo);
+	}
+	
+	@Override
+	public int deletePromotion(int promoteSeq) {
+		return sqlSession.delete(namespace+"deletePromotion", promoteSeq);
 	}
 }

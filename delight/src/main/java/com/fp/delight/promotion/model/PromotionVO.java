@@ -10,7 +10,7 @@ public class PromotionVO extends SearchVO{
 	private String promoteContent;	//홍보내용
 	private String promoteP1;	//홍보사진1장
 	private Timestamp reviewRegdate;	//등록날짜
-	private String mileagegive;	//마일리지 지급여부
+	private String mileagegive;
 	private String userid;	//아이디
 	
 	public int getPromoteSeq() {
@@ -55,13 +55,12 @@ public class PromotionVO extends SearchVO{
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+	
 	@Override
 	public String toString() {
 		return "PromotionVO [promoteSeq=" + promoteSeq + ", promoteTitle=" + promoteTitle + ", promoteContent="
 				+ promoteContent + ", promoteP1=" + promoteP1 + ", reviewRegdate=" + reviewRegdate + ", mileagegive="
-				+ mileagegive + ", userid=" + userid + ", toString()=" + super.toString() + "]";
+				+ mileagegive + ", userid=" + userid + "]";
 	}
-	
-	
 	
 }

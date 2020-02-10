@@ -73,7 +73,11 @@ $(function(){
 <div style="width: 87%; float: right;">
 
 	<section class="mysec">
-	<form action="<c:url value='/member/PromotionReview.do' />" method="post" name="reviewfrm" enctype="multipart/form-data">
+	<form action="<c:url value='/member/PromotionEdit.do' />" method="post" name="reviewfrm" enctype="multipart/form-data">
+		
+		<!-- 수정처리시 promoteSeq가 필요하므로 hidden 필드에 넣는다-->
+    	<input type="hidden" name="promoteSeq" value="${vo.promoteSeq}">
+    	
 		<div class="mysecDiv">
 			<div class="writeReview">
 				<h2 class="mytit">관람했던 공연 홍보하기</h2>
@@ -89,22 +93,22 @@ $(function(){
 			
 			<div class="writeReview5">
 				<p class="filesear">- 홍보하실 공연의 제목을 입력해주세요.</p>
-				<input type="text" maxlength="30" id="inqueryTitle" name="promoteTitle"/>
+				<input type="text" maxlength="30" id="inqueryTitle" name="promoteTitle" value="${vo.promoteTitle}" />
 			</div>
 			<p class="contenttitle">
-				<input type="file" name="promotionPho1" id="file1" value="">
+				<input type="file" name="fileName" id="file1" value="">
 				<input type="button" id="fileM" value="-">
 				<input type="hidden" id="filelength" name="fileLength" value="1">
 				<span class="fileError">* 이미지파일은 JPG,PNG만 등록이가능합니다.</span><br><br>
 				<span  class="filesear">- 홍보하실 공연의 내용을 작성 해 주세요.(10자이상)</span>
 			</p>
 			<div class="writeReview6">
-				<textarea id="inqueryContent" name="promoteContent"></textarea>
+				<textarea id="inqueryContent" name="promoteContent">${vo.promoteContent}</textarea>
 				<!-- keyUp걸기 -->
 				<p class="review6info"><span class="chklength">0</span>자 / 20자 이상</p>	
 			</div>
 			<div class="writeReview7">
-				<input type="submit" value="등록하기" class="infoWrite">
+				<input type="submit" value="수정하기" class="infoWrite">
 			</div>
 		</div>
 		</form>

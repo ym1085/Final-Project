@@ -4,19 +4,33 @@
 
 <mapper namespace="com.mybatis.mapper.promotion">
 
-	<select id="myPromotionList" parameterType="string" resultType="promotionVo">
-	
+	<select id="myPromotionList" parameterType="string" resultType="promotionVo">	
 		select * from tbl_promote 
 		where userid=#{id}
 	</select>
 	
 	<insert id="insertPromotion" parameterType="promotionVo">
 		<selectKey resultType="int" keyProperty="promoteSeq" order="BEFORE">
-			select tbl_promote.nextval from dual
+			select promote_seq.nextval from dual
 		</selectKey>
-		insert into tbl_promote(promote_seq, promoteTitle, promoteContent, promoteP1,
-				reviewRegdate, mileagegive, userid)
-		values(#{promote_seq}, #{promoteTitle}, #{promoteContent}, #{promoteP1},
-					#{reviewRegdate}, #{mileagegive}, #{userid})
+		insert into tbl_promote(promote_seq, promote_title, promote_content, promote_p1, userid)
+		values(#{promoteSeq}, #{promoteTitle}, #{promoteContent}, #{promoteP1}, #{userid})
 	</insert>
+	
+	<select id="selectByPromoteSeq" parameterType="int" resultType="promotionVo">
+		select * 
+		from tbl_promote 
+		where promote_seq=#{promoteSeq}
+	</select>
+	
+	<update id="updatePromotion" parameterType="promotionVo">
+		update tbl_promote
+		set promote_title=#{promoteTitle}, promote_content=#{promoteContent}, promote_p1=#{promoteP1}
+		where promote_seq=#{promoteSeq}
+	</update>
+	
+	<delete id="deletePromotion" parameterType="int">
+		delete from tbl_promote
+		where promote_seq=#{promoteSeq}
+	</delete>
 </mapper>

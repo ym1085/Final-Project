@@ -5,15 +5,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -26,8 +21,7 @@ public class FileUploadUtil {
 		=LoggerFactory.getLogger(FileUploadUtil.class);
 	
 	public static final int REVIEW_UPLOAD=1;  //리뷰 사진 업로드
-	public static final int PROMOTION_UPLOAD=2; //상품 등록-이미지 업로드
-	
+	public static final int PROMOTION_UPLOAD=2; //홍보 사진 업로드
 	
 	@Resource(name = "fileUpProperties")
 	private Properties props;
