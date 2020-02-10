@@ -40,6 +40,8 @@ public class FileUploadUtil {
 			mlist.add(multiReq.getFile("reviewPho2"));
 		}else if(multiReq.getFile("reviewPho3")!=null && !multiReq.getFile("reviewPho3").isEmpty()) {
 			mlist.add(multiReq.getFile("reviewPho3"));
+		}else if(multiReq.getFile("promotionPho1")!=null && !multiReq.getFile("promotionPho1").isEmpty()) {
+			mlist.add(multiReq.getFile("promotionPho1"));
 		}
 		
 		//결과를 넣을 List
