@@ -127,7 +127,7 @@ public class SalesController {
 		logger.info("받아온 날짜 date 출력={}",d);
 		int dow=d.getDay(); //선택된 날의 요일
 		logger.info("선택된 날의 요일={}",dow);
-		int okidx=0;
+		int okidx=-1;
 		Map<String, Object> map=new HashMap<String, Object>();
 		
 		if(dayhour.indexOf(", ")!=-1) {
@@ -164,22 +164,25 @@ public class SalesController {
 					
 				}
 			}//for
-			
+			String sel="";
 			logger.info("선택된 날에 걸린 인덱스 idx={}",okidx);
-			
-			String sel=dayhourArr[okidx].substring(dayhourArr[okidx].indexOf("(")+1, dayhourArr[okidx].lastIndexOf(")"));
-			
-			
-			
-			if(sel.indexOf(",")!=-1) {
-				String[] hour=sel.split(",");
-				map.put("hour", hour);
-				map.put("result", 1);
+			if(okidx!=-1) {
+				sel=dayhourArr[okidx].substring(dayhourArr[okidx].indexOf("(")+1, dayhourArr[okidx].lastIndexOf(")"));
+				if(sel.indexOf(",")!=-1) {
+					String[] hour=sel.split(",");
+					map.put("hour", hour);
+					map.put("result", 1);
+				}else {
+					String hour=sel;
+					map.put("hour", hour);
+					map.put("result", 0);	
+				}
 			}else {
-				String hour=sel;
-				map.put("hour", hour);
-				map.put("result", 0);	
+				map.put("result",-1);
 			}
+			
+			
+			
 			
 		}else {
 			String temp=dayhour.substring(0, dayhour.indexOf("("));
