@@ -96,7 +96,7 @@ $(function(){
 				<input type="text" maxlength="30" id="inqueryTitle" name="promoteTitle" value="${vo.promoteTitle}" />
 			</div>
 			<p class="contenttitle">
-				<input type="file" name="fileName" id="file1" value="">
+				<input type="file" name="fileName" id="file1" value="${vo.promoteP1}">
 				<input type="button" id="fileM" value="-">
 				<input type="hidden" id="filelength" name="fileLength" value="1">
 				<span class="fileError">* 이미지파일은 JPG,PNG만 등록이가능합니다.</span><br><br>
