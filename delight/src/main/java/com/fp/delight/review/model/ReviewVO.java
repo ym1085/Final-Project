@@ -2,7 +2,9 @@ package com.fp.delight.review.model;
 
 import java.sql.Timestamp;
 
-public class ReviewVO {
+import com.fp.delight.common.SearchVO;
+
+public class ReviewVO extends SearchVO{
 	private int reviewSeq;
 	private String reviewType;
 	private String reviewMt20id;

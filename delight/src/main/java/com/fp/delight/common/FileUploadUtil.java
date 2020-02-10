@@ -59,7 +59,7 @@ public class FileUploadUtil {
 			if(!tempFile.isEmpty()) {
 				//변경된 파일명
 				String fileName=tempFile.getOriginalFilename();
-				
+				fileName=getUniqueFileName(fileName);
 				list.add(fileName);
 				
 				//업로드 처리

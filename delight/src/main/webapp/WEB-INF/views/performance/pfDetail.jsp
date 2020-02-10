@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ include file="../inc/main2Top.jsp" %>
-
+<%
+	pageContext.setAttribute("newLine", "\r\n");
+%>
 <style type="text/css">
    /* 마지막에 링크 빼서 연결할거임 수정하지말아주세요 틀 깨져요. */
    .top1 {height: 450px;padding: 30px;width: 75%;margin: 30px;}
@@ -90,7 +92,10 @@
    
    .box-more{background-color: #fafafa;padding: 25px 20px 25px 130px;}
    .tabmenu ul li {line-height: 30px;}
-   
+    button.moreReview {margin-left:42%; width: 16%;height: 49px;text-align: center;margin-top: 25px;background-color: rgb(255, 0, 102);color: white;font-size: 1.2em;font-weight: bold;outline: none;border: 1px solid;}
+  	.box-reviewimg {width: 101px;height: 36px;float: right;margin-top: 32px;}
+	.box-reviewimg img {float: left;width: 30%;height: 100%;margin-right: 2px;margin-left: 1px;} 
+   .starRaite>img {height: 18px;margin-top: 9px;}
    /* 삭제하지마세요 - 사이드 배너 */
    #floatMenu {position: absolute;width: 230px;height:780px;left: 1550px;top:120px;border: 0.2px solid #efe7e7;}
 }
@@ -200,7 +205,67 @@
 			});
 		}
 		
-		
+		var CurrentPage=1;
+		$("#reviewMore").click(function(){
+			++CurrentPage;
+			$.ajax({
+				type:"post",
+				url:"<c:url value='/member/reviewMore.do'/>",
+				data:{"CurrentPage":CurrentPage,
+					  "mt20id":$("input[name=mt20id]").val()},
+				success:function(res){
+					alert(res.REVIEW_CONTENT);
+					var str="";
+					if(res==null || res==''){
+						$("#reviewMore").hide();
+					}/*else {
+					$.each(res,function(idx,value){
+		                   str+='<div class="box-wrap">'
+	                       +'<div class="box">'
+	                       +'<div class="box-depth">'
+	                       +'<div class="left">'
+	                       +'<span class="umail">'+value.USERID+'</span>'
+	                       +'</div>'
+	                       +'<div class="right">'
+	                       +'<span class="tit">'
+	                       var content=value.REVIEW_CONTENT;
+	                       content=content.replace("\r\n","<br>");
+	                       if(content.length>100){
+	                       +content.substr(0,100)+'...'
+	                       }else{
+	                       +content
+	                       }
+	                       +'</span>'
+	                       +'<p class="date">'+value.REVIEW_REGDATE+'</p>'
+                            +'</div>'
+                            +'<div class="box-reviewimg">'
+                            /*if(value.REVIEW_P1!='' && value.REVIEW_P1!=null){
+                             +'<img alt="후기" src="<c:url value="/reviewupload/'+value.REVIEW_P1+'"/>">'
+                        	 }
+                               if(value.REVIEW_P2!='' && value.REVIEW_P2!=null){
+	                               +'<img alt="후기" src="<c:url value="/reviewupload/'+value.REVIEW_P2+'"/>">'
+	                            }
+                            if(value.REVIEW_P3!='' && value.REVIEW_P3!=null){
+                            +'<img alt="후기" src="<c:url value="/reviewupload/'+value.REVIEW_P3+'"/>">'
+                            }  
+                            +'</div>'
+                            +'<div>'
+	                        +'<span class="star-rating">'
+	                        +'<img alt="별점이미지" src="<c:url value="/resources/images/star'+value.REVIEW_SCORE+'.png"/>">'
+	                        +'</span>'
+	                        +'</div>'
+	                        +'</div>'
+	                       	+'</div>'   
+	                     	+'</div>'
+					});
+					$(".moreReview").before(str);
+					
+					} */
+				},
+				error:function(xhr,status,error){
+				}
+			});	
+		});
 	});
 </script>
  
@@ -550,29 +615,55 @@
                <label for="tabmenu3" style="margin-bottom: 0;" class = "lab">관람후기</label>
                   <div class="tabCon" id="tabConThree">
                   <div class="shownView">
-                      <h2 class="review">관람후기</h2>
+                      <h2 class="review">관람후기 (<fmt:formatNumber value="${reviewmap.TOTAL }" pattern="#,###" />)</h2>
                  </div>
                  <div class="starRaite">
-                     <img alt="별점이미지" src="<c:url value='/resources/images/star5.png'/>">    
+                     <img alt="" src="<c:url value='/resources/images/star${reviewmap.AVG}.png'/>">
                  </div>        
                    
+                   <c:if test="${empty rlist }">
+                   <div class="box-wrap">
+                   	<div class="box" style="text-align: center; font-size: 1.2em;padding-top: 35px;">
+                   		등록된 후기가 존재하지 않습니다.
+                   	</div>
+                   </div>
+                   </c:if>
+                   <c:if test="${!empty rlist }">
+                   <c:forEach var="rmap" items="${rlist }">
                    <!-- 반복시작 -->
                    <div class="box-wrap">
                        <div class="box">
                              <div class="box-depth">
                                 <div class="left">
-                                   <span class="umail">youngmin1085@**</span>
+                                   <span class="umail">${rmap['USERID'] }</span>
                                 </div>
                                 <div class="right">
                                    <span class="tit">
-                                      	말이 필요 없어요. 진짜 최고의 크리스틴, 팬텀, 라울입니다. 내한 해주셔서 정말
+                                   <c:set var="content" value="${fn:replace(rmap['REVIEW_CONTENT'], newLine,'<br>') }" />
+                                      	<c:if test="${fn:length(content)>100 }">
+											${fn:substring(content,0,100) }...
+										</c:if>
+										<c:if test="${fn:length(content)<100 }">
+											${content }
+										</c:if>
                                      </span>
-                                   <p class="date">2020.01.15</p>
+                                   <p class="date"><fmt:formatDate value="${rmap['REVIEW_REGDATE'] }" pattern="yyyy-MM-dd"/></p>
+                                </div>
+                                <div class="box-reviewimg">
+                                <c:if test="${!empty rmap['REVIEW_P1'] }">
+                                <img alt="후기" src="<c:url value='/reviewupload/${rmap["REVIEW_P1"] }' />">
+                                </c:if>
+                                <c:if test="${!empty rmap['REVIEW_P2'] }">
+                                <img alt="후기" src="<c:url value='/reviewupload/${rmap["REVIEW_P2"] }' />">
+                                </c:if>
+                                <c:if test="${!empty rmap['REVIEW_P3'] }">
+                                <img alt="후기" src="<c:url value='/reviewupload/${rmap["REVIEW_P3"] }' />">
+                                </c:if>
                                 </div>
                                 <div>
                                    <span class="star-rating">
                                       <!-- IF -->
-                                      <img alt="별점이미지" src="<c:url value='/resources/images/star5_.png'/>">
+                                      <img alt="별점이미지" src="<c:url value='/resources/images/star${rmap["REVIEW_SCORE"] }.png'/>">
                                       <!-- IF -->
                                    </span>
                                 </div>
@@ -583,63 +674,13 @@
                        </div>   
                      </div>
                   <!-- 반복 끝 -->
-                  
-                   <!-- 샘플 데이터 삭제 시작 영역 -->
-                   <!-- 반복시작 -->
-                   <div class="box-wrap">
-                       <div class="box">
-                             <div class="box-depth">
-                                <div class="left">
-                                   <span class="umail">youngmin1085@**</span>
-                                </div>
-                                <div class="right">
-                                   <span class="tit">말이 필요 없어요. 진짜 최고의 크리스틴, 팬텀, 라울입니다. 내한 해주셔서 정말</span>
-                                   <p class="date">2020.01.15</p>
-                                </div>
-                                <div>
-                                   <span class="star-rating">
-                                      <!-- IF -->
-                                      <img alt="별점이미지" src="<c:url value='/resources/images/star5_.png'/>">
-                                      <!-- IF -->
-                                   </span>
-                                </div>
-                             </div>
-                            <!--  <div class="box-more" style="display: block;">
-                                sub값
-                             </div> -->
-                       </div>
-                     </div>
-                  <!-- 반복 끝 -->
-                  
-                   <!-- 반복시작 -->
-                   <div class="box-wrap">
-                       <div class="box">
-                             <div class="box-depth">
-                                <div class="left">
-                                   <span class="umail">youngmin1085@**</span>
-                                </div>
-                                <div class="right">
-                                   <span class="tit">말이 필요 없어요. 진짜 최고의 크리스틴, 팬텀, 라울입니다. 내한 해주셔서 정말
-                                      					감사합니다. 다음에도 꼭 와주세요!! 
-                                   </span>
-                                   <p class="date">2020.01.15</p>
-                                </div>
-                                <div>
-                                   <span class="star-rating">
-                                      <!-- IF -->
-                                      <img alt="별점이미지" src="<c:url value='/resources/images/star5_.png'/>">
-                                      <!-- IF -->
-                                   </span>
-                                </div>
-                             </div>
-                             <!-- <div class="box-more" style="display: block;">
-                                sub값
-                             </div> -->
-                       </div>
-                     </div>
-                  <!-- 반복 끝 -->
-                  <!-- 샘플 데이터 삭제 끝 영역 --> 
-                     
+                  </c:forEach>
+                  <c:if test="${reviewmap.TOTAL>5}">
+                  	<button class="moreReview" id="reviewMore">
+                  	더보기
+                  	</button>
+                  </c:if>
+                  	</c:if>
                   </div>
                </li>
                
