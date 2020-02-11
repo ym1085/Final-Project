@@ -294,4 +294,9 @@ public class MemberController {
 		
 		return "redirect:/index.do";
 	}
+	
+	@RequestMapping("/pwdChange.do")
+	 public void pwdChange() {
+		 
+	 }
 }

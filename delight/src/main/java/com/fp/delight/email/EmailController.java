@@ -50,11 +50,13 @@ public class EmailController {
          String content=DM.dmUserIdInfo(userid);
          String receiver=memberVo.getEmail1()+"@"+memberVo.getEmail2();
          String sender="admin@herbmall.com";
-         msg="이메일로 아이디 발송해드렸습니다.";
-         url="/login/login.do";
+         
          try {
             emailSender.sendMail(subject, content, receiver, sender);
             logger.info("이메일 발송 성공");
+            
+            msg="이메일로 아이디 발송해드렸습니다.";
+            url="/login/login.do";
          } catch (MessagingException e) {
             logger.info("이메일 발송 실패!!");
             e.printStackTrace();
@@ -79,9 +81,10 @@ public class EmailController {
       memberVo.setEmail2(arr[1]);
       memberVo.setUsername(name);
       memberVo.setUserid(userid);
-      
+      logger.info("@@파라미터확인 memberVo={}",memberVo);
       int cnt=memberService.selectUserChkInfo(memberVo);
-      logger.info("cnt={}",cnt);
+      logger.info("@@ 카운터확인cnt={}",cnt);
+      logger.info("@@ 이메일확인 email={}",email);
       
       String msg="",url="/login/findPwd.do";
       if(cnt==MemberService.OK_INFO) {
@@ -91,16 +94,17 @@ public class EmailController {
          
          String subject="안녕하세요 Delight입니다."+memberVo.getUsername()+"님의 임시비밀번호 발급";
          String content=DM.dmUserPwdInfo(pwd);
-         String receiver=memberVo.getEmail1()+"@"+memberVo.getEmail2();
+         String receiver=email;
          String sender="admin@herbmall.com";
          
          memberService.findePwdSet(memberVo);
 
-         msg="임시비밀번호 발급완료!";
-         url="/login/login.do";
          try {
             emailSender.sendMail(subject, content, receiver, sender);
             logger.info("이메일 발송 성공");
+            
+            msg="임시비밀번호 발급완료!";
+            url="/login/login.do";
          } catch (MessagingException e) {
             logger.info("이메일 발송 실패!!");
             e.printStackTrace();
