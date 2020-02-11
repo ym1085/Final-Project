@@ -131,8 +131,52 @@
 		SELECT r.*,p.pay_seq,p.reg_date,usedmileage
 		FROM tbl_reservation r join tbl_payment p
 		on r.RESERVATION_SEQ = p.RESERVATION_SEQ
-		where userid=#{userid} and p.PAY_CONDITION='Y'
+		where p.PAY_CONDITION='Y'
+		<if test="userid!=null and userid!=''">
+			and userid=#{userid}   
+		</if>
+		<if test="noneuserid!=null and noneuserid!=''">
+			and noneuserid=#{noneuserid}
+		</if>
 		and p.reservation_seq=#{reservation_seq}
+	</select>
+	
+	<select id="noneSelectReserList" parameterType="dateSearchVo" resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		        SELECT r.*,p.pay_condition
+				FROM tbl_reservation r join tbl_payment p
+				on r.RESERVATION_SEQ = p.RESERVATION_SEQ 
+				LEFT join tbl_refund f
+				on p.pay_seq=f.pay_seq
+				where p.PAY_CONDITION='Y'  and f.refund_cancle is null
+				 and res_date>=#{startDay}
+				<![CDATA[ and res_date < to_Date(#{endDay})+1]]>
+				and noneuserid=#{customerId}
+				order by r.reservation_seq desc
+		    )A
+		)
+		where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>	
+	</select>
+	
+	<select id="noneTotalRecord" parameterType="dateSearchVo"
+		resultType="int">
+			SELECT count(*)
+			FROM tbl_reservation r join tbl_payment p
+			on r.RESERVATION_SEQ = p.RESERVATION_SEQ 
+			LEFT join tbl_refund f
+			on p.pay_seq=f.pay_seq
+			where p.PAY_CONDITION='Y' and f.refund_cancle is null
+			and res_date>=#{startDay}
+			<![CDATA[ and res_date < to_Date(#{endDay})+1]]>
+			and noneuserid=#{customerId}
 	</select>
 	
 </mapper>

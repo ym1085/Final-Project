@@ -49,4 +49,14 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationDao.selectCanDetail(reservationVo);
 	}
 
+	@Override
+	public List<Map<String, Object>> noneSelectReserList(DateSearchVO dateSearchVo) {
+		return reservationDao.noneSelectReserList(dateSearchVo);
+	}
+
+	@Override
+	public int noneTotalRecord(DateSearchVO dateSearchVo) {
+		return reservationDao.noneTotalRecord(dateSearchVo);
+	}
+
 }
