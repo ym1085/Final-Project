@@ -64,7 +64,7 @@
 	<!-- 임시비밀번호 설정 -->
 	<update id="findePwdSet" parameterType="memberVo">
 		update tbl_user
-		set password=#{password}
+		set password=#{password},SALT=#{SALT}
 		where userid=#{userid}
 	</update>
 	

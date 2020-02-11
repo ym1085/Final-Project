@@ -28,7 +28,8 @@
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
 <script type="text/javascript">
-       $(document).ready(function () {
+     
+	$(document).ready(function () {
     	   $("#output").hide();
 	       var count = 60;
 	       var timerId;

@@ -1,27 +1,28 @@
-/*package com.fp.delight.index.model;
+package com.fp.delight.index.model;
 
 public class IndexVisitorsVO {
 	
-	private String visitor_today;
-	private String visitor_count;
+	private String visitorToday;
+	private int visitorCount;
 	
-	public String getVisitor_today() {
-		return visitor_today;
+	
+	public String getVisitorToday() {
+		return visitorToday;
 	}
-	public void setVisitor_today(String visitor_today) {
-		this.visitor_today = visitor_today;
+	public void setVisitorToday(String visitorToday) {
+		this.visitorToday = visitorToday;
 	}
-	public String getVisitor_count() {
-		return visitor_count;
+	public int getVisitorCount() {
+		return visitorCount;
 	}
-	public void setVisitor_count(String visitor_count) {
-		this.visitor_count = visitor_count;
+	public void setVisitorCount(int visitorCount) {
+		this.visitorCount = visitorCount;
 	}
+	
 	
 	@Override
 	public String toString() {
-		return "IndexVisitorsVO [visitor_today=" + visitor_today + ", visitor_count=" + visitor_count + "]";
+		return "IndexVisitorsVO [visitorToday=" + visitorToday + ", visitorCount=" + visitorCount + "]";
 	}
-		
+	
 }
-*/

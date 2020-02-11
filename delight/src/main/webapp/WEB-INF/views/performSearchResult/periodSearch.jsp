@@ -164,7 +164,9 @@
 		   	<c:forEach var = "vo" items="${alist }">    
 				<c:if test="${vo.genrenm == '연극' || vo.genrenm == '뮤지컬'}">  	
 					<div class = "testImg">
-				    	<img src="${vo.poster }" class="img-responsive" width="240px" height="240px">
+						<a href="<c:url value='/recentInsert.do?perfomid=${vo.mt20id}'/>">
+				    		<img src="${vo.poster }" class="img-responsive" width="240px" height="240px">
+				    	</a>
 				        	<br>
 				            <h5><b>${vo.prfnm }</b></h5> 
 							<p>${vo.prfpdfrom }</p> 
@@ -278,7 +280,7 @@ function moreRead(){
 				 if(res.length==0){ 
 					//더 불러올 API 없는 경우
 					 $('#moreRead').hide();
-					 alert("더 불러올 공연 없으니까 검색 ㄴㄴ");
+					 alert("더 불러 올 공연이 없습니다.");
 					
 				 }else{ 
 					//불러올 API 있는 경우

@@ -95,6 +95,14 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int findePwdSet(MemberVO memberVo) {
+		
+		String salt= SHA256Util.generateSalt();
+		memberVo.setSALT(salt);
+		
+		String password=memberVo.getPassword();
+		password= SHA256Util.getEncrypt(password, salt);
+		
+		memberVo.setPassword(password);
 		return memberDao.findePwdSet(memberVo);
 	}
 
