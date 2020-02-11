@@ -29,7 +29,8 @@ b {margin: 1;padding:5px; overflow:hidden; display: block; color: #fe5c24; white
 								<img src="http://www.kopis.or.kr/${vo.poster }" class="img-responsive">
 								<div class="img-responsive-text">
 								<!-- 마우스오버 영역 시작 -->
-									<a class='toDetail' href="<c:url value='/performance/pfDetail.do?perfomid=${vo.mt20id }'/>">상세정보</a><br>
+								<%--<a class='toDetail' href="<c:url value='/performance/pfDetail.do?perfomid=${vo.mt20id }'/>">상세정보</a><br> --%>
+								<a class='toDetail' href="<c:url value='/recentInsert.do?perfomid=${vo.mt20id }'/>">상세정보</a><br>	
 									<span>예매율</span><br>
 									<span>누적관객수</span><br>																				
 										<!--  좋아요 영역 시작 -->
