@@ -10,7 +10,7 @@
 		<input type="hidden" value="0" name="totalP" id="totalP">
 		<span>장르</span>
 		<select id="type" name="type">
-			<option value="">장르 선택</option>
+			<option value="">장르</option>
 			<option value="AAAA">연극</option>
 			<option value="AAAB">뮤지컬</option>
 		</select>
@@ -26,6 +26,13 @@
 		<span>공연명</span>
 		<input type="text" id="perfomName" name="perfomName">
 		
+		<span>상태</span>
+		<select id="state" name="state">
+			<option value="">전체</option>
+			<option value="01">공연예정</option>
+			<option value="02">공연중</option>
+			<option value="03">공연완료</option>
+		</select>
 		<button type="submit">검색</button>
 		</form>
 	</div>
@@ -70,13 +77,14 @@
 	<input type="hidden" id="sstdate">
 	<input type="hidden" id="seddate">
 	<input type="hidden" id="sperfomName">
+	<input type="hidden" id="sstate">
 </div>
 
 <%@include file="../inc/adminBottom.jsp" %>
 <style type="text/css">
 form[name=searchFrm] :not(span){
-	margin-left: 20px;
-	margin-right: 20px;
+	margin-left: 15px;
+	margin-right: 15px;
 }
 form[name=searchFrm] span{
 	padding-top: 10px;
@@ -113,9 +121,12 @@ $(function() {
 	$("form[name=searchFrm] input").addClass("form-control");
 	$("form[name=searchFrm] input").addClass("form-control-sm");
 	$("form[name=searchFrm] button").addClass("btn btn-inverse-success btn-fw btn-sm");
-	$("form[name=searchFrm] select").css("width","150px");
+	$("form[name=searchFrm] #sido").css("width","150px");
+	$("form[name=searchFrm] #state").css("width","100px");
+	$("form[name=searchFrm] #type").css("width","80px");
 	$("form[name=searchFrm] #gugun").css("width","190px");
 	$("form[name=searchFrm] input").css("width","100px");
+	$("input[type=submit]").css("width","80px");
 	$("form[name=searchFrm] *").css("float","left");
 	
 	$("#stdate").datepicker({changeYear: true,dateFormat: "yymmdd",
@@ -172,6 +183,8 @@ function gopage(i){
 	}else if($("#seddate").val()!=$("#eddate").val()){
 		alert("검색조건이 변경되었습니다. 다시 검색해주세요.");
 	}else if($("#sperfomName").val()!=$("#perfomName").val()){
+		alert("검색조건이 변경되었습니다. 다시 검색해주세요.");
+	}else if($("#sstate").val()!=$("#state").val()){
 		alert("검색조건이 변경되었습니다. 다시 검색해주세요.");
 	}else{
 		
@@ -255,6 +268,7 @@ function getList(){
 				$("#sstdate").val($("#stdate").val());
 				$("#seddate").val($("#eddate").val());
 				$("#sperfomName").val($("#perfomName").val());
+				$("#sstate").val($("#state").val());
 			
 				$("#pagediv").find("#pagedesk *").remove();
 				$("#pagedesk").append(pa);

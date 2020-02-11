@@ -23,7 +23,7 @@ public class AdminPerfomAPI {
 
 	public Map<String, Object> ticketSearch(String type, String sido,
 			String gugun,String stdate, String eddate,String perfomName,
-			String curPage,String totalP){
+			String curPage,String totalP,String state){
 		System.out.println("검색 시작");
 		String apiurl="http://www.kopis.or.kr/openApi/restful/pblprfr?"
 				+ "service=4c8aebff91d74e2396fccc287989884a"
@@ -34,7 +34,8 @@ public class AdminPerfomAPI {
 				+ "&signgucodesub="+gugun
 				+ "&shcate="+type
 				+ "&cpage="+curPage
-				+ "&shprfnm="+perfomName;
+				+ "&shprfnm="+perfomName
+				+ "&prfstate="+state;
 		Map<String, Object> map=new HashMap<String, Object>();
 		List<PerformentListVO> list2=new ArrayList<PerformentListVO>();
 		
@@ -61,7 +62,7 @@ public class AdminPerfomAPI {
 					JSONArray jsonarr=xmlJSONObj.getJSONObject("dbs").getJSONArray("db");
 					
 					if(pageCount==0) {
-						pageCount=pageCount(type, sido, gugun, stdate, eddate, perfomName);
+						pageCount=pageCount(type, sido, gugun, stdate, eddate, perfomName,state);
 					}
 					list2=mapper.readValue(jsonarr.toString(), new TypeReference<List<PerformentListVO>>() {});
 					map.put("list", list2);
@@ -71,7 +72,7 @@ public class AdminPerfomAPI {
 					list2.add((PerformentListVO) mapper.readValue(json.toString(), new TypeReference<PerformentListVO>() {}));
 					
 					if(pageCount==0) {
-						pageCount=pageCount(type, sido, gugun, stdate, eddate, perfomName);
+						pageCount=pageCount(type, sido, gugun, stdate, eddate, perfomName,state);
 					}
 					map.put("list", list2);
 					map.put("pageCount", pageCount);
@@ -90,7 +91,7 @@ public class AdminPerfomAPI {
 
 	//페이지 새는 메서드
 	public int pageCount(String type, String sido,
-			String gugun,String stdate, String eddate,String perfomName) throws MalformedURLException, IOException {
+			String gugun,String stdate, String eddate,String perfomName,String state) throws MalformedURLException, IOException {
 		System.out.println("카운트 시작");
 		int cnt=0;
 		int cpa=1;
@@ -107,7 +108,8 @@ public class AdminPerfomAPI {
 					+ "&signgucodesub="+gugun
 					+ "&shcate="+type
 					+ "&cpage="+cpa
-					+ "&shprfnm="+perfomName;
+					+ "&shprfnm="+perfomName
+					+ "&prfstate="+state;
 			
 			HttpURLConnection urlcon=(HttpURLConnection) new URL(apiurl).openConnection();
 

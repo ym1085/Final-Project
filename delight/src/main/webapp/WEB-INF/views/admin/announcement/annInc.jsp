@@ -161,8 +161,8 @@ $(function() {
     
 <div id="parent">
 	<!-- 일반 공지글 설정 -->
-	<div class="content-wrapper" id="normal" style="background: #fbfbfb;">
-	<div>
+	<div class="content-wrapper" id="normal" style="background: #fbfbfb; overflow: auto;">
+	<div style="">
 		<form name="frmSearch" method="post" 
    		action='<c:url value="/admin/announcement/annInc.do"/>'>
 		<div class="display-4">일반 공지글 설정</div>
@@ -278,7 +278,7 @@ $(function() {
 <!-- ------------------------------------------------------------------------ -->
 
 	<!-- 이벤트 공지글 설정 -->
-	<div id="event">
+	<div id="event" style="overflow: auto;">
 	<div>
 	<form name="frmSearch2" method="post" 
    		action='<c:url value="/admin/announcement/annInc.do"/>'>
