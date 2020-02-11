@@ -644,10 +644,10 @@
                                 <div class="right">
                                    <span class="tit">
                                    <c:set var="content" value="${fn:replace(rmap['REVIEW_CONTENT'], newLine,'<br>') }" />
-                                      	<c:if test="${fn:length(content)>100 }">
-											${fn:substring(content,0,100) }...
+                                      	<c:if test="${fn:length(content)>70 }">
+											${fn:substring(content,0,70) }...
 										</c:if>
-										<c:if test="${fn:length(content)<100 }">
+										<c:if test="${fn:length(content)<70 }">
 											${content }
 										</c:if>
                                      </span>
@@ -774,7 +774,7 @@
           			 <!-- 예진씨 메서드 참고해 사용 -->
                      <c:forEach var="vo" items="${list}">
 	                     <span>
-	                        <a href = "<c:url value= '/performance/pfDetail.do?perfomid=${vo.mt20id }'/>">
+	                        <a href = "<c:url value= '/performance/recentInsert.do?perfomid=${vo.mt20id }'/>">
 	                              <img class ="imgbox" 
 	                                 width="208px" height="284px" src="${vo.poster}">
 	                        </a>
