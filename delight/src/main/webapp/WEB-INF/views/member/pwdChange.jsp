@@ -52,6 +52,7 @@
 				}
 			});
 			
+			event.preventDefault();
 		});
 		
 		$("input").keyup(function(){
