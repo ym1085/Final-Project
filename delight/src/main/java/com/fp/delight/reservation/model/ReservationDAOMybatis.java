@@ -51,5 +51,15 @@ public class ReservationDAOMybatis implements ReservationDAO{
 	public Map<String, Object> selectCanDetail(ReservationVO reservationVo) {
 		return sqlSession.selectOne(namespace+"selectCanDetail",reservationVo);
 	}
+
+	@Override
+	public List<Map<String, Object>> noneSelectReserList(DateSearchVO datesearcgVo) {
+		return sqlSession.selectList(namespace+"noneSelectReserList",datesearcgVo);
+	}
+
+	@Override
+	public int noneTotalRecord(DateSearchVO dateSearchVo) {
+		return sqlSession.selectOne(namespace+"noneTotalRecord",dateSearchVo);
+	}
 	
 }

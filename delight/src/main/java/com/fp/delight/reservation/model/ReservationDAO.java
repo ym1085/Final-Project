@@ -13,4 +13,6 @@ public interface ReservationDAO {
 	List<Map<String, Object>>selectCanList(DateSearchVO dateSearchVo);
 	int canTotalRecord(DateSearchVO dateSearchVo);
 	Map<String, Object>selectCanDetail(ReservationVO reservationVo);
+	List<Map<String, Object>> noneSelectReserList(DateSearchVO datesearcgVo);
+	int noneTotalRecord(DateSearchVO dateSearchVo);
 }

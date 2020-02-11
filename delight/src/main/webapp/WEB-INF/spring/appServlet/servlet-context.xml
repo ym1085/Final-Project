@@ -47,10 +47,11 @@
 			<mapping path="/member/myinqueryList.do"/>
 			<mapping path="/member/mylike.do"/>
 			<mapping path="/member/mylikeList.do"/>
-			<mapping path="/member/myreserCancle.do"/>
 			<mapping path="/member/myWriteReviewList.do"/>
 			<mapping path="/member/NmReview.do"/>
 			<mapping path="/member/PhotoReview.do"/>
+			<mapping path="/member/pwdChange.do"/>
+			
 			<beans:ref bean="loginInterceptor"/>  <!-- 로그인 인터셉터 파일명 맨앞소문자  -->
 		</interceptor>
 		
@@ -58,7 +59,11 @@
 			<mapping path="/like.do"/>
 			<beans:ref bean="ajaxLoginInterceptor"/>  <!-- ajax 좋아요 인터셉터 파일명 맨앞소문자  -->
 		</interceptor>
-		
+
+		<interceptor>
+			<mapping path="/member/mysecCanList.do"/>
+			<beans:ref bean="canLoginInterceptor"/> 
+		</interceptor>
 		
 		<interceptor>
 			<mapping path="/admin/**"/>

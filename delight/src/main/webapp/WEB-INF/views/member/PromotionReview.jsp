@@ -96,7 +96,7 @@ $(function(){
 				<input type="button" id="fileM" value="-">
 				<input type="hidden" id="filelength" name="fileLength" value="1">
 				<span class="fileError">* 이미지파일은 JPG,PNG만 등록이가능합니다.</span><br><br>
-				<span  class="filesear">- 홍보하실 공연의 내용을 작성 해 주세요.(10자이상)</span>
+				<span  class="filesear">- 홍보하실 공연의 내용을 작성 해 주세요.(20자이상)</span>
 			</p>
 			<div class="writeReview6">
 				<textarea id="inqueryContent" name="promoteContent"></textarea>

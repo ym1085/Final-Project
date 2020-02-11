@@ -294,4 +294,47 @@ public class MemberController {
 		
 		return "redirect:/index.do";
 	}
+	
+	@RequestMapping(value = "/pwdChange.do",method = RequestMethod.GET)
+	 public void pwdChange_get() {
+		 
+	 }
+	
+	@RequestMapping(value = "/pwdChange.do",method = RequestMethod.POST)
+	public String pwdChange_post(@RequestParam String password,HttpSession session,Model model) {
+		String userid=(String)session.getAttribute("userid");
+		MemberVO vo=new MemberVO();
+		vo.setUserid(userid);
+		vo.setPassword(password);
+		
+		int cnt=memberService.findePwdSet(vo);
+		
+		String url="",msg="";
+		if(cnt>0) {
+			url="/login/logout.do";
+			msg="비밀번호가 변경되었습니다 다시 로그인해주세요/";
+		}else {
+			url="/member/pwdChange.do";
+			msg="비밀번호 변경 실패했습니다";
+		}
+		
+		model.addAttribute("url",url);
+		model.addAttribute("msg",msg);
+		
+		return "common/message";
+	}
+	
+	@RequestMapping("/checkPwd.do")
+	@ResponseBody
+	public Object checkPwd(@RequestParam String password,HttpSession session) {
+		String userid=(String)session.getAttribute("userid");
+		
+		int cnt=0;
+		
+		int result=memberService.loginCheck(userid, password);
+		if(result==MemberService.LOGIN_OK) {
+			cnt=1;
+		}
+		return cnt;
+	}
 }

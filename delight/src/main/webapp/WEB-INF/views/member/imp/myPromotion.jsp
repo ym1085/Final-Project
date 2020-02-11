@@ -41,25 +41,12 @@
 				<!-- 반복 시작-->
 					<tr>
 						<!-- 마일리지 지급받지 않은 경우, N-->
-						<c:if test="${vo.mileagegive == 'N'}">
-							<td style="text-align: left">
-								<p><a href="<c:url value='/member/PromotionDetail.do?promoteSeq=${vo.promoteSeq }' />">${vo.promoteTitle}</a></p>
-							</td>
-							<td style="text-align: left;" id="ddd">
-								<p><a href="<c:url value='/member/PromotionDetail.do?promoteSeq=${vo.promoteSeq }' />">${vo.promoteContent}</a></p>
-							</td>
-						</c:if>
-						
-						<!-- 마일리지 지급 받은 경우, Y-->
-						<c:if test="${vo.mileagegive == 'Y'}">
-							<td style="text-align: left">
-								<p>${vo.promoteTitle}</p>
-							</td>
-							<td style="text-align: left;" id="ddd">
-								<p>${vo.promoteContent}</p>
-							</td>
-						</c:if>
-						
+						<td style="text-align: left">
+							<p><a href="<c:url value='/member/PromotionDetail.do?promoteSeq=${vo.promoteSeq }' />">${vo.promoteTitle}</a></p>
+						</td>
+						<td style="text-align: left;" id="ddd">
+							<p>${vo.promoteContent}</p>
+						</td>					
 						<td style="text-align: center">
 							<p>${vo.reviewRegdate}</p>							
 						</td>

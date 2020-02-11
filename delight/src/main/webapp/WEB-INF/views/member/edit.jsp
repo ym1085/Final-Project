@@ -43,7 +43,7 @@
 	#hp2{width: 90px;margin-left:30px;}
 	#hp3{width: 90px;}
 	#email3{width: 110px;margin-left: 52px; text-transform: lowercase;}
-	#zipcode{width: 150px;}
+	#zipcode{width: 150px;} 
 	#zipcodeChk{width: 400px;display: inline-block;margin-left: -125px;}
 	#address{width: 400px;}
 	#addressDetail{width: 400px;}
