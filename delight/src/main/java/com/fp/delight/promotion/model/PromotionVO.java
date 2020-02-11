@@ -5,12 +5,12 @@ import java.sql.Timestamp;
 import com.fp.delight.common.SearchVO;
 
 public class PromotionVO extends SearchVO{
-	private int promoteSeq;
+	private int promoteSeq;	//홍보시퀀스
 	private String promoteTitle;	//홍보제목
 	private String promoteContent;	//홍보내용
 	private String promoteP1;	//홍보사진1장
 	private Timestamp reviewRegdate;	//등록날짜
-	private String mileagegive;
+	private String mileagegive;	//마일리지 지급유무
 	private String userid;	//아이디
 	
 	public int getPromoteSeq() {
@@ -55,6 +55,7 @@ public class PromotionVO extends SearchVO{
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+	
 	
 	@Override
 	public String toString() {

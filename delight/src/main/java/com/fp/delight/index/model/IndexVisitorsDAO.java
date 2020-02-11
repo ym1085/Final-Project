@@ -1,8 +1,8 @@
-/*package com.fp.delight.index.model;
+package com.fp.delight.index.model;
 
 public interface IndexVisitorsDAO {
 	
-	int insertSysdate(IndexVisitorsVO indexVisitorsVO);
-	
+	int selectSysdate(IndexVisitorsVO indexVisitorsVO);	//오늘날짜 검색
+	int insertSysdate(IndexVisitorsVO indexVisitorsVO);	
+	int updateSysdate(IndexVisitorsVO indexVisitorsVO);	
 }
-*/
