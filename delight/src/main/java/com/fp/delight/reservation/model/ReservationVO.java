@@ -119,3 +119,4 @@ public class ReservationVO {
             + ", noneuserid=" + noneuserid + ", ticket_seq=" + ticket_seq + ", pay_price=" + pay_price + "]";
    } 
 }
+

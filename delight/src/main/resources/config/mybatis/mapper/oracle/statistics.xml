@@ -28,7 +28,7 @@
 		 from ( select userid, birth, 
 		    round((to_char(sysdate, 'yyyy')- 
 		    substr(birth, 1,4)+1 )/10) agegroup
-		 from tbl_user where out_date is null)
+		 from tbl_user where out_date is null and grade_name!='admin')
 		 )
 		 group by age
 		 order by age

@@ -40,6 +40,10 @@ public class FileUploadUtil {
 			mlist.add(multiReq.getFile("reviewPho2"));
 		}else if(multiReq.getFile("reviewPho3")!=null && !multiReq.getFile("reviewPho3").isEmpty()) {
 			mlist.add(multiReq.getFile("reviewPho3"));
+		}else if(multiReq.getFile("promotionPho1")!=null && !multiReq.getFile("promotionPho1").isEmpty()) {
+			mlist.add(multiReq.getFile("promotionPho1"));
+		}else if(multiReq.getFile("fileName")!=null && !multiReq.getFile("fileName").isEmpty()) {
+			mlist.add(multiReq.getFile("fileName"));
 		}
 		
 		//결과를 넣을 List
@@ -55,7 +59,7 @@ public class FileUploadUtil {
 				String fileName=tempFile.getOriginalFilename();
 				fileName=getUniqueFileName(fileName);
 				list.add(fileName);
-				
+				logger.info("uploadType={}", uploadPathType);
 				//업로드 처리
 				//업로드할 경로 구하기
 				String upPath=getFilePath(request, uploadPathType);
@@ -63,7 +67,7 @@ public class FileUploadUtil {
 				File folder=new File(upPath);
 				
 				if(!folder.exists()) {
-					folder.mkdir();
+					folder.mkdirs();
 				}
 				
 				File file=new File(upPath, fileName);
@@ -102,7 +106,7 @@ public class FileUploadUtil {
 			}else if(uploadPathType==PROMOTION_UPLOAD) {
 				upDir=props.getProperty("promotion.upload.path");
 			}
-			
+			System.out.println("ddd");
 			path
 			=request.getSession().getServletContext().getRealPath(upDir);
 			
