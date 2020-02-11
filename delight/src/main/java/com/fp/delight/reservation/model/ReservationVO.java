@@ -14,8 +14,16 @@ public class ReservationVO {
 	private String pay_ticket_number; 	//x -> 난수
 	private String res_date; 			//x	-> sysdate
 	private String userid; 				//o
+	private String noneuserid;			//o
 	private int ticket_seq;				//o
 	private int pay_price;				//?
+	
+	public String getNoneuserid() {
+		return noneuserid;
+	}
+	public void setNoneuserid(String noneuserid) {
+		this.noneuserid = noneuserid;
+	}
 	
 	public int getPay_price() {
 		return pay_price;
@@ -108,6 +116,6 @@ public class ReservationVO {
 				+ ", perfomtype=" + perfomtype + ", mt10id=" + mt10id + ", select_date=" + select_date
 				+ ", select_time=" + select_time + ", booking=" + booking + ", seat_class=" + seat_class
 				+ ", pay_ticket_number=" + pay_ticket_number + ", res_date=" + res_date + ", userid=" + userid
-				+ ", ticket_seq=" + ticket_seq + ", pay_price=" + pay_price + "]";
+				+ ", noneuserid=" + noneuserid + ", ticket_seq=" + ticket_seq + ", pay_price=" + pay_price + "]";
 	} 
 }

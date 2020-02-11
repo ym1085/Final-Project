@@ -774,7 +774,7 @@
           			 <!-- 예진씨 메서드 참고해 사용 -->
                      <c:forEach var="vo" items="${list}">
 	                     <span>
-	                        <a href = "<c:url value= '/performance/recentInsert.do?perfomid=${vo.mt20id }'/>">
+	                        <a href = "<c:url value= '/recentInsert.do?perfomid=${vo.mt20id }'/>">
 	                              <img class ="imgbox" 
 	                                 width="208px" height="284px" src="${vo.poster}">
 	                        </a>
