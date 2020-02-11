@@ -3,7 +3,7 @@ package com.fp.delight.admin.perfom;
 public class AdminCommon {
 
 	public int getDayofWeek(String dow) {
-		int res=0;
+		int res=-1;
 		if(dow.equals("일요일")) {
 			res=0;
 		}else if(dow.equals("월요일")) {

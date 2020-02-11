@@ -136,21 +136,25 @@
 					
 					$("#selhour").find("option").remove().end().append(str);
 				}
+				if(r1!=-1){
 				var str2="<option value=''>선택</option>";
-				if(r2==0){
-					var price=res.seatprice;
-					str2+="<option value='"+price+"'>"+price+"</option>";
-					$("#selseat").find("option").remove().end().append(str2);
-				}else if(r2==1){
-					var price=res.seatprice;
-					$.each(price,function(idx,value){
-						str2+="<option value='"+value+"'>"+value+"</option>";
-					});
+					if(r2==0){
+						var price=res.seatprice;
+						str2+="<option value='"+price+"'>"+price+"</option>";
 						$("#selseat").find("option").remove().end().append(str2);
+					}else if(r2==1){
+						var price=res.seatprice;
+						$.each(price,function(idx,value){
+							str2+="<option value='"+value+"'>"+value+"</option>";
+						});
+							$("#selseat").find("option").remove().end().append(str2);
+					}
+				}else if(r1==-1){
+					alert("공연 날이 아닙니다.");
 				}
 			},
 			error:function(xhr,status,error){
-				alert("Error : "+status+", "+error);
+				alert("공연 날이 아닙니다.");
 			}
 		});
 	}

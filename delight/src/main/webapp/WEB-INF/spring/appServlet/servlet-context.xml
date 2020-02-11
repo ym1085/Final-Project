@@ -51,6 +51,7 @@
 			<mapping path="/member/myWriteReviewList.do"/>
 			<mapping path="/member/NmReview.do"/>
 			<mapping path="/member/PhotoReview.do"/>
+			<mapping path="/member/pwdChange.do"/>
 			<beans:ref bean="loginInterceptor"/>  <!-- 로그인 인터셉터 파일명 맨앞소문자  -->
 		</interceptor>
 		

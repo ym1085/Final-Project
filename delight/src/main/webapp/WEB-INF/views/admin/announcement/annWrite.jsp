@@ -138,7 +138,7 @@ $(function() {
 		}
 	});
 
-	$("#sidebar li a").click(function() {
+	$("#sidebar li .z").click(function() {
 		event.preventDefault();
 		var redir=$(this).attr("href");
 		location.href="<c:url value='/admin/redir.do?redirurl="+redir+"'/>";

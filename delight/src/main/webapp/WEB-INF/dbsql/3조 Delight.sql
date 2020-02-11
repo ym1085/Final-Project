@@ -33,6 +33,11 @@ ALTER TABLE tbl_review
 		CONSTRAINT FK_tbl_user_TO_tbl_review
 		CASCADE;
 
+ALTER TABLE tbl_review
+	DROP
+		CONSTRAINT FK_tbl_reservation_TO_tbl_review
+		CASCADE;
+
 ALTER TABLE tbl_ann
 	DROP
 		CONSTRAINT FK_tbl_user_TO_tbl_ann
@@ -41,6 +46,11 @@ ALTER TABLE tbl_ann
 ALTER TABLE tbl_reservation
 	DROP
 		CONSTRAINT FK_tbl_user_TO_tbl_reservation
+		CASCADE;
+
+ALTER TABLE tbl_reservation
+	DROP
+		CONSTRAINT FK_tbl_ticket_TO_tbl_reservation
 		CASCADE;
 
 ALTER TABLE tbl_discount
@@ -381,14 +391,17 @@ ALTER TABLE tbl_mileagebec
 CREATE TABLE tbl_review (
 	review_seq NUMBER NOT NULL, /* 후기 시퀀스 */
 	review_type VARCHAR2(1) NOT NULL, /* 후기 타입 */
+	review_mt20id VARCHAR2(200) NOT NULL,/* 공연 id*/
 	review_title VARCHAR2(100) NOT NULL, /* 후기 제목 */
 	review_content CLOB NOT NULL, /* 후기 내용 */
+	review_score NUMBER, /* 평점 */
 	review_p1 CLOB, /* 후기 사진1 */
 	review_p2 CLOB, /* 후기 사진2 */
 	review_p3 CLOB, /* 후기 사진3 */
 	review_regdate DATE DEFAULT sysdate NOT NULL, /* 후기 등록일 */
-	review_mileage NUMBER NOT NULL, /* 후기 등록지급 마일리지 */
-	userid VARCHAR2(50) NOT NULL /* 아이디 */
+	review_mileage NUMBER NOT NULL, /* 후기 등록지급 마일리지  20 50 75 100*/
+	userid VARCHAR2(50) NOT NULL, /* 아이디 */
+	reservation_seq NUMBER /* 예매 시퀀스 */
 );
 
 ALTER TABLE tbl_review
@@ -404,7 +417,9 @@ CREATE TABLE tbl_ann (
 	ann_type VARCHAR2(1) NOT NULL, /* 공지사항 타입 */
 	ann_title VARCHAR2(100) NOT NULL, /* 공지사항 제목 */
 	ann_content CLOB NOT NULL, /* 공지사항 내용 */
-	ann_p1 CLOB, /* 공지사항 사진 */
+	ann_img VARCHAR2(300) , /* 공지 이미지 경로*/
+	ann_top VARCHAR2(1) DEFAULT 'N', /* 상단 고정 여부 */
+	ann_show VARCHAR2(1) DEFAULT 'N', /* 노출 여부 */
 	ann_regdate DATE DEFAULT sysdate NOT NULL, /* 공지사항 등록일 */
 	userid VARCHAR2(50) NOT NULL /* 아이디 */
 );
@@ -420,14 +435,18 @@ ALTER TABLE tbl_ann
 CREATE TABLE tbl_reservation (
 	reservation_seq NUMBER NOT NULL, /* 예매 시퀀스 */
 	mt20id VARCHAR2(20) NOT NULL, /* 공연 id */
+	prfnm VARCHAR2(60), /* 공연명 */
+	pay_price NUMBER, /* 공연가격 */
+	perfomtype VARCHAR2(20) NOT NULL, /* 공연종류 */
 	mt10id VARCHAR2(20) NOT NULL, /* 공연시설 id */
 	select_date DATE NOT NULL, /* 내가 선택한 날짜 */
 	select_time VARCHAR2(50) NOT NULL, /* 내가 선택한 시간 */
 	booking NUMBER NOT NULL, /* 구매 장수 */
-	class VARCHAR2(10) NOT NULL, /* 구매한 좌석 등급 */
+	seat_class VARCHAR2(10) NOT NULL, /* 구매한 좌석 등급 */
 	pay_ticket_number VARCHAR2(30) NOT NULL, /* 예매 번호 */
 	res_date DATE DEFAULT sysdate NOT NULL, /* 예매 날짜 */
-	userid VARCHAR2(50) NOT NULL /* 아이디 */
+	userid VARCHAR2(50) NOT NULL, /* 아이디 */
+	ticket_seq NUMBER /* 수량 시퀀스 */
 );
 
 ALTER TABLE tbl_reservation
@@ -472,6 +491,7 @@ CREATE TABLE tbl_promote (
 	promote_content CLOB NOT NULL, /* 홍보 내용 */
 	promote_p1 CLOB, /* 홍보 사진1 */
 	review_regdate DATE DEFAULT sysdate NOT NULL, /* 홍보게시물 등록일 */
+	mileagegive VARCHAR2(1) DEFAULT 'N' NOT NULL, /* 지급완료*/
 	userid VARCHAR2(50) NOT NULL /* 아이디 */
 );
 
@@ -486,8 +506,9 @@ ALTER TABLE tbl_promote
 CREATE TABLE tbl_payment (
 	pay_seq NUMBER NOT NULL, /* 결제번호 */
 	pay_price NUMBER NOT NULL, /* 결제금액 */
+	usedmileage NUMBER, /*사용한 마일리지*/
 	reg_date DATE DEFAULT sysdate NOT NULL, /* 결제일자 */
-	pay_condition VARCHAR2(1) NOT NULL, /* 결제상태 */
+	pay_condition VARCHAR2(1) DEFAULT 'Y' NOT NULL, /* 결제상태 C는 환불*/
 	reservation_seq NUMBER NOT NULL /* 예매 시퀀스 */
 );
 
@@ -503,9 +524,12 @@ CREATE TABLE tbl_inquery (
 	inquery_seq NUMBER NOT NULL, /* 문의 시퀀스 */
 	inquery_content VARCHAR2(200) NOT NULL, /* 문의내용 */
 	reg_date DATE DEFAULT sysdate, /* 문의날짜 */
-	inquery_type VARCHAR2(200), /* 문의유형 */
-	inquery_condition VARCHAR2(10) DEFAULT N, /* 답변상태 */
-	userid VARCHAR2(50) /* 아이디 */
+	inquery_title VARCHAR2(50), /* 문의제목 */
+	inquery_condition VARCHAR2(15) DEFAULT 'N', /* 답변상태 */
+	userid VARCHAR2(50), /* 아이디 */
+	username VARCHAR2(30), /* 이름 */
+	email VARCHAR2(30), /* 이메일 */
+	hp VARCHAR2(30) /* 전화번호 */
 );
 
 ALTER TABLE tbl_inquery
@@ -518,7 +542,7 @@ ALTER TABLE tbl_inquery
 /* 자주 묻는 질문 */
 CREATE TABLE tbl_faq (
 	faq_seq NUMBER NOT NULL, /* 자주묻는질문 시퀀스 */
-	faq_title VARCHAR2(100) NOT NULL, /* 자주묻는질문 제목 */
+	faq_title VARCHAR2(300) NOT NULL, /* 자주묻는질문 제목 */
 	faq_content CLOB NOT NULL, /* 자주묻는질문 내용 */
 	faq_type VARCHAR2(50) NOT NULL, /* 자주묻는질문 타입 */
 	faq_regdate DATE DEFAULT sysdate NOT NULL, /* 등록일 */
@@ -552,6 +576,8 @@ ALTER TABLE tbl_inqAnw
 CREATE TABLE tbl_like (
 	likeCount_seq NUMBER NOT NULL, /* 좋아요 증가 시퀀스  */
 	mt20id VARCHAR2(20) NOT NULL, /* 공연 id */
+	prfnm VARCHAR2(60), /* 공연명 */
+	genre VARCHAR2(30), /* 장르 */
 	userid VARCHAR2(50) NOT NULL /* 아이디 */
 );
 
@@ -582,7 +608,8 @@ ALTER TABLE tbl_grade
 CREATE TABLE tbl_user (
 	userid VARCHAR2(50) NOT NULL, /* 아이디 */
 	username VARCHAR2(30) NOT NULL, /* 이름 */
-	password VARCHAR2(30) NOT NULL, /* 비밀번호 */
+	password VARCHAR2(500byte) NOT NULL, /* 비밀번호 */
+	birth VARCHAR2(12) NOT NULL, /* 생년월일 */
 	email1 VARCHAR2(30) NOT NULL, /* 이메일1 */
 	email2 VARCHAR(20) NOT NULL, /* 이메일2 */
 	hp1 VARCHAR2(3) NOT NULL, /* 전화번호1 */
@@ -593,14 +620,15 @@ CREATE TABLE tbl_user (
 	address_detail VARCHAR2(200), /* 상세주소 */
 	gender VARCHAR2(5) NOT NULL, /* 성별 */
 	mail_agreement VARCHAR2(5) NOT NULL, /* 메일수신동의여부 */
-	mail_authen VARCHAR2(3) DEFAULT N NOT NULL, /* 메일인증여부 */
+	mail_authen VARCHAR2(3) DEFAULT 'N' NOT NULL, /* 메일인증여부 */
 	mileagePoint NUMBER DEFAULT 0, /* 적립된 마일리지 */
 	logout_date DATE, /* 로그아웃 일자 */
 	join_date DATE DEFAULT sysdate, /* 가입일 */
 	out_date DATE, /* 탈퇴일 */
+	salt VARCHAR2(100 char), /* 암호화 */
 	out_reason_no NUMBER, /* 탈퇴사유 번호 */
 	grade_seq NUMBER DEFAULT 1, /* 등급 번호 */
-	grade_name VARCHAR2(10) DEFAULT b /* 회원별 등급이름 */
+	grade_name VARCHAR2(10) DEFAULT 'b' /* 회원별 등급이름 */
 );
 
 ALTER TABLE tbl_user
@@ -683,10 +711,13 @@ ALTER TABLE tbl_gugun
 CREATE TABLE tbl_ticket (
 	ticket_seq NUMBER NOT NULL, /* 수량 시퀀스 */
 	mt20id VARCHAR2(20) NOT NULL, /* 공연 id */
-	prfdate DATE NOT NULL, /* 공연 날짜 */
-	prfhour DATE NOT NULL, /* 공연 시간 */
+	prfnm VARCHAR2(100) NOT NULL, /* 공연명 */
+	prfdate VARCHAR2(15) NOT NULL, /* 공연 날짜 */
+	prfhour VARCHAR2(15) NOT NULL, /* 공연 시간 */
 	sellticket NUMBER NOT NULL, /* 판매하는 표 수량 */
-	sellclass VARCHAR2(10) NOT NULL, /* 판매하는 표 좌석등급 */
+	sellclass VARCHAR2(30) NOT NULL, /* 판매하는 표 좌석등급 */
+	netprice NUMBER NOT NULL, /* 정가 */
+	selled NUMBER DEFAULT 0, /* 판매된장수 */
 	regdate DATE DEFAULT sysdate NOT NULL /* 설정 날짜 */
 );
 
@@ -700,8 +731,9 @@ ALTER TABLE tbl_ticket
 /* 최근 본 공연 */
 CREATE TABLE tbl_recent (
 	recent_seq NUMBER NOT NULL, /* 최근 본 공연 시퀀스 */
-	ip_address VARCHAR2(20) NOT NULL, /* 접속자의 ip */
+	iporid VARCHAR2(20) NOT NULL, /* ip또는 id */
 	mt20id VARCHAR2(20) NOT NULL, /* 공연 id */
+	prfnm VARCHAR2(60), /* 공연명 */
 	showdate DATE DEFAULT sysdate NOT NULL /* 본 날짜 */
 );
 
@@ -714,10 +746,13 @@ ALTER TABLE tbl_recent
 
 /* 환불 */
 CREATE TABLE tbl_refund (
-	refund_seq NUMBER NOT NULL, /* 환불 시퀀스 */
-	compflag VARCHAR2(2) NOT NULL, /* 환불 상황 */
-	pay_seq NUMBER NOT NULL, /* 결제번호 */
-	refundbec_seq NUMBER NOT NULL /* 환불 사유 시퀀스 */
+   refund_seq NUMBER NOT NULL, /* 환불 시퀀스 */
+   compflag VARCHAR2(2) DEFAULT 'N' NOT NULL,/* 환불 상태 */
+   refund_price NUMBER, /* 환불되는 금액 */ 
+   pay_seq NUMBER NOT NULL, /* 결제번호 */
+   refundbec_seq NUMBER NOT NULL,/* 환불 사유 시퀀스 */
+   refund_cancle date default sysdate,  /*환불 신청날짜*/
+   refund_cancle_ok date /*환불 완료날짜*/
 );
 
 ALTER TABLE tbl_refund
@@ -730,7 +765,7 @@ ALTER TABLE tbl_refund
 /* 환불 사유 */
 CREATE TABLE tbl_refundbec (
 	refundbec_seq NUMBER NOT NULL, /* 환불 사유 시퀀스 */
-	detail CLOB NOT NULL /* 사유 */
+	detail VARCHAR2(300) NOT NULL /* 사유 */
 );
 
 ALTER TABLE tbl_refundbec
@@ -770,6 +805,16 @@ ALTER TABLE tbl_review
 			userid
 		);
 
+ALTER TABLE tbl_review
+	ADD
+		CONSTRAINT FK_tbl_reservation_TO_tbl_review
+		FOREIGN KEY (
+			reservation_seq
+		)
+		REFERENCES tbl_reservation (
+			reservation_seq
+		);
+
 ALTER TABLE tbl_ann
 	ADD
 		CONSTRAINT FK_tbl_user_TO_tbl_ann
@@ -788,6 +833,16 @@ ALTER TABLE tbl_reservation
 		)
 		REFERENCES tbl_user (
 			userid
+		);
+
+ALTER TABLE tbl_reservation
+	ADD
+		CONSTRAINT FK_tbl_ticket_TO_tbl_reservation
+		FOREIGN KEY (
+			ticket_seq
+		)
+		REFERENCES tbl_ticket (
+			ticket_seq
 		);
 
 ALTER TABLE tbl_discount
@@ -1063,3 +1118,43 @@ create sequence refundbec_seq
 start with 1
 increment by 1
 nocache;
+
+
+--특별 공연 할인
+drop sequence discount_seq;
+create sequence discount_seq
+start with 1
+increment by 1
+nocache;
+
+insert into tbl_grade values(grade_seq.nextval , 'b', 0 , 0);
+insert into tbl_grade values(grade_seq.nextval , 's', 500000 , 1);
+insert into tbl_grade values(grade_seq.nextval , 'g', 1000000 , 2);
+insert into tbl_grade values(grade_seq.nextval , 'p', 1500000 , 3);
+insert into tbl_grade values(grade_seq.nextval , 'vip', 2000000 , 5);
+insert into tbl_grade values(grade_seq.nextval , 'admin', 99999999999999999999 , 10);
+
+insert into tbl_mileagebec values(mileaebec_seq.nextval , '결제후 적립');
+insert into tbl_mileagebec values(mileaebec_seq.nextval , '일반후기 적립');
+insert into tbl_mileagebec values(mileaebec_seq.nextval , '포토후기 적립');
+insert into tbl_mileagebec values(mileaebec_seq.nextval , '홍보이벤트 적립');
+insert into tbl_mileagebec values(mileaebec_seq.nextval , '결제금액 할인');
+insert into tbl_mileagebec values(mileaebec_seq.nextval , '환불 차감');
+insert into tbl_mileagebec values(mileaebec_seq.nextval , '환불 증가');
+
+insert into out_reason values(out_reason_seq.nextval, '타 사이트 이용');
+insert into out_reason values(out_reason_seq.nextval, '자주 이용하지 않음');
+insert into out_reason values(out_reason_seq.nextval, '아이디 변경');
+insert into out_reason values(out_reason_seq.nextval, '관리자 권한 강퇴');
+insert into out_reason values(out_reason_seq.nextval, '휴면 계정');
+
+insert into tbl_refundbec values(refundbec_seq.nextval, '단순 변심');
+insert into tbl_refundbec values(refundbec_seq.nextval, '스케쥴 변경으로 인한 공연 관람 불가');
+insert into tbl_refundbec values(refundbec_seq.nextval, '예매 실수');
+insert into tbl_refundbec values(refundbec_seq.nextval, '자리 변경');
+insert into tbl_refundbec values(refundbec_seq.nextval, '다른 공연 관람');
+
+insert into tbl_user(userid,username,password,birth,email1,email2,hp1,hp2,hp3,gender,mail_agreement,grade_seq,grade_name)
+values('admin','관리자','1','1989-04-01','glddld','nate.com','010','6244','9984','남','N',6,'admin');
+
+commit;

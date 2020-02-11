@@ -96,6 +96,7 @@
   	.box-reviewimg {width: 101px;height: 36px;float: right;margin-top: 32px;}
 	.box-reviewimg img {float: left;width: 30%;height: 100%;margin-right: 2px;margin-left: 1px;} 
    .starRaite>img {height: 18px;margin-top: 9px;}
+   span.tit {word-break: break-all;}
    /* 삭제하지마세요 - 사이드 배너 */
    #floatMenu {position: absolute;width: 230px;height:780px;left: 1550px;top:120px;border: 0.2px solid #efe7e7;}
 }
@@ -214,40 +215,36 @@
 				data:{"CurrentPage":CurrentPage,
 					  "mt20id":$("input[name=mt20id]").val()},
 				success:function(res){
-					alert(res.REVIEW_CONTENT);
 					var str="";
 					if(res==null || res==''){
+						alert("마지막페이지입니다!");
 						$("#reviewMore").hide();
-					}/*else {
+					}else {
 					$.each(res,function(idx,value){
-		                   str+='<div class="box-wrap">'
+					   var date = new Date(value.REVIEW_REGDATE);
+					   date=getFormatDate(date);
+                       var content=value.REVIEW_CONTENT;
+                       content=content.replace("\r\n","");
+                       if(content.length>70){
+                       content=content.substr(0,70)+'...'
+                       }
+						//ㅇㅇ
+						 str+='<div class="box-wrap">'
 	                       +'<div class="box">'
 	                       +'<div class="box-depth">'
-	                       +'<div class="left">'
+	                        +'<div class="left">'
 	                       +'<span class="umail">'+value.USERID+'</span>'
 	                       +'</div>'
-	                       +'<div class="right">'
+	                        +'<div class="right">'
 	                       +'<span class="tit">'
-	                       var content=value.REVIEW_CONTENT;
-	                       content=content.replace("\r\n","<br>");
-	                       if(content.length>100){
-	                       +content.substr(0,100)+'...'
-	                       }else{
 	                       +content
-	                       }
 	                       +'</span>'
-	                       +'<p class="date">'+value.REVIEW_REGDATE+'</p>'
+	                       +'<p class="date">'+date+'</p>'
                             +'</div>'
                             +'<div class="box-reviewimg">'
-                            /*if(value.REVIEW_P1!='' && value.REVIEW_P1!=null){
-                             +'<img alt="후기" src="<c:url value="/reviewupload/'+value.REVIEW_P1+'"/>">'
-                        	 }
-                               if(value.REVIEW_P2!='' && value.REVIEW_P2!=null){
-	                               +'<img alt="후기" src="<c:url value="/reviewupload/'+value.REVIEW_P2+'"/>">'
-	                            }
-                            if(value.REVIEW_P3!='' && value.REVIEW_P3!=null){
-                            +'<img alt="후기" src="<c:url value="/reviewupload/'+value.REVIEW_P3+'"/>">'
-                            }  
+                            +'<img alt="" src="<c:url value="/reviewupload/'+value.REVIEW_P1+'"/>">'
+	                        +'<img alt="" src="<c:url value="/reviewupload/'+value.REVIEW_P2+'"/>">'
+                            +'<img alt="" src="<c:url value="/reviewupload/'+value.REVIEW_P3+'"/>">'
                             +'</div>'
                             +'<div>'
 	                        +'<span class="star-rating">'
@@ -259,14 +256,21 @@
 	                     	+'</div>'
 					});
 					$(".moreReview").before(str);
-					
-					} */
+					}
 				},
 				error:function(xhr,status,error){
 				}
 			});	
 		});
 	});
+	function getFormatDate(date){
+	    var year = date.getFullYear();              //yyyy
+	    var month = (1 + date.getMonth());          //M
+	    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+	    var day = date.getDate();                   //d
+	    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+	    return  year + '-' + month + '-' + day;
+	}
 </script>
  
    <!-- 페이지 만들떄마다 복붙 -->
@@ -630,7 +634,7 @@
                    </c:if>
                    <c:if test="${!empty rlist }">
                    <c:forEach var="rmap" items="${rlist }">
-                   <!-- 반복시작 -->
+                   <!-- 반복시작 ㅇㅇ-->
                    <div class="box-wrap">
                        <div class="box">
                              <div class="box-depth">
@@ -640,10 +644,10 @@
                                 <div class="right">
                                    <span class="tit">
                                    <c:set var="content" value="${fn:replace(rmap['REVIEW_CONTENT'], newLine,'<br>') }" />
-                                      	<c:if test="${fn:length(content)>100 }">
-											${fn:substring(content,0,100) }...
+                                      	<c:if test="${fn:length(content)>70 }">
+											${fn:substring(content,0,70) }...
 										</c:if>
-										<c:if test="${fn:length(content)<100 }">
+										<c:if test="${fn:length(content)<70 }">
 											${content }
 										</c:if>
                                      </span>
@@ -770,7 +774,7 @@
           			 <!-- 예진씨 메서드 참고해 사용 -->
                      <c:forEach var="vo" items="${list}">
 	                     <span>
-	                        <a href = "<c:url value= '/performance/pfDetail.do?perfomid=${vo.mt20id }'/>">
+	                        <a href = "<c:url value= '/performance/recentInsert.do?perfomid=${vo.mt20id }'/>">
 	                              <img class ="imgbox" 
 	                                 width="208px" height="284px" src="${vo.poster}">
 	                        </a>

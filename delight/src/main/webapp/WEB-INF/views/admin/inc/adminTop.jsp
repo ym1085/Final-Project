@@ -99,7 +99,7 @@
               </a>
             </li>
             <li class="nav-item" id="adminHome">
-              <a class="nav-link" href="<c:url value='/admin/adminMain.do'/>">
+              <a class="nav-link z" href="<c:url value='/admin/adminMain.do'/>">
                 <span class="menu-title">관리모드 홈</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
@@ -113,11 +113,11 @@
               </a>
               <div class="collapse" id="ann">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/announcement/annWrite.do'/>"> 
+                  <li class="nav-item"> <a class="nav-link z" href="<c:url value='/admin/announcement/annWrite.do'/>"> 
 				  공지작성 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/announcement/annInc.do'/>"> 
+                  <li class="nav-item"> <a class="nav-link z" href="<c:url value='/admin/announcement/annInc.do'/>"> 
 				  공지목록/설정 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/FAQ/FAQManagement.do'/>"> 
+                  <li class="nav-item"> <a class="nav-link z" href="<c:url value='/admin/FAQ/FAQManagement.do'/>"> 
 				  자주묻는질문 관리 </a></li>
                   
                 </ul>
@@ -133,15 +133,15 @@
               </a>
               <div class="collapse" id="user">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/gradeManagement.do'/>" > 
+                  <li class="nav-item"> <a class="nav-link z" href="<c:url value='/admin/userManagement/gradeManagement.do'/>" > 
 				  등급별 혜택 관리 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/userList.do'/>"> 
+                  <li class="nav-item"> <a class="nav-link z" href="<c:url value='/admin/userManagement/userList.do'/>"> 
 				  회원/회원별 결제목록 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/inqueryList.do'/>"> 
+                  <li class="nav-item"> <a class="nav-link z" href="<c:url value='/admin/userManagement/inqueryList.do'/>"> 
 				  문의목록 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/promotionBoardList.do'/>"> 
+                  <li class="nav-item"> <a class="nav-link z" href="<c:url value='/admin/userManagement/promotionBoardList.do'/>"> 
 				  홍보게시판 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/userManagement/reviewBoardList.do'/>"> 
+                  <li class="nav-item"> <a class="nav-link z" href="<c:url value='/admin/userManagement/reviewBoardList.do'/>"> 
 				  후기게시판 </a></li>
                   
                 </ul>
@@ -157,13 +157,13 @@
               </a>
               <div class="collapse" id="sell">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/refundReqList.do'/>"> 
+                  <li class="nav-item"> <a class="nav-link z" href="<c:url value='/admin/salesManagement/refundReqList.do'/>"> 
 				  환불신청 내역 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/salesSetting.do'/>" > 
+                  <li class="nav-item"> <a class="nav-link z" href="<c:url value='/admin/salesManagement/salesSetting.do'/>" > 
 				  판매수량 설정</a></li>
-				  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/settingList.do'/>" > 
+				  <li class="nav-item"> <a class="nav-link z" href="<c:url value='/admin/salesManagement/settingList.do'/>" > 
 				  판매수량 설정 목록 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/salesManagement/salesDiscount.do'/>" > 
+                  <li class="nav-item"> <a class="nav-link z" href="<c:url value='/admin/salesManagement/salesDiscount.do'/>" > 
 				  특별공연 할인</a></li>
                   
                 </ul>
@@ -179,16 +179,16 @@
               </a>
               <div class="collapse" id="chart">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/numericalStatement/memberStatistics.do'/>"> 
+                  <li class="nav-item"> <a class="nav-link z" href="<c:url value='/admin/numericalStatement/memberStatistics.do'/>"> 
 				  회원통계 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/numericalStatement/salesSatistics.do'/>"> 
+                  <li class="nav-item"> <a class="nav-link z" href="<c:url value='/admin/numericalStatement/salesSatistics.do'/>"> 
 				  매출/예매통계 </a></li>
                 </ul>
               </div>
             </li>
 			
 			 <li class="nav-item" id="excel">
-              <a class="nav-link" href="<c:url value='/admin/exceluploadImport.do'/>">
+              <a class="nav-link z" href="<c:url value='/admin/exceluploadImport.do'/>">
                 <span class="menu-title">엑셀 임포트</span>
                 <i class="mdi mdi-import menu-icon"></i>
               </a>
