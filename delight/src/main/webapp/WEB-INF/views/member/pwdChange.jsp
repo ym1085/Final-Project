@@ -14,9 +14,12 @@
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.4.1.min.js' />"></script>
 <script type="text/javascript">
 	$(function(){
-		$("#userid").focus();
+		$("#accordancePwd").hide();
+		$("#discordPwd").hide();
 		
-		$("form[name=frm]").submit(function(){
+		$("#OGpassword").focus();
+		
+		$("form[name=frmpch]").submit(function(){
 			$(".infobox").each(function(idx, item){
 				if($(this).val().length<1){
 					var str=$(this).prev().html();
@@ -30,18 +33,45 @@
 				}
 			});	
 			
-			var email=$("#email").val();
-			var cnt=email.search("@");
-			var idxo=email.indexOf("@");
-			var sub=email.substring(idxo+1);
-			if(cnt==-1 && email!=''){
-				alert("올바르지않는 이메일형식입니다.");
-				$("#email").focus();
-				event.preventDefault();
-			}else if(email!='' && sub==''){
-				alert("올바르지않는 이메일형식입니다.");
-				$("#email").focus();
-				event.preventDefault();
+			event.preventDefault();
+			
+			$.ajax({
+				url:"<c:url value='/member/checkPwd.do'/>",
+				type:"post",
+				data:{"password":$("#OGpassword").val()},
+				success:function(res){
+					if(res>0){
+						$("form[name=frmpch]").submit();
+					}else{
+						alert("기존비밀번호가 일치하지않습니다.");
+						event.preventDefault();
+					}
+				},
+				error:function(xhr, status, error){
+					alert("Error : " + status +"=>"+ error);
+				}
+			});
+			
+		});
+		
+		$("input").keyup(function(){
+			var pwd1=$("#password").val();
+			var pwd2=$("#password2").val();
+			
+			if(pwd1!="" || pwd2!=""){
+				if(pwd1==pwd2){
+					$("#accordancePwd").show();
+					$("#discordPwd").hide();
+					$("#submit").removeAttr("disabled");
+				}else {
+					$("#accordancePwd").hide();
+					$("#discordPwd").show();
+					$("#submit").attr("disabled","disabled");
+				}
+			}else {	//공백일시
+				$("#accordancePwd").hide();
+				$("#discordPwd").hide();
+				$("#submit").removeAttr("disabled");
 			}
 		});
 		
@@ -85,13 +115,15 @@
 								<!-- form <-> action -->
 								<form action="<c:url value = '/member/pwdChange.do'/>" method="post" name = "frmpch">
 									<p>기존비밀번호</p>
-									<input type="text" class="infobox" name="OGpassword" id="OGpassword" placeholder="기존비밀번호."/>
+									<input type="password" class="infobox" name="OGpassword" id="OGpassword" placeholder="기존비밀번호."/>
 									<p>새로운비밀번호</p>
 									<input type="password" class="infobox" name="password" id="password" placeholder="새로운비밀번호를 입력해주세요."/>
 									<p>새로운비밀번호확인</p>
 									<input type="password" class="infobox" name="password2" id="password2" placeholder="확인 비밀번호를입력해주세요."/> 
+									<span class = "w3ls-name" id="accordancePwd" style="color: red;font-weight: bold;">※비밀번호가 일치합니다.</span> 
+									<span class = "w3ls-name" id="discordPwd" style="color: red;font-weight: bold;">※비밀번호가 일치하지 않습니다.</span>
 									<ul style="margin-top: 4%; margin-bottom:4%; font-weight: bold;">
-										<li>비밀번호가 새로 변경되면 다시 로그인 해주시기 바랍니다.</li>
+										<li>* 비밀번호가 새로 변경되면 다시 로그인 해주시기 바랍니다.</li>
 									</ul>
 									<input type="submit" value="비밀번호 변경">
 								</form>

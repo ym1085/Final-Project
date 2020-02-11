@@ -91,7 +91,7 @@ public class EmailController {
          RandomKey rk=new RandomKey();
          String pwd=rk.excuteGenerate1();
          memberVo.setPassword(pwd);
-         
+         logger.info("@@비밀번호pwd={}",pwd);
          String subject="안녕하세요 Delight입니다."+memberVo.getUsername()+"님의 임시비밀번호 발급";
          String content=DM.dmUserPwdInfo(pwd);
          String receiver=email;
