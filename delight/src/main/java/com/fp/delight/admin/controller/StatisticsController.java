@@ -28,13 +28,30 @@ public class StatisticsController {
 	public void memberStatistics(Model model) {
 		logger.info("회원 통계 보이기");
 		List<Map<String, Object>> list=statisticesService.gendercount();
-		for(Map<String, Object> map:list) {
-			if(((String)map.get("GENDER")).equals("여")) {
-				//woman=Integer.parseInt((String) map.get("COUNT"));
-				model.addAttribute("woman", map.get("COUNT"));
-			}else if(((String)map.get("GENDER")).equals("남")) {
-				//man=Integer.parseInt((String) map.get("COUNT"));
-				model.addAttribute("man", map.get("COUNT"));
+		if(list.size()>1) {
+			for(Map<String, Object> map:list) {
+				if(((String)map.get("GENDER")).equals("여")) {
+					//woman=Integer.parseInt((String) map.get("COUNT"));
+					model.addAttribute("woman", map.get("COUNT"));
+				}else if(((String)map.get("GENDER")).equals("남")) {
+					//man=Integer.parseInt((String) map.get("COUNT"));
+					model.addAttribute("man", map.get("COUNT"));
+				}
+			}
+		}else {
+			for(Map<String, Object> map:list) {
+				if(((String)map.get("GENDER")).equals("여")) {
+					//woman=Integer.parseInt((String) map.get("COUNT"));
+					model.addAttribute("woman", map.get("COUNT"));
+					model.addAttribute("man", 0);
+				}else if(((String)map.get("GENDER")).equals("남")) {
+					//man=Integer.parseInt((String) map.get("COUNT"));
+					model.addAttribute("man", map.get("COUNT"));
+					model.addAttribute("woman", 0);
+				}else {
+					model.addAttribute("man", 0);
+					model.addAttribute("woman", 0);
+				}
 			}
 		}
 		List<ChartVO> agegroup=statisticesService.agegroup();
