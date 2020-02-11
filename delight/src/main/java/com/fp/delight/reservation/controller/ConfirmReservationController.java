@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.delight.common.DateSearchVO;
 import com.fp.delight.common.PaginationInfo;
@@ -129,13 +130,20 @@ public class ConfirmReservationController {
 	
 	@RequestMapping(value = "/myreserCancle.do",method = RequestMethod.GET)
 	public void myreserCansle_get(@RequestParam(defaultValue = "0")int reservationSeq,
-			HttpSession session,Model model) {
+			HttpSession session,Model model,@RequestParam String noneuserid) {
 		String userid=(String)session.getAttribute("userid");
 		ReservationVO reservationVo=new ReservationVO();
-		reservationVo.setUserid(userid);
-		reservationVo.setReservation_seq(reservationSeq);
+		logger.info("@@파라미터확인 noneuserid={}",noneuserid);
+		if(userid!=null && !userid.isEmpty()) {
+			reservationVo.setUserid(userid);
+		}else {
+			reservationVo.setNoneuserid(noneuserid);
+		}
 		
+		reservationVo.setReservation_seq(reservationSeq);
+		logger.info("@@파라미터 확인@@ vo={}",reservationVo);
 		Map<String, Object> map=reservationService.selectCanDetail(reservationVo);
+		logger.info("@@파라미터확인 map={}",map);
 		
 		List<RefundbecVO> refundlist=refundbecService.selectRefundbecAll();
 		
@@ -159,7 +167,7 @@ public class ConfirmReservationController {
 		String msg="",url="";
 		if(cnt>0) {
 			msg="취소신청이 완료되었습니다!";
-			url="/member/myPage.do";
+			url="/member/mysecCanList.do";
 		}else {
 			msg="취소신청실패!";
 			url="/member/myreserCancle.do?reservationSeq="+reservationSeq;
@@ -170,4 +178,37 @@ public class ConfirmReservationController {
 		
 		return "common/message";
 	}
+	
+	@RequestMapping("/nonesecList.do")
+	public void nonesecList_post(@ModelAttribute DateSearchVO dateSearchVo,Model model) {
+		
+		String startDay=dateSearchVo.getStartDay();
+		if(startDay==null || startDay.isEmpty()) {
+			Date today = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String str=sdf.format(today);
+			
+			dateSearchVo.setStartDay(str);
+			dateSearchVo.setEndDay(str);			
+		}
+		
+		logger.info("@@커스토마아이디 id={}",dateSearchVo.getCustomerId());
+		
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(Utility.LIKE_RECORD_COUNT);
+		pagingInfo.setCurrentPage(dateSearchVo.getCurrentPage());
+		
+		dateSearchVo.setRecordCountPerPage(Utility.LIKE_RECORD_COUNT);
+		dateSearchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		List<Map<String, Object>> list=reservationService.noneSelectReserList(dateSearchVo);
+		
+		int totalRecord=reservationService.noneTotalRecord(dateSearchVo);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		model.addAttribute("list",list);
+		model.addAttribute("pagingInfo",pagingInfo);
+	}
+
 }

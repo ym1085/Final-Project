@@ -92,6 +92,7 @@
 	}
 	button.btn.btn-success.btn-lg {
     width: 120px;
+    margin-top: 5px;
 	}
 	
 	button.btn.btn-secondary.btn-lg {
@@ -112,7 +113,7 @@
 					<button type="button" class="btn btn-success btn-lg"
 					onClick="location.href='<c:url value="/login/login.do" />'">로그인</button>
 					<button type="button" class="btn btn-secondary btn-lg"
-					onClick="location.href='<c:url value="/login/findPwd.do" />'">비밀번호 찾기</button>
+					onClick="location.href='<c:url value="/member/nonesecList.do" />'">예매내역</button>
 				</div>
 				<div id="q2">
 					<button type="button" class="btn btn-secondary btn-lg" id="topLogin"
