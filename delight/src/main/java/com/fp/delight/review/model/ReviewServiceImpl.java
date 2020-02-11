@@ -78,5 +78,15 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.reviewDetail(reviewVo);
 	}
 
+	@Override
+	public Map<String, Object> selectReviewInfo(String perfomid) {
+		return reviewDao.selectReviewInfo(perfomid);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectReviewListAll(ReviewVO reviewVo) {
+		return reviewDao.selectReviewListAll(reviewVo);
+	}
+
 	
 }

@@ -26,11 +26,11 @@ $(function(){
 			alert("내용은 20자 이상 입력해주세요");
 			$("#inqueryContent").focus();
 			event.preventDefault();
-		}else if($("#file1").val().length<1 && $("#filelength").val()==1){
+		}/* else if($("#file1").val().length<1 && $("#filelength").val()==1){
 			alert("사진은1개이상 업로드하셔야합니다.");
 			$("#file1").focus();
 			event.preventDefault();
-		}else if(file1!='' && (file1!=jpg && file1!=png)){
+		} */else if(file1!='' && (file1!=jpg && file1!=png)){
 			alert("이미지파일은 jpg나png만 등록이 가능합니다.");
 			$("#file1").focus();
 			event.preventDefault();
@@ -95,21 +95,25 @@ $(function(){
 				<p class="filesear">- 홍보하실 공연의 제목을 입력해주세요.</p>
 				<input type="text" maxlength="30" id="inqueryTitle" name="promoteTitle" value="${vo.promoteTitle}" />
 			</div>
+			
 			<p class="contenttitle">
 				<input type="file" name="fileName" id="file1" value="${vo.promoteP1}">
 				<input type="button" id="fileM" value="-">
 				<input type="hidden" id="filelength" name="fileLength" value="1">
-				<span class="fileError">* 이미지파일은 JPG,PNG만 등록이가능합니다.</span><br><br>
-				<span  class="filesear">- 홍보하실 공연의 내용을 작성 해 주세요.(10자이상)</span>
+				<span class="fileError">* 이미지파일은 JPG,PNG만 등록이 가능하며, 수정 시에는 사진을 새로 업로드 하셔야 합니다.</span><br><br>
+				<span  class="filesear">- 홍보하실 공연의 내용을 작성 해 주세요.(20자이상)</span>
 			</p>
+			
 			<div class="writeReview6">
 				<textarea id="inqueryContent" name="promoteContent">${vo.promoteContent}</textarea>
 				<!-- keyUp걸기 -->
 				<p class="review6info"><span class="chklength">0</span>자 / 20자 이상</p>	
 			</div>
+			
 			<div class="writeReview7">
 				<input type="submit" value="수정하기" class="infoWrite">
 			</div>
+			
 		</div>
 		</form>
 	</section>

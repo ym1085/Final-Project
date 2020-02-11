@@ -126,7 +126,7 @@ function pageFunc(curPage){
 		   	<c:forEach var = "map" items="${alist }">    
 				<%-- <c:if test="${vo.genrenm == '연극' || vo.genrenm == '뮤지컬'}"> --%>      	
 					<div class = "testImg">
-						<a href='<c:url value="/performance/pfDetail.do?perfomid=${map['mt20id'] }"/>'>
+						<a href="<c:url value='/performance/pfDetail.do?perfomid=${vo.mt20id}'/>">
 				    		<img src="${map['poster'] }" class="img-responsive" width="240px" height="240px">
 				    	</a>
 				        	<br>

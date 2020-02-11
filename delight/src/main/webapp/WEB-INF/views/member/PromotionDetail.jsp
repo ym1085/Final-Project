@@ -46,7 +46,8 @@
 				<p class="contenttitle">
 				<span  class="filesear">제목  :  </span> <span >${vo.promoteTitle}</span><br><br>
 				<span  class="filesear">내용  :  </span> <span>${vo.promoteContent}</span><br><br>
-				<span  class="filesear">파일  :  </span> <span><img alt="" src="<c:url value='/promotionupload/${vo.promoteP1}'/>"></span><br><br>
+				<span><img alt="" style="width: 250px; height: 250px;" 
+							src="<c:url value='/promotionupload/${vo.promoteP1}'/>"></span><br><br>
 				<span  class="filesear">등록일  :  </span> <span>${vo.reviewRegdate}</span><br><br>
 				<span  class="filesear">마일리지 지급상태  :  </span> <span>${vo.mileagegive}</span><br><br>
 				<span  class="filesear">작성자  :  </span> <span>${vo.userid}</span><br>
@@ -54,8 +55,10 @@
 			</div>
 			
 			<div class="writeReview7">
-				<a href='<c:url value="/member/PromotionEdit.do?promoteSeq=${param.promoteSeq}"/>'>수정</a>&nbsp;|&nbsp;
-				<a href='<c:url value="/member/PromotionDelete.do?promoteSeq=${param.promoteSeq}"/>'>삭제</a>
+				<c:if test="${vo.mileagegive == 'N'}">
+					<a href='<c:url value="/member/PromotionEdit.do?promoteSeq=${param.promoteSeq}"/>'>수정</a>&nbsp;|&nbsp;
+					<a href='<c:url value="/member/PromotionDelete.do?promoteSeq=${param.promoteSeq}"/>'>삭제</a>
+				</c:if>
 			</div>
 		</div>
 		</form>

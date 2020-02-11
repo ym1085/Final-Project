@@ -168,4 +168,29 @@
 		where userid=#{userid} and review_seq=#{reviewSeq}
 	</select>
 	
+	<select id="selectReviewInfo" parameterType="string" resultType="map">
+		select count(*)as"TOTAL",round(avg(review_score),0)avg
+		from tbl_review r
+		where review_mt20id=#{perfomid}
+	</select>
+	
+	<select id="selectReviewListAll" parameterType="reviewVo" resultMap="getreviewDetail">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		        select *
+				from tbl_review
+				where review_mt20id=#{reviewMt20id}
+				order by review_seq desc
+		    )A
+		)
+		where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>	
+	</select>
+	
 </mapper>

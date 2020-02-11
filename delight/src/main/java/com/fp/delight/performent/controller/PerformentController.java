@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fp.delight.admin.salesManagement.Model.TicketDiscountVO;
 import com.fp.delight.admin.salesManagement.Model.TicketSettingService;
 import com.fp.delight.common.IPUtility;
+import com.fp.delight.common.PaginationInfo;
+import com.fp.delight.common.Utility;
 import com.fp.delight.like.model.LikeService;
 import com.fp.delight.like.model.LikeVO;
 import com.fp.delight.member.model.MemberService;
@@ -24,6 +26,8 @@ import com.fp.delight.performent.model.PerformentDetailVO;
 import com.fp.delight.performent.model.PerformentListVO;
 import com.fp.delight.recent.model.RecentService;
 import com.fp.delight.recent.model.RecentVO;
+import com.fp.delight.review.model.ReviewService;
+import com.fp.delight.review.model.ReviewVO;
 import com.fp.delight.ticket.model.TicketService;
 import com.fp.delight.ticket.model.TicketVO;
 
@@ -48,6 +52,9 @@ public class PerformentController {
 	
 	@Autowired
 	private RecentService recentService;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	@RequestMapping("/pfDetail.do")
 	public String performentList_post(@RequestParam String perfomid,HttpSession session,
@@ -142,7 +149,25 @@ public class PerformentController {
 			logger.info("추천 공연, map3={}", list);
 		}
 		
+		Map<String, Object> reviewmap=reviewService.selectReviewInfo(perfomid);
 
+		ReviewVO reviewVo=new ReviewVO();
+
+		reviewVo.setReviewMt20id(perfomid);
+		
+		PaginationInfo pagingInfo=new PaginationInfo();
+		
+		reviewVo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		reviewVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+
+		List<Map<String, Object>> rlist=reviewService.selectReviewListAll(reviewVo);
+
+		logger.info("@@확인 rlist={}",rlist);
+		
+		model.addAttribute("rlist",rlist);
+		
+		model.addAttribute("reviewmap",reviewmap);
+		
 		model.addAttribute("tclist",tclist);
 
 		model.addAttribute("heart",heart);

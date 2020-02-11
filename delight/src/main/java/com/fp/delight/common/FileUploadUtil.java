@@ -42,6 +42,8 @@ public class FileUploadUtil {
 			mlist.add(multiReq.getFile("reviewPho3"));
 		}else if(multiReq.getFile("promotionPho1")!=null && !multiReq.getFile("promotionPho1").isEmpty()) {
 			mlist.add(multiReq.getFile("promotionPho1"));
+		}else if(multiReq.getFile("fileName")!=null && !multiReq.getFile("fileName").isEmpty()) {
+			mlist.add(multiReq.getFile("fileName"));
 		}
 		
 		//결과를 넣을 List
@@ -55,7 +57,7 @@ public class FileUploadUtil {
 			if(!tempFile.isEmpty()) {
 				//변경된 파일명
 				String fileName=tempFile.getOriginalFilename();
-				
+				fileName=getUniqueFileName(fileName);
 				list.add(fileName);
 				logger.info("uploadType={}", uploadPathType);
 				//업로드 처리

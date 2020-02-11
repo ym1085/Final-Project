@@ -229,4 +229,32 @@ public class ReviewController {
 			logger.info("확인@@#@#@#@ map={}",map);
 			return map;
 		}
+		
+		@RequestMapping("/reviewMore.do")
+		@ResponseBody
+		public Object reviewMore(@RequestParam int CurrentPage,@RequestParam String mt20id) {
+			
+			logger.info("@파라미터확인@CurrentPage={}",CurrentPage);
+			logger.info("@파라미터확인@mt20id={}",mt20id);
+			
+			ReviewVO reviewVo=new ReviewVO();
+			reviewVo.setCurrentPage(CurrentPage);
+			reviewVo.setReviewMt20id(mt20id);
+			
+			PaginationInfo pagingInfo=new PaginationInfo();
+			pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+			pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+			pagingInfo.setCurrentPage(CurrentPage);
+			
+			reviewVo.setRecordCountPerPage(Utility.RECORD_COUNT);
+			reviewVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+			
+			List<Map<String, Object>> list=reviewService.selectReviewListAll(reviewVo);
+			
+			logger.info("@@확인파라미터 list={}",list.size());
+			for(int i=0;i<list.size();i++) {
+				logger.info("@@확인파라미터 list={}",list.get(i));
+			}
+			return list;
+		}
 }
