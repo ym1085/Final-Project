@@ -52,6 +52,7 @@ public class SalesController {
 		String perfomName=request.getParameter("perfomName");
 		String curPage=request.getParameter("curPage");
 		String totalP=request.getParameter("totalP");
+		String state=request.getParameter("state");
 		perfomName=perfomName.replace(" ", "");
 		logger.info("표 설정 공연 검색 파라미터 type={},sido={}",type,sido);
 		logger.info("표 설정 공연 검색 파라미터 gugun={},stdate={}",gugun,stdate);
@@ -60,7 +61,7 @@ public class SalesController {
 		if(perfomName==null) perfomName="";
 		AdminPerfomAPI api=new AdminPerfomAPI();
 		
-		Map<String, Object> map=api.ticketSearch(type, sido, gugun, stdate, eddate, perfomName,curPage, totalP);
+		Map<String, Object> map=api.ticketSearch(type, sido, gugun, stdate, eddate, perfomName,curPage, totalP,state);
 		Map<String, Object> reMap=new HashMap<String, Object>();
 		List<PerformentListVO> list=(List<PerformentListVO>) map.get("list");
 		
