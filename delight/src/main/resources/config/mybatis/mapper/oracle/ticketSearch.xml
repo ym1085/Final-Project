@@ -11,7 +11,7 @@
 		    select rownum as RNUM, A.*
 		    from
 		    (
-		        select * from tbl_ticket
+		        select distinct mt20id from tbl_ticket
 				where prfdate >= sysdate
 				<if test="prfnm!=null and prfnm!=''">
 					and prfnm like '%' || #{prfnm} || '%'
@@ -25,11 +25,14 @@
 	</select>
 	
 	<select id="selectTotalRecord" parameterType="ticketVo" resultType="int">
-		select count(*) from tbl_ticket
-		where prfdate >= sysdate
-		<if test="prfnm!=null and prfnm!=''">
-			and prfnm like '%' || #{prfnm} || '%'
-		</if>
+		select count(*) from 
+		(
+			select distinct mt20id from tbl_ticket
+			where prfdate >= sysdate
+			<if test="prfnm!=null and prfnm!=''">
+				and prfnm like '%' || #{prfnm} || '%'
+			</if>
+		)
 	</select>
 	
 	
