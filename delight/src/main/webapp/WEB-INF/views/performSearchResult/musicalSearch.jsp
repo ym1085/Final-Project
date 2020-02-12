@@ -67,6 +67,8 @@
 		transition: 0.5s;
 		background-color: rgb(255, 0, 102);
 		font-weight: 500;
+		margin-top: 30px;
+   		margin-bottom: 50px;
    }
 }
 </style>

@@ -16,7 +16,7 @@
    .top2>label {padding-left: 15px;line-height: 1.7em;padding-right: 30px;font-family: 맑은고딕;color:#000;}
    /* 수정된부분/예진/ */ 
    #perfomrtitleFromMain {text-align: center;font-family: 맑은고딕;font-weight: bold;margin-top: 25px;width: 94%;
-   							/* border-bottom: 1px solid lightgray; */padding-bottom: 24px; margin-top: 50px;}
+   							/* border-bottom: 1px solid lightgray; */padding-bottom: 75px; margin-top: 50px;}
    .type{margin-left:27px;}
    span{color:#000;}
    #home{width: 64px; height:63px;z-index:1;float:left;margin-top:115px;}
@@ -51,12 +51,18 @@
    .testImg {
 	   	text-align: center;
 	   	float: left;
-	   	margin-left: 20px;
+	   	margin-left: 60px;
 	   	margin-right: 20px;
 	   	margin-top: 20px;
 	   	margin-bottom: 20px;
+	   	height: 415px;
+    	width:215px;
    }
    
+   h5#perfomtitleForRes {
+    	display: inline-block;
+    	margin-top: 15px;
+   }
 }
 </style>
 
@@ -105,7 +111,7 @@ function pageFunc(curPage){
    </div>
           
    <!--헤더바, 메인에서 검색하면 검색결과페이지로 이동,  -예진- -->
-   <div style="width: 87%;float: right;" class="pfdetail">
+   <div style="width: 87%; float: right;" class="pfdetail">
    		<div id="perfomrtitleFromMain">
    			<form action="<c:url value="/mainSearchResult/doReservation.do"/>" method="post">
    			
@@ -127,14 +133,14 @@ function pageFunc(curPage){
 				<%-- <c:if test="${vo.genrenm == '연극' || vo.genrenm == '뮤지컬'}"> --%>      	
 					<div class = "testImg">
 						<a href='<c:url value="/recentInsert.do?perfomid=${map['mt20id']}"/>'>
-				    		<img src="${map['poster'] }" class="img-responsive" width="240px" height="240px">
+				    		<img src="${map['poster'] }" class="img-responsive" style="width: 230px;height: 230px;">
 				    	</a>
 				        	<br>
-				            <h5><b>${map['prfnm'] }</b></h5> 
-							<p>${map['prfpdfrom'] }</p>
-							<p>${map['prfpdto'] }</p>  
-							<p>${map['fcltynm'] }</p>
-							<p>${map['genrenm'] }</p>  
+				            <h5 id="perfomtitleForRes"><b>${map['prfnm']}</b></h5> 
+							<p id="perfomtitleForRes2">${map['prfpdfrom']}</p>
+							<p id="perfomtitleForRes3">${map['prfpdto']}</p>  
+							<p id="perfomtitleForRes4">${map['fcltynm']}</p>
+							<p id="perfomtitleForRes5">${map['genrenm']}</p>  
 				    </div>	    
 				<%-- </c:if> --%>         	          	
 			</c:forEach>
@@ -148,11 +154,11 @@ function pageFunc(curPage){
 				<input type="hidden" name="currentPage" id="currentPage">
 			</form>
 	
-			<div id="page">
+			<div id="page" style="margin-top:3%;margin: 0px 0;text-align: center;margin-top: 3%;margin-right: 0%;">
 					<!-- 이전블럭으로 이동 -->
 					<c:if test="${pagingInfo.firstPage>1 }">
-						<a class="imgblock" href="#" onclick="pageFunc(1)"> <img
-							src="<c:url value='/resources/images/first.gif'/>" alt="처음으로">
+						<a class="imgblock" href="#" onclick="pageFunc(1)"> 
+						<img src="<c:url value='/resources/images/first.gif'/>" alt="처음으로">
 						</a>
 						<a class="imgblock" href="#" onclick="pageFunc(${pagingInfo.firstPage-1})"> <img
 							src="<c:url value='/resources/images/first2.gif'/>" alt="이전 블럭으로">

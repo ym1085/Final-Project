@@ -4,7 +4,7 @@
 <%@ include file="../inc/main2Top.jsp"%>
 <link type="text/css" rel="stylesheet"
 	href="<c:url value='/resources/css/review.css' />" />
-	
+
 <!-- 페이지 만들떄마다 복붙 -->
 <div style="width: 13%; float: left; height: 100%;">
 	<!-- left side -->
@@ -49,45 +49,52 @@
 			</div>
 			<br>
 			
-			<div class="writeReview6" style="height: 550px; width: 700px;border: 1px solid lightgray;">
-				<div class="contenttitle">
-					<div  class="filesear" id="aaaaaa" style="font-weight: 100;font-size: 16px;margin-left: 51px;margin-bottom: 30px;">
-						제목  : ${vo.promoteTitle}
+			<div class="writeReview6" style="height:580px; width: 100%;border: 2px solid lightgray;">
+				<div class="contenttitle" style="margin-top: 2.5%;">
+					
+					<div  class="filesear" id="aaaaaa" style="font-size: 15px;margin-left:2%;margin-bottom:30px; ">
+						<span style="color:rgb(247, 99, 158);font-weight: bold;">제목  : </span>
+						<span style="letter-spacing:1px; font-size: 14px;font-weight: bold;">${vo.promoteTitle}</span> 
 					</div>
 					
 					
-					<div  class="filesear" id="bbbbbb" style="font-weight: 100;font-size: 16px;margin-left: 51px;margin-bottom: 30px;">
-						내용  :  ${vo.promoteContent}
+					<div  class="filesear" id="bbbbbb" style="font-size: 15px;margin-left:2%;margin-bottom:30px;">
+						<span style="color:rgb(247, 99, 158);font-weight: bold;">내용  : </span>
+						<span style="letter-spacing:1px; font-size: 14px;font-weight: bold;">${vo.promoteContent}</span> 
 					</div>
 					
 				
-					<div id="super" style="float:left;margin-left:7%;margin-bottom:3%;">
-						<img alt="" style="width: 230px; height: 230px;" 
+					<div id="super" style="float:left;margin-left:2%;margin-bottom:3%;">
+						<img alt="" style="width: 250px; height: 250px; border: 1.5px solid lightgray; box-shadow: 1px 1px 10px 2px;" 
 								src="<c:url value='/promotionupload/${vo.promoteP1}'/>">
 					</div>
 				
-					<div class="filesear" id="ccccccc" style="font-weight: 100;font-size: 16px;margin-left: 51px;margin-bottom: 30px;">
-						등록일  : ${vo.reviewRegdate}
-					</div>
+					<div class="filesear" id="ccccccc" style="font-weight: 100;font-size: 15px;margin-left: 2%;margin-bottom: 30px;">
+						<span style="color:rgb(247, 99, 158);font-weight: bold;">등록일  : </span>
+						<span style="letter-spacing:1px; font-size: 14px;font-weight: bold;">${vo.reviewRegdate}</span> 
 					 
-					<div class="filesear" id="ddddddd" style="font-weight: 100;font-size: 16px;margin-left: 51px;margin-bottom: 30px;">
-						마일리지 지급상태  : ${vo.mileagegive}
+					<div class="filesear" id="ddddddd" style="font-weight: 100;font-size: 15px;margin-left: 2%;margin-bottom:24px;margin-top: 23px;">
+						<span id="temp1" style="color:rgb(247, 99, 158);font-weight: bold;margin-left:-27px">마일리지 지급상태  : </span>
+						<span id="temp2" style="letter-spacing:1px; font-size: 14px;font-weight: bold;">${vo.mileagegive}</span> 
 					</div>
 					
-					<div class="filesear" id="eeeeeee" style="font-weight: 100;font-size: 16px;margin-left: 51px;margin-bottom: 30px;">
-						작성자  :  ${vo.userid}
+					<div class="filesear" id="eeeeeee" style="font-weight: 100;font-size: 15px;margin-left: 2%;margin-bottom: 30px;margin-top:23px;">
+						<span style="color:rgb(247, 99, 158);font-weight: bold;margin-left:-27px"">작성자  :  </span>
+						<span style="letter-spacing:1px; font-size: 14px;font-weight: bold;">${vo.userid}</span> 
 					</div>
 								
 				</div>
 			</div>
-			
-			<div class="writeReview7" style="margin-left: -260px; margin-top: 10px;">
-					<a style="color: black; font-weight: bold;" href='<c:url value="/member/PromotionEdit.do?promoteSeq=${param.promoteSeq}"/>'>수정</a>&nbsp;|&nbsp;
-				<c:if test="${vo.mileagegive == 'N'}">
-					<a style="color: black; font-weight: bold;" href='<c:url value="/member/PromotionDelete.do?promoteSeq=${param.promoteSeq}"/>'>삭제</a>
-				</c:if>
-			</div>
 		</div>
+			
+		<div class="writeReview7" style="margin-left:0px; margin-top:10px;">
+			<a style="color: #2d2c2c; font-weight: bold; font-size: 13px" href='<c:url value="/member/PromotionEdit.do?promoteSeq=${param.promoteSeq}"/>'>수정</a>&nbsp;|&nbsp;
+				
+			<c:if test="${vo.mileagegive == 'N'}">
+				<a style="color: #2d2c2c; font-weight: bold; font-size: 13px" href='<c:url value="/member/PromotionDelete.do?promoteSeq=${param.promoteSeq}"/>'>삭제</a>
+			</c:if>
+		</div>	
+			
 		</form>
 	</section>
 	
