@@ -44,7 +44,7 @@
 						<td style="text-align: left">
 							<p><a href="<c:url value='/member/PromotionDetail.do?promoteSeq=${vo.promoteSeq }' />">${vo.promoteTitle}</a></p>
 						</td>
-						<td style="text-align: left;" id="ddd">
+						<td style="text-align: left;">
 							<p>${vo.promoteContent}</p>
 						</td>					
 						<td style="text-align: center">
