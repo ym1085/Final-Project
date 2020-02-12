@@ -26,15 +26,33 @@
 	
 		
 		$("#btDay7").click(function(){
-			$.setDate('d', 7);
+			if($("#endDay").val().length<1){
+				alert("종료날짜를 먼저 입력해주세요");
+				$("#endDay").focus();
+				event.preventDefault();
+			}else{
+				$.setDate('d', 7);
+			}
 		});
 		
 		$("#btMonth1").click(function(){
-			$.setDate('m', 1);
+			if($("#endDay").val().length<1){
+				alert("종료날짜를 먼저 입력해주세요");
+				$("#endDay").focus();
+				event.preventDefault();
+			}else{
+				$.setDate('m', 1);
+			}
 		});
 		
 		$("#btMonth3").click(function(){
-			$.setDate('m', 3);
+			if($("#endDay").val().length<1){
+				alert("종료날짜를 먼저 입력해주세요");
+				$("#endDay").focus();
+				event.preventDefault();
+			}else{
+				$.setDate('m', 3);
+			}
 		});
 	});	
 		

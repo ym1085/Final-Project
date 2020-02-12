@@ -85,8 +85,14 @@ public class PaymentController {
 		reservationVo.setSelect_date(select_date);
 		reservationVo.setSelect_time(select_time);
 		reservationVo.setTicket_seq(ticket_seq);
-		reservationVo.setUserid(userid);			 
 		reservationVo.setPay_price(pay_price);		
+		
+		String noneuserid = userid;
+		logger.info("비회원 이메일 체크, 파라미터 noneuserid={}",noneuserid);
+		
+		if(noneuserid!=null && !noneuserid.isEmpty()) {
+			reservationVo.setNoneuserid(noneuserid);
+		}
 		
 		//[중요] 
 		//[1] reservationVo.setUserid(userid); 

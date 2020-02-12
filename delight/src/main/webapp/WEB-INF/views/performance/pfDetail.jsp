@@ -286,7 +286,7 @@
          
          <nav class="left-nav" style="margin-top: 100%;">
             <ul id="nav">
-               <li class="active"><a href="#">랭킹</a></li>
+               <li class="active"><a href="<c:url value='/performance/pfRanking.do'/>">랭킹</a></li>
                <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
                <li><a href="<c:url value='/performSearchResult/theaterSearch.do?type=AAAA'/>">연극</a></li>
                <li><a href="<c:url value='/performSearchResult/musicalSearch.do?type=AAAB'/>">뮤지컬</a></li>
@@ -774,7 +774,7 @@
           			 <!-- 예진씨 메서드 참고해 사용 -->
                      <c:forEach var="vo" items="${list}">
 	                     <span>
-	                        <a href = "<c:url value= '/performance/recentInsert.do?perfomid=${vo.mt20id }'/>">
+	                        <a href = "<c:url value= '/recentInsert.do?perfomid=${vo.mt20id }'/>">
 	                              <img class ="imgbox" 
 	                                 width="208px" height="284px" src="${vo.poster}">
 	                        </a>
