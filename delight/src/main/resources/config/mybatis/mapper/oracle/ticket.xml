@@ -23,7 +23,14 @@
 		where ticket_seq = #{ticketSeq}
    </update>
     
-
+	<select id="rateNtotal" parameterType="string" resultType="map">
+	select 
+		round((sum(selled)/sum(sellticket)*100),1) rate, 
+		sum(selled) total 
+	from tbl_ticket 
+	where mt20id=#{mt20id}
+	group by mt20id
+	</select>
 </mapper>
 
 

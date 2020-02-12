@@ -1,6 +1,7 @@
 package com.fp.delight.ticket.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class TicketServiceImpl implements TicketService{
 		return ticketDao.updateTicketForPayment(ticketVo);
 	}
 
-
-	
+	@Override
+	public Map<String, Object> rateNtotal(String perfomid) {
+		return ticketDao.rateNtotal(perfomid);
+	}	
 }
