@@ -4,11 +4,6 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="../inc/main2Top.jsp"%>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-<meta name="viewport" content="1240">
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/idx_resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/customer_resource/css/customerStyle.css">
 <style type="text/css">
 .tit { text-align: center; font-size: 1.5em;border-bottom: 0.3px solid #e0d4d4; padding-bottom: 10px; line-height: 4;	font-weight: bold; }
@@ -101,6 +96,8 @@ $(function(){
                <li><a href="<c:url value='/performSearchResult/periodSearch.do'/>">기간별</a></li>
                <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
                <li><a href="<c:url value="/mainSearchResult/doReservation.do"/>">예매하기</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value="/customerService/customerServiceList.do"/>">고객센터</a></li>               
             </ul>
          </nav>
       </aside>

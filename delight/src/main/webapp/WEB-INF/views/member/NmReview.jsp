@@ -118,7 +118,7 @@
 		<div class="writeReview6">
 		<textarea id="inqueryContent" name="reviewContent"></textarea>
 		<!-- keyUp걸기 -->
-		<p class="review6info"><span id="chkContent">0</span>자 / 20자 이상</p>
+		<p class="review6info2"><span id="chkContent">0</span>자 / 20자 이상</p>
 		</div>
 		<div class="writeReview7">
 		<input type="submit" value="등록하기" class="infoWrite">

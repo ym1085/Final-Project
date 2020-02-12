@@ -4,42 +4,37 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="../inc/main2Top.jsp"%>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-<meta name="viewport" content="1240">
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/idx_resource/css/style.css">
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/customer_resource/css/customerStyle.css">
+
 <style type="text/css">
 .tit { text-align: center; font-size: 1.5em;border-bottom: 0.3px solid #e0d4d4; padding-bottom: 10px; line-height: 4;	font-weight: bold; }
 *{ margin:0; padding:0; font-size:15px; line-height:1.3; }
-ul{list-style:none;}
 a.on{background: #f63d46;}
 .tabmenu{ max-width:600px; margin: 0 auto; position:relative;}
-.tabmenu ul li{display:inline-block; width:25%; float:left; text-align:center; line-height:40px; }
 .tabmenu input:checked ~ label{ border-bottom: none; border-color: red; background-color: white;  border-left: 0.5px solid red; border-right: 0.5px solid red;}
 .tabmenu input:checked ~ .tabCon{display:block; }
 .tabmenu input[type=radio]{display:none;}
 .tabCon{display:none; text-align:center; padding-top: 50px; position:absolute; left: -50%; top:40px;  width: 1200px; box-sizing: border-box;}
-.tabLabel1{display:block; width: 400px; position: absolute; height: 40px; left: -50%; line-height: 40px; border: 1px solid #F2F4F7; border-bottom-color: red; background-color: #F2F4F7;}
-.tabLabel2{display:block; width: 400px; position: absolute; height: 40px; left: 16.7%; line-height: 40px; border-top: 1px solid #F2F4F7;  border-bottom: 1px solid black; border-bottom-color: red; background-color: #F2F4F7;}
-.tabLabel3{display:block; width: 400px; position: absolute; height: 40px; left: 83.3%; line-height: 40px; border: 1px solid #F2F4F7; border-bottom-color: red; background-color: #F2F4F7; }
+.tabLabel1{text-align: center; display:block; width: 400px; position: absolute; height: 40px; left: -50%; line-height: 40px; border: 1px solid #F2F4F7; border-bottom-color: red; background-color: #F2F4F7;}
+.tabLabel2{text-align: center; display:block; width: 400px; position: absolute; height: 40px; left: 16.7%; line-height: 40px; border-top: 1px solid #F2F4F7;  border-bottom: 1px solid black; border-bottom-color: red; background-color: #F2F4F7;}
+.tabLabel3{text-align: center; display:block; width: 400px; position: absolute; height: 40px; left: 83.3%; line-height: 40px; border: 1px solid #F2F4F7; border-bottom-color: red; background-color: #F2F4F7; }
 .board-list{border-top-color: #ff818d;}
 .board-search{ margin-top: 20px; margin-bottom: 20px; box-sizing: border-box; text-align: end; }
 .board-pager a.on, .board-pager a.on:hover, .board-pager a.on:focus {background: #f63d46; border: #f63d46;}
 .board-pager{text-align: center; margin-top: 40px; width: 89%; }
 .faq-btn{ margin-top: 20px; margin-bottom: 20px; box-sizing: border-box; }
-.faq-btn ul li{display:inline-block; width:25%; float:left; text-align:center; line-height:40px; }
 .faq-btn-li label { display: block; width: 100%; height: 40px; line-height: 40px; border: 1px solid #d5d8de }
 .faq-btn-li input:checked ~ label { border-color: #ff818d; background-color: #ff818d;}
 .faq-btn-li input:checked ~ .tabCon{ border-color: #ff818d; background-color: #ff818d; }
 .faq-list{ margin-top: 100px; border-top-color: #f63d46	; border-bottom-color: #f63d46; }
 .faq-list .faq-q:before {background: #f63d46;}
 h1 { font-size: 30px; text-align: center; color: black; font-family: auto;}
-#desc{text-align: center;}	
-.editor_cont{padding:0px; margin: 0 auto; width: 80%; text-align: left;}
+#desc{text-align: center;}
+.editor_cont{padding:0px; margin: 0 auto; width: 60%; text-align: left; display: inline-block;}
 .btn-normal-s { background: #f63d46; border: #f63d46; width: 100px; height: 50px; }
 </style>
+
 
 <script>
 function pageFunc(curPage){
@@ -64,8 +59,10 @@ function moveFAQ(){
 	location.href="<c:url value='/customerService/customerServiceFAQ.do?faqType=1'/>";
 }
 
-$(function(){ 	
-			
+$(function(){
+	$("#editorCont").find("ul").addClass("editorCont_ul_class");
+	
+	
 	$("form[name=frmSearch]").submit(function() {
 		event.preventDefault();
 		$("#aa1").val($("#searchCondition").val());
@@ -103,6 +100,9 @@ $(function(){
                <li><a href="<c:url value='/performSearchResult/periodSearch.do'/>">기간별</a></li>
                <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
                <li><a href="<c:url value="/mainSearchResult/doReservation.do"/>">예매하기</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value="/customerService/customerServiceList.do"/>">고객센터</a></li>
+               
             </ul>
          </nav>
       </aside>
@@ -139,7 +139,7 @@ name="frmPage2" method="post">
 	<h1 class="tit">고객센터</h1>
 	
 	<div class="tabmenu">
-		<ul>
+		<ul class="tabmenu">
 			<li id="tab1" class="btnCon">
 			<c:if test="${vo.annType=='2'}">
 			<input type="radio" name="tabmenu" id="tabmenu1" class="tabmenu1" onclick="moveNotice1()"> 
@@ -167,7 +167,7 @@ name="frmPage2" method="post">
 							<hr color="#ff818d">
 							<div class="sec mw1200">
 								<div class="event_detail" id="detailDiv">
-								 	<div class="editor_cont" id="editorCont" style="margin: 0 auto; width: 580px; ">
+								 	<div class="editor_cont" id="editorCont">
 										<c:if test="${!empty vo.annImg}">
 											${vo.annImg }
 										</c:if>
@@ -218,7 +218,7 @@ name="frmPage2" method="post">
 							<hr color="#ff818d">
 							<div class="sec mw1200">
 								<div class="event_detail" id="detailDiv">
-								 	<div class="editor_cont" id="editorCont" style="margin: 0 auto; width: 580px;">
+								 	<div class="editor_cont" id="editorCont">
 										<c:if test="${!empty vo.annImg}">
 											${vo.annImg }
 										</c:if>
@@ -241,7 +241,7 @@ name="frmPage2" method="post">
 				</c:if>
 			</li>
 			<!-------------------------------------------------------------------------------------------->			
-			<li id="tab3" class="btnCon">
+			<li id="tab3" class="btnCon_">
 				<input type="radio" name="tabmenu" id="tabmenu3" value="tabmenu3" onclick="moveFAQ()">
 				<label for="tabmenu3" class="tabLabel3">자주 묻는 질문</label>					
 			</li>

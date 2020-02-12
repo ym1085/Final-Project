@@ -22,7 +22,7 @@ h2.text_h2 {font-weight: 600; }
 //
 BASIC
 body {background: linear-gradient(135deg, #121721 0%, #000000 100%) fixed; color: #FFF; font: 300 16px/1.5 "Open Sans", sans-serif;}
-
+	
 </style>
 <!-- 카드슬라이드 library, js -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css" rel="stylesheet" />
@@ -49,6 +49,8 @@ body {background: linear-gradient(135deg, #121721 0%, #000000 100%) fixed; color
                <li><a href="<c:url value='/performSearchResult/periodSearch.do'/>">기간별</a></li>
                <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
                <li><a href="<c:url value="/mainSearchResult/doReservation.do"/>">예매하기</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value="/customerService/customerServiceList.do"/>">고객센터</a></li>
             </ul>
          </nav>
       </aside>
