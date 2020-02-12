@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="../inc/adminTop.jsp" %>
 <!-- 페이징 처리 관련 form -->
-<form action="<c:url value='/admin/salesManagement/refundReqList.do'/>" 
+<form action="<c:url value='/admin/salesManagement/nonuserRefundReqList.do'/>" 
 	name="frmPage" method="post">
 	<input type="hidden" name="searchCondition" 
 		value="f.COMPFLAG" id="aa1">
@@ -18,7 +18,7 @@
 <div class="content-wrapper">
 
 	<form name="frmSearch" method="post" 
-   		action='<c:url value="/admin/salesManagement/refundReqList.do"/>'>
+   		action='<c:url value="/admin/salesManagement/nonuserRefundReqList.do"/>'>
 <div class="card">	
 	<div class="card-body">
 			<div class="text-right" id="typebox">

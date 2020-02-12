@@ -23,7 +23,7 @@
         //비회원  
         //-> 배포할때 지울겁니다 지우지마세요.
         var userid = "${userid}";
-        alert(userid);
+        //alert(userid);
    
  	    var ticketPriceSubmit = "${ticketPriceSubmit}";	//유저가 선택한 티켓가격의 총 합
        	var perfomid = 			"${perfomid}";			//pfDetail부터 넘겨 받은 공연ID
@@ -44,10 +44,10 @@
  	    var pay_price = parseInt(ticketPriceSubmit);
  	    
  	    //디버깅 -> 배포할때 지울겁니다 지우지마세요.
-       	alert("티켓 총액 값 : "+ticketPriceSubmit+"\n공연 id : "+perfomid+"\n공연 시설 id : "+perfomfacilityid+"\nticketVo_공연일자 : "+perfomdate
+       	/* alert("티켓 총액 값 : "+ticketPriceSubmit+"\n공연 id : "+perfomid+"\n공연 시설 id : "+perfomfacilityid+"\nticketVo_공연일자 : "+perfomdate
        			+"\nticketVo=공연시간 : "+perfomtime+"\n공연 장소 : "+perfomplace+"\n공연제목 : "+perfomtitle+"\n공연 타입 : "+perfomtype+"\n예매자명 : "+unusername
        			+"\n예매자 이메일 : "+unuseremail+"\n관람자명 : "+unusername2+"\n관람자 이메일 : "+unuseremail2+"\n티켓 수량 SEQ : "+ticketSeq+"\n판매하는 표 좌석등급 : "+ticketSeat+
-       			"\n선택된 티켓 수량 : "+ticketCount);
+       			"\n선택된 티켓 수량 : "+ticketCount); */
        
         IMP.request_pay({
         	
