@@ -22,13 +22,12 @@ h2.text_h2 {font-weight: 600; }
 //
 BASIC
 body {background: linear-gradient(135deg, #121721 0%, #000000 100%) fixed; color: #FFF; font: 300 16px/1.5 "Open Sans", sans-serif;}
-
+	
 </style>
 <!-- 카드슬라이드 library, js -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>
 
-<!-- 시작 -->
    <!-- 페이지 만들떄마다 복붙 -->
    <div style="width: 13%; float: left; height: 100%;">
       <!-- left side -->
@@ -50,6 +49,8 @@ body {background: linear-gradient(135deg, #121721 0%, #000000 100%) fixed; color
                <li><a href="<c:url value='/performSearchResult/periodSearch.do'/>">기간별</a></li>
                <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
                <li><a href="<c:url value="/mainSearchResult/doReservation.do"/>">예매하기</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value="/customerService/customerServiceList.do"/>">고객센터</a></li>
             </ul>
          </nav>
       </aside>
@@ -57,8 +58,10 @@ body {background: linear-gradient(135deg, #121721 0%, #000000 100%) fixed; color
       <!-- left side -->
       <!-- 풀테스트 -->
    </div>
-<!-- 페이지 만들떄마다 복붙 -->
-<!-- div안에서작업 그외엔 건들지말것 -->
+	<!-- div안에서작업 그외엔 건들지말것 -->
+   
+   <!-- 페이지 만들떄마다 복붙 -->
+   <!-- div안에서작업 그외엔 건들지말것 -->
 <div style="width: 87%; float: right;" class="pfRanking">
 
 	<h1 class="tit">공연 제목 영역</h1>
@@ -170,7 +173,7 @@ $(function(){
 		                     +"<div class='testImg' width='212px'>"
 		                        +"<img src='http://www.kopis.or.kr/"+value.poster+"'"+"class='img-responsive'>"
 		                        +"<div class='img-responsive-text'>"
-		                           +"<a class='toDetail' href='<c:url value='/performance/pfDetail.do?perfomid="+value.mt20id+"'/>'>상세정보</a><br>"
+		                           +"<a class='toDetail' href='<c:url value='/recentInsert.do?perfomid="+value.mt20id+"'/>'>상세정보</a><br>"
 		                           +"<span>예매율</span><br>"
 		                           +"<span>누적관객수</span><br>"                                                            
 		                              +"<div class='likeDiv'>"

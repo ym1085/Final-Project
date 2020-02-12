@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.customerService">
+
+	<sql id="searchWhere">
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			and ${searchCondition} like '%' || #{searchKeyword} || '%'
+		</if>
+	</sql>
+
+	<select id="selectAnnTop" resultType="annVo">
+		select * from TBL_ANN
+		where ann_top='Y' and ann_show='Y'
+	</select>
+
+	<select id="normalExposureSearch"  parameterType="AnnVo" resultType="AnnVo">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from 
+		    (	
+		    	select * from TBL_ANN where ann_type='1' and ann_show='Y'
+			    <include refid="searchWhere"></include>
+				order by ann_seq desc
+		    ) A
+		) where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="normalExposureTotal" resultType="int" parameterType="annVo">
+		select count(*) from TBL_ANN 
+		where ann_type='1' and ann_show='Y'
+		<include refid="searchWhere"></include>
+	</select>
+
+	<sql id="searchWhere2">
+		<if test="searchKeyword2!=null and searchKeyword2!=''">
+			and ${searchCondition2} like '%' || #{searchKeyword2} || '%'
+		</if>
+	</sql>
+
+	<select id="eventExposureSearch"  parameterType="AnnVo" resultType="AnnVo">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from 
+		    (	
+		    	select * from TBL_ANN where ann_type='2' and ann_show='Y'
+			    <include refid="searchWhere2"></include>
+				order by ann_seq desc
+		    ) A
+		) where RNUM>#{firstRecordIndex2} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex2}+#{recordCountPerPage}
+		]]>
+	</select>
+
+	<select id="eventExposureTotal" resultType="int" parameterType="annVo">
+		select count(*) from TBL_ANN 
+		where ann_type='2' and ann_show='Y'
+		<include refid="searchWhere2"></include>
+	</select>	
+</mapper>

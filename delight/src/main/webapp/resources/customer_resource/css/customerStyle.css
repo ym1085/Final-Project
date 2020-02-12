@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+.editorCont_ul_class { list-style: inside; }
 * {
 	margin: 0;
 	padding: 0;
@@ -10,33 +11,17 @@ html, body {
 	font-size:15px; line-height:1.76em;
 }
 
-body {
-	font-size: 1.0em;
-	font-family: 'Noto Sans KR', sans-serif;
-	color: #000;
-}
-
-select, input, textarea, button {
-	font-size: 1.0em;
-	font-family: 'Noto Sans KR', sans-serif;
-	vertical-align: middle;
-	color: #000;
-}
 input {
 	padding: 0;
 	margin: 0;
 	padding: 0;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 	vertical-align: top;
 }
-ol, ul {
-	list-style: none;
-}
-
-a { color: #000; text-decoration: none; }
 
 /* layout and align */
 .align-c {text-align:center !important;}

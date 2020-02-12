@@ -106,6 +106,10 @@
     	margin-top: 4px;
     	width: 85px;
 	}
+	
+	#q2 p{
+		color:#FFFFFF!important;
+	}
 </style>
     <!-- 로그인 안된경우 (시작)-->
 			<c:if test="${empty sessionScope.userid }">
@@ -145,7 +149,7 @@
 			<c:if test="${!empty sessionScope.userid }">
 				<br>
 				<div id="q2" style="color: white;">
-					<p><span style="font-weight: bold;font-size: 1.4em;color: white">*${memberVo.username }</span> 님 어서오세요.</p><br>
+					<p><span style="font-weight: bold;font-size: 1.4em;color:white">*${memberVo.username }</span> 님 어서오세요.</p><br>
 					<p>*마일리지 : <fmt:formatNumber value="${memberVo.mileagePoint }" pattern="#,###" /> 원</p>
 					<p>*멤버십 등급 : ${memberVo.gradeName }</p>
 					<p>*가입일 : <fmt:formatDate value="${memberVo.joinDate }" pattern="yyyy-MM-dd"/></p>
