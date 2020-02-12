@@ -11,6 +11,7 @@ import com.fp.delight.common.SearchVO;
 import com.fp.delight.member.model.MemberVO;
 import com.fp.delight.mileage.model.MileageVO;
 import com.fp.delight.payment.model.PaymentVO;
+import com.fp.delight.reservation.model.ReservationVO;
 
 @Repository
 public class AdminRefundDAOMybatis implements AdminRefundDAO{
@@ -62,6 +63,21 @@ public class AdminRefundDAOMybatis implements AdminRefundDAO{
 	@Override
 	public PaymentVO usedmileageBySeq(int paySeq) {
 		return sqlSession.selectOne(namespace+"usedmileageBySeq", paySeq);
+	}
+
+	@Override
+	public ReservationVO resbySeq(int resSeq) {
+		return sqlSession.selectOne(namespace+"resbySeq", resSeq);
+	}
+
+	@Override
+	public List<Map<String, Object>> noneRefundList(SearchVO searchVo) {
+		return sqlSession.selectList(namespace+"noneRefundList", searchVo);
+	}
+
+	@Override
+	public int noneRefundListTotal(SearchVO searchVo) {
+		return sqlSession.selectOne(namespace+"noneRefundListTotal", searchVo);
 	}
 	
 	

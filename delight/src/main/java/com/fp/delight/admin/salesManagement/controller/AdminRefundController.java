@@ -64,6 +64,9 @@ public class AdminRefundController {
 		String msg="환불 승인 중 에러 발생", url="/admin/salesManagement/refundReqList.do";
 		if(cnt>0) {
 			msg="해당 유저 환불 승인 완료";
+			if(seq.indexOf("@")!=-1) {
+				url="/admin/salesManagement/nonuserRefundReqList.do";
+			}
 		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
@@ -81,10 +84,47 @@ public class AdminRefundController {
 		
 		if(cnt>0) {
 			msg="해당 유저들 환불 승인 완료";
+			
+			for(String seq:variList) {
+				if(seq.indexOf("@")!=-1) {
+					url="/admin/salesManagement/nonuserRefundReqList.do";
+				}
+			}
 		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		
 		return "common/message";
 	}
+	
+	@RequestMapping("/nonuserRefundReqList.do")
+	public void nonuserRefundReqList(@ModelAttribute SearchVO searchVo,Model model) {
+		logger.info("비회원 환불 화면 보이기 파라미터 searchVo={}",searchVo);
+		PaginationInfo pagingInfo=new PaginationInfo();
+		
+		pagingInfo.setBlockSize(Utility.ANNBLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(Utility.SETTING_RECORD_COUNT);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		
+		searchVo.setRecordCountPerPage(Utility.SETTING_RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		int totalRecord=adminRefundService.noneRefundListTotal(searchVo);
+		
+		logger.info("totalRecord={}",totalRecord);
+		
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		logger.info("셋팅 후 searchVo={}",searchVo);
+		
+		List<Map<String, Object>> list=adminRefundService.noneRefundList(searchVo);
+		
+		logger.info("검색 결과 list.size()={}",list.size());
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+	}
+	
+
 }
