@@ -90,6 +90,15 @@ input#inqueryTitle {
 	font-weight: bold;
 	color: black;
 }
+.review6info2 {
+	font-size: 15px;
+	position: absolute;
+	bottom: 70px;
+	width: 130px;
+	right: 16.5%;
+	font-weight: bold;
+	color: black;
+}
 p.contenttitle {
     height: 80px;
 }
