@@ -97,7 +97,7 @@ form[name=searchFrm]{
 	overflow: hidden;
 }
 #frmdiv{
-	padding: 0 2% 0 2%;
+	padding: 0 1.5% 0 1.5%;
 }
 #tableparent{
 	margin-top: 20px;
@@ -123,7 +123,7 @@ $(function() {
 	$("form[name=searchFrm] button").addClass("btn btn-inverse-success btn-fw btn-sm");
 	$("form[name=searchFrm] #sido").css("width","150px");
 	$("form[name=searchFrm] #state").css("width","100px");
-	$("form[name=searchFrm] #type").css("width","80px");
+	$("form[name=searchFrm] #type").css("width","95px");
 	$("form[name=searchFrm] #gugun").css("width","190px");
 	$("form[name=searchFrm] input").css("width","100px");
 	$("input[type=submit]").css("width","80px");

@@ -130,7 +130,7 @@ public class ConfirmReservationController {
 	
 	@RequestMapping(value = "/myreserCancle.do",method = RequestMethod.GET)
 	public void myreserCansle_get(@RequestParam(defaultValue = "0")int reservationSeq,
-			HttpSession session,Model model,@RequestParam String noneuserid) {
+			HttpSession session,Model model,@RequestParam(defaultValue = "") String noneuserid) {
 		String userid=(String)session.getAttribute("userid");
 		ReservationVO reservationVo=new ReservationVO();
 		logger.info("@@파라미터확인 noneuserid={}",noneuserid);

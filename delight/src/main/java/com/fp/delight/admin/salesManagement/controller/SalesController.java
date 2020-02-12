@@ -221,6 +221,22 @@ public class SalesController {
 						}
 					}
 				}
+			}else {
+				int q=adminCommon.getDayofWeek(temp);
+				if(dow==q) {
+					String aa=dayhour.substring(dayhour.indexOf("(")+1, dayhour.lastIndexOf(")"));
+					if(aa.indexOf(",")!=-1) {
+						String[] hour=aa.split(",");
+						map.put("hour", hour);
+						map.put("result", 1);
+					}else {
+						String hour=aa;
+						map.put("hour", hour);
+						map.put("result", 0);
+					}
+				}else {
+					map.put("result",-1);
+				}
 			}
 		}//if~ else(요일 시간 구하기 끝)
 		
