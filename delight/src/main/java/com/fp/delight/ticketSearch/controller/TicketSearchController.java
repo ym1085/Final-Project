@@ -43,11 +43,11 @@ public class TicketSearchController {
 		PaginationInfo pagingInfo=new PaginationInfo();
 		//pagingInfo에 BLOCK_SIZE, RECORD_COUNT 저장
 		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
-		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		pagingInfo.setRecordCountPerPage(Utility.SETTING_RECORD_COUNT);
 		//paginfInfo에 현재페이지 저장
 		pagingInfo.setCurrentPage(ticketVO.getCurrentPage());
 		
-		ticketVO.setRecordCountPerPage(Utility.RECORD_COUNT);
+		ticketVO.setRecordCountPerPage(Utility.SETTING_RECORD_COUNT);
 		ticketVO.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 	
 		int totalRecord=ticketSearchService.selectTotalRecord(ticketVO);

@@ -264,7 +264,7 @@ function condition(){
 
 /* 더보기 ajax */
 function moreRead(){
-	/* 더보기 실행할 때, 검색중 알람 뜨게 하고 버튼은 없애벌인다*/
+	/* 더보기 실행할 때, 검색중 알람 뜨게 하고 버튼은 없앤다*/
 	alert("해당 조건 검색 중입니다. 잠시만 기다려 주세요.");	
 	$('#more_btn_div').hide(); 
 	
