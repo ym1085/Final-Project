@@ -7,3 +7,5 @@ public interface IndexVisitorsService {
 	int updateSysdate(IndexVisitorsVO indexVisitorsVO);
 	int countVisitors(IndexVisitorsVO indexVisitorsVO);
 }
+
+

@@ -6,7 +6,6 @@
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.4.1.min.js'/>"></script>
 	<script type="text/javascript">
 	
-	//마우스 오버 -> ajax => posterUrl 가져오서 밑 img src = " " <- 넣어준다.
 	$(document).ready(function () {
 		
 		$(".product").each(function(){

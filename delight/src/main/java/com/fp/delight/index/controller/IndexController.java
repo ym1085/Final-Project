@@ -32,19 +32,10 @@ public class IndexController{
 	    	try {
 	    		ApiTest_Index apiTest = new ApiTest_Index();
 	    		List<PerformentListVO> alist = apiTest.receiveAPI();
-	    		
-	    		/*int sysdate = indexVisitorsService.selectSysdate(indexVisitorsVO);
-	    		logger.info("sysdate 있는지 확인={}", sysdate);*/
-	    		
+
 	    		int count = indexVisitorsService.countVisitors(indexVisitorsVO);
 	    		logger.info("방문자 수 체크 countvisitors={}", count);
-	    		
-	    	/*	int insert = indexVisitorsService.insertSysdate(indexVisitorsVO);
-	    		logger.info("방문자수 0 이면 insert되는 값={}", insert);
-	    		
-	    		int update = indexVisitorsService.updateSysdate(indexVisitorsVO);
-	    		logger.info("방문자수 1 이면 update 되는 값={}", update);*/
-				
+	    		    				
 				model.addAttribute("alist", alist);
 	    	} catch (MalformedURLException e) {
 				e.printStackTrace();
@@ -60,3 +51,5 @@ public class IndexController{
 		
 	}
 }
+
+
