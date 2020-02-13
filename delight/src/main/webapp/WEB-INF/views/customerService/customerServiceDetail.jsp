@@ -168,9 +168,6 @@ name="frmPage2" method="post">
 							<div class="sec mw1200">
 								<div class="event_detail" id="detailDiv">
 								 	<div class="editor_cont" id="editorCont">
-										<c:if test="${!empty vo.annImg}">
-											${vo.annImg }
-										</c:if>
 										${vo.annContent }
 									</div>
 									<hr>
@@ -219,9 +216,6 @@ name="frmPage2" method="post">
 							<div class="sec mw1200">
 								<div class="event_detail" id="detailDiv">
 								 	<div class="editor_cont" id="editorCont">
-										<c:if test="${!empty vo.annImg}">
-											${vo.annImg }
-										</c:if>
 										${vo.annContent }
 									</div>
 									<hr>

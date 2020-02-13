@@ -145,8 +145,15 @@
 			var tmp = false;
 			
 			$("#checkM").click(function(){
-				tmp = $('[id=checkM]').is(':checked'); 
+				tmp = $('[id=checkM]').is(':checked');
 				//alert(tmp);
+				if(tmp==true){
+					totalDiscountPrice=totalDiscountPrice-five;
+					$("#ticketPriceSumUser").val(totalDiscountPrice+"원");
+				}else if(tmp==false){
+					totalDiscountPrice=totalDiscountPrice+five;
+					$("#ticketPriceSumUser").val(totalDiscountPrice+"원");
+				}
 			});
 			
 			$("#choosePricepf").change(function(){
@@ -410,7 +417,7 @@
 						<span>
 							<fnt:formatNumber value="${stPriceFinalTotal}" pattern="#,###"/>원
 						</span>
-						<select style="margin-left:7px;" name="choosePricepfst" id="choosePricepfst" class="selectOne">
+						<select style="margin-left:0px;" name="choosePricepfst" id="choosePricepfst" class="selectOne">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>

@@ -66,7 +66,7 @@ body {background: linear-gradient(135deg, #121721 0%, #000000 100%) fixed; color
    <!-- div안에서작업 그외엔 건들지말것 -->
 <div style="width: 87%; float: right;" class="pfRanking">
 
-	<h1 class="tit">공연 제목 영역</h1>
+	<h1 class="tit">본 랭킹은 KOPIS 제공입니다.</h1>
 	<!-- 시간별 순위 시작 -->
 
 	<div class="slide_container" id="container1">

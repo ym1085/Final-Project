@@ -49,10 +49,7 @@
 <!-- //Custom Theme files -->
 
 <!-- web font -->
-<link href="//fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,500i,600,600i,700,700i" 
-	rel="stylesheet">
-<link href="//fonts.googleapis.com/css?family=Arsenal:400,400i,700,700i" 
-	rel="stylesheet">
+
 <!-- //web font -->
 
 <body>
@@ -60,7 +57,7 @@
 	<div class="main-agileinfo slider ">
 		<div class="items-group">
 			<div class="item agileits-w3layouts">
-				<div class="block text main-agileits">
+				<div class="block text main-agileits" style="background: RGB(0,0,0,0.6)">
 					<span class="circleLight"></span>
 					<!-- login form -->
 					<div class="login-form loginw3-agile">
@@ -93,6 +90,7 @@
 						<!-- Check Line -->
 						<div class="login-agileits-bottom wthree">
 							<h6>
+								<a href="<c:url value = '/index.do'/>">홈</a> |
 								<a href="<c:url value = '/member/register.do'/>">회원가입</a> |
 								<a href="<c:url value = '/login/findId.do'/>">아이디 찾기</a> |
 								<a href="<c:url value = '/login/findPwd.do'/>">비밀번호 찾기</a>
