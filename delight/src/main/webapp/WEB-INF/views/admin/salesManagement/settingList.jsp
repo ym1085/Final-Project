@@ -199,6 +199,7 @@ $(function() {
 	
 	$("#type").change(function() {
 		$("#aa2").val($("#type option:selected").val());
+		$("#aa3").val("1");
 		$("#bb1").val("");
 		$("#bb2").val("");
 		$("form[name=frmPage]").submit();
