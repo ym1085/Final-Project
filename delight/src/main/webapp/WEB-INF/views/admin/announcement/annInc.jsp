@@ -22,6 +22,7 @@ $(function() {
 		$("#aa2").val($("#searchKeyword").val());
 		$("#bb1").val($("#searchCondition2 option:selected").val());
 		$("#bb2").val($("#searchKeyword2").val());
+		$("#aa3").val("1");
 		$("form[name=frmPage]").submit();
 	});
 	$("form[name=frmSearch2]").submit(function() {
@@ -30,6 +31,7 @@ $(function() {
 		$("#bb2").val($("#searchKeyword2").val());
 		$("#aa1").val($("#searchCondition option:selected").val());
 		$("#aa2").val($("#searchKeyword").val());
+		$("#bb3").val("1");
 		$("form[name=frmPage]").submit();
 	});
 	
@@ -156,7 +158,7 @@ $(function() {
 		value="${param.searchCondition2}" id="bb1">
 	<input type="hidden" name="searchKeyword2" 
 		value="${param.searchKeyword2}" id="bb2">
-	<input type="hidden" name="currentPage2" value="${pagingInfo2.currentPage }">
+	<input type="hidden" name="currentPage2" value="${pagingInfo2.currentPage }" id="bb3">
 </form>
     
 <div id="parent">
