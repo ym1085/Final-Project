@@ -27,3 +27,5 @@ public class IndexVisitorsDAOMybatis implements IndexVisitorsDAO{
 		return sqlSession.update(namespace+"updateSysdate", indexVisitorsVO);
 	}
 }
+
+
