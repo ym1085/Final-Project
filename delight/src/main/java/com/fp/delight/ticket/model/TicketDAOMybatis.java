@@ -1,6 +1,7 @@
 package com.fp.delight.ticket.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class TicketDAOMybatis implements TicketDAO{
 	@Override
 	public int updateTicketForPayment(TicketVO ticketVo) {
 		return sqlSession.update(namespace+"updateticketForPayment", ticketVo);
+	}
+
+	@Override
+	public Map<String, Object> rateNtotal(String perfomid) {
+		return sqlSession.selectOne(namespace+"rateNtotal", perfomid);
 	}
 
 	

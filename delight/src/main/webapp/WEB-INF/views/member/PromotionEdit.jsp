@@ -62,6 +62,8 @@ $(function(){
                <li><a href="<c:url value='/performSearchResult/periodSearch.do'/>">기간별</a></li>
                <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
                <li><a href="<c:url value="/mainSearchResult/doReservation.do"/>">예매하기</a></li>
+               <li><div style="width: 130px; border: 1px solid white; margin-left: 13%; margin-top: 10px;"></div></li>
+               <li><a href="<c:url value="/customerService/customerServiceList.do"/>">고객센터</a></li>
             </ul>
 		</nav>
 	</aside>
@@ -100,14 +102,13 @@ $(function(){
 				<input type="file" name="fileName" id="file1" value="${vo.promoteP1}">
 				<input type="button" id="fileM" value="-">
 				<input type="hidden" id="filelength" name="fileLength" value="1">
-				<span class="fileError">* 이미지파일은 JPG,PNG만 등록이 가능하며, 수정 시에는 사진을 새로 업로드 하셔야 합니다.</span><br><br>
+				<span class="fileError">* 이미지파일은 JPG,PNG만 등록이 가능합니다.</span><br><br>
 				<span  class="filesear">- 홍보하실 공연의 내용을 작성 해 주세요.(20자이상)</span>
 			</p>
 			
 			<div class="writeReview6">
 				<textarea id="inqueryContent" name="promoteContent">${vo.promoteContent}</textarea>
-				<!-- keyUp걸기 -->
-				<p class="review6info"><span class="chklength">0</span>자 / 20자 이상</p>	
+				
 			</div>
 			
 			<div class="writeReview7">

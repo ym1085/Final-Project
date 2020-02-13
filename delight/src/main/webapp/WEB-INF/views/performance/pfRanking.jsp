@@ -19,6 +19,8 @@ h2.text_h2 {font-weight: 600; }
 .myarea_main .myarea_select_wrap {position: absolute; top: 0; left: 0; width: 220px; height: 100%; }
 .stage { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 #ststype{ width: 201.979166px; height: 36.979166px; }
+.rate{font-size: medium; color: bisque;}
+.total{font-size: medium; color: bisque;}
 //
 BASIC
 body {background: linear-gradient(135deg, #121721 0%, #000000 100%) fixed; color: #FFF; font: 300 16px/1.5 "Open Sans", sans-serif;}
@@ -150,7 +152,33 @@ var swiper = new Swiper('.swiper-container', {
     simulateTouch: false
 }); 
 
-$(function(){	
+$(function(){
+	$(".testImg").mouseenter(function(){
+		var perfomid=$(this).find(".rateNtotal").val();
+		var rate=$(this).find(".rate");
+		var total=$(this).find(".total");
+		$.ajax({
+			url: "<c:url value='/performance/rateNtotal.do'/>",
+			type: "POST",
+			data:{"perfomid": perfomid},
+			success:function(res){
+					var a=res.RATE;
+				if(a!=null){
+					rate.html(a+'%');
+					total.html(res.TOTAL+'명')
+				}else{
+					rate.html("-");
+					total.html("-");
+				}				
+				
+			},
+			error:function(xhr, status, error){
+		      alert("Error:"+status+","+error);
+		    }
+			
+		});
+	});
+	
 	$("#ststype").change(function(){
 	   var ststypeOptionEl=$("#ststype option:selected").val(); 
 	   $("form[name=optionForm]").children(".ststypeOption").val(ststypeOptionEl);
@@ -173,9 +201,10 @@ $(function(){
 		                     +"<div class='testImg' width='212px'>"
 		                        +"<img src='http://www.kopis.or.kr/"+value.poster+"'"+"class='img-responsive'>"
 		                        +"<div class='img-responsive-text'>"
+		                        +"<input type='hidden' class='rateNtotal' value="+value.mt20id+">"
 		                           +"<a class='toDetail' href='<c:url value='/recentInsert.do?perfomid="+value.mt20id+"'/>'>상세정보</a><br>"
-		                           +"<span>예매율</span><br>"
-		                           +"<span>누적관객수</span><br>"                                                            
+		                           +"<span>예매율</span><span class='rate'> </span><br>"
+		                           +"<span>누적관객수</span><span class='total'> </span><br>"                                                            
 		                              +"<div class='likeDiv'>"
 		                              	+"<a class='likeBt' onClick='likeclick(this,\""+value.mt20id+"\",\""+value.prfnm+"\",\""+value.cate+"\");'>"
 		                                    +"<img class='likePic' src='<c:url value='/resources/images/"+likeList[idx].IMG+"'/>'>"
@@ -191,14 +220,44 @@ $(function(){
 	               		if(idx==4) return false;
 	            });
 	            $(".swiper-wrapper:eq(0)").find(".swiper-slide").remove().end().append(str);
+	            totalper();
 	         },
 	         error:function(xhr, status, error){
 	            alert("Error:"+status+","+error);
 	         }
-	         
 	    	});		   
 	 });
 });
+
+function totalper(){
+	$(".testImg").mouseenter(function(){
+		var perfomid=$(this).find(".rateNtotal").val();
+		var rate=$(this).find(".rate");
+		var total=$(this).find(".total");
+		$.ajax({
+			url: "<c:url value='/performance/rateNtotal.do'/>",
+			type: "POST",
+			data:{"perfomid": perfomid},
+			success:function(res){
+					var a=res.RATE;
+				if(a!=null){
+					rate.html(a+'%');
+					total.html(res.TOTAL+'명')
+				}else{
+					rate.html("-");
+					total.html("-");
+				}				
+				
+			},
+			error:function(xhr, status, error){
+		      alert("Error:"+status+","+error);
+		    }
+			
+		});
+	});
+	
+};
+
 
 function likeclick(self,perfomid,performtitle,performtype){
     var pcountEl=$(self).find(".pcount");

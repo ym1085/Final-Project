@@ -83,6 +83,50 @@
 	<select id="usedmileageBySeq" parameterType="int" resultType="paymentVo">
 		select usedmileage from TBL_PAYMENT where pay_seq=#{paySeq}
 	</select>
+	
+	<select id="resbySeq" parameterType="int" resultType="reservationVo">
+		select * from TBL_RESERVATION where reservation_seq=#{resSeq}
+	</select>
+	
+	<select id="noneRefundList" parameterType="searchVo" resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from 
+		    (	
+		    	select r.NONEUSERID, f.REFUND_PRICE,f.REFUNDBEC_SEQ,b.DETAIL,f.REFUND_CANCLE,f.COMPFLAG,
+		    	f.REFUND_SEQ,p.PAY_SEQ,r.RESERVATION_SEQ,r.TICKET_SEQ,f.REFUND_CANCLE_OK,p.USEDMILEAGE
+				from TBL_REFUND f join TBL_REFUNDBEC b
+				on f.REFUNDBEC_SEQ = b.REFUNDBEC_SEQ
+				join TBL_PAYMENT p
+				on p.PAY_SEQ = f.PAY_SEQ
+				join TBL_RESERVATION r
+				on r.RESERVATION_SEQ = p.RESERVATION_SEQ
+				<include refid="searchWhere1"></include>
+				 and r.noneuserid is not null
+			    <include refid="searchWhere2"></include>
+		    ) A
+		) where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="noneRefundListTotal" parameterType="searchVo" resultType="int">
+		select count(*)
+		from TBL_REFUND f join TBL_REFUNDBEC b
+		on f.REFUNDBEC_SEQ = b.REFUNDBEC_SEQ
+		join TBL_PAYMENT p
+		on p.PAY_SEQ = f.PAY_SEQ
+		join TBL_RESERVATION r
+		on r.RESERVATION_SEQ = p.RESERVATION_SEQ
+		join TBL_USER u
+		on u.USERID = r.USERID
+		<include refid="searchWhere1"></include>
+		 and r.noneuserid is not null
+	    <include refid="searchWhere2"></include>
+	</select>
 </mapper>
 
 

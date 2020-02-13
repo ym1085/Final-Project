@@ -23,7 +23,7 @@
         //일반회원
         //-> 배포할때 지울겁니다 지우지마세요.
         var userid = "${userid}";
-        alert(userid);
+        //alert(userid);
       
        	var ticketPriceSubmitUser = "${ticketPriceSubmitUser}";		//유저가 선택한 티켓가격의 총 합
        	var perfomid = 				"${perfomid}";					//pfDetail부터 넘겨 받은 공연ID
@@ -43,10 +43,10 @@
        	var mileagePoint = 			"${mileagePoint}";				//마일리지 체크
        	
        	//디버깅 -> 배포할때 지울겁니다 지우지마세요.
-       	alert("티켓 총액 값 : "+ticketPriceSubmitUser+"\n공연 id : "+perfomid+"\n공연 시설 id : "+perfomfacilityid+"\nticketVo_공연일자 : "+perfomdate
+       	/* alert("티켓 총액 값 : "+ticketPriceSubmitUser+"\n공연 id : "+perfomid+"\n공연 시설 id : "+perfomfacilityid+"\nticketVo_공연일자 : "+perfomdate
        			+"\nticketVo=공연시간 : "+perfomtime+"\n공연 장소 : "+perfomplace+"\n공연제목 : "+perfomtitle+"\n공연 타입 : "+perfomtype+"\n예매자명 : "+username
        			+"\n예매자 이메일 : "+useremail+"\n관람자명 : "+username2+"\n관람자 이메일 : "+useremail2+"\n티켓 수량 SEQ : "+ticketSeq+"\n판매하는 표 좌석등급 : "+ticketSeat+
-       			"\n선택된 티켓 수량 : "+ticketCount+"\n로그인 된 유저 id : "+userid+"\n유저의 마일리지 값 : "+mileagePoint);
+       			"\n선택된 티켓 수량 : "+ticketCount+"\n로그인 된 유저 id : "+userid+"\n유저의 마일리지 값 : "+mileagePoint); */
        
         
         IMP.request_pay({

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="../inc/adminTop.jsp" %>
 <!-- 페이징 처리 관련 form -->
-<form action="<c:url value='/admin/salesManagement/refundReqList.do'/>" 
+<form action="<c:url value='/admin/salesManagement/nonuserRefundReqList.do'/>" 
 	name="frmPage" method="post">
 	<input type="hidden" name="searchCondition" 
 		value="f.COMPFLAG" id="aa1">
@@ -18,7 +18,7 @@
 <div class="content-wrapper">
 
 	<form name="frmSearch" method="post" 
-   		action='<c:url value="/admin/salesManagement/refundReqList.do"/>'>
+   		action='<c:url value="/admin/salesManagement/nonuserRefundReqList.do"/>'>
 <div class="card">	
 	<div class="card-body">
 			<div class="text-right" id="typebox">
@@ -39,9 +39,9 @@
 			<table class="table text-center table-bordered">
 		<colgroup>
 			<col style="width: 5%;">
-			<col style="width: 10%;">
+			<col style="width: 17.5%;">
 			<col style="width: 7.5%;">
-			<col style="width: 7.5%;">
+
 			<col style="width: 20%;">
 			<col style="width: 15%;">
 			<col style="width: 5%;">
@@ -52,9 +52,9 @@
 		<thead class="table-danger">
 			<tr>
 				<th><input type="checkbox" id="chk"></th>
-				<th>아이디</th>
+				<th>메일</th>
 				<th>환불 금액</th>
-				<th>사용한 마일리지</th>
+
 				<th>환불사유</th>
 				<th>환불 신청일</th>
 				<th>완료 상황</th>
@@ -65,7 +65,7 @@
 		<tbody>
 			<c:if test="${empty list }">
 				<tr>
-					<td colspan="9">환불신청 내역이 없습니다.</td>
+					<td colspan="8">환불신청 내역이 없습니다.</td>
 				</tr>
 			</c:if>
 			<c:if test="${!empty list }">
@@ -76,16 +76,14 @@
 						<c:if test="${map['COMPFLAG']=='N' }">
 						<input type="checkbox" id="chk_${idx }" 
 						name="seqList[${idx }]" 
-						value="${map['USERID'] }!${map['REFUND_SEQ']}!${map['PAY_SEQ']}!${map['RESERVATION_SEQ']}!${map['TICKET_SEQ']}">
+						value="${map['NONEUSERID'] }!${map['REFUND_SEQ']}!${map['PAY_SEQ']}!${map['RESERVATION_SEQ']}!${map['TICKET_SEQ']}">
 						</c:if>
 						</td>
-						<td>${map['USERID'] }</td>
+						<td>${map['NONEUSERID'] }</td>
 						<td>
 						<fmt:formatNumber value="${map['REFUND_PRICE'] }" pattern="#,###"/>원
 						</td>
-						<td>
-						<fmt:formatNumber value="${map['USEDMILEAGE'] }" pattern="#,###"/>원
-						</td>
+
 						<td>${map['DETAIL'] }</td>
 						<td>
 						<fmt:formatDate value="${map['REFUND_CANCLE'] }" pattern="yyyy-MM-dd"/>
@@ -138,11 +136,11 @@
 	<div class="divSearch text-center">
    	
         <select name="searchCondition2"  class="form-control-sm" id="searchCondition2">
-            <option value="u.USERID" 
-            	<c:if test="${param.searchCondition2=='u.USERID' }">
+            <option value="NONEUSERID" 
+            	<c:if test="${param.searchCondition2=='NONEUSERID' }">
             		selected="selected"
             	</c:if>
-            >아이디</option>
+            >메일</option>
             <option value="f.REFUND_CANCLE" 
             	<c:if test="${param.searchCondition2=='f.REFUND_CANCLE' }">
             		selected="selected"

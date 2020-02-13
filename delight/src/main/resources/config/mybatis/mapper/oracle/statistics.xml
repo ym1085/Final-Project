@@ -46,7 +46,7 @@
 		select to_date(reg_date) day ,sum(pay_price) totalsales
 		from TBL_PAYMENT 
 		where pay_condition='Y' and <![CDATA[to_date(reg_date)>=(to_date(sysdate)-7)]]>
-		group by to_date(reg_date)
+		group by to_date(reg_date) order by day desc
 	</select>
 	
 	<select id="dayselled" resultType="chartVo">

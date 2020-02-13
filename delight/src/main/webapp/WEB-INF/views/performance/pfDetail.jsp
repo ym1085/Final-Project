@@ -316,41 +316,34 @@
 	  <c:if test="${!empty map2}">
 		      <h1 id="performtitle">${map2['prfnm']}</h1><br><hr>
 		      <div class="top1">
-		      <!-- 이미지는 디자인 때문에 넣어놨음  --><!-- API사용 뿌려줄거임  -->
+		      
 		      <img alt="공연이미지" src="${map2['poster']}">
 		                                                                           
 		      <div class="top2">
 		         <label id="performplace">공연장소</label>
-		         <%-- <c:set var = "performName" value="${map2['fcltynm']}"/>
-		          --%>
-		         <%-- <c:if test="${fn:length(performName)>10 }">
-		         </c:if> --%>
-		         <%--<c:if test="${fn:length(performName)<=10}">
-		         </c:if>--%>
+		         
 		         <span id="performplace" style="width:400px">${map2_location['fcltynm']}</span>
 		         <br>
 		         
 		         <label id="performterm">공연기간</label>
-		         <span id="performterm">${map2['prfpdfrom'] }</span>~<span>${map2['prfpdto'] }</span>
+		         <span id="performterm">${map2['prfpdfrom'] }</span>~<span>${map2['prfpdto']}</span>
 		         <br>
 		         
 		         <label id="limitage">입장연령</label>
-		         <span id = "limitage">${map2['prfage'] }</span>
+		         <span id = "limitage">${map2['prfage']}</span>
 		         <br>
 		         
 		         <label id="performtime">관람시간</label>
-		         <span id="performtime">${map2['prfruntime'] }</span>
+		         <span id="performtime">${map2['prfruntime']}</span>
 		         <br>
 		         
 		         <label id="performtype">장 르</label>
-		         <span id="performtype" class = "type">${map2['genrenm'] }</span>
+		         <span id="performtype" class = "type">${map2['genrenm']}</span>
 		         <br>
 		         
 		         <label id="ticketprice">티켓가격</label>
-		         <span id = "ticketprice">${map2['pcseguidance'] }</span>
+		         <span id = "ticketprice">${map2['pcseguidance']}</span>
 		         <br>
-	         <!-- 반복 끝 -->
-		
 		
 	         <!-- 홈으로 -->
 	         <div id="home">
@@ -811,6 +804,7 @@
 	 		<a href="<c:url value='/index.do'/>">
 	 			<button class="banner">최근 본 공연</button>
  			</a>
+ 			
  			<c:forEach var="posterImg" items="${poster}">
 				<img style="width: 150px;height: 150px;margin-left: 40px;margin-top: 20px;" src="${posterImg}">
  			</c:forEach>

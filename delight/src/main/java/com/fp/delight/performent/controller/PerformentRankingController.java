@@ -8,33 +8,34 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpSession;
 
 //github.com/delight123123/delight2.git
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import com.fp.delight.perform.api.ApiTest3_ranking;
 import com.fp.delight.like.model.LikeService;
 import com.fp.delight.like.model.LikeVO;
 import com.fp.delight.performent.model.PerformentBoxOfficeVO;
 //github.com/delight123123/delight2.git
-import com.fp.delight.performent.model.PerformentListVO;
-import com.google.api.client.googleapis.auth.clientlogin.ClientLogin.Response;
+
+import com.fp.delight.ticket.model.TicketService;
+
 
 ///performance/pfDetail.do?mt20id=${vo.mt20id }'/>">
 @Controller
@@ -45,6 +46,9 @@ public class PerformentRankingController {
 	
 	@Autowired
 	private LikeService likeService;
+	
+	@Autowired
+	private TicketService ticketService;
 	
 	@RequestMapping(value="/pfRanking.do")
 	public String performanceRanking(@RequestParam(defaultValue="") String ststypeOption, Model model) {
@@ -80,13 +84,15 @@ public class PerformentRankingController {
 		model.addAttribute("rlist",	rlist);
 		logger.info("rlist={}",rlist.size());
 		
+		
+		
 		//like 기능 로직
-		System.out.println("=====pfRankingList.do 컨트롤러 - like ======");
+		System.out.println("=====pfRankingList.do 컨트롤러 - like/ 예매율&누적관객수 ======");
 		String userid=(String)session.getAttribute("userid");
 		String perfomid="";
 		String performtitle="";
 		String performtype="";
-
+				
 		LikeVO likeVo=new LikeVO();
 		int result=0; // Y/N
 		int count=0; //  총합
@@ -98,14 +104,16 @@ public class PerformentRankingController {
 			perfomid=vo.getMt20id();
 			performtitle=vo.getPrfnm();
 			performtype=vo.getCate();
-			
+						
 			likeVo.setMt20id(perfomid);
 			likeVo.setUserid(userid);
 			likeVo.setPrfnm(performtitle);
 			likeVo.setGenre(performtype);
 			
+			
 			count=likeService.selectLikeAll(perfomid);
 			Map<String, Object> map=new HashMap<String, Object>();
+			
 			
 			map.put("PERFOMID", perfomid);
 			map.put("COUNT", count);
@@ -135,7 +143,6 @@ public class PerformentRankingController {
 		return "performance/pfRankingList";
 	}
 	
-	
 	//pfRankingList.do에서 기간 별 검색에 사용되는 ajax처리 컨트롤러
 	@RequestMapping(value="/pfRankingListChange.do")
 	@ResponseBody
@@ -161,14 +168,19 @@ public class PerformentRankingController {
 		model.addAttribute("rlist",	rlist);
 		
 		//like 기능 로직
-		System.out.println("=====pfRankingList.do 컨트롤러 - like ======");
+		System.out.println("=====pfRankingList.do 컨트롤러 - like // ticket 예매율, 누적관객수 ======");
 		String userid=(String)session.getAttribute("userid");
 		String perfomid="";
+				
 		LikeVO likeVo=new LikeVO();
 		int result=0; // Y/N
 		int count=0; //  총합
 		String img="like.png";
+		
+		
 		List<Map<String, Object>> likeList=new ArrayList<Map<String,Object>>();
+		
+	
 		
 		for(int i=0;i<rlist.size();i++) {
 			vo=rlist.get(i);
@@ -177,6 +189,8 @@ public class PerformentRankingController {
 			
 			likeVo.setMt20id(perfomid);
 			likeVo.setUserid(userid);
+
+			
 			
 			count=likeService.selectLikeAll(perfomid);
 			Map<String, Object> map=new HashMap<String, Object>();
@@ -204,7 +218,8 @@ public class PerformentRankingController {
 			logger.info("=============================================");
 		}
 		logger.info("likeList={}",likeList);
-		
+
+
 		model.addAttribute("likeList", likeList);
 		
 		Map<String, Object> newListMap= new HashMap<String, Object>();
@@ -214,4 +229,18 @@ public class PerformentRankingController {
 		
 		return newListMap;
 	}
+	
+	
+	@RequestMapping(value="/rateNtotal.do")
+	@ResponseBody
+	public Map<String, Object> rateNtotal(@RequestParam String perfomid,Model model, HttpSession session) {
+		
+		logger.info("perfomid={}", perfomid);
+		
+		Map<String, Object> map3=ticketService.rateNtotal(perfomid);
+		
+		return map3;
+	}
+	
+	
 }
