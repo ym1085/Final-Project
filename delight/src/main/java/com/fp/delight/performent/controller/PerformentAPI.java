@@ -188,6 +188,8 @@ public class PerformentAPI {
 		return map;
 	}
 	
+	
+	
 	//추천 공연 메서드
 	public List<PerformentListVO> performRecommend() {
 		  //14일 전 날짜 변수선언
