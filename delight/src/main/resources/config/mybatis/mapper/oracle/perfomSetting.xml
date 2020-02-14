@@ -99,7 +99,7 @@
 				    prfnm,prfdate,prfhour,
 				    sellticket,sellclass,
 				    netprice,selled,regdate,
-				    case when to_date(prfdate)>sysdate then 'N'
+				    case when to_date(prfdate|| ' ' ||prfhour,'yyyy-mm-dd hh24:mi')>sysdate then 'N'
 				                                else 'Y' end situation
 				    from tbl_ticket
 				)
@@ -121,7 +121,7 @@
 		    prfnm,prfdate,prfhour,
 		    sellticket,sellclass,
 		    netprice,selled,regdate,
-		    case when to_date(prfdate)>sysdate then 'N'
+		    case when to_date(prfdate|| ' ' ||prfhour,'yyyy-mm-dd hh24:mi')>sysdate then 'N'
 		                                else 'Y' end situation
 		    from tbl_ticket
 		)

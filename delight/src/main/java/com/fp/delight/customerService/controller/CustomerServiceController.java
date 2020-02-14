@@ -99,10 +99,10 @@ public class CustomerServiceController {
 		logger.info("자주묻는질문 관리 페이지 파라미터 FAQVo={}",FAQVo);
 		PaginationInfo pagingInfo=new PaginationInfo();
 		pagingInfo.setBlockSize(Utility.ANNBLOCK_SIZE);
-		pagingInfo.setRecordCountPerPage(Utility.SETTING_RECORD_COUNT);
+		pagingInfo.setRecordCountPerPage(Utility.SETTING_RECORD_COUNT+40);
 		pagingInfo.setCurrentPage(FAQVo.getCurrentPage());
 		
-		FAQVo.setRecordCountPerPage(Utility.SETTING_RECORD_COUNT);
+		FAQVo.setRecordCountPerPage(Utility.SETTING_RECORD_COUNT+40);
 		FAQVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		
 		int totalRecord=faqService.faqtotal(FAQVo);

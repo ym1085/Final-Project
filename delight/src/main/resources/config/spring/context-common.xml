@@ -37,7 +37,7 @@
 				<prop key="mail.smtp.starttls.enable">true</prop>
 				<prop key="mail.smtp.auth">true</prop>
 				<prop key="mail.transport.protocol">smtp</prop>
-				<prop key="mail.debug">true</prop>
+				<prop key="mail.debug">false</prop>
 				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
 			</props>
 		</property>
