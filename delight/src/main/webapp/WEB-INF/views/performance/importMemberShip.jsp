@@ -26,7 +26,7 @@
         var userid = "${userid}";
         var email = "${email}";
         var hp = "${hp}";
-        alert(userid+"\n"+email+"\n"+hp);
+        //alert(userid+"\n"+email+"\n"+hp);
        	
         IMP.request_pay({
         	

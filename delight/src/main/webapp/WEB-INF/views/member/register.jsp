@@ -198,7 +198,7 @@
 			<h1 style="margin-left: 3%;">Delight</h1>
 		</a>
 	</div>
-	<div class="w3ls-main">
+	<div class="w3ls-main" style="background: RGB(0,0,0,0.1);">
 	<div class="w3ls-form">
 	
 <form action="<c:url value = '/member/memberWrite.do'/>" method="post" name = "frm">

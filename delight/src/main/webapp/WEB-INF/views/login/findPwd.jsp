@@ -74,7 +74,7 @@
 	<div class="main-agileinfo slider " style="margin-top: 5%;">
 		<div class="items-group">
 			<div class="item agileits-w3layouts">
-				<div class="block text main-agileits">
+				<div class="block text main-agileits" style="background: RGB(0,0,0,0.6)">
 					<span class="circleLight"></span>
 					<!-- login form -->
 					<div class="login-form loginw3-agile">

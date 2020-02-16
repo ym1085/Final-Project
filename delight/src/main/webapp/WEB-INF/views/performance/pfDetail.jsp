@@ -426,7 +426,8 @@
                <input type="radio" checked="checked" name="tabmenu" id="tabmenu4"> 
                <label for="tabmenu4" style="margin-bottom: 0;" class = "lab">장소</label>
                   <div class="tabCon" id="tabConFirth">
-                    <!-- MAP_API -->
+                   
+                  <!-- API -->
                   <div id="map" style="width: 800px; height: 400px;"></div>
                   <input type="text" value="${map2_location['la']}" id="x">
 				  <input type="text" value="${map2_location['lo']}" id="y">	
@@ -437,30 +438,32 @@
                      var x=document.getElementById('x').value;
 					 var y=document.getElementById('y').value;
        
+					// 지도를 표시할 div 설정 
 					 var mapContainer = document
-                           .getElementById('map'), // 지도를 표시할 div 
+                           .getElementById('map'), 
 					 
+                     // 지도 중심좌표
                      mapOption = {
-                        center : new kakao.maps.LatLng(x,y), // 지도 중심좌표
-                        level : 4   // 지도 확대 레벨
+                        center : new kakao.maps.LatLng(x,y), 
+                        level : 4   // 확대 레벨
                      };
 
                      var map = new kakao.maps.Map(mapContainer,
                            mapOption);
 
-                     // 마커가 표시될 위치입니다 - API 작업 후 각 위도/경도 변경해줄겁니다.
+                     // 마커가 표시될 위치, API 작업 후 각각의 위도/경도 변경
                      var markerPosition = new kakao.maps.LatLng(
                            x, y);
 
-                     // 마커를 생성합니다
+                     // 마커를 생성
                      var marker = new kakao.maps.Marker({
                         position : markerPosition
                      });
 
-                     // 마커가 지도 위에 표시되도록 설정합니다
+                     //마커가 지도 위에 표시되도록 설정
                      marker.setMap(map);
                      
-                     //API 작업 후 - 위도/경도 변경 해줄겁니다.
+                     //API 작업 후  위도/경도 변경
                      var iwContent = '<div style="padding:5px;font-weight:bold;width:170px;">${map2_location['fcltynm']}<br><a href="https://map.kakao.com/link/map/${map2_location['fcltynm']},'+x+','+y+'" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>',
                      // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                      iwPosition = new kakao.maps.LatLng(x,y); //인포윈도우 표시 위치입니다.
