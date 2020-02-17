@@ -36,7 +36,6 @@
       $("#reservaitonNumber").click(function(){
          var test = $("#ticketingNumber").html();
          var result = confirm('해당 이메일로 예매번호를 발송하시겠습니까?'); 
-         alert(test);
       
          if(result) {//확인 클릭 
             if($("#certifiedUserid").val()==''){//비회원

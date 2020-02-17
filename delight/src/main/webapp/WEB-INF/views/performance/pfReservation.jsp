@@ -112,19 +112,19 @@
 			});
 			
 			
-			/* 변수 */
+			//티켓 가격 총합 
 			var t1=0;
 			var t2=0;
 			var t3=0;
 			var t4=0;
 			var total=0;
 			
-			//티켓 수량을 위한 변수
+			//티켓 수량 총합
 			var tNum1=0;
 			var tNum2=0;
 			var tNum3=0;
 			var tNum4=0;
-			var tNumtotal=0; //티켓 수량 총합
+			var tNumtotal=0; 
 			
 			var one=$(".one").html();
 			var two=$(".one2").html();
@@ -137,8 +137,6 @@
 			var three = parseInt(three);
 			var four = parseInt(four);
 			var five = parseInt(mileage);
-			
-			//alert(five); //값 안들어오면 이 곳 체크해보세요
 			
 			var salePrice = 0;
 			var totalDiscountPrice = 0;
@@ -177,7 +175,7 @@
 				//티켓 가격 셋팅
 				$("#ticketPriceSumUser").val(totalDiscountPrice+"원");
 				
-				//비상탈출구
+				//For submit to store
 				$("#ticketPriceSubmitUser").val(totalDiscountPrice+"원");
 				
 				//티켓 수량 셋팅
@@ -410,7 +408,7 @@
 						<span>
 							<fnt:formatNumber value="${stPriceFinalTotal}" pattern="#,###"/>원
 						</span>
-						<select style="margin-left:7px;" name="choosePricepfst" id="choosePricepfst" class="selectOne">
+						<select style="margin-left:0px;" name="choosePricepfst" id="choosePricepfst" class="selectOne">
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
