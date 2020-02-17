@@ -67,9 +67,11 @@
 	    						$(".reviewImg1>img").attr("src","<c:url value='/resources/images/noimage.png'/>");
 	    						if(res.REVIEW_P1!=null || res.REVIEW_P1.length<1){
 	    	    					$("#reviewP1>img").attr("src","${pageContext.request.contextPath }/reviewupload/"+res.REVIEW_P1);
-	    							}else if(res.REVIEW_P2!=null || res.REVIEW_P2.length<1){
+	    							}
+	    						if(res.REVIEW_P2!=null || res.REVIEW_P2.length<1){
 	    	    					$("#reviewP2>img").attr("src","${pageContext.request.contextPath }/reviewupload/"+res.REVIEW_P2);
-	    							}else if(res.REVIEW_P3!=null || res.REVIEW_P3.length<1){
+	    							}
+	    						if(res.REVIEW_P3!=null || res.REVIEW_P3.length<1){
 	    	    					$("#reviewP3>img").attr("src","${pageContext.request.contextPath }/reviewupload/"+res.REVIEW_P3);
 	    							}
 	    					}

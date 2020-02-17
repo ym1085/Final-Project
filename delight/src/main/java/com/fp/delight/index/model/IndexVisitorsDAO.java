@@ -6,3 +6,5 @@ public interface IndexVisitorsDAO {
 	int insertSysdate(IndexVisitorsVO indexVisitorsVO);	
 	int updateSysdate(IndexVisitorsVO indexVisitorsVO);	
 }
+
+

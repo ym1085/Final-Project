@@ -29,6 +29,7 @@ function pageFunc(curPage){
 $(function() {
 	$("#searchtype").change(function() {
 		$("#aa2").val($("#searchtype option:selected").val());
+		$("#aa3").val("1");
 		document.frmPage.submit();
 	});
 });

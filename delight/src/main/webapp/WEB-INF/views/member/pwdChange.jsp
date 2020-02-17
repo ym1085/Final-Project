@@ -19,41 +19,45 @@
 		
 		$("#OGpassword").focus();
 		
-		$("form[name=frmpch]").submit(function(){
-			$(".infobox").each(function(idx, item){
-				if($(this).val().length<1){
-					var str=$(this).prev().html();
-					if(str==null || str==''){
-						str=$(this).attr("title");						
-					} 
-					alert(str+"를 입력하세요");
-					$(this).focus();
-					event.preventDefault();
-					return false;
-				}
-			});	
-			
-			event.preventDefault();
-			
-			$.ajax({
-				url:"<c:url value='/member/checkPwd.do'/>",
-				type:"post",
-				data:{"password":$("#OGpassword").val()},
-				success:function(res){
-					if(res>0){
-						$("form[name=frmpch]").submit();
-					}else{
-						alert("기존비밀번호가 일치하지않습니다.");
-						event.preventDefault();
-					}
-				},
-				error:function(xhr, status, error){
-					alert("Error : " + status +"=>"+ error);
-				}
-			});
-			
-			event.preventDefault();
-		});
+	      $("form[name=frmpch]").submit(function(){
+	          
+	          if($("#OGpassword").val().length<1){
+	             alert("기존비밀번호를 입력하세요.");
+	             $("#OGpassword").focus();
+	             event.preventDefault();
+	          }else if($("#password").val().length<1){
+	             alert("비밀번호를 입력하세요.");
+	             $("#password").focus();
+	             event.preventDefault();
+	          }else if($("#password2").val().length<1){
+	             alert("비밀번호확인을 입력하세요.");
+	             $("#password2").focus();
+	             event.preventDefault();
+	          }else{
+	             $.ajax({
+	                url:"<c:url value='/member/checkPwd.do'/>",
+	                type:"post",
+	                data:{"password":$("#OGpassword").val()},
+	                success:function(res){
+	                   if(res==1){
+	                      $("form[name=frmpch]").submit();
+	                   }else if(res==2){
+	                      alert("기존비밀번호가 일치하지않습니다.");
+	                      $("#OGpassword").val("");
+	                      $("#password").val("");
+	                      $("#password2").val("");
+	                      $("#OGpassword").focus();
+	                      event.preventDefault();
+	                   }
+	                   event.preventDefault();
+	                },
+	                error:function(xhr, status, error){
+	                   alert("Error : " + status +"=>"+ error);
+	                }
+	             });
+	             event.preventDefault();
+	          }
+	       });
 		
 		$("input").keyup(function(){
 			var pwd1=$("#password").val();

@@ -36,20 +36,24 @@ public class FileUploadUtil {
 		
 		if(multiReq.getFile("reviewPho1")!=null && !multiReq.getFile("reviewPho1").isEmpty()) {
 			mlist.add(multiReq.getFile("reviewPho1"));
-		}else if(multiReq.getFile("reviewPho2")!=null && !multiReq.getFile("reviewPho2").isEmpty()) {
+		}
+		if(multiReq.getFile("reviewPho2")!=null && !multiReq.getFile("reviewPho2").isEmpty()) {
 			mlist.add(multiReq.getFile("reviewPho2"));
-		}else if(multiReq.getFile("reviewPho3")!=null && !multiReq.getFile("reviewPho3").isEmpty()) {
+		}
+		if(multiReq.getFile("reviewPho3")!=null && !multiReq.getFile("reviewPho3").isEmpty()) {
 			mlist.add(multiReq.getFile("reviewPho3"));
-		}else if(multiReq.getFile("promotionPho1")!=null && !multiReq.getFile("promotionPho1").isEmpty()) {
+		}
+		if(multiReq.getFile("promotionPho1")!=null && !multiReq.getFile("promotionPho1").isEmpty()) {
 			mlist.add(multiReq.getFile("promotionPho1"));
-		}else if(multiReq.getFile("fileName")!=null && !multiReq.getFile("fileName").isEmpty()) {
+		}
+		if(multiReq.getFile("fileName")!=null && !multiReq.getFile("fileName").isEmpty()) {
 			mlist.add(multiReq.getFile("fileName"));
 		}
 		
 		//결과를 넣을 List
 		List<String> list
 			=new ArrayList<String>();
-		
+		System.out.println("mlist.size()="+mlist.size());
 		for(int i=0; i<mlist.size();i++) {
 			MultipartFile tempFile=mlist.get(i);
 			System.out.println(mlist.get(i));

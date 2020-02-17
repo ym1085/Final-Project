@@ -36,7 +36,7 @@ img{max-width:100%;}
 /* 추가 */
 
 body {
-    font-family: 'Arsenal', sans-serif; 
+    font-family: 맑은 고딕; 
 	background:#fff; 
 	background:url(../images/del3.jpg)no-repeat 0px 0px; 
 	background-size: cover;
@@ -48,7 +48,7 @@ h1 {
    	text-align:left;
     color: #fff;
     font-weight: 100;
-    font-family: 'Limelight', cursive;
+    font-family: 맑은 고딕;
 }
 .w3lsfooteragileits.next {
     position: absolute;
