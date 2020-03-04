@@ -83,6 +83,7 @@ public class DM {
       sb+="</p>";
       sb+="<p class=\"con\" style=\"font-size:1rem;font-weight:500;letter-spacing:-0.05em;line-height:1.2rem;color:#474747;margin:3vh 0;\">";
       sb+="사용자ID : <strong>"+userid+"</strong><br>";
+      
       sb+="발급시간 : "+now.get(Calendar.YEAR)+"년 "+(now.get(Calendar.MONTH) + 1)+"월 "+now.get(Calendar.DAY_OF_MONTH)+"일 "+now.get(Calendar.HOUR_OF_DAY)+":"+now.get(Calendar.MINUTE)+"";
       sb+="</p>";
       sb+="<p style=\"font-size:1rem;font-weight:500;letter-spacing:-0.05em;line-height:1.2rem;color:#474747;\">감사합니다.</p>";
@@ -229,6 +230,7 @@ public class DM {
    
    //예매내역 매개변수로 ReserVationVO reservationVo 설정
    //vo만든후 주석처리 지우기 메서드안에있는거
+   
    public static String dmUserReserVation(ReservationVO reservationVo) {
       
       Calendar now = Calendar.getInstance();

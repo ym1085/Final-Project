@@ -42,7 +42,6 @@
 		where userid=#{userid}
 	</update>
 	
-	<!-- 중복 체크 -->
 	<select id="selectDupUserid" parameterType="string" resultType="int">
 		select count(*) 
 		from tbl_user

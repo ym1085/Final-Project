@@ -59,6 +59,7 @@ public class PerformentController {
 	@RequestMapping("/pfDetail.do")
 	public String performentList_post(@RequestParam String perfomid,HttpSession session,
 			Model model) {
+		
 		logger.info("메인 페이지 공연 포스터 클릭=>, 공연 아이디 perfomid : ,"+perfomid);	
 		
 		String userid=(String)session.getAttribute("userid");
@@ -121,14 +122,21 @@ public class PerformentController {
 		List<TicketVO> tclist=ticketService.selectreserList(perfomid);
 		logger.info("rvlist.size={}",tclist);
 		
-		PerformentAPI perform = null; 
 		Map<String, Object> map = null;		//공연상세보기 - 전체 데이터 사용
 		Map<String, Object> map2 = null;	//공연지역상세 - 위도,경도 사용
 		
+		//공연 정보 Data
+		PerformentAPI perform = null; 
+		
 		if(perfomid!=null && !perfomid.isEmpty()) {
 			perform = new PerformentAPI();
-			//공연전체
+			
 			map=perform.performDetail(perfomid);						
+		
+			//공연 데이터 출력 Method
+			model.addAttribute("map2", map);	
+			logger.info("공연 상세보기 메서드 호출 결과, map={}", map);
+			
 			
 			//위도,경도용
 			map2=perform.performLocation((String)map.get("mt10id"));	
@@ -136,9 +144,6 @@ public class PerformentController {
 			//추천공연 - 날짜지정 후 랜덤 사진 뿌려주기
 			List<PerformentListVO> list=perform.performRecommend();
 			
-			//공연 상세보기 포스터 데이터
-			model.addAttribute("map2", map);	
-			logger.info("공연 상세보기 메서드 호출 결과, map={}", map);
 			
 			//위도, 경도
 			model.addAttribute("map2_location", map2);

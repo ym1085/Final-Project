@@ -18,8 +18,9 @@
     		select reservation_seq.nextval from dual
     	</selectKey>
     	
-    	insert into tbl_reservation(reservation_seq,mt20id,pay_price,prfnm, perfomtype,mt10id,select_date,select_time,booking,
-		seat_class,pay_ticket_number,
+    	insert into tbl_reservation(reservation_seq,mt20id,pay_price,prfnm, 
+    		perfomtype,mt10id,select_date,select_time,booking,
+			seat_class,pay_ticket_number,
 		<if test="userid!=null and userid!=''">
 			userid
 		</if>

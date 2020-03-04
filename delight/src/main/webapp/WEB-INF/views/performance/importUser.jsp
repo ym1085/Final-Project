@@ -19,36 +19,7 @@
         var IMP = window.IMP; // 생략가능
         IMP.init('imp92846846'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
         var msg;
-		
-        //일반회원
-        //-> 배포할때 지울겁니다 지우지마세요.
-        var userid = "${userid}";
-        //alert(userid);
-      
-       	var ticketPriceSubmitUser = "${ticketPriceSubmitUser}";		//유저가 선택한 티켓가격의 총 합
-       	var perfomid = 				"${perfomid}";					//pfDetail부터 넘겨 받은 공연ID
-       	var perfomfacilityid = 		"${perfomfacilityid}";			//pfDetail부터 넘겨 받은 공연시설ID
-       	var perfomdate = 			"${perfomdate}";				//tkVo.perfomdate부터 얻어온 공연 날짜 -> SEQ로 SQL문 작성 후 얻어온 값 -> 내가 선택한 날짜와 같음
-       	var perfomtime = 			"${perfomtime}";				//tkVo.perfomtime부터 얻어온 공연 시간 -> SEQ로 SQL문 작성 후 얻어온 값 -> 내가 선택한 시간과 같음
-       	var perfomplace = 			"${perfomplace}";				//tkVo.perfomplace부터 얻어온 공연 장소 -> SEQ로 SQL문 작성 후 얻어온 값 
-       	var perfomtitle = 			"${perfomtitle}";				//tkVo.perfomtitle부터 얻어온 공연명 -> SEQ로 SQL문 작성 후 얻어온 값
-       	var perfomtype = 			"${perfomtype}";				//공연타입
-       	var username = 				"${username}";					//유저가 선택한 티켓의 총 장수를 구한 합
-       	var useremail = 			"${useremail}";					//예매자명
-       	var username2 = 			"${username2}";					//예매자 이메일
-       	var useremail2 = 			"${useremail2}";				//관람자명
-       	var ticketSeat = 			"${ticketSeat}";				//관람자 이메일
-       	var ticketSeq = 			"${ticketSeq}";   				//선택된 티켓의 좌석 등급 -> TICKET_SEQ활용 데이터 뽑아왔을거임
-       	var ticketCount = 			"${ticketCount}";				//티켓 SEQ
-       	var mileagePoint = 			"${mileagePoint}";				//마일리지 체크
-       	
-       	//디버깅 -> 배포할때 지울겁니다 지우지마세요.
-       	/* alert("티켓 총액 값 : "+ticketPriceSubmitUser+"\n공연 id : "+perfomid+"\n공연 시설 id : "+perfomfacilityid+"\nticketVo_공연일자 : "+perfomdate
-       			+"\nticketVo=공연시간 : "+perfomtime+"\n공연 장소 : "+perfomplace+"\n공연제목 : "+perfomtitle+"\n공연 타입 : "+perfomtype+"\n예매자명 : "+username
-       			+"\n예매자 이메일 : "+useremail+"\n관람자명 : "+username2+"\n관람자 이메일 : "+useremail2+"\n티켓 수량 SEQ : "+ticketSeq+"\n판매하는 표 좌석등급 : "+ticketSeat+
-       			"\n선택된 티켓 수량 : "+ticketCount+"\n로그인 된 유저 id : "+userid+"\n유저의 마일리지 값 : "+mileagePoint); */
-       
-        
+   
         IMP.request_pay({
         	
         	//[간편결제]페이코로 설정하세요

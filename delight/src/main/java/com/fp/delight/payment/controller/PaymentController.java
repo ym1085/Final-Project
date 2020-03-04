@@ -42,7 +42,7 @@ public class PaymentController {
 	@Autowired
 	private MemberService memberService;
 	
-	//[※] 메서드 
+	//[※]
 	//비회원 : showPaymentend.do 요청으로 들어옵니다.
 	//일반회원 : showPaymentendUser.do 요청으로 들어옵니다.
 	@RequestMapping("/showPaymentend.do")
@@ -75,6 +75,7 @@ public class PaymentController {
 		
 		//[1] ModelAttribute쓰기에는 받아오는 컬럼이 중구난방이여서 RequestParam을 사용했습니다.
 		//[2] ReservationVo 값 Setting == ModelAttribute
+		
 		ReservationVO reservationVo = new ReservationVO();
 		reservationVo.setMt20id(mt20id);
 		reservationVo.setMt10id(mt10id);
@@ -192,6 +193,7 @@ public class PaymentController {
 		logger.info("import로부터 넘어오는 데이터 체크, 파라미터 hp={} mileagePoint={} ", hp, mileagePoint);
 		
 		ReservationVO reservationVo = new ReservationVO();
+		
 		reservationVo.setMt10id(mt10id);
 		reservationVo.setMt20id(mt20id);
 		reservationVo.setBooking(booking);
@@ -201,7 +203,7 @@ public class PaymentController {
 		reservationVo.setSelect_date(select_date);
 		reservationVo.setSelect_time(select_time);
 		reservationVo.setTicket_seq(ticket_seq);
-		reservationVo.setUserid(userid);				//일반회원은 로그인 한 유저의 실제 ID가 들어갑니다.
+		reservationVo.setUserid(userid);				
 		reservationVo.setPay_price(pay_price);
 		
 		String pay_ticket_number = "";
@@ -215,15 +217,12 @@ public class PaymentController {
 		logger.info("for문 돌린 후 예매번호 6자리={} ", pay_ticket_number);
 		reservationVo.setPay_ticket_number(pay_ticket_number);	
 		
-		//[1]예매 테이블 
 		int cnt = paymentService.insertReservation(reservationVo);
 		logger.info("예약 테이블 데이터 등록 결과, cnt={} ", cnt);
 		
-		//[1]예매 테이블로부터 reservationSeq 획득, 조건은  예매번호로 줬습니다.
 		int reservationSeq = paymentService.selectReservationForPayment(reservationVo);
 		logger.info("예매번호6자리 난수를 조건으로 준 후 SELECT~한 결과, reservation_seq={} ", reservationSeq);
 		
-		//[1]결제테이블 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("reservationSeq", reservationSeq);
 		map.put("usedmileage", mileagePoint);
@@ -341,7 +340,6 @@ public class PaymentController {
 		//tbl_user join tbl_payment join tbl_refund
 		String userGrade = paymentService.selectReservation(reservationVo);
 		logger.info("회원등급 비교를 위해 사용될 userGrade={}",userGrade);
-
 		
 		int totalRefund = paymentService.totalRefundforMemberGrade(userGrade);
 		logger.info("로그인 한 회원의 총 환불금액 여부, 파라미터 totalRefund={} ", totalRefund);

@@ -252,11 +252,9 @@ public class EmailController {
       logger.info("회원이 선택한 공연 좌석, 판매된 티켓 수 seat_class{} selled={} ", seat_class, selled);
       logger.info("회원에게 주어진 ticket 예매번호, pay_ticket_number={} ", pay_ticket_number);
       
-      ReservationVO reservationVo = new ReservationVO();
-      
-      //판매된 티켓 수 selled -> booking 컬럼명 변환 
       int booking = selled;
       
+      ReservationVO reservationVo = new ReservationVO();
       reservationVo.setPay_ticket_number(pay_ticket_number);
       reservationVo.setSelect_date(select_date);
       reservationVo.setSelect_time(select_time);

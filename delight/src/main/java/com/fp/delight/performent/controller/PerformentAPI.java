@@ -18,13 +18,11 @@ import org.codehaus.jackson.type.TypeReference;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;
-
 import com.fp.delight.performent.model.PerformentListVO;
 
 public class PerformentAPI {
 	public final int INDENT_FACTOR=4;
 	
-	//공연 상세 메서드
 	public Map<String, Object> performDetail(String perfomid){
 		String detail="http://www.kopis.or.kr/openApi/restful/pblprfr/"
 				+ perfomid
