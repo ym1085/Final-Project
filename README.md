@@ -1,4 +1,4 @@
-# Ezen_Academy Final Project
+## Academy Final Project
 
 ### 2019.12 ~ 2020.02월까지 진행된 Final Project
 1. 배포를 위해 aws Ec2서버 사용 (공부중 취직하여, 사내 프로세스 익히는중)
