@@ -1,14 +1,17 @@
 ## Academy Final Project
 
-### 2019.12 ~ 2020.02월까지 진행된 Final Project
-1. 배포를 위해 aws Ec2서버 사용(사내 프로세스 익히는중)
-2. 할인에 포커스를 맞춘 Project
-
+### 2019.12 ~ 2020.02 Final Project
+1. use aws Ec2 for deploy
+2. Focus on sale
+3. Opne API
+4. Middle Ware
 
 ### 프로젝트 인원
-1. 5명 
-
+1. 5 
 
 ### 담당 파트
-1. 결제영역, Open Api, SHA256암호화, 미들웨어 작성
+1. 결제 
+2. Open Api 
+3. SHA256
+4. middel Ware
 
