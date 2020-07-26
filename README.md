@@ -9,7 +9,7 @@
 ### Project personnel
 1. Five People. 
 
-### Charge Part
+### Charge part
 1. Payment. 
 2. API.
 3. Password encryption.
@@ -17,4 +17,5 @@
 5. Login, Register
 6. Mypage
 
+### Portfolio
 [Portfolio](https://docs.google.com/presentation/d/1iriFvfj1tJMCodJlhhHYAnOr6Pr-L9WnURJ0F1fR490/edit?usp=sharing)
